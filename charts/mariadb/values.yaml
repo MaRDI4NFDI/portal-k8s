@@ -1,0 +1,10 @@
+image:
+  repository: mariadb
+  tag: 10.11.3
+  pullPolicy: IfNotPresent
+port: 3306
+replicas: 3  
+database: my_wiki
+user: sqluser
+
+

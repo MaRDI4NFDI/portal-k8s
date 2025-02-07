@@ -1,0 +1,31 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "ALL PRIVILEGES"
+  database: {{ .Values.database }}
+  table: "*"
+  username: {{ .Values.user }}
+  grantOption: true
+  host: "%"
+  cleanupPolicy: Delete
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: grant-monitor
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SLAVE MONITOR"
+    - "BINLOG MONITOR"
+  database: "*"
+  username: {{ .Values.user }}
+  grantOption: true
+  host: "%"
+  cleanupPolicy: Delete
