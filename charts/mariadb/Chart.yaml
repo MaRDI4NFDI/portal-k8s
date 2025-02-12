@@ -3,3 +3,12 @@ name: mariadb-chart
 description: A Helm chart for MariaDB deployment using mariadb-operator
 version: 0.1.0
 appVersion: "10.11.3"
+
+dependencies:
+  - name: mariadb-operator-crds
+    version: "0.37.1"
+    repository: "https://helm.mariadb.com/mariadb-operator"
+
+  - name: mariadb-operator
+    version: "0.37.1"
+    repository: "https://helm.mariadb.com/mariadb-operator"
