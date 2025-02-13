@@ -5,7 +5,7 @@ metadata:
   namespace: mariadb
 spec:
   values:
-    replicas: 3  
+    replicas: 2  
     database: my_wiki
     user: sqluser
     storage:
