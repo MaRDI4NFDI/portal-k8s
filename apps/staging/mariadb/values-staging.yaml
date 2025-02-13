@@ -9,7 +9,7 @@ spec:
     database: my_wiki
     user: sqluser
     storage:
-  size: 50Gi
+      size: 50Gi
     resources:
       requests:
         cpu: 1000m
