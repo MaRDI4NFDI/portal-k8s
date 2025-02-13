@@ -6,5 +6,13 @@ port: 3306
 replicas: 3  
 database: my_wiki
 user: sqluser
-
+storage:
+  size: 1Ti
+resources:
+  requests:
+    cpu: 4000m
+    memory: 24Gi
+  limits:
+    cpu: 8000m
+    memory: 28Gi
 

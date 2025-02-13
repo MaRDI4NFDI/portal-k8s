@@ -8,4 +8,13 @@ spec:
     replicas: 2
     database: my_wiki
     user: sqluser
+    storage:
+  size: 50Gi
+resources:
+  requests:
+    cpu: 1000m
+    memory: 4Gi
+  limits:
+    cpu: 2000m
+    memory: 6Gi
     
