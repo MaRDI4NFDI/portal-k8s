@@ -1,0 +1,20 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mariadb-operator-crds
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://helm.mariadb.com/mariadb-operator
+  timeout: 1m
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mariadb-operator
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://helm.mariadb.com/mariadb-operator
+  timeout: 1m
