@@ -1,14 +1,23 @@
-values:
-  replicas: 2
-  database: my_wiki
-  user: sqluser
-  storage:
-    size: 50Gi
-  resources:
-    requests:
-      cpu: 1000m
-      memory: 4Gi
-    limits:
-      cpu: 2000m
-      memory: 6Gi
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-mariadb
+  namespace: staging-mariadb
+spec:
+  chart:
+    spec:
+      version: "0.1.2"
+  values:
+    replicas: 2
+    database: my_wiki
+    user: sqluser
+    storage:
+      size: 50Gi
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 4Gi
+      limits:
+        cpu: 2000m
+        memory: 6Gi
     
