@@ -9,7 +9,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: tenant-mardi
   path: ./infrastructure/helm
   prune: true
   wait: true
