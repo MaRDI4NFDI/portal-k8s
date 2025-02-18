@@ -1,0 +1,20 @@
+apiVersion: v1
+entries:
+  mariadb:
+  - apiVersion: v2
+    appVersion: 10.11.3
+    created: "2025-02-18T09:16:52.193202218Z"
+    dependencies:
+    - name: mariadb-operator-crds
+      repository: https://helm.mariadb.com/mariadb-operator
+      version: 0.37.1
+    - name: mariadb-operator
+      repository: https://helm.mariadb.com/mariadb-operator
+      version: 0.37.1
+    description: A Helm chart for MariaDB deployment using mariadb-operator
+    digest: 80a044e10b5c40335851c496ae017bb02bdb49c48af74ca408b0cc5018e0b1b5
+    name: mariadb
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mariadb-0.1.2/mariadb-0.1.2.tgz
+    version: 0.1.2
+generated: "2025-02-18T09:16:52.193211045Z"
