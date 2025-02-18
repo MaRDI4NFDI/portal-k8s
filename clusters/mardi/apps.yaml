@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-production
+  name: tenant-mardi-apps-production
   namespace: flux-system
 spec:
   interval: 10m0s
@@ -18,7 +18,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-staging
+  name: tenant-mardi-apps-staging
   namespace: flux-system
 spec:
   interval: 10m0s
