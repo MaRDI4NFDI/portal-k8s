@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: tenant-mardi-helm-repo
+    - name: tenant-mardi-infra
   sourceRef:
     kind: GitRepository
     name: tenant-mardi
@@ -23,7 +23,7 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: tenant-mardi-helm-repo
+    - name: tenant-mardi-infra
   sourceRef:
     kind: GitRepository
     name: tenant-mardi
