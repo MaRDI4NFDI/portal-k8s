@@ -1,6 +1,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 spec:
+  chart:
+    spec:
+      version: "0.1.1"
   values:
     replicas: 2  
     database: my_wiki
