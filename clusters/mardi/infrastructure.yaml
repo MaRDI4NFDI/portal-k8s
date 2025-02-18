@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-helm-repo
+  name: tenant-mardi-helm-repo
   namespace: flux-system
 spec:
   interval: 1h
@@ -10,6 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ../../infrastructure/helm
+  path: ./infrastructure/helm
   prune: true
   wait: true
