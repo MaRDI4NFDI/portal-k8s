@@ -1,7 +1,7 @@
 apiVersion: v2
 name: mariadb
 description: A Helm chart for MariaDB deployment using mariadb-operator
-version: 0.1.1
+version: 0.1.2
 appVersion: "10.11.3"
 
 dependencies:
