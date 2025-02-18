@@ -10,6 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/helm
+  path: ../../infrastructure/helm
   prune: true
   wait: true
