@@ -2,6 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - mariadb-operator-crds-release.yaml
-  - mariadb-operator-release.yaml
-  - mariadb-release.yaml
+  - release.yaml
