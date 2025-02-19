@@ -19,5 +19,5 @@ spec:
         memory: 24Gi
       limits:
         cpu: 8000m
-        memory: 28Gi
+        memory: 30Gi
     
