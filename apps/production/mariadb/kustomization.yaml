@@ -9,3 +9,4 @@ patches:
   - path: values-production.yaml
     target:
       kind: HelmRelease
+      name: mariadb

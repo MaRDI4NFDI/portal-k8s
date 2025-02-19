@@ -9,3 +9,4 @@ patches:
   - path: values-staging.yaml
     target:
       kind: HelmRelease
+      name: mariadb
