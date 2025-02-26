@@ -6,13 +6,16 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.3"
+      version: "0.1.4"
   values:
     replicas: 3
     database: my_wiki
     user: sqluser
     storage:
       size: 5Gi
+    backup:
+      prefix: "staging/mariadb"
+      schedule: "0 4 * * *"
     resources:
       requests:
         cpu: 500m
