@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.4"
+      version: "0.1.5"
   values:
     replicas: 2  
     database: my_wiki
@@ -14,7 +14,9 @@ spec:
     storage:
       size: 1Ti
     backup:
+      bucket: "mardi"
       prefix: "production/mariadb"
+      endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 2 * * *"
     resources:
       requests:
