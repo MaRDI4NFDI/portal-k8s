@@ -9,8 +9,9 @@ user: sqluser
 storage:
   size: 1Ti
 backup:
-  bucket: "mardi"
+  bucket: ""
   prefix: "mariadb"
+  endpoint: ""
   region: "us-east-1"
   schedule: "0 2 * * *"
 resources:
