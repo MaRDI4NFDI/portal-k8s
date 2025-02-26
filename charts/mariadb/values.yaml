@@ -8,6 +8,11 @@ database: my_wiki
 user: sqluser
 storage:
   size: 1Ti
+backup:
+  bucket: "mardi"
+  prefix: "mariadb"
+  region: "us-east-1"
+  schedule: "0 2 * * *"
 resources:
   requests:
     cpu: 4000m

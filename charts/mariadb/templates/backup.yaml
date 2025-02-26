@@ -1,0 +1,28 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Backup
+metadata:
+  name: backup
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  schedule:
+    cron: {{ .Values.backup.schedule }}
+    suspend: false
+  maxRetention: 170h
+  compression: gzip
+  storage:
+    s3:
+      bucket: {{ .Values.backup.bucket }}
+      prefix: {{ .Values.backup.prefix }}
+      endpoint: 
+        valueFrom:
+          secretKeyRef:
+            name: mariadb-secrets
+            key: S3-ENDPOINT
+      region:  {{ .Values.backup.region }}
+      accessKeyIdSecretKeyRef:
+        name: mariadb-secrets
+        key: S3-ACCESS-KEY-ID
+      secretAccessKeySecretKeyRef:
+        name: mariadb-secrets
+        key: S3-SECRET-ACCESS-KEY
