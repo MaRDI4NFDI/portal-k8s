@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-elasticsearch
+  namespace: staging-elasticsearch
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    replicas: 1
+    storage:
+      size: 5Gi
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 200m
+      limits:
+        memory: 1Gi
+        cpu: 500m
+    javaOpts: "-Xms512m -Xmx512m"
+    
