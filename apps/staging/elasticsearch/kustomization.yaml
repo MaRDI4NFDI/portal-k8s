@@ -2,9 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/elasticsearch
-  - namespace.yaml
 namePrefix: staging-
-namespace: staging-elasticsearch
+namespace: staging
 patches:
   - path: values-staging.yaml
     target:
