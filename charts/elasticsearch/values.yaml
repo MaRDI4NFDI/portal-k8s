@@ -1,0 +1,15 @@
+image:
+  repository: docker-registry.wikimedia.org/releng/cirrus-elasticsearch
+  tag: 7.10.2-s0
+replicas: 1
+storage:
+  size: 5Gi
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "200m"
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+javaOpts: "-Xms512m -Xmx512m"
+port: 9200
