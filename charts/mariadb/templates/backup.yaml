@@ -22,3 +22,5 @@ spec:
       secretAccessKeySecretKeyRef:
         name: mariadb-secrets
         key: S3-SECRET-ACCESS-KEY
+      tls:
+        enabled: true
