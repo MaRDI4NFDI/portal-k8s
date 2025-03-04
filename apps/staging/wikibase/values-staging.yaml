@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-wikibase
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    replicas: 1
+    port: 80
+    mediawiki:
+      host: localhost
+      scheme: http
+      db_server: staging-mariadb-primary
+      db_name: my_wiki
+      db_user: sqluser
+      elasticsearch: staging-elasticsearch
+    storage:
+      localsettings:
+        size: 200Mi
+      images:
+        size: 200Mi
+      logs:
+        size: 200Mi
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
