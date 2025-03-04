@@ -84,4 +84,15 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mariadb-0.1.2/mariadb-0.1.2.tgz
     version: 0.1.2
-generated: "2025-03-04T08:02:07.784583137Z"
+  wikibase-core:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-03-04T11:24:08.763521686Z"
+    description: A Helm chart for Mediawiki/Wikibase
+    digest: d9458e431c128cac835b7c598a530a8aec0f34098010c12e91738a3a0ee0945c
+    name: wikibase-core
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-03-04T11:24:08.763546914Z"
