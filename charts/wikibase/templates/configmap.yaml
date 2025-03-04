@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wikibase-config
+data:
+  MW_WG_JOB_RUN_RATE: "0"
+  DEPLOYMENT_ENV: "prod"
+  WIKIBASE_PINGBACK: "false"
+  MW_WG_ENABLE_UPLOADS: "false"

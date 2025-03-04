@@ -1,0 +1,26 @@
+image:
+  repository: ghcr.io/mardi4nfdi/docker-wikibase
+  tag: kubernetes
+replicas: 1
+port: 80
+mediawiki:
+  host: localhost
+  scheme: http
+  db_server: mariadb
+  db_name: my_wiki
+  db_user: sqluser
+  elasticsearch: elasticsearch
+storage:
+  localsettings:
+    size: 200Mi
+  images:
+    size: 200Mi
+  logs:
+    size: 200Mi
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 1
+    memory: 1Gi

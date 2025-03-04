@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+        ports:
+        - containerPort: {{ .Values.port }}
+        volumeMounts:
+        - name: localsettings
+          mountPath: /shared
+        - name: mediawiki-images
+          mountPath: /var/www/html/images
+        - name: apache-logs
+          mountPath: /var/log/apache2
+        env:
+        - name: WIKIBASE_SCHEME
+          value: "{{ .Values.mediawiki.scheme }}"
+        - name: WIKIBASE_HOST
+          value: "{{ .Values.mediawiki.host }}"
+        - name: WIKIBASE_PORT
+          value: "{{ .Values.port }}"
+        - name: DB_SERVER
+          value: "{{ .Values.mediawiki.db_server }}"
+        - name: DB_NAME
+          value: "{{ .Values.mediawiki.db_name }}"
+        - name: DB_USER
+          value: "{{ .Values.mediawiki.db_user }}"
+        - name: MW_ELASTIC_HOST
+          value: "{{ .Values.mediawiki.elasticsearch }}"
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MARIADB_PASSWORD
+        envFrom:
+        - configMapRef:
+            name: wikibase-config
+        - secretRef:
+            name: wikibase-secrets
+      volumes:
+      - name: localsettings
+        persistentVolumeClaim:
+          claimName: localsettings-pvc
+      - name: mediawiki-images
+        persistentVolumeClaim:
+          claimName: mediawiki-images-pvc
+      - name: apache-logs
+        persistentVolumeClaim:
+          claimName: apache-logs-pvc
