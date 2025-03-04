@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: staging-mariadb
-  namespace: staging-mariadb
+  namespace: staging
 spec:
   chart:
     spec:
