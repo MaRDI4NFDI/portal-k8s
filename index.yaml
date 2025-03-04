@@ -3,6 +3,16 @@ entries:
   elasticsearch:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-03-04T08:02:07.784561928Z"
+    description: A Helm chart for Elasticsearch
+    digest: ec1222bd2cd924a08feadf8ffff73fc8f3887623cfca86772d1c8bec3cae40cd
+    name: elasticsearch
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/elasticsearch-0.1.2/elasticsearch-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-03-03T10:57:20.063620116Z"
     description: A Helm chart for Elasticsearch
     digest: 06d8cdf47607b7a44903a6f0c74dcc67715604bbcf49ba688f921166c41ee4f0
@@ -74,4 +84,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mariadb-0.1.2/mariadb-0.1.2.tgz
     version: 0.1.2
-generated: "2025-03-03T10:57:20.063644651Z"
+generated: "2025-03-04T08:02:07.784583137Z"
