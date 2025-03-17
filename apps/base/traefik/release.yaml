@@ -4,8 +4,8 @@ metadata:
   name: traefik
 spec:
   interval: 5m
-  dependsOn:
-    - name: traefik-crds
+  # dependsOn:
+  #  - name: traefik-crds
   chart:
     spec:
       chart: traefik
