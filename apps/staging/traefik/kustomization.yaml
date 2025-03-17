@@ -5,7 +5,11 @@ resources:
 namePrefix: staging-
 namespace: staging
 patches:
-  - path: values-staging.yaml
+  - path: traefik-values-staging.yaml
     target:
       kind: HelmRelease
       name: traefik
+  - path: traefik-crds-values-staging.yaml
+    target:
+      kind: HelmRelease
+      name: traefik-crds

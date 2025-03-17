@@ -13,15 +13,4 @@ spec:
         enabled: true
     logs:
       general:
-        level: DEBUG
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: staging-traefik-crds
-  namespace: staging
-spec:
-  chart:
-    spec:
-      version: "1.5.0"
-    
+        level: DEBUG    
