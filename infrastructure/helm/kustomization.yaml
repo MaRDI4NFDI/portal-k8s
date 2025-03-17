@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - repository.yaml
   - mariadb.yaml
+  - traefik.yaml
