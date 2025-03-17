@@ -4,6 +4,8 @@ metadata:
   name: staging-traefik
   namespace: staging
 spec:
+  dependsOn:
+    - name: staging-traefik-crds
   chart:
     spec:
       version: "34.4.1"
