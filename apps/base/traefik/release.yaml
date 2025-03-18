@@ -20,6 +20,17 @@ spec:
     ports:
       web:
         port: 80
+        targetPort: 8000 # Internal container port (non-root)
       websecure:
         port: 443
+        targetPort: 8443 # Internal container port (non-root)
+    service:
+      type: LoadBalancer
+      ports:
+        web:
+          port: 80
+          targetPort: 8000
+        websecure:
+          port: 443
+          targetPort: 8443
     # Configure TLS
