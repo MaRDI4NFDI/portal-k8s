@@ -4,6 +4,6 @@ metadata:
   name: mariadb-operator
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   url: https://helm.mariadb.com/mariadb-operator
   timeout: 1m

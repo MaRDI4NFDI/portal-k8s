@@ -4,6 +4,6 @@ metadata:
   name: traefik
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h
   url: https://traefik.github.io/charts
   timeout: 1m
