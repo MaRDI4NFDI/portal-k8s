@@ -1,0 +1,13 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-portainer
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "1.0.62"
+  values:
+    service:
+      tpye: ClusterIP
+    
