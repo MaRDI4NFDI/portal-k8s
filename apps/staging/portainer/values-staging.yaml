@@ -10,7 +10,7 @@ spec:
       tag: 2.27.2
       pullPolicy: Always
     service:
-      tpye: ClusterIP
+      type: ClusterIP
     persistence:
       size: "2Gi"
     
