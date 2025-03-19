@@ -17,4 +17,8 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+    ports:
+      web:
+        redirectTo:
+          port: websecure
     # Configure TLS
