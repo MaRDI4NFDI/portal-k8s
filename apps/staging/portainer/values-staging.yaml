@@ -4,10 +4,13 @@ metadata:
   name: staging-portainer
   namespace: staging
 spec:
-  chart:
-    spec:
-      version: "1.0.62"
   values:
+    image:
+      repository: portainer/portainer-ce
+      tag: 2.27.2
+      pullPolicy: Always
     service:
       tpye: ClusterIP
+    persistence:
+      size: "2Gi"
     
