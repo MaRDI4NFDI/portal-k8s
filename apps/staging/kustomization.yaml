@@ -6,4 +6,4 @@ resources:
   - mariadb
   - wikibase
   - traefik
-  #- portainer
+  - portainer
