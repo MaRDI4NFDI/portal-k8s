@@ -1,9 +1,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: staging-portainer
-  namespace: staging
+  name: portainer
+  namespace: portainer
 spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: portainer
+      sourceRef:
+        kind: HelmRepository
+        name: portainer
+        namespace: flux-system
   values:
     image:
       repository: portainer/portainer-ce
@@ -13,4 +21,3 @@ spec:
       type: ClusterIP
     persistence:
       size: "2Gi"
-    
