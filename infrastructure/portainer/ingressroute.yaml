@@ -5,7 +5,7 @@ metadata:
   namespace: staging # Deployed using the staging traefik instance
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`portainer.mardi3.schubotz.org`)
       kind: Rule
@@ -13,3 +13,5 @@ spec:
         - name: portainer
           namespace: portainer
           port: 9000
+  tls:
+    secretName: portainer-tls

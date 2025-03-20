@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - release.yaml
+  - certificate.yaml
   - ingressroute.yaml
