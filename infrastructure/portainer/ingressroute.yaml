@@ -10,5 +10,6 @@ spec:
     - match: Host(`portainer.mardi3.schubotz.org`)
       kind: Rule
       services:
-        - name: portainer-proxy
+        - name: portainer
+          namespace: portainer
           port: 9000

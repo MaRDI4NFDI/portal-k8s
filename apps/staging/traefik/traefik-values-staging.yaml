@@ -14,4 +14,7 @@ spec:
         enabled: true
     logs:
       general:
-        level: DEBUG    
+        level: DEBUG
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
