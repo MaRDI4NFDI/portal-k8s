@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portainer
+  namespace: portainer
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`portainer.mardi3.schubotz.org`)
+      kind: Rule
+      services:
+        - name: portainer
+          port: 9000
