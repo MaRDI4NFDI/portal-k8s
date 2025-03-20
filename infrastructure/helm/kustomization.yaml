@@ -5,3 +5,4 @@ resources:
   - mariadb.yaml
   - traefik.yaml
   - portainer.yaml
+  - jetstack.yaml
