@@ -17,11 +17,11 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-    # ports:
-    #   web:
-    #     redirections:
-    #       entryPoint:
-    #         to: websecure
-    #         scheme: https
-    #         permanent: true
+    ports:
+      web:
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
     # Configure TLS
