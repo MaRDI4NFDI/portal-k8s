@@ -17,6 +17,9 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+    logs:
+      general:
+        maxBackups: 3
     ports:
       web:
         redirections:
