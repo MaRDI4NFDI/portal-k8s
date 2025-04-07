@@ -8,11 +8,11 @@ spec:
     spec:
       version: "0.1.5"
   values:
-    replicas: 2  
+    replicas: 1  
     database: my_wiki
     user: sqluser
     storage:
-      size: 1Ti
+      size: 500Gi
     backup:
       bucket: "mardi"
       prefix: "production/mariadb"
