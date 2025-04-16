@@ -12,7 +12,7 @@ spec:
     database: my_wiki
     user: sqluser
     storage:
-      size: 300Gi
+      size: 500Gi
     backup:
       bucket: "mardi"
       prefix: "production/mariadb"
