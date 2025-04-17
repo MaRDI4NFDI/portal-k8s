@@ -17,6 +17,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
@@ -48,6 +49,10 @@ spec:
           value: "{{ .Values.mediawiki.db_user }}"
         - name: MW_ELASTIC_HOST
           value: "{{ .Values.mediawiki.elasticsearch }}"
+        - name: MW_REDIS_HOST
+          value: "{{ .Values.mediawiki.redis_host }}"
+        - name: MW_REDIS_PORT
+          value: "{{ .Values.mediawiki.redis_port }}"
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
