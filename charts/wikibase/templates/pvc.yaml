@@ -9,15 +9,3 @@ spec:
   resources:
     requests:
       storage: {{ .Values.storage.images.size }}
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: apache-logs-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: "csi-rbd-sc"
-  resources:
-    requests:
-      storage: {{ .Values.storage.logs.size }}

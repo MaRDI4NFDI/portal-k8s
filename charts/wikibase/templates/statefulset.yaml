@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
 spec:
+  serviceName: {{ .Release.Name }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
@@ -65,6 +66,13 @@ spec:
       - name: mediawiki-images
         persistentVolumeClaim:
           claimName: mediawiki-images-pvc
-      - name: apache-logs
-        persistentVolumeClaim:
-          claimName: apache-logs-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: apache-logs
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: "csi-rbd-sc"
+      resources:
+        requests:
+          storage: {{ .Values.storage.logs.size }}
