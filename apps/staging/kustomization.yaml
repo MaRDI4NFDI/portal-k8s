@@ -5,4 +5,5 @@ resources:
   - elasticsearch
   - mariadb
   - wikibase
+  - redis
   - traefik
