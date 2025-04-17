@@ -31,6 +31,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/elasticsearch-0.1.0/elasticsearch-0.1.0.tgz
     version: 0.1.0
+  jobrunner:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-04-17T13:38:28.598515635Z"
+    description: Jobrunner and rescheduler services
+    digest: de40571b106edb9dcdfb62a6ccf1b3c3b9769a3140a92eeb920e6eac8418465d
+    name: jobrunner
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/jobrunner-0.1.0/jobrunner-0.1.0.tgz
+    version: 0.1.0
   mariadb:
   - apiVersion: v2
     appVersion: 10.11.3
@@ -134,4 +145,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-17T13:08:20.679188636Z"
+generated: "2025-04-17T13:38:28.598548156Z"
