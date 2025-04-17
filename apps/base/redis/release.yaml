@@ -6,11 +6,17 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: redis
-      version: '20.12.1'
+      # OCI Repository not yet supported
+      # chart: redis
+      # version: '20.12.1'
+      # sourceRef:
+      #   kind: OCIRepository
+      #   name: bitnami-redis
+      #   namespace: flux-system
+      chart: ./external-charts/redis-20.12.1.tgz
       sourceRef:
-        kind: OCIRepository
-        name: bitnami-redis
+        kind: GitRepository
+        name: external-portal-k8s
         namespace: flux-system
   values:
     image:
