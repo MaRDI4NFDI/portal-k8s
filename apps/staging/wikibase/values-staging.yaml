@@ -17,6 +17,7 @@ spec:
       db_name: my_wiki
       db_user: sqluser
       elasticsearch: staging-elasticsearch
+      redis_host: staging-redis-master
     storage:
       localsettings:
         size: 200Mi
