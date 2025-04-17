@@ -5,5 +5,5 @@ resources:
   - mariadb.yaml
   - traefik.yaml
   - portainer.yaml
-  - bitnami.yaml
+  - bitnami-redis.yaml
   - jetstack.yaml
