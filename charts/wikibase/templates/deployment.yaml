@@ -28,8 +28,6 @@ spec:
         ports:
         - containerPort: {{ .Values.port }}
         volumeMounts:
-        - name: localsettings
-          mountPath: /shared
         - name: mediawiki-images
           mountPath: /var/www/html/images
         - name: apache-logs
@@ -64,9 +62,6 @@ spec:
         - secretRef:
             name: wikibase-secrets
       volumes:
-      - name: localsettings
-        persistentVolumeClaim:
-          claimName: localsettings-pvc
       - name: mediawiki-images
         persistentVolumeClaim:
           claimName: mediawiki-images-pvc
