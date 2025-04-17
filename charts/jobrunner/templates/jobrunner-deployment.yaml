@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-jobrunner
+  labels:
+    app: redis-jobrunner
+spec:
+  replicas: {{ .Values.services.jobrunner.replicas }}
+  selector:
+    matchLabels:
+      app: redis-jobrunner
+      name: jobrunner
+  template:
+    metadata:
+      labels:
+        app: redis-jobrunner
+        name: jobrunner
+    spec:
+      containers:
+      - name: redis-jobrunner
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        command: {{ .Values.services.jobrunner.command }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: /jobrunner/config.json
+          subPath: config.json
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: jobrunner-config

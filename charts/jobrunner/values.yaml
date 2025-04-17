@@ -1,0 +1,37 @@
+image:
+  repository: ghcr.io/mardi4nfdi/docker-redis-jobrunner
+  tag: kubernetes
+
+configMap:
+  name: jobrunner-config
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 64Mi
+  limits:
+    cpu: 1000m
+    memory: 128Mi
+
+redis:
+  host: "redis-master"
+  port: 6379
+
+runners:
+  basic: 2
+  dispChanges: 2
+  profiles: 2
+
+services:
+  jobrunner:
+    replicas: 1
+    command:
+      - php
+      - /jobrunner/redisJobRunnerService
+      - "--config-file=/jobrunner/config.json"
+  rescheduler:
+    replicas: 1
+    command:
+      - php
+      - /jobrunner/redisJobChronService
+      - "--config-file=/jobrunner/config.json"

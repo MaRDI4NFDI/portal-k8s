@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jobrunner-config
+data:
+  config.json: |-
+    {
+      "groups": {
+        "basic": {
+          "runners": {{ .Values.runners.basic }},
+          "include": [
+            "*"
+          ],
+          "exclude": [
+            "DispatchChanges",
+            "CreateProfilePages",
+            "cirrusSearchElasticaWrite",
+            "SetProfileType",
+            "NormalizeDoi"
+          ],
+          "low-priority": [
+            "htmlCacheUpdate"
+          ]
+        },
+        "dispChanges": {
+          "runners": {{ .Values.runners.dispChanges }},
+          "include": [
+            "DispatchChanges"
+          ],
+          "low-priority": [
+            "cirrusSearchElasticaWrite"
+          ]
+        },
+        "profiles": {
+          "runners": {{ .Values.runners.profiles }},
+          "include": [
+            "CreateProfilePages",
+            "SetProfileType",
+            "OpenAlex",
+            "NormalizeDoi"
+          ]
+        }
+      },
+      "limits": {},
+      "redis": {
+        "aggregators": [
+          "{{ .Values.redis.host }}:{{ .Values.redis.port }}"
+        ],
+        "queues": [
+          "{{ .Values.redis.host }}:{{ .Values.redis.port }}"
+        ]
+      },
+      "dispatcher": "/var/www/html/w/maintenance/run runJobs --type=%(type)x --maxtime=%(maxtime)x --memory-limit=%(maxmem)x --result=json --conf=/shared/LocalSettings.php"
+    }

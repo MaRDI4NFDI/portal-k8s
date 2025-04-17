@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-rescheduler
+  labels:
+    app: redis-jobrunner
+spec:
+  replicas: {{ .Values.services.rescheduler.replicas }}
+  selector:
+    matchLabels:
+      app: redis-jobrunner
+      name: rescheduler
+  template:
+    metadata:
+      labels:
+        app: redis-jobrunner
+        name: rescheduler
+    spec:
+      containers:
+      - name: redis-rescheduler
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        command: {{ .Values.services.rescheduler.command }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: /jobrunner/config.json
+          subPath: config.json
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: jobrunner-config
