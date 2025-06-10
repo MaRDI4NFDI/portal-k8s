@@ -51,7 +51,9 @@ spec:
         - name: DB_USER
           value: "{{ .Values.mediawiki.db_user }}"
         - name: MW_ELASTIC_HOST
-          value: "{{ .Values.mediawiki.elasticsearch }}"
+          value: "{{ .Values.mediawiki.elasticsearch_host }}"
+        - name: MW_ELASTIC_PORT
+          value: "{{ .Values.mediawiki.elasticsearch_port }}"
         - name: MW_REDIS_HOST
           value: "{{ .Values.mediawiki.redis_host }}"
         - name: MW_REDIS_PORT
