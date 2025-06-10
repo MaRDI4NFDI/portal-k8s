@@ -13,7 +13,7 @@ spec:
       #   kind: OCIRepository
       #   name: bitnami-redis
       #   namespace: flux-system
-      chart: ./external-charts/redis-20.12.1.tgz
+      chart: ./external-charts/redis-21.2.1.tgz
       sourceRef:
         kind: GitRepository
         name: external-portal-k8s
