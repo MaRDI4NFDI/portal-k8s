@@ -8,12 +8,13 @@ spec:
     spec:
       version: "0.1.0"
   values:
-    replicas: 1
+    replicas: 2
     port: 80
+    nodeName: rise-node-170
     mediawiki:
       host: localhost
       scheme: http
-      db_server: staging-mariadb-primary
+      db_server: staging-mariadb-primary:3306
       db_name: my_wiki
       db_user: sqluser
       elasticsearch: staging-elasticsearch
