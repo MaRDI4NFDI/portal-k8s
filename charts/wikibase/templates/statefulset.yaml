@@ -15,10 +15,8 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      template:
-        spec:
-          nodeSelector:
-            kubernetes.io/hostname: {{ .Values.nodeName }}
+      nodeSelector:
+        kubernetes.io/hostname: {{ .Values.nodeName }}
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
