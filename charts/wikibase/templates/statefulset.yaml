@@ -15,15 +15,10 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - rise-node-171
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: {{ .Values.nodeName }}
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
