@@ -20,7 +20,7 @@ spec:
       - name: redis-rescheduler
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        args: {{- toYaml .Values.services.jobrunner.args | nindent 8 }}
+        args: {{- toYaml .Values.services.rescheduler.args | nindent 8 }}
         volumeMounts:
         - name: config-volume
           mountPath: /jobrunner/config.json
