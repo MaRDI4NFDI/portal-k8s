@@ -6,6 +6,11 @@ image:
 configMap:
   name: jobrunner-config
 
+mediawiki:
+  db_server: mariadb
+  db_name: my_wiki
+  db_user: sqluser
+
 resources:
   requests:
     cpu: 500m
