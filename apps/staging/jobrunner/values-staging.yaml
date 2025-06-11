@@ -1,0 +1,12 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-jobrunner
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    redis:
+      host: "staging-redis-master"
