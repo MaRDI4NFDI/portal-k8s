@@ -19,7 +19,7 @@ spec:
       containers:
       - name: redis-rescheduler
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: {{ .Values.services.rescheduler.command }}
         volumeMounts:
         - name: config-volume

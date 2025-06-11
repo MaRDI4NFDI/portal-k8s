@@ -1,6 +1,7 @@
 image:
   repository: ghcr.io/mardi4nfdi/docker-redis-jobrunner
   tag: kubernetes
+  pullPolicy: Always
 
 configMap:
   name: jobrunner-config
