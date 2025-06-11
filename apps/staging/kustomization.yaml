@@ -6,4 +6,5 @@ resources:
   - mariadb
   - wikibase
   - redis
+  - jobrunner
   - traefik
