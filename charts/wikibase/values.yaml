@@ -4,6 +4,9 @@ image:
   pullPolicy: Always
 replicas: 1
 port: 80
+ingress:
+  enabled: false
+  host: ""
 mediawiki:
   host: localhost
   scheme: http
