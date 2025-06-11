@@ -20,11 +20,28 @@ spec:
       - name: redis-jobrunner
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        command: {{ .Values.services.jobrunner.command }}
+        args: {{ .Values.services.jobrunner.args }}
         volumeMounts:
         - name: config-volume
           mountPath: /jobrunner/config.json
           subPath: config.json
+        env:
+        - name: DB_SERVER
+          value: "{{ .Values.mediawiki.db_server }}"
+        - name: DB_NAME
+          value: "{{ .Values.mediawiki.db_name }}"
+        - name: DB_USER
+          value: "{{ .Values.mediawiki.db_user }}"
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secrets
+              key: MARIADB_PASSWORD
+        - name: DEPLOYMENT_ENV
+          value: "prod"
+        envFrom:
+        - secretRef:
+            name: wikibase-secrets
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}

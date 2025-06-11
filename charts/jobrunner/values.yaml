@@ -26,13 +26,13 @@ runners:
 services:
   jobrunner:
     replicas: 1
-    command:
+    args:
       - php
       - /jobrunner/redisJobRunnerService
       - "--config-file=/jobrunner/config.json"
   rescheduler:
     replicas: 1
-    command:
+    args:
       - php
       - /jobrunner/redisJobChronService
       - "--config-file=/jobrunner/config.json"
