@@ -18,8 +18,6 @@ mediawiki:
   redis_host: redis-master
   redis_port: 6379
 storage:
-  localsettings:
-    size: 200Mi
   images:
     size: 200Mi
   logs:
