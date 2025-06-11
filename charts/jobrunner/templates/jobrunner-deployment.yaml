@@ -20,7 +20,7 @@ spec:
       - name: redis-jobrunner
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        args: {{ .Values.services.jobrunner.args }}
+        args: {{- toYaml .Values.services.jobrunner.args | nindent 8 }}
         volumeMounts:
         - name: config-volume
           mountPath: /jobrunner/config.json
