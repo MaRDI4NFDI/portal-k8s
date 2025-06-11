@@ -10,3 +10,5 @@ spec:
   values:
     redis:
       host: "staging-redis-master"
+    mediawiki:
+      db_server: staging-mariadb-primary:3306
