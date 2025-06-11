@@ -11,6 +11,9 @@ spec:
     replicas: 2
     port: 80
     nodeName: rise-node-170
+    ingress:
+      enabled: true
+      host: portal.mardi3.schubotz.org
     mediawiki:
       host: localhost
       scheme: http
