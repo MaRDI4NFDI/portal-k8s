@@ -1,0 +1,18 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-frontend
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.ingress.host }}`) && !PathPrefix(`/sparql`)
+      kind: Rule
+      services:
+      - name: {{ .Release.Name }}-frontend
+        namespace: {{ .Release.Namespace }}
+        port: {{ .Values.frontend.port }}
+  tls:
+    secretName: {{ .Release.Name }}-tls
+{{- end }}

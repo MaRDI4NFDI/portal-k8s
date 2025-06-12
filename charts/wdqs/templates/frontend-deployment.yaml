@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-frontend
+  labels:
+    app: {{ .Release.Name }}-frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-frontend
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-frontend
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.frontend.port }}
+        volumeMounts:
+        - name: custom-config
+          mountPath: /usr/share/nginx/html/custom-config.json
+          subPath: custom-config.json
+          readOnly: true
+        - name: custom-entrypoint
+          mountPath: /custom-entrypoint
+          readOnly: true
+        resources:
+          requests:
+            cpu: {{ .Values.frontend.resources.requests.cpu }}
+            memory: {{ .Values.frontend.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.frontend.resources.limits.cpu }}
+            memory: {{ .Values.frontend.resources.limits.memory }}
+      volumes:
+      - name: custom-config
+        configMap:
+          name: custom-config
+      - name: custom-entrypoint
+        configMap:
+          name: custom-entrypoint
+          defaultMode: 0755

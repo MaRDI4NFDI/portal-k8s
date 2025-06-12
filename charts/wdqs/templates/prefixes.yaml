@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prefixes-config
+data:
+  prefixes.conf: |
+    {{- $domain := .Values.wikibase.domain }}
+    PREFIX wd: <https://{{ $domain }}/entity/>
+    PREFIX wdt: <https://{{ $domain }}/prop/direct/>
+    PREFIX p: <https://{{ $domain }}/prop/>
+    PREFIX ps: <https://{{ $domain }}/prop/statement/>
+    PREFIX pq: <https://{{ $domain }}/prop/qualifier/>
+    PREFIX wdata: <https://{{ $domain }}/wiki/Special:EntityData/>
+    PREFIX wdno: <https://{{ $domain }}/prop/novalue/>
+    PREFIX prn: <https://{{ $domain }}/prop/reference/value-normalized/>
+    PREFIX prv: <https://{{ $domain }}/prop/reference/value/>
+    PREFIX pr: <https://{{ $domain }}/prop/reference/>
+    PREFIX pqn: <https://{{ $domain }}/prop/qualifier/value-normalized/>
+    PREFIX pqv: <https://{{ $domain }}/prop/qualifier/value/>
+    PREFIX psn: <https://{{ $domain }}/prop/statement/value-normalized/>
+    PREFIX psv: <https://{{ $domain }}/prop/statement/value/>
+    PREFIX wdv: <https://{{ $domain }}/value/>
+    PREFIX wdref: <https://{{ $domain }}/reference/>
+    PREFIX wds: <https://{{ $domain }}/entity/statement/>
+    PREFIX wdtn: <https://{{ $domain }}/prop/direct-normalized/>
+    PREFIX wikidata_wd: <http://www.wikidata.org/entity/>
+    PREFIX wikidata_wdt: <http://www.wikidata.org/prop/direct/>
+    PREFIX wikidata_p: <http://www.wikidata.org/prop/>
+    PREFIX wikidata_ps: <http://www.wikidata.org/prop/statement/>
+    PREFIX wikidata_pq: <http://www.wikidata.org/prop/qualifier/>
+    PREFIX wikidata_wdata: <http://www.wikidata.org/wiki/Special:EntityData/>
+    PREFIX wikidata_wdno: <http://www.wikidata.org/prop/novalue/>
+    PREFIX wikidata_prn: <http://www.wikidata.org/prop/reference/value-normalized/>
+    PREFIX wikidata_prv: <http://www.wikidata.org/prop/reference/value/>
+    PREFIX wikidata_pr: <http://www.wikidata.org/prop/reference/>
+    PREFIX wikidata_pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/>
+    PREFIX wikidata_pqv: <http://www.wikidata.org/prop/qualifier/value/>
+    PREFIX wikidata_psn: <http://www.wikidata.org/prop/statement/value-normalized/>
+    PREFIX wikidata_psv: <http://www.wikidata.org/prop/statement/value/>
+    PREFIX wikidata_wdv: <http://www.wikidata.org/value/>
+    PREFIX wikidata_wdref: <http://www.wikidata.org/reference/>
+    PREFIX wikidata_wds: <http://www.wikidata.org/entity/statement/>
+    PREFIX wikidata_wdtn: <http://www.wikidata.org/prop/direct-normalized/>
+    PREFIX Wikidata: <https://query.wikidata.org/sparql>
+    PREFIX mwapi: <https://www.mediawiki.org/ontology#API/>
+    PREFIX gas: <http://www.bigdata.com/rdf/gas#>
+    PREFIX FactGrid: <https://database.factgrid.de/sparql>
+    PREFIX FactGrid_wd: <http://database.factgrid.de/entity/>
+    PREFIX FactGrid_wdt: <http://database.factgrid.de/prop/direct/>
+    PREFIX FactGrid_p: <http://database.factgrid.de/prop/>
+    PREFIX FactGrid_ps: <http://database.factgrid.de/prop/statement/>
+    PREFIX FactGrid_pq: <http://database.factgrid.de/prop/qualifier/>
+    PREFIX FactGrid_wdata: <http://database.factgrid.de/wiki/Special:EntityData/>
+    PREFIX FactGrid_wdno: <http://database.factgrid.de/prop/novalue/>
+    PREFIX FactGrid_prn: <http://database.factgrid.de/prop/reference/value-normalized/>
+    PREFIX FactGrid_prv: <http://database.factgrid.de/prop/reference/value/>
+    PREFIX FactGrid_pr: <http://database.factgrid.de/prop/reference/>
+    PREFIX FactGrid_pqn: <http://database.factgrid.de/prop/qualifier/value-normalized/>
+    PREFIX FactGrid_pqv: <http://database.factgrid.de/prop/qualifier/value/>
+    PREFIX FactGrid_psn: <http://database.factgrid.de/prop/statement/value-normalized/>
+    PREFIX FactGrid_psv: <http://database.factgrid.de/prop/statement/value/>
+    PREFIX FactGrid_wdv: <http://database.factgrid.de/value/>
+    PREFIX FactGrid_wdref: <http://database.factgrid.de/reference/>
+    PREFIX FactGrid_wds: <http://database.factgrid.de/entity/statement/>
+    PREFIX FactGrid_wdtn: <http://database.factgrid.de/prop/direct-normalized/>

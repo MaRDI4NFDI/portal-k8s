@@ -1,0 +1,38 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-wdqs-prefix
+spec:
+  addPrefix:
+    prefix: /bigdata/namespace/wdq/
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-wdqs-headers
+spec:
+  headers:
+    accessControlAllowMethods: "GET,OPTIONS,POST"
+    customResponseHeaders:
+      VARY: Accept
+    customRequestHeaders:
+      X-BIGDATA-READ-ONLY: yes
+      X-BIGDATA-MAX-QUERY-MILLIS: "300000"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-wdqs-cors-headers
+spec:
+  headers:
+    accessControlAllowHeaders: "*"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-wdqs-rate-limit
+spec:
+  rateLimit:
+    burst: 30
+    average: 60
+    period: 1m

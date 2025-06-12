@@ -1,0 +1,46 @@
+wdqs:
+  image:
+    repository: wikibase/wdqs
+    tag: 2
+  host: wdqs
+  port: 9999
+  storage: 5Gi
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+
+updater:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+frontend:
+  image:
+    repository: wikibase/wdqs-frontend
+    tag: 2
+  replicas: 2
+  port: 80
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+wikibase:
+  host: wikibase
+  domain: ""
+
+ingress:
+  enabled: true
+  host: ""
+

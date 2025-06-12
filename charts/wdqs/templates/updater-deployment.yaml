@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-updater
+  labels:
+    app: {{ .Release.Name }}-updater
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-updater
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-updater
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-updater
+        image: "{{ .Values.wdqs.image.repository }}:{{ .Values.wdqs.image.tag }}"
+        command: ["/runUpdate.sh"]
+        env:
+        - name: WIKIBASE_CONCEPT_URI
+          value: "{{ .Values.wikibase.domain }}"
+        resources:
+          requests:
+            cpu: {{ .Values.updater.resources.requests.cpu }}
+            memory: {{ .Values.updater.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.updater.resources.limits.cpu }}
+            memory: {{ .Values.updater.resources.limits.memory }}

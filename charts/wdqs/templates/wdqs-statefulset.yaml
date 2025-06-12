@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.wdqs.image.repository }}:{{ .Values.wdqs.image.tag }}"
+        command: ["/runBlazegraph.sh"]
+        ports:
+        - containerPort: {{ .Values.wdqs.port }}
+        env:
+        - name: WIKIBASE_HOST
+          value: "{{ .Values.wikibase.host }}"
+        - name: WIKIBASE_SCHEME
+          value: "https"
+        - name: WDQS_HOST
+          value: "{{ .Values.wdqs.host }}"
+        - name: WDQS_PORT
+          value: "{{ .Values.wdqs.port }}"
+        - name: BLAZEGRAPH_OPTS
+          value: "-Dorg.wikidata.query.rdf.tool.rdf.RdfRepository.timeout=3600"
+        volumeMounts:
+        - name: wdqs-data
+          mountPath: /wdqs/data
+        - name: prefixes-config
+          mountPath: /wdqs/prefixes.conf
+          subPath: prefixes.conf
+          readOnly: true
+        - name: allowlist-config
+          mountPath: /wdqs/allowlist.txt
+          subPath: allowlist.txt
+          readOnly: true
+        resources:
+          requests:
+            cpu: {{ .Values.wdqs.resources.requests.cpu }}
+            memory: {{ .Values.wdqs.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.wdqs.resources.limits.cpu }}
+            memory: {{ .Values.wdqs.resources.limits.memory }}
+      volumes:
+      - name: prefixes-config
+        configMap:
+          name: prefixes-config
+      - name: allowlist-config
+        configMap:
+          name: allowlist-config
+  volumeClaimTemplates:
+  - metadata:
+      name: wdqs-data
+    spec:
+      accessModes: 
+      - "ReadWriteOnce"
+      storageClassName: "csi-rbd-sc"
+      resources:
+        requests:
+          storage: {{ .Values.wdqs.storage }}
+    

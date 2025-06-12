@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-config
+data:
+  custom-config.json: |
+    {{- $domain := .Values.wikibase.domain }}
+    {
+      "api": {
+        "sparql": {
+          "uri": "https://query.{{ $domain }}/sparql"
+        },
+        "wikibase": {
+          "uri": "https://{{ $domain }}/w/api.php"
+        },
+        "examples": {
+          "server": "https://{{ $domain }}/",
+          "apiPath": "w/api.php",
+          "pageTitle": "Project:Sample_queries",
+          "pagePathElement": "wiki/"
+        },
+        "urlShortener": "tinyurl"
+      },
+      "brand": {
+        "title": "MaRDI Query Service",
+        "logo": "logo.svg",
+        "favicon": "favicon.ico",
+        "copyrightUrl": "",
+        "index": "./index.html"
+      }
+    }

@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.ingress.host }}`) && PathPrefix(`/sparql`) && (Method(`GET`) || Method(`OPTIONS`) || Method(`POST`))
+      kind: Rule
+      services:
+      - name: {{ .Release.Name }}
+        namespace: {{ .Release.Namespace }}
+        port: {{ .Values.wdqs.port }}
+      middlewares:
+      - name: {{ .Release.Name }}-wdqs-prefix
+      - name: {{ .Release.Name }}-wdqs-headers
+      - name: {{ .Release.Name }}-wdqs-cors-headers
+      - name: {{ .Release.Name }}-wdqs-rate-limit
+  tls:
+    secretName: {{ .Release.Name }}-tls
+{{- end }}

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-entrypoint
+data:
+  entrypoint.sh: |
+    #!/bin/sh
+    set -eu
+
+    export DOLLAR='$'
+
+    envsubst < /templates/nginx-default.conf.template > /etc/nginx/conf.d/default.conf
+
+    exec "$@"
