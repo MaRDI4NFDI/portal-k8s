@@ -14,10 +14,10 @@ spec:
         namespace: {{ .Release.Namespace }}
         port: {{ .Values.wdqs.port }}
       middlewares:
-      - name: {{ .Release.Name }}-wdqs-prefix
-      - name: {{ .Release.Name }}-wdqs-headers
-      - name: {{ .Release.Name }}-wdqs-cors-headers
-      - name: {{ .Release.Name }}-wdqs-rate-limit
+      - name: {{ .Release.Name }}-prefix
+      - name: {{ .Release.Name }}-headers
+      - name: {{ .Release.Name }}-cors-headers
+      - name: {{ .Release.Name }}-rate-limit
   tls:
     secretName: {{ .Release.Name }}-tls
 {{- end }}
