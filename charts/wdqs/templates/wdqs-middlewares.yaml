@@ -19,7 +19,7 @@ spec:
     customResponseHeaders:
       VARY: Accept
     customRequestHeaders:
-      X-BIGDATA-READ-ONLY: yes
+      X-BIGDATA-READ-ONLY: "yes"
       X-BIGDATA-MAX-QUERY-MILLIS: "300000"
 ---
 apiVersion: traefik.io/v1alpha1
