@@ -12,7 +12,10 @@ metadata:
   name: {{ .Release.Name }}-headers
 spec:
   headers:
-    accessControlAllowMethods: "GET,OPTIONS,POST"
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "POST"
     customResponseHeaders:
       VARY: Accept
     customRequestHeaders:
@@ -25,7 +28,8 @@ metadata:
   name: {{ .Release.Name }}-cors-headers
 spec:
   headers:
-    accessControlAllowHeaders: "*"
+    accessControlAllowHeaders:
+      - "*"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
