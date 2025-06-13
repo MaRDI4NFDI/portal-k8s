@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-wdqs
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.1"
+  values:
+    wdqs:
+      host: staging-wdqs
+    wikibase:
+      host: staging-wikibase
+      #domain: "staging.mardi4nfdi.org"
+      domain: "portal.mardi3.schubotz.org"
+    ingress:
+      enabled: false
+      host: query.mardi3.schubotz.org
