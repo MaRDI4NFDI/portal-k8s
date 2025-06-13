@@ -21,6 +21,14 @@ spec:
         env:
         - name: WIKIBASE_CONCEPT_URI
           value: "{{ .Values.wikibase.domain }}"
+        - name: WIKIBASE_HOST
+          value: "{{ .Values.wikibase.host }}"
+        - name: WIKIBASE_SCHEME
+          value: "https"
+        - name: WDQS_HOST
+          value: "{{ .Values.wdqs.host }}"
+        - name: WDQS_PORT
+          value: "{{ .Values.wdqs.port }}"
         resources:
           requests:
             cpu: {{ .Values.updater.resources.requests.cpu }}
