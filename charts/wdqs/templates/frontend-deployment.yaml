@@ -17,6 +17,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}-frontend
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        command: ["/custom-entrypoint/entrypoint.sh"]
         ports:
         - containerPort: {{ .Values.frontend.port }}
         volumeMounts:
