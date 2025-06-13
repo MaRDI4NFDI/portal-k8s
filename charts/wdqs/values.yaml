@@ -30,11 +30,11 @@ frontend:
   port: 80
   resources:
     requests:
-      cpu: "50m"
-      memory: "64Mi"
+      cpu: 50m
+      memory: 64Mi
     limits:
-      cpu: "200m"
-      memory: "256Mi"
+      cpu: 200m
+      memory: 256Mi
 
 wikibase:
   host: wikibase
