@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.12"
+      version: "0.1.11"
   values:
     replicas: 3
     database: my_wiki
@@ -26,35 +26,4 @@ spec:
         cpu: 1000m
         memory: 3Gi
     
-    bootstrapFrom:
-      s3:
-        bucket: "mardi"
-        prefix: "staging/mariadb"
-        endpoint: "hsm-test-09.zib.de:9001"
-        region:  {{ .Values.backup.region }}
-        accessKeyIdSecretKeyRef:
-          name: mariadb-secrets
-          key: S3-ACCESS-KEY-ID
-        secretAccessKeySecretKeyRef:
-          name: mariadb-secrets
-          key: S3-SECRET-ACCESS-KEY
-        tls:
-          enabled: true
-      targetRecoveryTime: 2025-06-16T09:00:00Z
-      stagingStorage:
-        persistentVolumeClaim:
-          resources:
-            requests:
-              storage: 1Gi
-          accessModes:
-            - ReadWriteOnce
-      restoreJob:
-        args:
-          - --verbose
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            memory: 1Gi
     
