@@ -31,7 +31,7 @@ spec:
         bucket: "mardi"
         prefix: "staging/mariadb"
         endpoint: "hsm-test-09.zib.de:9001"
-        region:  {{ .Values.backup.region }}
+        region:  "us-east-1"
         accessKeyIdSecretKeyRef:
           name: mariadb-secrets
           key: S3-ACCESS-KEY-ID
