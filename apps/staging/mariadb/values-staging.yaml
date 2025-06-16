@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.12"
+      version: "0.1.13"
   values:
     replicas: 3
     database: my_wiki
