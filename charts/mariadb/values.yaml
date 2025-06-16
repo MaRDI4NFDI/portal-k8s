@@ -1,6 +1,6 @@
 image:
   repository: mariadb
-  tag: 10.11.3
+  tag: 11.8.2
   pullPolicy: IfNotPresent
 port: 3306
 replicas: 3  
