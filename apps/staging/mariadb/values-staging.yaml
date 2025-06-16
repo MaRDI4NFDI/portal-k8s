@@ -6,9 +6,9 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.11"
+      version: "0.1.12"
   values:
-    replicas: 1
+    replicas: 3
     database: my_wiki
     user: sqluser
     storage:
