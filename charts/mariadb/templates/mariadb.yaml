@@ -15,8 +15,11 @@ spec:
   port: {{ .Values.port }}
 
   replicas: {{ .Values.replicas }}
-  replication:
+  galera:
     enabled: true
+    agent:
+      basicAuth:
+        enabled: true
 
   primaryService:
     type: LoadBalancer
