@@ -8,7 +8,7 @@ spec:
     spec:
       version: "0.1.11"
   values:
-    replicas: 3
+    replicas: 1
     database: my_wiki
     user: sqluser
     storage:
