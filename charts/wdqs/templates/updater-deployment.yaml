@@ -20,7 +20,7 @@ spec:
         command: ["/runUpdate.sh"]
         env:
         - name: WIKIBASE_CONCEPT_URI
-          value: "{{ .Values.wikibase.domain }}"
+          value: "https://{{ .Values.wikibase.domain }}"
         - name: WIKIBASE_HOST
           value: "{{ .Values.wikibase.host }}"
         - name: WIKIBASE_SCHEME
