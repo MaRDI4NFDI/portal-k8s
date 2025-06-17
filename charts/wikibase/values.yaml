@@ -5,7 +5,7 @@ image:
 replicas: 1
 port: 80
 ingress:
-  enabled: false
+  enabled: true
   host: ""
 mediawiki:
   host: localhost
