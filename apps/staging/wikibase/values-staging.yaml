@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.8"
+      version: "0.1.9"
   values:
     replicas: 2
     port: 80
@@ -20,6 +20,8 @@ spec:
       db_server: staging-mariadb-primary:3306
       db_name: my_wiki
       db_user: sqluser
+      db_primary: staging-mariadb-primary
+      db_secondary: staging-mariadb-secondary
       elasticsearch_host: staging-elasticsearch
       redis_host: staging-redis-master
     storage:
