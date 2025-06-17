@@ -48,6 +48,10 @@ spec:
           value: "{{ .Values.mediawiki.db_name }}"
         - name: DB_USER
           value: "{{ .Values.mediawiki.db_user }}"
+        - name: DB_PRIMARY_IP
+          value: "{{ .Values.mediawiki.db_primary }}"
+        - name: DB_SECONDARY_IP
+          value: "{{ .Values.mediawiki.db_secondary }}"
         - name: MW_ELASTIC_HOST
           value: "{{ .Values.mediawiki.elasticsearch_host }}"
         - name: MW_ELASTIC_PORT

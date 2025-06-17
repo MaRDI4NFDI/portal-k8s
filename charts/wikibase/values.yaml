@@ -13,6 +13,8 @@ mediawiki:
   db_server: mariadb
   db_name: my_wiki
   db_user: sqluser
+  db_primary: mariadb-0
+  db_secondary: mariadb-1
   elasticsearch_host: elasticsearch
   elasticsearch_port: 9200
   redis_host: redis-master
