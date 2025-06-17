@@ -29,3 +29,7 @@ data:
         "index": "./index.html"
       }
     }
+  logo.svg: |
+{{ .Files.Get "files/logo.svg" | indent 4 }}
+binaryData:
+  favicon.ico: {{ .Files.Get "files/favicon.ico" | b64enc }}

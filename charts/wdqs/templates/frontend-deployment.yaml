@@ -25,6 +25,14 @@ spec:
           mountPath: /usr/share/nginx/html/custom-config.json
           subPath: custom-config.json
           readOnly: true
+        - name: custom-config
+          mountPath: /usr/share/nginx/html/logo.svg
+          subPath: logo.svg
+          readOnly: true
+        - name: custom-config
+          mountPath: /usr/share/nginx/html/favicon.ico
+          subPath: favicon.ico
+          readOnly: true
         - name: custom-entrypoint
           mountPath: /custom-entrypoint
           readOnly: true
