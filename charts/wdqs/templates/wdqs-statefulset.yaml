@@ -15,6 +15,10 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      securityContext:
+        fsGroup: 101          # blazegraph group
+        runAsUser: 100        # blazegraph user
+        runAsGroup: 101       # blazegraph group
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.wdqs.image.repository }}:{{ .Values.wdqs.image.tag }}"
