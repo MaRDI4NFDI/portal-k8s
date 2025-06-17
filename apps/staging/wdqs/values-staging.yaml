@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.8"
+      version: "0.1.9"
   values:
     wdqs:
       host: staging-wdqs
@@ -15,5 +15,5 @@ spec:
       #domain: "staging.mardi4nfdi.org"
       domain: "portal.mardi3.schubotz.org"
     ingress:
-      enabled: false
+      enabled: true
       host: query.mardi3.schubotz.org
