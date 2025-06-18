@@ -10,3 +10,4 @@ resources:
   - traefik
   - wdqs
   - quickstatements
+  - latexml

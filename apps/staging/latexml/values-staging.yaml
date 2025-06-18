@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-latexml
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    ingress:
+      enabled: true
+      host: "latexml.mardi3.schubotz.org"
+
