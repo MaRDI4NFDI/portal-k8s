@@ -92,6 +92,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/jobrunner-0.1.0/jobrunner-0.1.0.tgz
     version: 0.1.0
+  latexml:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-18T11:41:55.904244442Z"
+    description: LaTeXML Helm Chart
+    digest: 73d27dcbd53cf909149b2e2b9cdb5daffe060432530812a0b82dddc04a6003e8
+    name: latexml
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/latexml-0.1.0/latexml-0.1.0.tgz
+    version: 0.1.0
   mariadb:
   - apiVersion: v2
     appVersion: 10.11.3
@@ -474,4 +485,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-18T09:29:08.197418223Z"
+generated: "2025-06-18T11:41:55.90434019Z"
