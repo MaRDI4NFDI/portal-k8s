@@ -1,6 +1,11 @@
+# IMPORTANT: This chart requires a secret named 'wikibase-secrets' 
+# containing OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET
+
 image:
   repository: wikibase/quickstatements
   tag: 1
+
+port: 80
 
 wikibase:
   url: "https://wikibase.example"
