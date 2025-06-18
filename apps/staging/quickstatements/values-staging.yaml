@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-quickstatements
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.1"
+  values:
+    wikibase:
+      url: "https://portal.mardi3.schubotz.org"
+    quickstatements:
+      url: "https://quickstatements.mardi3.schubotz.org"
+    ingress:
+      host: "quickstatements.mardi3.schubotz.org"

@@ -9,3 +9,4 @@ resources:
   - jobrunner
   - traefik
   - wdqs
+  - quickstatements
