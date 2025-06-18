@@ -17,3 +17,33 @@ spec:
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+        env:
+        - name: WIKIBASE_PUBLIC_URL
+          value: "{{ .Values.wikibase.url }}"
+        - name: QUICKSTATEMENTS_PUBLIC_URL
+          value: "{{ .Values.quickstatements.url }}"
+        - name: WB_ITEM_NAMESPACE
+          value: 120
+        - name: WB_PROPERTY_NAMESPACE
+          value: 122
+        - name: WB_ITEM_PREFIX
+          value: "Item:"
+        - name: WB_PROPERTY_PREFIX
+          value: "Property:"
+        - name: OAUTH_CONSUMER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: wikibase-secrets
+              key: OAUTH_CONSUMER_KEY
+        - name: OAUTH_CONSUMER_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: wikibase-secrets
+              key: OAUTH_CONSUMER_SECRET
