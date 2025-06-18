@@ -12,7 +12,7 @@ spec:
       services:
         - name: {{ .Release.Name }}
           namespace: {{ .Release.Namespace }}
-          port: {{ .Values.containerPort }}
+          port: {{ .Values.servicePort }}
   tls:
     secretName: {{ .Release.Name }}-tls
 {{- end }}
