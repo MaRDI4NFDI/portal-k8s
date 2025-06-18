@@ -1,0 +1,20 @@
+image:
+  repository: wikibase/quickstatements
+  tag: 1
+
+wikibase:
+  url: "https://wikibase.example"
+
+quickstatements:
+  url: "https://quickstatements.example"
+
+ingress:
+  host: ""
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
