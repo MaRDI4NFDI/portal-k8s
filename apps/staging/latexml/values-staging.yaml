@@ -9,6 +9,6 @@ spec:
       version: "0.1.2"
   values:
     ingress:
-      enabled: true
+      enabled: false
       host: "latexml.mardi3.schubotz.org"
 
