@@ -30,9 +30,9 @@ spec:
         - name: QUICKSTATEMENTS_PUBLIC_URL
           value: "{{ .Values.quickstatements.url }}"
         - name: WB_ITEM_NAMESPACE
-          value: 120
+          value: "120"
         - name: WB_PROPERTY_NAMESPACE
-          value: 122
+          value: "122"
         - name: WB_ITEM_PREFIX
           value: "Item:"
         - name: WB_PROPERTY_PREFIX
