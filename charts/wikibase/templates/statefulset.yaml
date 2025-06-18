@@ -60,6 +60,14 @@ spec:
           value: "{{ .Values.mediawiki.redis_host }}"
         - name: MW_REDIS_PORT
           value: "{{ .Values.mediawiki.redis_port }}"
+        - name: MW_LATEXML_HOST
+          value: "{{ .Values.mediawiki.latexml_host }}"
+        - name: MW_LATEXML_PORT
+          value: "{{ .Values.mediawiki.latexml_port }}"
+        - name: MW_FORMULASEARCH_HOST
+          value: "{{ .Values.mediawiki.formulasearch_host }}"
+        - name: MW_FORMULASEARCH_PORT
+          value: "{{ .Values.mediawiki.formulasearch_port }}"
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
