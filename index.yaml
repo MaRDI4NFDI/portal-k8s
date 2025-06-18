@@ -95,6 +95,16 @@ entries:
   latexml:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-06-18T12:02:54.857066302Z"
+    description: LaTeXML Helm Chart
+    digest: 66ac16435b5dc59a50ce2c8b2a831dca0332186e300983955ff021994c9fc9af
+    name: latexml
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/latexml-0.1.2/latexml-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-06-18T11:52:30.235956216Z"
     description: LaTeXML Helm Chart
     digest: f9890e4db5c2202d0a4d914e602937ba980b69525dea3695090763ef70263fcd
@@ -495,4 +505,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-18T11:52:30.236060582Z"
+generated: "2025-06-18T12:02:54.857269044Z"
