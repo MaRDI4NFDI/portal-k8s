@@ -6,11 +6,10 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.9"
+      version: "0.1.12"
   values:
     replicas: 2
     port: 80
-    nodeName: rise-node-170
     ingress:
       enabled: true
       host: portal.mardi3.schubotz.org
@@ -24,6 +23,8 @@ spec:
       db_secondary: staging-mariadb-secondary
       elasticsearch_host: staging-elasticsearch
       redis_host: staging-redis-master
+      formulasearch_host: staging-formulasearch
+      latexml_host: staging-latexml
     storage:
       images:
         size: 200Mi
