@@ -32,7 +32,7 @@ spec:
         - containerPort: {{ .Values.port }}
         volumeMounts:
         - name: mediawiki-images
-          mountPath: /var/www/html/images
+          mountPath: /var/www/html/w/images
         - name: apache-logs
           mountPath: /var/log/apache2
         env:
