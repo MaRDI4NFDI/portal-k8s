@@ -14,9 +14,15 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+        statefulset-group: {{ .Release.Name }} 
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: {{ .Values.nodeName }}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                statefulset-group: {{ .Release.Name }}
+            topologyKey: kubernetes.io/hostname
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
