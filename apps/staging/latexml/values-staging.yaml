@@ -10,5 +10,5 @@ spec:
   values:
     ingress:
       enabled: false
-      host: "latexml.mardi3.schubotz.org"
+      host: "latexml.staging.mardi4nfdi.org"
 
