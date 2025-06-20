@@ -6,8 +6,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 443
+    targetPort: 443
     protocol: TCP
 ---
 apiVersion: v1
@@ -19,4 +19,4 @@ subsets:
 - addresses:
   - ip: 130.73.240.217
   ports:
-  - port: 80
+  - port: 443
