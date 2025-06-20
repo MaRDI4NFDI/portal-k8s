@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`portainer.mardi3.schubotz.org`)
+    - match: Host(`portainer.staging.mardi4nfdi.org`)
       kind: Rule
       services:
         - name: portainer

@@ -9,8 +9,8 @@ spec:
       version: "0.1.3"
   values:
     wikibase:
-      url: "https://portal.mardi3.schubotz.org"
+      url: "https://staging.mardi4nfdi.org"
     quickstatements:
-      url: "https://quickstatements.mardi3.schubotz.org"
+      url: "https://quickstatements.staging.mardi4nfdi.org"
     ingress:
-      host: "quickstatements.mardi3.schubotz.org"
+      host: "quickstatements.staging.mardi4nfdi.org"

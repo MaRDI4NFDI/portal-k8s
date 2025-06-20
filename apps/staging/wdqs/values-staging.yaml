@@ -12,8 +12,7 @@ spec:
       host: staging-wdqs
     wikibase:
       host: staging-wikibase
-      #domain: "staging.mardi4nfdi.org"
-      domain: "portal.mardi3.schubotz.org"
+      domain: "staging.mardi4nfdi.org"
     ingress:
       enabled: true
-      host: query.mardi3.schubotz.org
+      host: query.staging.mardi4nfdi.org

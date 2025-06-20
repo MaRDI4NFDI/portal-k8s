@@ -12,7 +12,7 @@ spec:
     port: 80
     ingress:
       enabled: true
-      host: portal.mardi3.schubotz.org
+      host: staging.mardi4nfdi.org
     mediawiki:
       host: localhost
       scheme: http
