@@ -12,4 +12,4 @@ resources:
   - quickstatements
   - latexml
   - ffmpeg
-  - oai-provider
+  - vm-services
