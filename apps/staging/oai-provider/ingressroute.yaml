@@ -1,5 +1,5 @@
 apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+kind: IngressRouteTCP
 metadata:
   name: oai-provider-route
   namespace: staging
@@ -7,10 +7,9 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`oai.staging.mardi4nfdi.org`)
-    kind: Rule
+  - match: HostSNI(`oai.staging.mardi4nfdi.org`)
     services:
     - name: oai-provider-external
       port: 443
   tls:
-    passthrough: true 
+    passthrough: true
