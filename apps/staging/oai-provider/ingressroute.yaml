@@ -11,6 +11,6 @@ spec:
     kind: Rule
     services:
     - name: oai-provider-external
-      port: 80
+      port: 443
   tls:
-    certResolver: le
+    passthrough: true 

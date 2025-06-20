@@ -4,7 +4,19 @@ metadata:
   name: oai-provider-external
   namespace: staging
 spec:
-  type: ExternalName
-  externalName: 130.73.240.217
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: oai-provider-external
+  namespace: staging
+subsets:
+- addresses:
+  - ip: 130.73.240.217
   ports:
   - port: 80
