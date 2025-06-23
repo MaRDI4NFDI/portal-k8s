@@ -41,6 +41,9 @@ spec:
           mountPath: /var/www/html/w/images
         - name: apache-logs
           mountPath: /var/log/apache2
+        - name: oauth-secrets
+          mountPath: /var/oauth
+          readOnly: true
         env:
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.mediawiki.scheme }}"
@@ -88,6 +91,16 @@ spec:
       - name: mediawiki-images
         persistentVolumeClaim:
           claimName: mediawiki-images-pvc
+      - name: oauth-secrets
+        secret:
+          secretName: wikibase-secrets
+          items:
+          - key: oauth.key
+            path: oauth.key
+            mode: 0600
+          - key: oauth.cert
+            path: oauth.cert
+            mode: 0644
   volumeClaimTemplates:
   - metadata:
       name: apache-logs
