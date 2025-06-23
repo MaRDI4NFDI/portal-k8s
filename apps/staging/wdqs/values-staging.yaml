@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.9"
+      version: "0.1.10"
   values:
     wdqs:
       host: staging-wdqs
@@ -14,6 +14,7 @@ spec:
       #host: staging-wikibase
       host: staging.mardi4nfdi.org
       domain: "staging.mardi4nfdi.org"
+      scheme: https
     ingress:
       enabled: true
       host: query.staging.mardi4nfdi.org
