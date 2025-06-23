@@ -38,6 +38,7 @@ frontend:
 
 wikibase:
   host: wikibase
+  scheme: http
   domain: ""
 
 ingress:

@@ -29,7 +29,7 @@ spec:
         - name: WIKIBASE_HOST
           value: "{{ .Values.wikibase.host }}"
         - name: WIKIBASE_SCHEME
-          value: "http"
+          value: "{{ .Values.wikibase.scheme }}"
         - name: WDQS_HOST
           value: "{{ .Values.wdqs.host }}"
         - name: WDQS_PORT
