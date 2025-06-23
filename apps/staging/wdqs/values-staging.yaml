@@ -11,7 +11,8 @@ spec:
     wdqs:
       host: staging-wdqs
     wikibase:
-      host: staging-wikibase
+      #host: staging-wikibase
+      host: staging.mardi4nfdi.org
       domain: "staging.mardi4nfdi.org"
     ingress:
       enabled: true
