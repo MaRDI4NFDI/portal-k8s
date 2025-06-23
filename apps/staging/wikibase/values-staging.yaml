@@ -14,8 +14,8 @@ spec:
       enabled: true
       host: staging.mardi4nfdi.org
     mediawiki:
-      host: localhost
-      scheme: http
+      host: staging.mardi4nfdi.org
+      scheme: https
       db_server: staging-mariadb-primary:3306
       db_name: my_wiki
       db_user: sqluser
