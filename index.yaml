@@ -282,6 +282,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.0/quickstatements-0.1.0.tgz
     version: 0.1.0
+  s3-proxy:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-24T10:50:28.450819215Z"
+    description: A Helm chart for an S3 proxy
+    digest: 8faa2a9748a7b3406c61b40ff5ccad510720c000e3ac6d33d729bb72efeb490e
+    name: s3-proxy
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/s3-proxy-0.1.0/s3-proxy-0.1.0.tgz
+    version: 0.1.0
   wdqs:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -545,4 +556,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-23T14:01:59.634442589Z"
+generated: "2025-06-24T10:50:28.450961855Z"
