@@ -12,4 +12,5 @@ resources:
   - quickstatements
   - latexml
   - ffmpeg
+  - s3-proxy
   - vm-services
