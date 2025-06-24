@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.0"
+      version: "0.1.1"
   values:
     ingress:
       host: "images.staging.mardi4nfdi.org"
