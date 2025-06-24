@@ -1,6 +1,7 @@
 image:
   repository: ghcr.io/mardi4nfdi/s3-proxy
   tag: main
+  pullPolicy: Always
 
 replicas: 2
 
