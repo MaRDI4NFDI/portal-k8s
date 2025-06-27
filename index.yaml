@@ -303,6 +303,16 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/s3-proxy-0.1.0/s3-proxy-0.1.0.tgz
     version: 0.1.0
+  standalone-mariadb:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-27T13:07:29.214427357Z"
+    description: A Helm chart for single MariaDB instance using mariadb-operator
+    digest: dec0210c51d8c931ee630bad06c4d0002e20a5075a9e56d9537025aa60405e0a
+    name: standalone-mariadb
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/standalone-mariadb-0.1.0/standalone-mariadb-0.1.0.tgz
+    version: 0.1.0
   wdqs:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -566,4 +576,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-24T12:22:39.338666603Z"
+generated: "2025-06-27T13:07:29.214560426Z"
