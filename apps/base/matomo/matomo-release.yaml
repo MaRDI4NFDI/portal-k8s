@@ -9,6 +9,6 @@ spec:
       chart: matomo
       version: "9.3.13"
       sourceRef:
-        kind: HelmRepository
+        kind: OCIRepository
         name: bitnami-matomo
         namespace: flux-system
