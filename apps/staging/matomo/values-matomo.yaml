@@ -1,0 +1,54 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-matomo
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "9.3.13"
+  values:
+    matomoUsername: "admin"
+    matomoEmail: "admin@example.com"
+    matomoWebsiteName: "MaRDI Staging Site"
+    matomoWebsiteHost: "https://staging.mardi4nfdi.org"
+    
+    mariadb:
+      enabled: false
+    
+    externalDatabase:
+      host: "staging-matomo-mariadb-service"
+      port: 3306
+      user: "matomo"
+      database: "matomo"
+      existingSecret: ""
+    
+    image:
+      pullPolicy: IfNotPresent
+    
+    resourcesPreset: "micro"
+    
+    persistence:
+      enabled: true
+      size: 2Gi
+    
+    service:
+      type: ClusterIP
+    
+    ingress:
+      enabled: false
+    
+    cronjobs:
+      taskScheduler:
+        enabled: true
+        schedule: "*/15 * * * *"
+      archive:
+        enabled: true
+        schedule: "0 2 * * *"
+    
+    metrics:
+      enabled: false
+
+
+mariadb:
+  enabled: false

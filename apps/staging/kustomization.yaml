@@ -10,6 +10,7 @@ resources:
   - traefik
   - wdqs
   - quickstatements
+  - matomo
   - latexml
   - ffmpeg
   - s3-proxy
