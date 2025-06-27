@@ -1,0 +1,52 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  rootPasswordSecretKeyRef:
+    name: {{ .Values.secretName }}
+    key: MARIADB_ROOT_PASSWORD
+
+  database: {{ .Values.database.name }}
+  username: {{ .Values.database.user }}
+  passwordSecretKeyRef:
+    name: {{ .Values.secretName }}
+    key: USER_PASSWORD
+  
+  image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+  port: {{ .Values.port }}
+
+  replicas: 1
+
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=1024M
+    max_allowed_packet=256M
+
+  storage:
+    size: {{ .Values.storage.size }}
+    storageClassName: csi-rbd-sc
+    volumeClaimTemplate:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}
+      storageClassName: csi-rbd-sc
+
+  resources:
+    requests:
+      cpu: {{ .Values.resources.requests.cpu }}
+      memory: {{ .Values.resources.requests.memory }}
+    limits:
+      cpu: {{ .Values.resources.limits.cpu }}
+      memory: {{ .Values.resources.limits.memory }}
+
+  metrics:
+    enabled: {{ .Values.metrics.enabled }}
