@@ -7,11 +7,11 @@ resources:
 namePrefix: staging-
 namespace: staging
 patches:
-  - path: values-staging.yaml
+  - path: values-matomo.yaml
     target:
       kind: HelmRelease
       name: matomo
-  - path: values-staging.yaml
+  - path: values-mariadb.yaml
     target:
       kind: HelmRelease
       name: matomo-mariadb
