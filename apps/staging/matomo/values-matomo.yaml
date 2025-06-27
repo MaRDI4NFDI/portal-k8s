@@ -21,7 +21,7 @@ spec:
       port: 3306
       user: "matomo"
       database: "matomo"
-      existingSecret: ""
+      existingSecret: "matomo-secrets"
     
     image:
       pullPolicy: IfNotPresent
