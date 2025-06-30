@@ -10,6 +10,7 @@ port: 3306
 storage:
   size: 2Gi
 backup:
+  name: "backup-standalone"
   schedule: "0 2 * * *"
   bucket: "bucket-name"
   prefix: "prefix"
