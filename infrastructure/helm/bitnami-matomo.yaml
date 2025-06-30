@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 24h
-  url: oci://registry-1.docker.io/bitnamicharts
+  url: oci://registry-1.docker.io/bitnamicharts/matomo
   ref:
     tag: "9.3.13"
   secretRef:
