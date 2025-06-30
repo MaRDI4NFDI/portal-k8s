@@ -11,7 +11,7 @@ spec:
   username: {{ .Values.database.user }}
   passwordSecretKeyRef:
     name: {{ .Values.secretName }}
-    key: USER_PASSWORD
+    key: db-password
   
   image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
