@@ -8,5 +8,3 @@ spec:
   url: oci://registry-1.docker.io/bitnamicharts/matomo
   ref:
     tag: "9.3.13"
-  secretRef:
-    name: dockerhub-secret

@@ -4,11 +4,7 @@ metadata:
   name: matomo
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: matomo
-      version: "9.3.13"
-      sourceRef:
-        kind: OCIRepository
-        name: bitnami-matomo
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-matomo
+    namespace: flux-system
