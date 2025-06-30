@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.0"
+      version: "0.1.1"
   values:
     image:
       repository: mariadb
@@ -20,6 +20,7 @@ spec:
     storage:
       size: 2Gi
     backup:
+      name: "backup-matomo"
       schedule: "0 6 * * *"
       bucket: "mardi"
       prefix: "staging/matomo"
