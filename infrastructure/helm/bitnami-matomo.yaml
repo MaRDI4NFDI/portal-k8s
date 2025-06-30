@@ -9,4 +9,4 @@ spec:
   ref:
     tag: "9.3.13"
   secretRef:
-    name: docker-registry
+    name: dockerhub-secret
