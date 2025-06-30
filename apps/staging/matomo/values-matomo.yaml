@@ -4,9 +4,6 @@ metadata:
   name: staging-matomo
   namespace: staging
 spec:
-  chart:
-    spec:
-      version: "9.3.13"
   values:
     matomoUsername: "admin"
     matomoEmail: "admin@example.com"
