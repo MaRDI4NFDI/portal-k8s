@@ -306,6 +306,15 @@ entries:
   standalone-mariadb:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-06-30T14:26:51.19871436Z"
+    description: A Helm chart for single MariaDB instance using mariadb-operator
+    digest: efd3f14ff71fb5fcef6f1fb4f5b259e8b7e3906b966d9484fdf764b80021d63b
+    name: standalone-mariadb
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/standalone-mariadb-0.1.2/standalone-mariadb-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-06-30T13:37:21.373158532Z"
     description: A Helm chart for single MariaDB instance using mariadb-operator
     digest: 1557a5f579c2967af35837a3005cd905c73356215257e9aab25c925deff428b7
@@ -585,4 +594,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-30T13:37:21.373265493Z"
+generated: "2025-06-30T14:26:51.198913294Z"
