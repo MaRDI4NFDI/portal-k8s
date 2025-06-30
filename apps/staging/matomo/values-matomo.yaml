@@ -37,10 +37,10 @@ spec:
     
     cronjobs:
       taskScheduler:
-        enabled: true
+        enabled: false
         schedule: "*/15 * * * *"
       archive:
-        enabled: true
+        enabled: false
         schedule: "0 2 * * *"
     
     metrics:
