@@ -12,7 +12,7 @@ spec:
       repository: mariadb
       tag: 11.8.2
       pullPolicy: IfNotPresent
-    secretName: "standalone-mariadb-secrets" 
+    secretName: "matomo-secrets" 
     database:
       name: "matomo"
       user: "matomo"
