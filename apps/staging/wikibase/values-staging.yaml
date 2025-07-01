@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.13"
+      version: "0.1.14"
   values:
     replicas: 2
     port: 80
@@ -26,8 +26,6 @@ spec:
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
     storage:
-      images:
-        size: 200Mi
       logs:
         size: 200Mi
     resources:
