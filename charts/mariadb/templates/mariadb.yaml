@@ -21,12 +21,6 @@ spec:
       basicAuth:
         enabled: true
 
-  primaryService:
-    type: LoadBalancer
-
-  secondaryService:
-    type: LoadBalancer
-
   myCnf: |
     [mariadb]
     bind-address=*
