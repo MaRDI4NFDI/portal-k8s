@@ -5,6 +5,9 @@ metadata:
   namespace: staging
 spec:
   values:
+    updateStrategy:
+      type: Recreate
+      
     matomoUsername: "admin"
     matomoEmail: "admin@example.com"
     matomoWebsiteName: "MaRDI Staging Site"
