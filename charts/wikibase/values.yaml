@@ -24,8 +24,6 @@ mediawiki:
   formulasearch_host: formulasearch
   formulasearch_port: 1985
 storage:
-  images:
-    size: 200Mi
   logs:
     size: 200Mi
 resources:

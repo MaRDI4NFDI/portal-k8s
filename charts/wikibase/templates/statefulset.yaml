@@ -37,8 +37,6 @@ spec:
         ports:
         - containerPort: {{ .Values.port }}
         volumeMounts:
-        - name: mediawiki-images
-          mountPath: /var/www/html/w/images
         - name: apache-logs
           mountPath: /var/log/apache2
         - name: oauth-secrets
@@ -88,9 +86,6 @@ spec:
         - secretRef:
             name: wikibase-secrets
       volumes:
-      - name: mediawiki-images
-        persistentVolumeClaim:
-          claimName: mediawiki-images-pvc
       - name: oauth-secrets
         secret:
           secretName: wikibase-secrets
