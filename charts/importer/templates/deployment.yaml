@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: {{ .Values.importer.image.repository }}:{{ .Values.importer.image.tag }}
+        env:
+        - name: DB_HOST
+          value: {{ .Values.database.host }}
+        - name: DB_NAME
+          value: {{ .Values.database.name }}
+        - name: SPARQL_ENDPOINT_URL
+          value: {{ .Values.endpoints.sparql }}
+        - name: MEDIAWIKI_API_URL
+          value: {{ .Values.endpoints.mediawiki }}
+        - name: WIKIBASE_URL
+          value: {{ .Values.endpoints.wikibase }}
+        envFrom:
+        - secretRef:
+            name: importer-secrets
+        
+        

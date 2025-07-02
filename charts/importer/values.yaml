@@ -1,0 +1,24 @@
+importer:
+  image:
+    repository: "ghcr.io/mardi4nfdi/docker-importer"
+    tag: "main"
+
+api:
+  image:
+    repository: "ghcr.io/mardi4nfdi/importer-api"
+    tag: "main"
+
+database:
+  host: "mariadb"
+  name: "wikidata_importer"
+
+endpoints:
+  mediawiki: "mardi-wikibase/w/api.php"
+  wikibase: "mardi-wikibase"
+  sparql: "mardi-wikibase/sparql"
+
+ingress:
+  host: ""
+
+servicePort:
+containerPort:
