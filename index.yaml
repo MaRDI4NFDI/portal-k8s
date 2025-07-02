@@ -31,6 +31,16 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/elasticsearch-0.1.0/elasticsearch-0.1.0.tgz
     version: 0.1.0
+  importer:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-02T16:26:31.533599722Z"
+    description: A Helm chart for the MaRDI importer utilities
+    digest: 420018cd97b487e78de7e4291ae3e601d3c01d73057e8474a12ef46a0a6d0154
+    name: importer
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/importer-0.1.0/importer-0.1.0.tgz
+    version: 0.1.0
   jobrunner:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -641,4 +651,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-02T16:11:51.664213558Z"
+generated: "2025-07-02T16:26:31.533839084Z"
