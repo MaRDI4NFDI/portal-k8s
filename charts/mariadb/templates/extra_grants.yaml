@@ -1,0 +1,134 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: msc-user-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "msc_classification"
+  table: "*"
+  username: msc-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: abstract-user-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "paper_abstracts_db"
+  table: "*"
+  username: abstract-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "wikidata_importer"
+  table: "*"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-text-in-lang-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wbt_text_in_lang"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-term-in-lang-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wbt_term_in_lang"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-item-terms-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wbt_item_terms"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-property-terms-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wbt_property_terms"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-id-mapping-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wb_id_mapping"
+  username: importer-user
+  host: "%"
+  grantOption: false
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: importer-user-wiki-text-grant
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  privileges:
+    - "SELECT"
+  database: "my_wiki"
+  table: "wbt_text"
+  username: importer-user
+  host: "%"
+  grantOption: false

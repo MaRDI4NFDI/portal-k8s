@@ -1,0 +1,41 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: msc-user
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  passwordSecretKeyRef:
+    name: wikibase-secrets
+    key: MSC_USER
+  maxUserConnections: 20
+  host: "%"
+  cleanupPolicy: Delete
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: importer-user
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  passwordSecretKeyRef:
+    name: importer-secrets
+    key: IMPORTER_DB_PASSWORD
+  maxUserConnections: 20
+  host: "%"
+  cleanupPolicy: Delete
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: abstract-user
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  passwordSecretKeyRef:
+    name: wikibase-secrets
+    key: ABSTRACT_USER
+  maxUserConnections: 20
+  host: "%"
+  cleanupPolicy: Delete

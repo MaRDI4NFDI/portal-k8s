@@ -1,0 +1,14 @@
+{{- $databases := list "msc_classification" "wikidata_importer" "paper_abstracts_db" }}
+{{- range $databases }}
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: {{ . }}
+spec:
+  mariaDbRef:
+    name: {{ $.Release.Name }}
+  characterSet: utf8mb4
+  collate: utf8mb4_unicode_ci
+  cleanupPolicy: Delete
+{{- end }}
