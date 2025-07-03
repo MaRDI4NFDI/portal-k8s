@@ -10,7 +10,7 @@ api:
 
 database:
   host: "mariadb"
-  name: "wikidata_importer"
+  name: "wikidata-importer"
 
 endpoints:
   mediawiki: "mardi-wikibase/w/api.php"
