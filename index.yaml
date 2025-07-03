@@ -34,6 +34,15 @@ entries:
   importer:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-03T09:26:19.7219493Z"
+    description: A Helm chart for the MaRDI importer utilities
+    digest: dce271ef3d545cd22514823e4f689daa23db01b2f217aeef73c3face83ffa27a
+    name: importer
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/importer-0.1.1/importer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-02T16:26:31.533599722Z"
     description: A Helm chart for the MaRDI importer utilities
     digest: 420018cd97b487e78de7e4291ae3e601d3c01d73057e8474a12ef46a0a6d0154
@@ -134,6 +143,15 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/latexml-0.1.0/latexml-0.1.0.tgz
     version: 0.1.0
   mariadb:
+  - apiVersion: v2
+    appVersion: 10.11.3
+    created: "2025-07-03T09:26:19.921352349Z"
+    description: A Helm chart for MariaDB deployment using mariadb-operator
+    digest: 05b8febe4aaacb13b85e94e721f5a949c35173b30becc36ff83866606d36468e
+    name: mariadb
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mariadb-0.1.16/mariadb-0.1.16.tgz
+    version: 0.1.16
   - apiVersion: v2
     appVersion: 10.11.3
     created: "2025-07-02T16:11:51.663973906Z"
@@ -651,4 +669,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-02T16:26:31.533839084Z"
+generated: "2025-07-03T09:26:19.921597037Z"
