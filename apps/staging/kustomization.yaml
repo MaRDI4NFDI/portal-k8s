@@ -10,6 +10,7 @@ resources:
   - traefik
   - wdqs
   - quickstatements
+  - importer
   - matomo
   - latexml
   - ffmpeg
