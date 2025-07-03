@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-importer
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.2"
+  values:
+    database:
+      host: "staging-mariadb"
+      name: "wikidata-importer"
+    endpoints:
+      mediawiki: "http://staging-wikibase/w/api.php"
+      wikibase: "http://staging-wikibase"
+      sparql: "http://staging-wdqs:9999/sparql"
+    ingress:
+      host: "importer.staging.mardi4nfdi.org"
+
+
