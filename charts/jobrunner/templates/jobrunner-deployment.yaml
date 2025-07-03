@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-jobrunner
+  name: {{ .Release.Name }}
   labels:
-    app: redis-jobrunner
+    app: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.services.jobrunner.replicas }}
   selector:
     matchLabels:
-      app: redis-jobrunner
+      app: {{ .Release.Name }}
       name: jobrunner
   template:
     metadata:
       labels:
-        app: redis-jobrunner
+        app: {{ .Release.Name }}
         name: jobrunner
     spec:
       containers:
-      - name: redis-jobrunner
+      - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         args: {{- toYaml .Values.services.jobrunner.args | nindent 8 }}

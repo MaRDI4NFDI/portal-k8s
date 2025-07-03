@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-rescheduler
+  name: {{ .Release.Name }}-rescheduler
   labels:
-    app: redis-jobrunner
+    app: {{ .Release.Name }}-rescheduler
 spec:
   replicas: {{ .Values.services.rescheduler.replicas }}
   selector:
     matchLabels:
-      app: redis-jobrunner
+      app: {{ .Release.Name }}-rescheduler
       name: rescheduler
   template:
     metadata:
       labels:
-        app: redis-jobrunner
+        app: {{ .Release.Name }}-rescheduler
         name: rescheduler
     spec:
       containers:
-      - name: redis-rescheduler
+      - name: {{ .Release.Name }}-rescheduler
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         args: {{- toYaml .Values.services.rescheduler.args | nindent 8 }}
