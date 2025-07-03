@@ -23,6 +23,10 @@ redis:
   host: "redis-master"
   port: 6379
 
+mediawiki:
+  scheme: http
+  host: localhost
+
 runners:
   basic: 2
   dispChanges: 2
