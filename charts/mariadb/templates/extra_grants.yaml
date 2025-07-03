@@ -7,7 +7,7 @@ spec:
     name: {{ .Release.Name }}
   privileges:
     - "SELECT"
-  database: "msc_classification"
+  database: "msc-classification"
   table: "*"
   username: msc-user
   host: "%"
@@ -22,7 +22,7 @@ spec:
     name: {{ .Release.Name }}
   privileges:
     - "SELECT"
-  database: "paper_abstracts_db"
+  database: "paper-abstracts-db"
   table: "*"
   username: abstract-user
   host: "%"
@@ -36,8 +36,8 @@ spec:
   mariaDbRef:
     name: {{ .Release.Name }}
   privileges:
-    - "SELECT"
-  database: "wikidata_importer"
+    - "ALL PRIVILEGES"
+  database: "wikidata-importer"
   table: "*"
   username: importer-user
   host: "%"

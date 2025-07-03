@@ -1,4 +1,4 @@
-{{- $databases := list "msc_classification" "wikidata_importer" "paper_abstracts_db" }}
+{{- $databases := list "msc-classification" "wikidata-importer" "paper-abstracts-db" }}
 {{- range $databases }}
 ---
 apiVersion: k8s.mariadb.com/v1alpha1
