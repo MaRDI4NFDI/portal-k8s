@@ -6,9 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.14"
+      version: "0.1.16"
   values:
-    replicas: 3  
+    replicas: 1
+    galera:
+      enabled: false  
     database: my_wiki
     user: sqluser
     storage:
