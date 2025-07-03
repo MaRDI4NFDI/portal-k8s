@@ -20,5 +20,4 @@ endpoints:
 ingress:
   host: ""
 
-servicePort:
-containerPort:
+port: 80
