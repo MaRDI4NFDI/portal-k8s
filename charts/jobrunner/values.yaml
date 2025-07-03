@@ -10,6 +10,8 @@ mediawiki:
   db_server: mariadb
   db_name: my_wiki
   db_user: sqluser
+  scheme: http
+  host: localhost
 
 resources:
   requests:
@@ -22,10 +24,6 @@ resources:
 redis:
   host: "redis-master"
   port: 6379
-
-mediawiki:
-  scheme: http
-  host: localhost
 
 runners:
   basic: 2
