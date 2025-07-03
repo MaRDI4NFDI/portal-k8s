@@ -6,12 +6,14 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.6"
+      version: "0.1.8"
   values:
     redis:
       host: "staging-redis-master"
     mediawiki:
       db_server: staging-mariadb-primary:3306
+      host: staging.mardi4nfdi.org
+      scheme: https
     resources:
       requests:
         cpu: 500m
