@@ -15,7 +15,7 @@ spec:
         app: {{ .Release.Name }}-api
     spec:
       containers:
-      - name: importer-api
+      - name: {{ .Release.Name }}-api
         image: {{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}
         ports:
         - containerPort: {{ .Values.port }}

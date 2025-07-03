@@ -9,8 +9,8 @@ spec:
     - match: Host(`{{ .Values.ingress.host }}`)
       kind: Rule
       services:
-        - name: {{ .Release.Name }}
+        - name: {{ .Release.Name }}-api
           namespace: {{ .Release.Namespace }}
-          port: {{ .Values.servicePort }}
+          port: {{ .Values.port }}
   tls:
     secretName: {{ .Release.Name }}-tls
