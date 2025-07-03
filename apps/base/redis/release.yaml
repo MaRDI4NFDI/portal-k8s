@@ -4,20 +4,10 @@ metadata:
   name: redis
 spec:
   interval: 5m
-  chart:
-    spec:
-      # OCI Repository not yet supported
-      # chart: redis
-      # version: '20.12.1'
-      # sourceRef:
-      #   kind: OCIRepository
-      #   name: bitnami-redis
-      #   namespace: flux-system
-      chart: ./external-charts/redis-21.2.1.tgz
-      sourceRef:
-        kind: GitRepository
-        name: external-portal-k8s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-redis
+    namespace: flux-system
   values:
     image:
       repository: redis

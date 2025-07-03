@@ -1,11 +1,10 @@
-# OCIRepository not support in our current Flux version
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: OCIRepository
-# metadata:
-#   name: bitnami-redis
-#   namespace: flux-system
-# spec:
-#   interval: 1h
-#   url: oci://registry-1.docker.io/bitnamicharts/redis
-#   ref:
-#     tag: 20.12.1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bitnami-redis
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: oci://registry-1.docker.io/bitnamicharts/redis
+  ref:
+    tag: "21.2.6"
