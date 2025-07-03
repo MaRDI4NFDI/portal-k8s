@@ -39,6 +39,10 @@ spec:
               key: MARIADB_PASSWORD
         - name: DEPLOYMENT_ENV
           value: "prod"
+        - name: MW_REDIS_HOST
+          value: "{{ .Values.redis.host }}"
+        - name: MW_REDIS_PORT
+          value: "{{ .Values.redis.port }}"
         envFrom:
         - secretRef:
             name: wikibase-secrets
