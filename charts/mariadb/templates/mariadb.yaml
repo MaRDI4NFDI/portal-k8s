@@ -15,11 +15,13 @@ spec:
   port: {{ .Values.port }}
 
   replicas: {{ .Values.replicas }}
+  {{- if gt (.Values.replicas | int) 1 }}
   galera:
     enabled: true
     agent:
       basicAuth:
         enabled: true
+  {{- end }}
 
   myCnf: |
     [mariadb]
