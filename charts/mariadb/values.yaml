@@ -4,6 +4,8 @@ image:
   pullPolicy: IfNotPresent
 port: 3306
 replicas: 3  
+galera:
+  enabled: false
 database: my_wiki
 user: sqluser
 storage:

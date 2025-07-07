@@ -15,7 +15,7 @@ spec:
   port: {{ .Values.port }}
 
   replicas: {{ .Values.replicas }}
-  {{- if gt (.Values.replicas | int) 1 }}
+  {{- if .Values.galera.enabled }}
   galera:
     enabled: true
     agent:
