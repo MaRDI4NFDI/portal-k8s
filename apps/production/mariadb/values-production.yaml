@@ -10,7 +10,7 @@ spec:
   values:
     replicas: 1
     galera:
-      enabled: true
+      enabled: false
     #   primary:
     #     podIndex: 0
     #     automaticFailover: true
