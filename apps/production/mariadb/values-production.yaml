@@ -8,29 +8,29 @@ spec:
     spec:
       version: "0.1.17"
   values:
-    replicas: 3
-    galera:
-      enabled: true
-      primary:
-        podIndex: 0
-        automaticFailover: true
-      recovery:
-        enabled: true
-        minClusterSize: 1
-        forceClusterBootstrapInPod: prod-mariadb-0
-        clusterMonitorInterval: 10s
-        clusterHealthyTimeout: 30s
-        clusterBootstrapTimeout: 10m
-        podRecoveryTimeout: 5m
-        podSyncTimeout: 5m
-      config:
-        reuseStorageVolume: false
-        volumeClaimTemplate:
-          resources:
-            requests:
-              storage: 300Mi
-          accessModes:
-            - ReadWriteOnce
+    replicas: 1
+    # galera:
+    #   enabled: true
+    #   primary:
+    #     podIndex: 0
+    #     automaticFailover: true
+    #   recovery:
+    #     enabled: true
+    #     minClusterSize: 1
+    #     forceClusterBootstrapInPod: prod-mariadb-0
+    #     clusterMonitorInterval: 10s
+    #     clusterHealthyTimeout: 30s
+    #     clusterBootstrapTimeout: 10m
+    #     podRecoveryTimeout: 5m
+    #     podSyncTimeout: 5m
+    #   config:
+    #     reuseStorageVolume: false
+    #     volumeClaimTemplate:
+    #       resources:
+    #         requests:
+    #           storage: 300Mi
+    #       accessModes:
+    #         - ReadWriteOnce
     database: my_wiki
     user: sqluser
     storage:
