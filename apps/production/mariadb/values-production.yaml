@@ -17,7 +17,7 @@ spec:
       recovery:
         enabled: true
         minClusterSize: 1
-        forceClusterBootstrapInPod: {{ .Release.Name }}-0
+        forceClusterBootstrapInPod: prod-mariadb-0
         clusterMonitorInterval: 10s
         clusterHealthyTimeout: 30s
         clusterBootstrapTimeout: 10m
