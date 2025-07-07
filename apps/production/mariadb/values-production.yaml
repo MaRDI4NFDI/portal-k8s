@@ -31,6 +31,8 @@ spec:
               storage: 300Mi
           accessModes:
             - ReadWriteOnce
+      bootstrap:
+        enabled: true
     database: my_wiki
     user: sqluser
     storage:
