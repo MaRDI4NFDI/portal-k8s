@@ -6,23 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.18"
+      version: "0.1.19"
   values:
-    replicas: 1
+    replicas: 3
     galera:
-      enabled: false
-      primary:
-        podIndex: 0
-        automaticFailover: true
-      recovery:
-        enabled: true
-        minClusterSize: 1
-        forceClusterBootstrapInPod: prod-mariadb-0
-        clusterMonitorInterval: 10s
-        clusterHealthyTimeout: 30s
-        clusterBootstrapTimeout: 10m
-        podRecoveryTimeout: 5m
-        podSyncTimeout: 5m
+      enabled: true
       config:
         reuseStorageVolume: false
         volumeClaimTemplate:
