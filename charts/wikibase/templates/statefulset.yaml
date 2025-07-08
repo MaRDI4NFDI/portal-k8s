@@ -16,6 +16,10 @@ spec:
         app: {{ .Release.Name }}
         statefulset-group: {{ .Release.Name }} 
     spec:
+      securityContext:
+        fsGroup: 33  # www-data group ID
+        runAsUser: 33  # www-data user ID
+        runAsGroup: 33
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
