@@ -21,6 +21,14 @@ spec:
     agent:
       basicAuth:
         enabled: true
+    {{- if .Values.galera.recovery }}
+    recovery:
+      {{- toYaml .Values.galera.recovery | nindent 6 }}
+    {{- end }}
+    {{- if .Values.galera.config }}
+    config:
+      {{- toYaml .Values.galera.config | nindent 6 }}
+    {{- end }}
   {{- end }}
 
   myCnf: |
