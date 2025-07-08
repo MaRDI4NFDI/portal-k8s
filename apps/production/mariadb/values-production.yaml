@@ -8,9 +8,9 @@ spec:
     spec:
       version: "0.1.18"
   values:
-    replicas: 3
+    replicas: 1
     galera:
-      enabled: true
+      enabled: false
       primary:
         podIndex: 0
         automaticFailover: true
