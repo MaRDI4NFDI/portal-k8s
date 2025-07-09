@@ -16,8 +16,6 @@ spec:
         app: {{ .Release.Name }}
         statefulset-group: {{ .Release.Name }} 
     spec:
-      securityContext:
-        fsGroup: 33  # www-data group ID
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -87,7 +85,7 @@ spec:
           items:
           - key: oauth.key
             path: oauth.key
-            mode: 0600
+            mode: 0644
           - key: oauth.cert
             path: oauth.cert
             mode: 0644
