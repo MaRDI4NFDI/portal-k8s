@@ -16,6 +16,8 @@ spec:
         app: {{ .Release.Name }}
         statefulset-group: {{ .Release.Name }} 
     spec:
+      securityContext:
+        fsGroup: 33 # www-data
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
