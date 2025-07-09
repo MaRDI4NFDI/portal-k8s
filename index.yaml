@@ -375,6 +375,18 @@ entries:
       dependencies: '- Secret: wikibase-secrets (OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET)'
     apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-09T15:09:15.357133808Z"
+    description: A Helm chart for Quickstatements
+    digest: 5cc9486e5a2106e0d1c7ea085ff18b6c2f870773e7be237515a0142751d91c68
+    name: quickstatements
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.6/quickstatements-0.1.6.tgz
+    version: 0.1.6
+  - annotations:
+      dependencies: '- Secret: wikibase-secrets (OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET)'
+    apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-09T14:50:55.655724584Z"
     description: A Helm chart for Quickstatements
     digest: f3c221a9ca16a591fae1d6728c1d081e00c4c20cc31eddee1c625ab51cf07f6f
@@ -828,4 +840,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-09T14:50:55.656007097Z"
+generated: "2025-07-09T15:09:15.357327489Z"
