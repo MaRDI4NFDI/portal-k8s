@@ -14,7 +14,7 @@ quickstatements:
   url: "https://quickstatements.example"
 
 ingress:
-  host: ""
+  subdomain: "quickstatements"
 
 resources:
   requests:
