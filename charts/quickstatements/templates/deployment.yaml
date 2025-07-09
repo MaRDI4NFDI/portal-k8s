@@ -26,9 +26,9 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
         env:
         - name: WIKIBASE_PUBLIC_URL
-          value: "{{ .Values.wikibase.url }}"
+          value: "https://${BASE_DOMAIN}"
         - name: QUICKSTATEMENTS_PUBLIC_URL
-          value: "{{ .Values.quickstatements.url }}"
+          value: "https://{{ .Values.ingress.subdomain }}.${BASE_DOMAIN}"
         - name: WB_ITEM_NAMESPACE
           value: "120"
         - name: WB_PROPERTY_NAMESPACE

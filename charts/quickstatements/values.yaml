@@ -7,12 +7,6 @@ image:
 
 port: 80
 
-wikibase:
-  url: "https://wikibase.example"
-
-quickstatements:
-  url: "https://quickstatements.example"
-
 ingress:
   subdomain: "quickstatements"
 
