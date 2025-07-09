@@ -7,7 +7,3 @@ spec:
   chart:
     spec:
       version: "0.1.7"
-  valuesFrom:
-    - kind: ConfigMap
-      name: staging-vars
-      valuesKey: values.yaml

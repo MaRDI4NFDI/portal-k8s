@@ -16,3 +16,13 @@ resources:
   - ffmpeg
   - s3-proxy
   - vm-services
+patches:
+  - target:
+      kind: HelmRelease
+    patch: |-
+      - op: add
+        path: /spec/valuesFrom
+        value:
+          - kind: ConfigMap
+            name: staging-vars
+            valuesKey: values.yaml
