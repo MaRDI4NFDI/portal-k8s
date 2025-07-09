@@ -18,10 +18,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: production-vars
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -43,7 +39,3 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: staging-vars

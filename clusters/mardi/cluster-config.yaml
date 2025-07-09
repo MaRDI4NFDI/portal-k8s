@@ -2,14 +2,18 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: production-vars
-  namespace: flux-system
+  namespace: production
 data:
-  BASE_DOMAIN: "portal.mardi4nfdi.de"
+  values.yaml: |
+    global:
+      baseDomain: "portal.mardi4nfdi.de"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: staging-vars
-  namespace: flux-system
+  namespace: staging
 data:
-  BASE_DOMAIN: "staging.mardi4nfdi.org"
+  values.yaml: |
+    global:
+      baseDomain: "staging.mardi4nfdi.org"
