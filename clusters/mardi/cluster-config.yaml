@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: production-vars
+  namespace: flux-system
+data:
+  BASE_DOMAIN: "portal.mardi4nfdi.de"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: staging-vars
+  namespace: flux-system
+data:
+  BASE_DOMAIN: "staging.mardi4nfdi.org"
