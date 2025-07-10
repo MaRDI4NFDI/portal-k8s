@@ -2,20 +2,31 @@ image:
   repository: mariadb
   tag: 11.8.2
   pullPolicy: IfNotPresent
+
 port: 3306
+
 replicas: 3  
+
 galera:
   enabled: false
+  extendedTimeouts:
+    enabled: false
+    sstTimeout: 86400
+    sstTimeoutHours: 24
+
 database: my_wiki
 user: sqluser
+
 storage:
   size: 1Ti
+
 backup:
   bucket: ""
   prefix: "mariadb"
   endpoint: ""
   region: "us-east-1"
   schedule: "0 2 * * *"
+
 resources:
   requests:
     cpu: 4000m

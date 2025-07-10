@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-mariadb-config
+  labels:
+    k8s.mariadb.com/watch: ""
+data:
+  my.cnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=10G
+    max_allowed_packet=1G
+    query_cache_size=0
+    query_cache_type=0
+    sort_buffer_size=4M
+    read_rnd_buffer_size=1M
+    performance_schema=ON
+    key_buffer_size=24M
+    innodb_log_file_size=512M
+    max_connections=200
+    ignore_db_dirs=lost+found
+    {{- if .Values.galera.enabled }}
+
+    [galera]
+    wsrep_slave_threads=4
+    wsrep_max_ws_size=2147483647
+    wsrep_max_ws_rows=0
+    {{- if .Values.galera.extendedTimeouts.enabled }}
+    wsrep_sst_receive_timeout={{ .Values.galera.extendedTimeouts.sstTimeout | default 86400 }}
+    wsrep_sst_send_timeout={{ .Values.galera.extendedTimeouts.sstTimeout | default 86400 }}
+    wsrep_provider_options="gcache.size=2G;gcs.fc_limit=256;ist.recv_timeout=PT{{ .Values.galera.extendedTimeouts.sstTimeoutHours | default "24" }}H;sst.timeout=PT{{ .Values.galera.extendedTimeouts.sstTimeoutHours | default "24" }}H"
+    {{- else }}
+    wsrep_sst_receive_timeout=7200
+    wsrep_sst_send_timeout=7200
+    wsrep_provider_options="gcache.size=2G;gcs.fc_limit=256;ist.recv_timeout=PT2H;sst.timeout=PT2H"
+    {{- end }}
+    {{- end }}
