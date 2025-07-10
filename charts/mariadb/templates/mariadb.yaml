@@ -21,20 +21,10 @@ spec:
     agent:
       basicAuth:
         enabled: true
-    replicaThreads: 4
-    {{- if .Values.galera.extendedTimeouts.enabled }}
+    replicaThreads: {{ .Values.galera.replicaThreads }}
     providerOptions:
-      "gcache.size": "2G"
-      "gcs.fc_limit": "256"
-      "ist.recv_timeout": "PT24H"
-      "socket.recv_timeout": "PT24H"
-    {{- else }}
-    providerOptions:
-      "gcache.size": "2G"
-      "gcs.fc_limit": "256"
-      "ist.recv_timeout": "PT2H"
-      "socket.recv_timeout": "PT2H"
-    {{- end }}
+      "gcache.size": {{ .Values.galera.cacheSize }}
+      "gcs.fc_limit": {{ .Values.galera.flowControlLimit }}
     {{- if .Values.galera.recovery }}
     recovery:
       {{- toYaml .Values.galera.recovery | nindent 6 }}

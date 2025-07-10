@@ -11,6 +11,9 @@ galera:
   enabled: false
   extendedTimeouts:
     enabled: false
+  replicaThreads: 1
+  cacheSize: "128M"
+  flowControlLimit: "16"
 
 database: my_wiki
 user: sqluser
