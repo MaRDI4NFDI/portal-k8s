@@ -21,6 +21,20 @@ spec:
     agent:
       basicAuth:
         enabled: true
+    replicaThreads: 4
+    {{- if .Values.galera.extendedTimeouts.enabled }}
+    providerOptions:
+      "gcache.size": "2G"
+      "gcs.fc_limit": "256"
+      "ist.recv_timeout": "PT24H"
+      "socket.recv_timeout": "PT24H"
+    {{- else }}
+    providerOptions:
+      "gcache.size": "2G"
+      "gcs.fc_limit": "256"
+      "ist.recv_timeout": "PT2H"
+      "socket.recv_timeout": "PT2H"
+    {{- end }}
     {{- if .Values.galera.recovery }}
     recovery:
       {{- toYaml .Values.galera.recovery | nindent 6 }}
@@ -31,9 +45,23 @@ spec:
     {{- end }}
   {{- end }}
 
-  myCnfConfigMapKeyRef:
-    name: {{ .Release.Name }}-mariadb-config
-    key: my.cnf
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=10G
+    max_allowed_packet=1G
+    query_cache_size=0
+    query_cache_type=0
+    sort_buffer_size=4M
+    read_rnd_buffer_size=1M
+    performance_schema=ON
+    key_buffer_size=24M
+    innodb_log_file_size=512M
+    max_connections=200
+    ignore_db_dirs=lost+found
 
   {{- if .Values.galera.enabled }}
   livenessProbe:

@@ -11,8 +11,6 @@ galera:
   enabled: false
   extendedTimeouts:
     enabled: false
-    sstTimeout: 86400
-    sstTimeoutHours: 24
 
 database: my_wiki
 user: sqluser
