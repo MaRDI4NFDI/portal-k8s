@@ -6,9 +6,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.2"
+      version: "0.1.3"
   values:
     ingress:
-      enabled: false
-      host: "latexml.staging.mardi4nfdi.org"
+      enabled: true
 
