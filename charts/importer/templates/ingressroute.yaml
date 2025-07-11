@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ .Values.ingress.host }}`)
+    - match: Host(`{{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}`)
       kind: Rule
       services:
         - name: {{ .Release.Name }}-api

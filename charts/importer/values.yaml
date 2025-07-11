@@ -18,6 +18,6 @@ endpoints:
   sparql: "mardi-wikibase/sparql"
 
 ingress:
-  host: ""
+  subdomain: "importer"
 
 port: 80

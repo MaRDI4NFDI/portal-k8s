@@ -8,6 +8,6 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - {{ .Values.ingress.host }}
+    - {{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}
   duration: 2160h # 90d
   renewBefore: 360h # 15d
