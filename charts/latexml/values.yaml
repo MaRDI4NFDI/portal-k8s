@@ -6,7 +6,7 @@ servicePort: 80
 
 ingress:
   enabled: true
-  host: ""
+  subdomain: "latexml"
 
 resources:
   requests:
