@@ -18,6 +18,7 @@ spec:
   {{- if .Values.galera.enabled }}
   galera:
     enabled: true
+    availableWhenDonor: {{ .Values.galera.availableWhenDonor }}
     agent:
       basicAuth:
         enabled: true

@@ -9,6 +9,7 @@ replicas: 3
 
 galera:
   enabled: false
+  availableWhenDonor: false
   extendedTimeouts:
     enabled: false
   replicaThreads: 1
