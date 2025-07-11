@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - mariadb
   - ffmpeg
+  - latexml
 
 patches:
   - target:
