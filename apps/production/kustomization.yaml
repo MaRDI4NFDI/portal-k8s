@@ -7,6 +7,7 @@ resources:
   - ffmpeg
   - latexml
   - traefik
+  - importer
 
 patches:
   - target:
