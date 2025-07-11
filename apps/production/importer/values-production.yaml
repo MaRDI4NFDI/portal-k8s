@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: importer
+  namespace: production
+spec:
+  chart:
+    spec:
+      version: "0.1.4"
+  values:
+    database:
+      host: "mariadb"
+      name: "wikidata-importer"
+    endpoints:
+      mediawiki: "http://wikibase/w/api.php"
+      wikibase: "http://wikibase"
+      sparql: "http://wdqs:9999/sparql"
+
+
