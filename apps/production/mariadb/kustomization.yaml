@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/mariadb
 namePrefix: prod-
-namespace: production
 patches:
   - path: values-production.yaml
     target:

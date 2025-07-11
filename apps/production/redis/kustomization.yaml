@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/redis
 namePrefix: prod-
-namespace: production
 patches:
   - path: values-production.yaml
     target:

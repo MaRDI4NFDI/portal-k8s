@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/traefik
 namePrefix: prod-
-namespace: production
 patches:
   - path: traefik-values-production.yaml
     target:
