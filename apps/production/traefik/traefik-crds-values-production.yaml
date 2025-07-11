@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: prod-traefik-crds
+  name: traefik-crds
 spec:
   chart:
     spec:
