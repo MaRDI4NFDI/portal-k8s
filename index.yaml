@@ -538,6 +538,16 @@ entries:
   s3-proxy:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-14T13:22:17.439721384Z"
+    description: A Helm chart for an S3 proxy
+    digest: b75f7f97d5d9388010c8a4421cbf3569b551f0d3fd668966995d61caca07cbe8
+    name: s3-proxy
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/s3-proxy-0.1.2/s3-proxy-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-06-24T12:22:39.338540867Z"
     description: A Helm chart for an S3 proxy
     digest: f82658a16e04e1e17b907c3d1e4773a78d26b658040af9082cf67e8968128b98
@@ -926,4 +936,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-14T10:11:23.593356117Z"
+generated: "2025-07-14T13:22:17.439947209Z"
