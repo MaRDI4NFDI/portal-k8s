@@ -31,7 +31,7 @@ spec:
         - containerPort: 8000
         envFrom:
         - secretRef:
-            name: s3-credentials
+            name: {{ .Release.Name }}-secrets
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
