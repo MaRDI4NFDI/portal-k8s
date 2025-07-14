@@ -9,6 +9,7 @@ resources:
   - latexml
   - traefik
   # - importer
+  - s3-proxy
 
 patches:
   - target:

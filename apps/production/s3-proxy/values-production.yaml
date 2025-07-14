@@ -1,0 +1,42 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: s3-proxy
+spec:
+  chart:
+    spec:
+      version: 0.1.3
+  values:
+    ingress:
+      secrets:
+        S3_ACCESS_KEY_ID: ENC[AES256_GCM,data:9reLFVAO2iUGw47nkrfSMSHV0I0=,iv:Q9Gofht69khwhTUvmxcpHuTGOnSLtBlHxX9XNGynR3Q=,tag:LGklNrnaEBMx9fvcPFNP0A==,type:str]
+        S3_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:F6C2QwygO69g1yuXNQo6Dv9GDpCr75KRf84uIpHUFEW065NvARcQnQ==,iv:frDHeCvH9tl7Re4uF9p4mx6t/3f9gtiiVrv2AuXQnPQ=,tag:rHLHN/xdAfGiYQLgQ/VGXA==,type:str]
+        S3_REGION: ENC[AES256_GCM,data:+zcpgrNxsQ==,iv:maLpapJqctlKslTPnbROTC+njuNjyMHH7j6eGzSYMT8=,tag:+O4Yzaluu4V76i7v+KfeBQ==,type:str]
+        S3_BUCKET_NAME: ENC[AES256_GCM,data:VMa5bc0J7lHeU+oM,iv:kv33NA9Dj1mjS9xOrOmf7ttER/7v6RhPXhB/pM7CjPg=,tag:nXCAWg4Hp8YZwzrvOs697g==,type:str]
+        S3_ENDPOINT: ENC[AES256_GCM,data:SHZULgjiuiUN8bVFB3MskpaHyKZSJg==,iv:wW93F9X0JITwsWmyJ792y/HUVYOhwTpiUH0uwGpA3Bg=,tag:hHb5CPrqO+xE4Ik0erGJrQ==,type:str]
+sops:
+  lastmodified: "2025-07-14T14:03:14Z"
+  mac: ENC[AES256_GCM,data:5pASkRA0xHjvg51mlNqI9/FusCmQpZP7g4tPLR7MKXBurLwEdmnufSwOroiTyYWT3X8PfMrCbuvpjNPJz0YPDcMgiYyxc1DN75OdcxNnHgdCV5KoYQnd8cWR+qXVbsvqUxG7x+BJxGYcDr2MdJIbB5jrg4peQjc4+5OpHbxRb58=,iv:lHDsdLrCcnEjA/n+WTyMuOVn/42g/4phVwmufnbZpok=,tag:xEgph53vv+wvEgShxCsaaA==,type:str]
+  pgp:
+    - created_at: "2025-07-14T14:03:14Z"
+      enc: |-
+        -----BEGIN PGP MESSAGE-----
+
+        hQIMA90tSATCInn5ARAAv0/PVcl+wzht2naJj5t9US1Mi5Q74kIQl2jq50AHtFz0
+        fR8vEmThaW7EWai3rFlxrIh1lZrZkF16fDBQkR2MUBO4iWyK2uM2mf3ic52fK/lW
+        i62Kq6sUsWcfRGB2mFN1TOKLtv1FKAvuwLIXdSsI2e9Mi0NZfYP8S2OgfodmbjwU
+        Kds4XCbOMXJi91VE54o4S6tq/nfqPk9aK/JTX4jywMz1yvCoWsSY7u1O18/ldYEx
+        R/MNTiNvsOk9Yvi0vE6gSuoVPe68tCusBUGRiFPB17r8v8TrChCggeuR0WJPG5Oa
+        rQfcG3jbruv5DbyxlfcU4MjuoY4U8hKaAQZK5vkwoVp3EdL8g6lhuDtipRkCWfUz
+        Q/F2FrMKUcBJbtpY+QeKukWPlQTJNTnTzejGx5wMC4lqHdBoMk4XmhpV1Pn2S1Ge
+        E9DNYrsqdFp6yFSiZZAglX2Xoi+xXkyuMghtXzkRfjMEROz5DmBd2ThQYLZHpzFr
+        B9VrBl9rUPWW/evBtoY9CbL1ssPQeqUhzn8AO5UzCoHV0aFnNKQ+miQLSXrfJLBK
+        RyTMHvhGqoIMoiigf1/unTPXTouiB45UrZ6kZnenqSFgxsHiFK3Ucs04tK1Y8KLN
+        89shPJFV0rhF01wOJqrKVIF6ryL56DDJkulPViF5hLQZtDiGakvt28yWisvHVP/S
+        XAF7I8S7B3ac6S3ANwMz+Bl3e22I5I6EO3HVU7QgcINbCT/UyEVLiLf0KT+JFFCE
+        GOU9L4oOtT1/4mqPTuOj/GIKttQazQAiotyQBpX09uELOFtVUm+pDvKXBMVT
+        =mhOp
+        -----END PGP MESSAGE-----
+      fp: BE155DFF5AD65EA97520D7E6B003A490455B332D
+  encrypted_regex: ^(data|stringData|secrets)$
+  version: 3.10.2
