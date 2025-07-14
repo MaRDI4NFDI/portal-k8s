@@ -1,6 +1,3 @@
-# IMPORTANT: This chart requires a secret named 'wikibase-secrets' 
-# containing OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET
-
 image:
   repository: wikibase/quickstatements
   tag: 1
@@ -17,3 +14,7 @@ resources:
   limits:
     cpu: 200m
     memory: 256Mi
+
+secrets:
+  OAUTH_CONSUMER_KEY: "oauth-consumer-key"
+  OAUTH_CONSUMER_SECRET: "oauth-consumer-secret" 

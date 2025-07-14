@@ -40,10 +40,10 @@ spec:
         - name: OAUTH_CONSUMER_KEY
           valueFrom:
             secretKeyRef:
-              name: wikibase-secrets
+              name: {{ .Release.Name }}-secrets
               key: OAUTH_CONSUMER_KEY
         - name: OAUTH_CONSUMER_SECRET
           valueFrom:
             secretKeyRef:
-              name: wikibase-secrets
+              name: {{ .Release.Name }}-secrets
               key: OAUTH_CONSUMER_SECRET
