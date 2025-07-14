@@ -28,7 +28,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: 8000
+        - containerPort: {{ .Values.containerPort }}
         envFrom:
         - secretRef:
             name: {{ .Release.Name }}-secrets
@@ -42,14 +42,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: 8000
+            port: {{ .Values.containerPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /health
-            port: 8000
+            port: {{ .Values.containerPort }}
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
