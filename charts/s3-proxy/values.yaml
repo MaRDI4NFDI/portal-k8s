@@ -9,7 +9,7 @@ servicePort: 80
 containerPort: 8000
 
 ingress:
-  host: ""
+  subdomain: "images"
 
 resources:
   requests:
