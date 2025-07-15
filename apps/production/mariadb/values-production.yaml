@@ -27,7 +27,7 @@ spec:
     database: my_wiki
     user: sqluser
     storage:
-      size: 500Gi
+      size: 600Gi
     backup:
       bucket: "mardi"
       prefix: "production/mariadb"
@@ -36,8 +36,8 @@ spec:
     resources:
       requests:
         cpu: 4000m
-        memory: 12Gi
+        memory: 24Gi
       limits:
         cpu: 8000m
-        memory: 15Gi
+        memory: 28Gi
     
