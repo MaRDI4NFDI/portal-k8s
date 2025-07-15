@@ -5,37 +5,4 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.3
-  values:
-    secrets:
-      S3_ACCESS_KEY_ID: ENC[AES256_GCM,data:QjSpejX60+idPOyvuDf3F6J+dRI=,iv:YOXu8JkC2zMnSg2tijhHT0MoEPcDCKE1SVdnyvMxUuA=,tag:5dmFmiudsWGJnWQkLtAjtA==,type:str]
-      S3_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:pW5Rshv9bQ/j3S//GMBybrHK1DMi/yeSv7htFIzBSutmuajE75aVzA==,iv:jbLU1ZiN41Xrhq/tDKwezJPgyaOVF/vXzMCPbjY2rTA=,tag:S2MPtJcs+WaATi7opuQziw==,type:str]
-      S3_REGION: ENC[AES256_GCM,data:zonWEjEMNA==,iv:xd/x+4Sqe1IbNk0YqiWVjolJxxIQfH+61VRrBcNuM0c=,tag:7nBqVZc04ludlTzsZpdYTw==,type:str]
-      S3_BUCKET_NAME: ENC[AES256_GCM,data:Xw8UKw+TVFfytuPa,iv:I0vyDwXlWdHZo+YhZkRtbfgthi3pxXENrnvgXtarUOU=,tag:vIx33rR7e46fa7TtrGPyCw==,type:str]
-      S3_ENDPOINT: ENC[AES256_GCM,data:yV4BtGtFvHe/dTRhW2YDCxoVzY5D7Q==,iv:mUWTE9W8nr0V+vndZYnh/t9UcOYpSqbYAIbYOQ+pRvY=,tag:j2tz7Ko3fI0C6jG1ME/W8Q==,type:str]
-sops:
-  lastmodified: "2025-07-14T14:33:29Z"
-  mac: ENC[AES256_GCM,data:VsuoD3G9l8trPoacK77s/32Zi22AVlC8Kh1pVvlcDlAPdypBCtzOMNLellNPXSbs3LNGKFfXD0KGqKumPGZGOjAj2K3pG7S+wPocUPzJGeN8yaY0Vvs1c6RC4b8Vscom8SUo6LyOHw1F6UshsJBoEd0U/nqsqIL4lDuOd2U4K+g=,iv:vrkxm9jCsKmc/0058+Fhkox+KasCZbCXMoWRQecTa1c=,tag:2C5ell7EAPw4gCcWHgvcJw==,type:str]
-  pgp:
-    - created_at: "2025-07-14T14:33:29Z"
-      enc: |-
-        -----BEGIN PGP MESSAGE-----
-
-        hQIMA90tSATCInn5AQ/9GLUZTGGvdcbd+yj6nLL1jq9Dy8diMuUKZx1cE5hqL1dX
-        mkMoAM2WEJCSFn7YXUnODCTsaJ+uvhzNIMLt1rXpmM5QsEolup0IaWZDDjEkwzoW
-        PnqrZi7rl+VMOe8Au8l2QN4O2mtWX7n+Gb9R6weDcZtQ1KUBulnwms/FxmnVfy2Q
-        2SMLVwYJDzPWVtzNokFcZ9BUudGaris3RW8ntazgCLeRnlJMA3as7PXMGhnvy8Z+
-        pxgAV4Cwn/uuAP2G0v9CU2ENtsppheemyusfXVyGoIWweg0427w76mK3SlNVqHyE
-        NNJOiT/wnt1rzrgr/O4klCsJCZ6OyZtXPjikIOanI5ZdneLg17NH1vCQ2+kX9n6n
-        bk+vxJzvMbtTJmyLf8ATmCO+3ZhpPQU4iSzGrMfWnVaRHFOMdvPNrfq2uYk9ubDp
-        ObY9mzrXIVRHfZYpk2mOdxKXn8vFD0tf7jEa1OIbMgtjufGvUJBw8nbyFeHyB+5A
-        dEQ0G+EPrHrqbH9lVmfwGBMmgAK4MjbTDij8q8DroxGibAzX2dr1YoUucC4uagx8
-        ga67SXYtF8B/htMD0G3oblm+fR0V3ijzYUpRMo7qb8u180UpmGWWlsYwDptLTRyZ
-        skG0ucr6/tOqcSPaTkPUOx9cVYEdKvZ/ZTsSIdGnjt5jXKY9OVGkt2F6oRc7e2HS
-        XAG5flBxGpR3v4elXgGM3fh2TqNSV+2LVHT0y8QnASMXssHPITCCeOtrOoTQW0rr
-        ri0Yh2encMj8DJSjWUDjajoNCTGjlgFLWOZZ88+48BG6c/KpEQBYMwYcu7s3
-        =GIZe
-        -----END PGP MESSAGE-----
-      fp: BE155DFF5AD65EA97520D7E6B003A490455B332D
-  encrypted_regex: ^(data|stringData|secrets)$
-  version: 3.10.2
+      version: 0.1.4
