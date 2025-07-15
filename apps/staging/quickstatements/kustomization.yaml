@@ -9,5 +9,3 @@ patches:
     target:
       kind: HelmRelease
       name: quickstatements
-patchesStrategicMerge:
-  - secrets.yaml
