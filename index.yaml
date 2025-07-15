@@ -437,6 +437,16 @@ entries:
   quickstatements:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-15T14:11:16.351384356Z"
+    description: A Helm chart for Quickstatements
+    digest: 59b2bdd1b0fdf42c402a823fc0f1ef9c14dfc632ea57b3f85eb9243484ec1f01
+    name: quickstatements
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.10/quickstatements-0.1.10.tgz
+    version: 0.1.10
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-15T11:05:54.996801169Z"
     description: A Helm chart for Quickstatements
     digest: ff63f2c155554cb4014db19eb63e780d667d553e6da022d7e2bcf24341a8c43e
@@ -546,6 +556,16 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.0/quickstatements-0.1.0.tgz
     version: 0.1.0
   s3-proxy:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-15T14:11:16.533442734Z"
+    description: A Helm chart for an S3 proxy
+    digest: 523f9e3f604f5902d6de3f05dceb3a015d0b2f19c66a79bd1969b184bc896460
+    name: s3-proxy
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/s3-proxy-0.1.4/s3-proxy-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2025-07-14T13:59:01.164731716Z"
@@ -966,4 +986,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-15T13:39:25.208808698Z"
+generated: "2025-07-15T14:11:16.533772936Z"
