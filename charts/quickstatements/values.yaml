@@ -14,7 +14,3 @@ resources:
   limits:
     cpu: 200m
     memory: 256Mi
-
-secrets:
-  OAUTH_CONSUMER_KEY: "oauth-consumer-key"
-  OAUTH_CONSUMER_SECRET: "oauth-consumer-secret" 
