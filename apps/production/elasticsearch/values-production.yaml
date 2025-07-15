@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: elasticsearch
+spec:
+  chart:
+    spec:
+      version: "0.1.2"
+  values:
+    replicas: 1
+    storage:
+      size: 200Gi
+    resources:
+      requests:
+        memory: "12Gi"
+        cpu: "2"
+      limits:
+        memory: "28Gi"
+        cpu: "8"
+    javaOpts: "-Xms8g -Xmx8g"
+    
