@@ -6,33 +6,3 @@ spec:
   chart:
     spec:
       version: 0.1.8
-  values:
-    secrets:
-      OAUTH_CONSUMER_KEY: ENC[AES256_GCM,data:BOoIHC536OC+uYqFZPG5TD9/cP031i7phf49N1YO/qw=,iv:Y+8wr2ana4OMz9h07khuBLM0tj1GaYJqtAPp1CBfSf4=,tag:RlAA0svRj0O6gC0IL7lhNg==,type:str]
-      OAUTH_CONSUMER_SECRET: ENC[AES256_GCM,data:NSibLJwxMaMPWjkNd0+xVflHEBBGe7Os66SO/r8hsva7pA5yL6rNIA==,iv:QOY+QHIoH4qvfV5yVNcjMlh9MTjKRz2DhgYRVSYdbns=,tag:PpUIExwffSfMuBn40eUjUQ==,type:str]
-sops:
-  lastmodified: "2025-07-14T10:38:55Z"
-  mac: ENC[AES256_GCM,data:x3cWw8GWlfC/7S988t1RPjmwsfZcE5cq6bmavq4/miD/Err3/VbiKWRAJwpXwDKNF+1FQ9+1hMUj4B1FrjsmNvTXgCWtTfjPnGw5M2LY3OtelOLjpSWHbpwjDmxU0jIwHsCAqFj5/6dQOGZ7cO4QhEl2U4zVK7Z2Iu+k2VtlQBs=,iv:d8yNOQdM4l2MlbDHMCg/TBFo2+NiDOdZDIax8r5RQ6o=,tag:FotNwl192Z5mVNoSh3agXA==,type:str]
-  pgp:
-    - created_at: "2025-07-14T10:38:55Z"
-      enc: |-
-        -----BEGIN PGP MESSAGE-----
-
-        hQIMA90tSATCInn5ARAA2Ev9Dj0Eu8yOVjyQTszgaGgs0aylCd0jblWM6n3uzWGm
-        jwch7umL4uT4Mt3bwN6PDxLUkUZKSj4Ea6RPZcg8ek/1nMkediNrei0xdb/rK7D0
-        WFMM6oRelEz+mZcFnTkIGtYQM3JilEm3AozAZMOtI8liW3b03mOgNwz9z5dTD35a
-        9c6VGiYrJUm03Zof+v4nQPwXzbGmtST8SkiA+VhteYGlJiZGWsEsfjvxLEe3IMB1
-        HnkW6fcj4kn7ZhLMcHfG1iLyM6GuAy4D4hwnOcGdG142cjknq40jwgv+4tV6pch2
-        StjhrO9gyADzKdwWK4VmyyFtk/50gK4584HcG1goF53nA/h20Z8lFQfYlHKsUKzk
-        Nfmb73un/z8wLHF+XKCG22XlWToiS4Wg3ohw0IHnRSGmzAQyh5oxBIRi6WQlObXX
-        yeL+JbLXgphJ8FKmfY3iNqcm4SOtuUjzmaGIbkOl83oOWctk+GplCq59msMZD6N5
-        VuwWZpkHp1wBM2fvTzknVvojhEsZJCnQfHglFzKR4NuqQIN7hat79aBi2YIrlcS5
-        V3E5TY3NU2PPu0Lv/5F7jNdAF6YG3uezlhtq56J1BV0MIBiXhdIHNTCgF2DwGIsQ
-        NDcVLy/G/LkuI9JmWhZsoYG4PPd3OPoM+DZ2a+6oJ3qnMVpTissNMmiRqiUB9r/S
-        XgFNvOXUyomjWG+2mByV5STbK69n2Mc+rpdchRTfM+6gChLWiW7BLoJwi43yNnF0
-        D1tgAbpUC+Tk0FEmSb73Cije4/RkKswjal1+C+t5QtwWSY4VWQusXEkvafA+ef0=
-        =wUE3
-        -----END PGP MESSAGE-----
-      fp: BE155DFF5AD65EA97520D7E6B003A490455B332D
-  encrypted_regex: ^(data|stringData|secrets)$
-  version: 3.10.2
