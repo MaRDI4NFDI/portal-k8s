@@ -5,10 +5,13 @@ namespace: production
 resources:
   - namespace.yaml
   - mariadb
+  - elasticsearch
   - ffmpeg
   - latexml
   - traefik
   # - importer
+  - quickstatements
+  - redis
   - s3-proxy
 
 patches:
