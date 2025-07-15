@@ -1,0 +1,8 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: quickstatements
+spec:
+  chart:
+    spec:
+      version: 0.1.9
