@@ -34,6 +34,8 @@ spec:
         volumeMounts:
         - name: apache-logs
           mountPath: /var/log/apache2
+        - name: mediawiki-cache
+          mountPath: /var/www/html/w/images
         - name: oauth-secrets
           mountPath: /var/oauth
           readOnly: true
@@ -101,3 +103,12 @@ spec:
       resources:
         requests:
           storage: {{ .Values.storage.logs.size }}
+  - metadata:
+      name: mediawiki-cache
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: "csi-rbd-sc"
+      resources:
+        requests:
+          storage: {{ .Values.storage.cache.size }}
