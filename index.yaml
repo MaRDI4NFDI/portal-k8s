@@ -437,6 +437,16 @@ entries:
   quickstatements:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-15T11:05:54.996801169Z"
+    description: A Helm chart for Quickstatements
+    digest: ff63f2c155554cb4014db19eb63e780d667d553e6da022d7e2bcf24341a8c43e
+    name: quickstatements
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.9/quickstatements-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-14T10:11:23.593092731Z"
     description: A Helm chart for Quickstatements
     digest: a5d4d8338f944535dc659ef9a226af3c3cf5cae60c515989dc390bfb56547be6
@@ -946,4 +956,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-14T13:59:01.165016161Z"
+generated: "2025-07-15T11:05:54.997032776Z"
