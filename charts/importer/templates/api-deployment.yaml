@@ -25,10 +25,10 @@ spec:
         - name: MYSQL_DATABASE
           value: {{ .Values.database.name }}
         - name: MYSQL_USER
-          value: "importer-user"
+          value: {{ .Values.database.user }}
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: importer-secrets
+              name: {{ .Release.Name }}-secrets
               key: IMPORTER_DB_PASSWORD
         

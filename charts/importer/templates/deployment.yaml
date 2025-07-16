@@ -22,14 +22,33 @@ spec:
           value: {{ .Values.database.host }}
         - name: DB_NAME
           value: {{ .Values.database.name }}
+        - name: DB_USER
+          value: {{ .Values.database.user }}
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: IMPORTER_DB_PASSWORD
+        - name: IMPORTER_AGENT
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: IMPORTER_MW_AGENT
+        - name: IMPORTER_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: IMPORTER_MW_USER
+        - name: IMPORTER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secrets
+              key: IMPORTER_MW_PASS
         - name: SPARQL_ENDPOINT_URL
           value: {{ .Values.endpoints.sparql }}
         - name: MEDIAWIKI_API_URL
           value: {{ .Values.endpoints.mediawiki }}
         - name: WIKIBASE_URL
           value: {{ .Values.endpoints.wikibase }}
-        envFrom:
-        - secretRef:
-            name: importer-secrets
         
         

@@ -11,6 +11,7 @@ api:
 database:
   host: "mariadb"
   name: "wikidata-importer"
+  user: "importer-user"
 
 endpoints:
   mediawiki: "mardi-wikibase/w/api.php"
