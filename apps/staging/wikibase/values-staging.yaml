@@ -6,13 +6,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.20"
+      version: "0.1.23"
   values:
     replicas: 2
     port: 80
     ingress:
       enabled: true
-      host: staging.mardi4nfdi.org
     mediawiki:
       host: staging.mardi4nfdi.org
       scheme: https
