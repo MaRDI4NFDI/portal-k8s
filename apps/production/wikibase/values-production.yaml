@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wikibase
+spec:
+  chart:
+    spec:
+      version: "0.1.24"
+  values:
+    replicas: 2
+    port: 80
+    ingress:
+      enabled: true
+    mediawiki:
+      host: portal.mardi4nfdi.de
+      scheme: https
+      db_server: mariadb-primary:3306
+      db_name: my_wiki
+      db_user: sqluser
+      db_primary: mariadb-primary
+      db_secondary: mariadb-secondary
+      elasticsearch_host: elasticsearch
+      redis_host: redis-master
+      formulasearch_host: formulasearch
+      latexml_host: latexml
+    storage:
+      logs:
+        size: 200Mi
+    resources:
+      requests:
+        cpu: "1000m"
+        memory: "4Gi"
+      limits:
+        cpu: "3000m"
+        memory: "6Gi"
