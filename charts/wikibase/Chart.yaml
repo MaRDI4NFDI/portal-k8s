@@ -2,5 +2,5 @@ apiVersion: v2
 name: wikibase
 description: A Helm chart for Mediawiki/Wikibase
 type: application
-version: 0.1.23
+version: 0.1.24
 appVersion: "1.0.0"
