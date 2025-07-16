@@ -81,11 +81,11 @@ spec:
         - configMapRef:
             name: wikibase-config
         - secretRef:
-            name: wikibase-secrets
+            name: {{ .Release.Name }}-env-secrets
       volumes:
       - name: oauth-secrets
         secret:
-          secretName: wikibase-secrets
+          secretName: {{ .Release.Name }}-oauth-secrets
           items:
           - key: oauth.key
             path: oauth.key
