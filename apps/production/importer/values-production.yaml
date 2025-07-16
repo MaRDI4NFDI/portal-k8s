@@ -5,11 +5,10 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.4"
+      version: "0.1.5"
   values:
     database:
-      host: "mariadb"
-      name: "wikidata-importer"
+      host: "mariadb-secondary"
     endpoints:
       mediawiki: "http://wikibase/w/api.php"
       wikibase: "http://wikibase"
