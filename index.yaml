@@ -231,6 +231,15 @@ entries:
   mariadb:
   - apiVersion: v2
     appVersion: 10.11.3
+    created: "2025-07-17T15:04:52.831906218Z"
+    description: A Helm chart for MariaDB deployment using mariadb-operator
+    digest: e760f2b1179f784496507d85af4a490f0d78fcd3f41fce2eced90109412efbe1
+    name: mariadb
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mariadb-0.1.29/mariadb-0.1.29.tgz
+    version: 0.1.29
+  - apiVersion: v2
+    appVersion: 10.11.3
     created: "2025-07-17T14:38:18.03340911Z"
     description: A Helm chart for MariaDB deployment using mariadb-operator
     digest: e8d2c6b31ae7176507c3ea8f20fce20b044868429e23a298ed993b5b95b59919
@@ -1061,4 +1070,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-17T14:38:18.033749667Z"
+generated: "2025-07-17T15:04:52.832327932Z"
