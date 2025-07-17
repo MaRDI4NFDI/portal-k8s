@@ -6,9 +6,19 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.16"
+      version: "0.1.27"
   values:
     replicas: 3
+    galera:
+      enabled: true
+      config:
+        reuseStorageVolume: false
+        volumeClaimTemplate:
+          resources:
+            requests:
+              storage: 300Mi
+          accessModes:
+            - ReadWriteOnce
     database: my_wiki
     user: sqluser
     storage:
@@ -25,4 +35,7 @@ spec:
       limits:
         cpu: 1000m
         memory: 3Gi
+    secrets:
+      wikibase: staging-wikibase-secrets
+      importer: staging-importer-secrets
     
