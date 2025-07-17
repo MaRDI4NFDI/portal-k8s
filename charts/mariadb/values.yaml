@@ -36,3 +36,7 @@ resources:
   limits:
     cpu: 8000m
     memory: 28Gi
+
+secrets:
+  wikibase: wikibase-secrets
+  importer: importer-secrets

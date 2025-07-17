@@ -6,7 +6,7 @@ spec:
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
-    name: mariadb-secrets
+    name: {{ .Release.Name }}-secrets
     key: MARIADB_PASSWORD
   maxUserConnections: 20
   host: "%"

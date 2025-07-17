@@ -6,8 +6,8 @@ spec:
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
-    name: wikibase-secrets
-    key: MSC_USER
+    name: {{ .Values.secrets.wikibase }}
+    key: MSC_PASS
   maxUserConnections: 20
   host: "%"
   cleanupPolicy: Delete
@@ -20,7 +20,7 @@ spec:
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
-    name: importer-secrets
+    name: {{ .Values.secrets.importer }}
     key: IMPORTER_DB_PASSWORD
   maxUserConnections: 20
   host: "%"
@@ -34,8 +34,8 @@ spec:
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
-    name: wikibase-secrets
-    key: ABSTRACT_USER
+    name: {{ .Values.secrets.wikibase }}
+    key: ABSTRACT_PASS
   maxUserConnections: 20
   host: "%"
   cleanupPolicy: Delete

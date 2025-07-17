@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   rootPasswordSecretKeyRef:
-    name: mariadb-secrets
+    name: {{ .Release.Name }}-secrets
     key: MARIADB_ROOT_PASSWORD
 
   database: {{ .Values.database }}
