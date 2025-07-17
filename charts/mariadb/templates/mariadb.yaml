@@ -25,7 +25,7 @@ spec:
     replicaThreads: {{ .Values.galera.replicaThreads }}
     providerOptions:
       gcache.size: {{ .Values.galera.cacheSize | quote }}
-      gcs.fc_limit: {{ .Values.galera.flowControlLimit }}
+      gcs.fc_limit: {{ .Values.galera.flowControlLimit | quote }}
     {{- if .Values.galera.recovery }}
     recovery:
       {{- toYaml .Values.galera.recovery | nindent 6 }}
