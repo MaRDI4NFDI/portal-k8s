@@ -28,6 +28,6 @@ spec:
     persistentVolumeClaim:
       resources:
         requests:
-          storage: 200Gi
+          storage: {{ .Values.backup.storage }}
       accessModes:
         - ReadWriteOnce
