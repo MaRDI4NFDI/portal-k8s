@@ -5,12 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.24"
+      version: "0.1.27"
   values:
     replicas: 3
     galera:
       enabled: true
-      availableWhenDonor: true
       config:
         reuseStorageVolume: false
         volumeClaimTemplate:
@@ -20,7 +19,7 @@ spec:
           accessModes:
             - ReadWriteOnce
       extendedTimeouts:
-        enabled: true
+        enabled: false
       replicaThreads: 4
       cacheSize: "2G"
       flowControlLimit: "256"
@@ -33,6 +32,7 @@ spec:
       prefix: "production/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 2 * * *"
+      storage: 200Gi
     resources:
       requests:
         cpu: 4000m
