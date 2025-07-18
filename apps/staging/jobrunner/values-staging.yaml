@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.9"
+      version: "0.1.10"
   values:
     redis:
       host: "staging-redis-master"
@@ -21,3 +21,6 @@ spec:
       limits:
         cpu: 1000m
         memory: 512Mi
+    secrets:
+      mariadb: staging-mariadb-secrets
+      wikibase: staging-wikibase-env-secrets
