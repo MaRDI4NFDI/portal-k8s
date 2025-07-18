@@ -34,3 +34,5 @@ resources:
   limits:
     cpu: 1
     memory: 1Gi
+secrets:
+  mariadb: mariadb-secrets

@@ -75,7 +75,7 @@ spec:
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
-              name: mariadb-secrets
+              name: {{ .Values.secrets.mariadb }}
               key: MARIADB_PASSWORD
         envFrom:
         - configMapRef:
