@@ -19,6 +19,12 @@ galera:
 database: my_wiki
 user: sqluser
 
+mariadb:
+  config:
+    innodbBufferPoolSize: "10G"
+    maxAllowedPacket: "1G"
+    maxConnections: "200"
+
 storage:
   size: 1Ti
 
