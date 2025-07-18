@@ -8,9 +8,9 @@ spec:
     spec:
       version: "0.1.31"
   values:
-    replicas: 1
+    replicas: 3
     galera:
-      enabled: false
+      enabled: true
       config:
         reuseStorageVolume: false
         volumeClaimTemplate:
