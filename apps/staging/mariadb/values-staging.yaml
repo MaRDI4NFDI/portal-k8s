@@ -19,6 +19,14 @@ spec:
               storage: 300Mi
           accessModes:
             - ReadWriteOnce
+        recovery:
+          enabled: true
+          minClusterSize: 1
+          clusterMonitorInterval: 10s
+          clusterHealthyTimeout: 30s
+          clusterBootstrapTimeout: 10m
+          podRecoveryTimeout: 5m
+          podSyncTimeout: 5m
       extendedTimeouts:
         enabled: false
       replicaThreads: 1
