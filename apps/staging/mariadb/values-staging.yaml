@@ -8,9 +8,9 @@ spec:
     spec:
       version: "0.1.30"
   values:
-    replicas: 3
+    replicas: 1
     galera:
-      enabled: true
+      enabled: false
       config:
         reuseStorageVolume: false
         volumeClaimTemplate:
@@ -19,6 +19,11 @@ spec:
               storage: 300Mi
           accessModes:
             - ReadWriteOnce
+      extendedTimeouts:
+        enabled: false
+      replicaThreads: 1
+      cacheSize: "128M"
+      flowControlLimit: "16"
     database: my_wiki
     user: sqluser
     storage:
