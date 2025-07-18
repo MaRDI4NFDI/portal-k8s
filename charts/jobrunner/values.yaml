@@ -43,3 +43,7 @@ services:
       - php
       - /jobrunner/redisJobChronService
       - "--config-file=/jobrunner/config.json"
+
+secrets:
+  mariadb: mariadb-secrets
+  wikibase: wikibase-env-secrets
