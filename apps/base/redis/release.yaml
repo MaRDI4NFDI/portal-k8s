@@ -19,3 +19,13 @@ spec:
     service:
       type: ClusterIP
       port: 6379
+    # Ceph-optimized configuration
+    commonConfiguration: |-
+      appendonly no
+      save 900 1
+      save 300 10
+      save 60 10000
+      timeout 300
+      tcp-keepalive 300
+      hz 10
+      maxmemory-policy allkeys-lru
