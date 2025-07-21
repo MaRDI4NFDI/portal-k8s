@@ -49,6 +49,6 @@ spec:
         cpu: 1000m
         memory: 3Gi
     secrets:
-      wikibase: staging-wikibase-secrets
+      wikibase: staging-wikibase-env-secrets
       importer: staging-importer-secrets
     
