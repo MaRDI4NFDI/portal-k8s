@@ -4,13 +4,15 @@ metadata:
   name: redis
 spec:
   values:
-    persistence:
-      enabled: true
-      size: 8Gi
-    resources:
-      requests:
-        cpu: 500m
-        memory: 2Gi
-      limits:
-        cpu: 2
-        memory: 3Gi
+    master:
+      persistence:
+        enabled: true
+        size: 8Gi
+      resourcesPreset: "none"
+      resources:
+        requests:
+          cpu: 500m
+          memory: 2Gi
+        limits:
+          cpu: 2
+          memory: 3Gi
