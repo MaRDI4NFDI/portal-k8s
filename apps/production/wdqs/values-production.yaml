@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wdqs
+spec:
+  chart:
+    spec:
+      version: "0.1.12"
+  values:
+    wdqs:
+      storage: 200Gi
+      memory: "-Xmx18g -Xms18g"
+      resources:
+        requests:
+          cpu: 1000m
+          memory: 20Gi
+        limits:
+          cpu: 4000m
+          memory: 24Gi
+
+    updater:
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1Gi
+        limits:
+          cpu: 1000m
+          memory: 2Gi
+
+    frontend:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+

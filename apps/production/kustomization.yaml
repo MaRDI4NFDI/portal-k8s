@@ -15,6 +15,7 @@ resources:
   - quickstatements
   - redis
   - s3-proxy
+  - wdqs
 
 patches:
   - target:
