@@ -31,6 +31,16 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/elasticsearch-0.1.0/elasticsearch-0.1.0.tgz
     version: 0.1.0
+  external-services:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-22T14:05:47.163010705Z"
+    description: A Helm chart for MaRDI external services
+    digest: 3188f54cce044526cf5d36da55b7f89c1699bec1faf5b3fa4204ff717a450396
+    name: external-services
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/external-services-0.1.0/external-services-0.1.0.tgz
+    version: 0.1.0
   importer:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -1138,4 +1148,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-22T10:16:54.182413169Z"
+generated: "2025-07-22T14:05:47.163251271Z"
