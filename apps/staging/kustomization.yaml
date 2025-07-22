@@ -17,7 +17,8 @@ resources:
   - latexml
   - ffmpeg
   - s3-proxy
-  - vm-services
+  #- vm-services
+  - external-services
   
 patches:
   - target:

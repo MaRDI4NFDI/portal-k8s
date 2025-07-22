@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-external-services
+spec:
+  chart:
+    spec:
+      version: 0.1.0
+  values:
+    services:
+    - name: oai-provider
+      subdomain: oai
+      serviceName: oai-provider-external
+    - name: uptime
+      subdomain: uptime
+      serviceName: uptime-external
