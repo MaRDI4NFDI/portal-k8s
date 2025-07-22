@@ -1,0 +1,25 @@
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .serviceName }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .port | default 443 }}
+    targetPort: {{ .port | default 443 }}
+    protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ .serviceName }}
+  namespace: {{ $.Release.Namespace }}
+subsets:
+- addresses:
+  - ip: {{ .externalIP | default $.Values.global.defaultExternalIP }}
+  ports:
+  - port: {{ .port | default 443 }}
+{{- end }}

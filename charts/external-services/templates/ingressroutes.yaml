@@ -1,0 +1,19 @@
+{{- $baseDomain := .Values.global.baseDomain }}
+{{- range .Values.services }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ .name }}-route
+  namespace: {{ $.Release.Namespace }}
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: HostSNI(`{{ .subdomain }}.{{ $baseDomain }}`)
+    services:
+    - name: {{ .serviceName }}
+      port: {{ .port | default 443 }}
+  tls:
+    passthrough: true
+{{- end }}
