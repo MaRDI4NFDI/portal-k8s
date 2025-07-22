@@ -89,6 +89,16 @@ entries:
   jobrunner:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-07-22T07:47:35.151752521Z"
+    description: Jobrunner and rescheduler services
+    digest: 3d5c8545f983ea721c6efa3e33e4623c8ea3a75a4ca3c29282222daba2e63167
+    name: jobrunner
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/jobrunner-0.1.11/jobrunner-0.1.11.tgz
+    version: 0.1.11
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-07-18T13:45:51.712000584Z"
     description: Jobrunner and rescheduler services
     digest: 52cc898fd02a45f8d17e252bce362d503c6b7ff7b6b47eba4a1c8feadf498237
@@ -1108,4 +1118,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-18T13:45:51.712232629Z"
+generated: "2025-07-22T07:47:35.15223937Z"
