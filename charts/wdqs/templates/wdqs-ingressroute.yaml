@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ .Values.ingress.host }}`) && PathPrefix(`/sparql`) && (Method(`GET`) || Method(`OPTIONS`) || Method(`POST`))
+    - match: Host(`{{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}`) && PathPrefix(`/sparql`) && (Method(`GET`) || Method(`OPTIONS`) || Method(`POST`))
       kind: Rule
       services:
       - name: {{ .Release.Name }}

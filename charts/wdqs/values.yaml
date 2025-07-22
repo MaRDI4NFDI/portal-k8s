@@ -38,10 +38,9 @@ frontend:
 
 wikibase:
   host: wikibase
-  scheme: http
-  domain: ""
+  scheme: https
 
 ingress:
   enabled: true
-  host: ""
+  subdomain: "query"
 

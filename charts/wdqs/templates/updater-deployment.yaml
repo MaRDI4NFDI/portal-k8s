@@ -20,9 +20,9 @@ spec:
         command: ["/runUpdate.sh"]
         env:
         - name: WIKIBASE_CONCEPT_URI
-          value: "https://{{ .Values.wikibase.domain }}"
+          value: "https://{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_HOST
-          value: "{{ .Values.wikibase.host }}"
+          value: "{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.wikibase.scheme }}"
         - name: WDQS_HOST

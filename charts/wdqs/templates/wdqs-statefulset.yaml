@@ -27,7 +27,7 @@ spec:
         - containerPort: {{ .Values.wdqs.port }}
         env:
         - name: WIKIBASE_HOST
-          value: "{{ .Values.wikibase.host }}"
+          value: "{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.wikibase.scheme }}"
         - name: WDQS_HOST

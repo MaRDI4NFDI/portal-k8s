@@ -4,7 +4,7 @@ metadata:
   name: prefixes-config
 data:
   prefixes.conf: |
-    {{- $domain := .Values.wikibase.domain }}
+    {{- $domain := .Values.global.baseDomain }}
     PREFIX wd: <https://{{ $domain }}/entity/>
     PREFIX wdt: <https://{{ $domain }}/prop/direct/>
     PREFIX p: <https://{{ $domain }}/prop/>
