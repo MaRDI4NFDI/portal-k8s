@@ -26,6 +26,8 @@ spec:
     storage:
       logs:
         size: 200Mi
+      cache:
+        size: 800Gi
     resources:
       requests:
         cpu: "1000m"
