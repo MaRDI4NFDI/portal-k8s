@@ -7,4 +7,4 @@ patches:
   - path: values-staging.yaml
     target:
       kind: HelmRelease
-      name: quickstatements
+      name: external-services
