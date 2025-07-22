@@ -2,7 +2,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: staging-wdqs
-  namespace: staging
 spec:
   chart:
     spec:
@@ -10,5 +9,3 @@ spec:
   values:
     wdqs:
       host: staging-wdqs
-    ingress:
-      enabled: true
