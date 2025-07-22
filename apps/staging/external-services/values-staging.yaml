@@ -5,12 +5,24 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.1.1
   values:
     services:
-    - name: oai-provider
-      subdomain: oai
-      serviceName: oai-provider-external
-    - name: uptime
-      subdomain: uptime
-      serviceName: uptime-external
+      - name: oai-provider
+        subdomain: oai
+      - name: oai-input
+        subdomain: oai-input
+      - name: uptime
+        subdomain: uptime
+      - name: ipfs
+        subdomain: ipfs
+      - name: ipfs-admin
+        subdomain: ipfs-admin
+      - name: mscexplainer
+        subdomain: mscexplainer
+      - name: mscbackend
+        subdomain: mscbackend
+      - name: msceval
+        subdomain: msceval
+      - name: flask
+        subdomain: flask
