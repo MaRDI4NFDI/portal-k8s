@@ -5,6 +5,7 @@ wdqs:
   host: wdqs
   port: 9999
   storage: 5Gi
+  memory: ""
   resources:
     requests:
       cpu: 500m
