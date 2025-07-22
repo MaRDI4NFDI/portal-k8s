@@ -46,7 +46,7 @@ spec:
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.mediawiki.scheme }}"
         - name: WIKIBASE_HOST
-          value: "{{ .Values.mediawiki.host }}"
+          value: "{{ .Values.global.baseDomain }}"
         envFrom:
         - secretRef:
             name: {{ .Values.secrets.wikibase }}

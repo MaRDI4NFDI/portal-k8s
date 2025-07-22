@@ -10,8 +10,7 @@ mediawiki:
   db_server: mariadb
   db_name: my_wiki
   db_user: sqluser
-  scheme: http
-  host: localhost
+  scheme: https
 
 resources:
   requests:
