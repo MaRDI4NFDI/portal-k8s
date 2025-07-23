@@ -55,10 +55,10 @@ spec:
     resources:
       requests:
         cpu: {{ .Values.matomo.resources.requests.cpu }}
-        memory: {{ .Values..matomo.resources.requests.memory }}
+        memory: {{ .Values.matomo.resources.requests.memory }}
       limits:
-        cpu: {{ .Values..matomo.resources.limits.cpu }}
-        memory: {{ .Values..matomo.resources.limits.memory }}
+        cpu: {{ .Values.matomo.resources.limits.cpu }}
+        memory: {{ .Values.matomo.resources.limits.memory }}
     
     metrics:
       enabled: false
