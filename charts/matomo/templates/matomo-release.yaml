@@ -23,10 +23,10 @@ spec:
       enabled: false
     
     externalDatabase:
-      host: {{ .Values.db.host }}
-      port: {{ .Values.db.port }}
-      user: {{ .Values.db.user }}
-      database: {{ .Values.db.name }}
+      host: {{ .Values.matomo.db.host }}
+      port: {{ .Values.matomo.db.port }}
+      user: {{ .Values.matomo.db.user }}
+      database: {{ .Values.matomo.db.name }}
       existingSecret: {{ .Values.matomo.secrets }}
     
     image:
@@ -54,11 +54,11 @@ spec:
 
     resources:
       requests:
-        cpu: {{ .Values.resources.requests.cpu }}
-        memory: {{ .Values.resources.requests.memory }}
+        cpu: {{ .Values.matomo.resources.requests.cpu }}
+        memory: {{ .Values..matomo.resources.requests.memory }}
       limits:
-        cpu: {{ .Values.resources.limits.cpu }}
-        memory: {{ .Values.resources.limits.memory }}
+        cpu: {{ .Values..matomo.resources.limits.cpu }}
+        memory: {{ .Values..matomo.resources.limits.memory }}
     
     metrics:
       enabled: false
