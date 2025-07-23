@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-matomo
+spec:
+  chart:
+    spec:
+      version: "0.1.1"
+  values:
+    matomo:
+      websiteName: "MaRDI Staging Site"
+      secrets: "staging-matomo-secrets"
+      db:
+        host: "staging-matomo-mariadb"
+    mariadb:
+      image:
+        repository: mariadb
+        tag: 11.8.2
+      secrets: "staging-mariadb-secrets"
+      backup:
+        name: "backup-matomo"
+        schedule: "0 6 * * *"
+        bucket: "mardi"
+        prefix: "staging/matomo"
+        endpoint: "hsm-test-09.zib.de:9001"
+        region: "us-east-1"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m" 
+          memory: "512Mi"
+      metrics:
+        enabled: false
+
+    
+
