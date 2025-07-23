@@ -1,0 +1,64 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-matomo
+    namespace: flux-system
+  values:
+    updateStrategy:
+      type: Recreate
+     
+    matomoUsername: {{ .Values.matomo.username }} 
+    matomoEmail: {{ .Values.matomo.email }} 
+    matomoWebsiteName: {{ .Values.matomo.websiteName }} 
+    matomoWebsiteHost: {{ .Values.global.baseDomain }}
+
+    existingSecret: {{ .Values.matomo.secrets }}
+    
+    mariadb:
+      enabled: false
+    
+    externalDatabase:
+      host: {{ .Values.db.host }}
+      port: {{ .Values.db.port }}
+      user: {{ .Values.db.user }}
+      database: {{ .Values.db.name }}
+      existingSecret: {{ .Values.matomo.secrets }}
+    
+    image:
+      pullPolicy: IfNotPresent
+    
+    resourcesPreset: "none"
+    
+    persistence:
+      enabled: true
+      size: {{ .Values.matomo.storage.size }}
+    
+    service:
+      type: ClusterIP
+    
+    ingress:
+      enabled: false
+    
+    cronjobs:
+      taskScheduler:
+        enabled: false
+        schedule: "*/15 * * * *"
+      archive:
+        enabled: false
+        schedule: "0 2 * * *"
+
+    resources:
+      requests:
+        cpu: {{ .Values.resources.requests.cpu }}
+        memory: {{ .Values.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.resources.limits.cpu }}
+        memory: {{ .Values.resources.limits.memory }}
+    
+    metrics:
+      enabled: false
