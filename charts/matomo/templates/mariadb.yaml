@@ -7,8 +7,8 @@ spec:
     name: {{ .Values.matomo.secrets }}
     key: MARIADB_ROOT_PASSWORD
 
-  database: {{ .Values.mariadb.database.name }}
-  username: {{ .Values.mariadb.database.user }}
+  database: {{ .Values.matomo.db.name }}
+  username: {{ .Values.matomo.db.user }}
   passwordSecretKeyRef:
     name: {{ .Values.matomo.secrets }}
     key: db-password
@@ -16,7 +16,7 @@ spec:
   image: {{ .Values.mariadb.image.repository }}:{{ .Values.mariadb.image.tag }}
   imagePullPolicy: {{ .Values.mariadb.image.pullPolicy }}
 
-  port: {{ .Values.mariadb.port }}
+  port: {{ .Values.matomo.db.port }}
 
   replicas: 1
 
@@ -30,14 +30,14 @@ spec:
     max_allowed_packet=256M
 
   storage:
-    size: {{ .Values.mariadb.storage.size }}
+    size: {{ .Values.matomo.storage.size }}
     storageClassName: csi-rbd-sc
     volumeClaimTemplate:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
-          storage: {{ .Values.mariadb.storage.size }}
+          storage: {{ .Values.matomo.storage.size }}
       storageClassName: csi-rbd-sc
 
   resources:
