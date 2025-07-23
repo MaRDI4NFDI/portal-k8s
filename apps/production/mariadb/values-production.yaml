@@ -40,7 +40,7 @@ spec:
       prefix: "production/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 2 * * *"
-      storage: 200Gi
+      storage: 400Gi
     resources:
       requests:
         cpu: 4000m
