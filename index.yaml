@@ -548,6 +548,16 @@ entries:
   matomo-stack:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-07-23T14:22:21.620961895Z"
+    description: A Helm chart for Matomo with a single MariaDB instance
+    digest: 78ba8628506a5763b90febfbc1cdf1dffaeb82f3786c8ccee9f43130d2d214d8
+    name: matomo-stack
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/matomo-stack-0.1.3/matomo-stack-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-07-23T14:16:52.829556027Z"
     description: A Helm chart for Matomo with a single MariaDB instance
     digest: b91abdf07336bd1e6fb0bee46cf9e91bfb3513ed0bf3be00cc42bbd3a546d10d
@@ -1188,4 +1198,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-23T14:16:52.829772693Z"
+generated: "2025-07-23T14:22:21.621153262Z"
