@@ -43,7 +43,7 @@ spec:
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.mediawiki.scheme }}"
         - name: WIKIBASE_HOST
-          value: "{{ .Values.mediawiki.host }}"
+          value: "{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_PORT
           value: "{{ .Values.port }}"
         - name: DB_SERVER

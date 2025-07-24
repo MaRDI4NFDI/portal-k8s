@@ -7,8 +7,7 @@ port: 80
 ingress:
   enabled: true
 mediawiki:
-  host: localhost
-  scheme: http
+  scheme: https
   db_server: mariadb
   db_name: my_wiki
   db_user: sqluser
