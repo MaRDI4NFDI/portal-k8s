@@ -17,6 +17,7 @@ resources:
   - s3-proxy
   - wdqs
   - matomo
+  - external-services
 
 patches:
   - target:
