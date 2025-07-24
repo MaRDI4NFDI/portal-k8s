@@ -5,13 +5,13 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.3"
+      version: "0.1.4"
   values:
     matomo:
       websiteName: "MaRDI Staging Site"
       secrets: "staging-matomo-secrets"
       db:
-        host: "staging-matomo-mariadb"
+        host: "staging-matomo-stack"
     mariadb:
       image:
         repository: mariadb
