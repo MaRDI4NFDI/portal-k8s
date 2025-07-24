@@ -4,7 +4,7 @@ matomo:
   websiteName: "Website Name"
   secrets: "matomo-secrets"
   db:
-    host: "matomo-mariadb"
+    host: "matomo-stack"
     port: 3306
     user: "matomo"
     name: "matomo"
