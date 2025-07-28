@@ -2,6 +2,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   rootPasswordSecretKeyRef:
     name: {{ .Release.Name }}-secrets

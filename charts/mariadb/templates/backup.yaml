@@ -2,6 +2,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
   name: backup
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}

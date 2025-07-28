@@ -2,6 +2,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: msc-user-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -17,6 +18,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: abstract-user-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -32,6 +34,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -47,6 +50,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-text-in-lang-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -62,6 +66,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-term-in-lang-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -77,6 +82,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-item-terms-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -92,6 +98,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-property-terms-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -107,6 +114,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-id-mapping-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
@@ -122,6 +130,7 @@ apiVersion: k8s.mariadb.com/v1alpha1
 kind: Grant
 metadata:
   name: importer-user-wiki-text-grant
+  namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
     name: {{ .Release.Name }}
