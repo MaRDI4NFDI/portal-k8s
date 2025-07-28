@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.31"
+      version: "0.1.32"
   values:
     replicas: 3
     galera:
@@ -41,6 +41,13 @@ spec:
       endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 2 * * *"
       storage: 400Gi
+      resources:
+        requests:
+          cpu: 1000m
+          memory: 4Gi
+        limits:
+          cpu: 4000m
+          memory: 8Gi
     resources:
       requests:
         cpu: 4000m
