@@ -4,7 +4,7 @@ metadata:
   name: tenant-mardi-apps-production
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 5m
   dependsOn:
     - name: tenant-mardi-infra
   sourceRef:
@@ -25,7 +25,7 @@ metadata:
   name: tenant-mardi-apps-staging
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 5m
   dependsOn:
     - name: tenant-mardi-infra
   sourceRef:
