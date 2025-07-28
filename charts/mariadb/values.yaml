@@ -35,6 +35,13 @@ backup:
   region: "us-east-1"
   schedule: "0 2 * * *"
   storage: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
 
 resources:
   requests:

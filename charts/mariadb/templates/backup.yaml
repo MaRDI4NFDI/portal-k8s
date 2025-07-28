@@ -31,3 +31,10 @@ spec:
           storage: {{ .Values.backup.storage }}
       accessModes:
         - ReadWriteOnce
+  resources:
+    requests:
+      cpu: {{ .Values.backup.resources.requests.cpu }}
+      memory: {{ .Values.backup.resources.requests.memory }}
+    limits:
+      cpu: {{ .Values.backup.resources.limits.cpu }}
+      memory: {{ .Values.backup.resources.limits.memory }}
