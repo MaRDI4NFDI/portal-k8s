@@ -17,7 +17,7 @@ galera:
   flowControlLimit: 16
   operatorImage:
     repository: docker-registry3.mariadb.com/mariadb-operator/mariadb-operator
-    tag: "25.08.1"
+    tag: "25.8.1"
 
 database: my_wiki
 user: sqluser
