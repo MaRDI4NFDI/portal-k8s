@@ -23,9 +23,17 @@ spec:
         minClusterSize: 1
         clusterMonitorInterval: 30s
         clusterHealthyTimeout: 2m
-        clusterBootstrapTimeout: 8h
-        podRecoveryTimeout: 4h
-        podSyncTimeout: 12h  
+        clusterBootstrapTimeout: 12h
+        podRecoveryTimeout: 6h
+        podSyncTimeout: 12h
+        job:
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "4Gi"
+            limits:
+              cpu: "2000m"
+              memory: "8Gi"
       extendedTimeouts:
         enabled: false
       replicaThreads: 4
