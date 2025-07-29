@@ -46,6 +46,13 @@ backup:
       cpu: 300m
       memory: 512Mi
 
+physicalbackup:
+  bucket: ""
+  prefix: "physicalbackup/mariadb"
+  endpoint: ""
+  region: "us-east-1"
+  schedule: "0 4 * * *"
+
 resources:
   requests:
     cpu: 4000m

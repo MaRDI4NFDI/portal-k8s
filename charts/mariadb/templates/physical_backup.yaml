@@ -1,0 +1,42 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: physicalbackup
+  namespace: {{ .Release.Namespace }}
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+  schedule:
+    cron: {{ .Values.physicalbackup.schedule }}
+    suspend: false
+  maxRetention: 170h
+  compression: gzip
+  timeout: 2h
+  storage:
+    s3:
+      bucket: {{ .Values.physicalbackup.bucket }}
+      prefix: {{ .Values.physicalbackup.prefix }}
+      endpoint: {{ .Values.physicalbackup.endpoint }}
+      region:  {{ .Values.physicalbackup.region }}
+      accessKeyIdSecretKeyRef:
+        name: {{ .Release.Name }}-secrets
+        key: S3-ACCESS-KEY-ID
+      secretAccessKeySecretKeyRef:
+        name: {{ .Release.Name }}-secrets
+        key: S3-SECRET-ACCESS-KEY
+      tls:
+        enabled: true
+  stagingStorage:
+    persistentVolumeClaim:
+      resources:
+        requests:
+          storage: {{ .Values.backup.storage }}
+      accessModes:
+        - ReadWriteOnce
+  resources:
+    requests:
+      cpu: {{ .Values.backup.resources.requests.cpu }}
+      memory: {{ .Values.backup.resources.requests.memory }}
+    limits:
+      cpu: {{ .Values.backup.resources.limits.cpu }}
+      memory: {{ .Values.backup.resources.limits.memory }}

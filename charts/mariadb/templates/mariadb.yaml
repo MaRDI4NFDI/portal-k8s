@@ -4,6 +4,12 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
+
+  {{- if .Values.bootstrapFrom }}
+  bootstrapFrom:
+    {{- toYaml .Values.bootstrapFrom | nindent 4 }}
+  {{- end }}
+  
   rootPasswordSecretKeyRef:
     name: {{ .Release.Name }}-secrets
     key: MARIADB_ROOT_PASSWORD
