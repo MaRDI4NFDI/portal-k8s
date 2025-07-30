@@ -9,6 +9,7 @@ spec:
   schedule:
     cron: {{ .Values.physicalbackup.schedule }}
     suspend: false
+    immediate: {{ .Values.physicalbackup.immediate | default false }}
   maxRetention: 170h
   compression: gzip
   timeout: 2h

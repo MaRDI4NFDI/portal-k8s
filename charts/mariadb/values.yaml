@@ -52,6 +52,7 @@ physicalbackup:
   endpoint: ""
   region: "us-east-1"
   schedule: "0 4 * * *"
+  immediate: false
 
 resources:
   requests:
