@@ -47,7 +47,7 @@ spec:
       bucket: "mardi"
       prefix: "production/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
-      schedule: "0 2 * * *"
+      schedule: "0 0 * * *"
       storage: 400Gi
       resources:
         requests:
@@ -60,7 +60,7 @@ spec:
       bucket: "mardi"
       prefix: "production/physicalbackup/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
-      schedule: "0 4 * * *"
+      schedule: "0 2 * * *"
       immediate: true
       timeout: "6h"
     resources:
