@@ -8,9 +8,9 @@ spec:
       version: "0.1.38"
   values:
     bootstrapFrom:
-    backupRef:
-      name: physicalbackup
-      kind: PhysicalBackup
+      backupRef:
+        name: physicalbackup
+        kind: PhysicalBackup
     replicas: 3
     galera:
       enabled: true
