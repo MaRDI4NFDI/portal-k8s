@@ -7,6 +7,20 @@ spec:
     spec:
       version: "0.1.38"
   values:
+    bootstrapFrom:
+      s3:
+        bucket: mardi
+        prefix: production/physicalbackup/mariadb
+        endpoint: hsm-test-09.zib.de:9001
+        accessKeyIdSecretKeyRef:
+          name: mariadb-secrets
+          key: S3-ACCESS-KEY-ID
+        secretAccessKeySecretKeyRef:
+          name: mariadb-secrets
+          key: S3-SECRET-ACCESS-KEY
+        tls:
+          enabled: true
+      backupContentType: Physical
     replicas: 3
     galera:
       enabled: true
