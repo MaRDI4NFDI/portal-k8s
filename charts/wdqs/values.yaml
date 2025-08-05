@@ -15,6 +15,7 @@ wdqs:
       memory: 4Gi
 
 updater:
+  enabled: true
   resources:
     requests:
       cpu: 100m
