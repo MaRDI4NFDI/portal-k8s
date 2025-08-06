@@ -17,5 +17,5 @@ spec:
       limits:
         memory: "28Gi"
         cpu: "8"
-    javaOpts: "-Xms8g -Xmx8g"
+    javaOpts: "-Xms16g -Xmx16g"
     
