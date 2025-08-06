@@ -7,6 +7,9 @@ spec:
     spec:
       version: "0.1.2"
   values:
+    image:
+      repository: wikibase/elasticsearch
+      tag: es7.10.2
     replicas: 1
     storage:
       size: 200Gi
