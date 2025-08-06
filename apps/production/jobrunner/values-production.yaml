@@ -7,6 +7,10 @@ spec:
     spec:
       version: "0.1.11"
   values:
+    runners:
+      basic: 8
+      dispChanges: 32
+      profiles: 4
     mediawiki:
       db_server: mariadb-primary:3306
     resources:
