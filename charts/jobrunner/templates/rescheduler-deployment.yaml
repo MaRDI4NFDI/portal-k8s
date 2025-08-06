@@ -52,11 +52,11 @@ spec:
             name: {{ .Values.secrets.wikibase }}
         resources:
           requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.rescheduler.requests.cpu }}
+            memory: {{ .Values.resources.rescheduler.requests.memory }}
           limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.rescheduler.limits.cpu }}
+            memory: {{ .Values.resources.rescheduler.limits.memory }}
       volumes:
       - name: config-volume
         configMap:

@@ -39,6 +39,13 @@ data:
             "OpenAlex",
             "NormalizeDoi"
           ]
+        },
+        "cirrusSearch": {
+          "runners": {{ .Values.runners.cirrusSearch }},
+          "include": [
+            "cirrusSearchMassIndex",
+            "cirrusSearchElasticaWrite"
+          ]
         }
       },
       "limits": {},
