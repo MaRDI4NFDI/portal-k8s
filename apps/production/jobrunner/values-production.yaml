@@ -5,18 +5,27 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.11"
+      version: "0.1.12"
   values:
     runners:
       basic: 8
       dispChanges: 32
       profiles: 4
+      cirrusSearch: 16
     mediawiki:
       db_server: mariadb-primary:3306
     resources:
-      requests:
-        cpu: 500m
-        memory: 1Gi
-      limits:
-        cpu: 2000m
-        memory: 2Gi
+      jobrunner:
+        requests:
+          cpu: 4000m
+          memory: 8Gi
+        limits:
+          cpu: 8000m
+          memory: 16Gi
+      rescheduler:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          cpu: 1000m
+          memory: 2Gi
