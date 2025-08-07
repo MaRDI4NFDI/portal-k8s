@@ -12,6 +12,10 @@ mediawiki:
   db_user: sqluser
   scheme: https
 
+elasticsearch:
+  host: elasticsearch
+  port: 9200
+
 resources:
   jobrunner:
     requests:

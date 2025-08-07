@@ -47,6 +47,10 @@ spec:
           value: "{{ .Values.mediawiki.scheme }}"
         - name: WIKIBASE_HOST
           value: "{{ .Values.global.baseDomain }}"
+        - name: MW_ELASTIC_HOST
+          value: "{{ .Values.elasticsearch.host }}"
+        - name: MW_ELASTIC_PORT
+          value: "{{ .Values.elasticsearch.port }}"
         envFrom:
         - secretRef:
             name: {{ .Values.secrets.wikibase }}
