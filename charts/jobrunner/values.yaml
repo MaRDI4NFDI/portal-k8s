@@ -38,6 +38,11 @@ runners:
   profiles: 2
   cirrusSearch: 0
 
+memory:
+  default: "400M"
+  cirrusSearchElasticaWrite: "600M"
+  cirrusSearchMassIndex: "600M"
+
 services:
   jobrunner:
     replicas: 1

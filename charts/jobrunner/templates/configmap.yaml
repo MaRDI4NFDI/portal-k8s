@@ -48,7 +48,12 @@ data:
           ]
         }
       },
-      "limits": {},
+      "limits": {
+        "memory": {
+          "*": "{{ .Values.memory.default }}",
+          "cirrusSearchElasticaWrite": "{{ .Values.memory.cirrusSearchElasticaWrite }}",
+          "cirrusSearchMassIndex": "{{ .Values.memory.cirrusSearchMassIndex }}",
+        }
       "redis": {
         "aggregators": [
           "{{ .Values.redis.host }}:{{ .Values.redis.port }}"
