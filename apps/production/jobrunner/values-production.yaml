@@ -5,13 +5,16 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.12"
+      version: "0.1.13"
   values:
     runners:
       basic: 8
       dispChanges: 0 #32
       profiles: 0 # 4
-      cirrusSearch: 32
+      cirrusSearch: 16
+    memory:
+      cirrusSearchElasticaWrite: "800M"
+      cirrusSearchMassIndex: "600M"
     mediawiki:
       db_server: mariadb-primary:3306
     resources:
