@@ -9,7 +9,7 @@ spec:
   passwordSecretKeyRef:
     name: {{ .Values.secrets.wikibase }}
     key: MSC_PASS
-  maxUserConnections: 20
+  maxUserConnections: 200
   host: "%"
   cleanupPolicy: Delete
 ---
@@ -39,6 +39,6 @@ spec:
   passwordSecretKeyRef:
     name: {{ .Values.secrets.wikibase }}
     key: ABSTRACT_PASS
-  maxUserConnections: 20
+  maxUserConnections: 200
   host: "%"
   cleanupPolicy: Delete

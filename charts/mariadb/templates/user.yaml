@@ -9,6 +9,6 @@ spec:
   passwordSecretKeyRef:
     name: {{ .Release.Name }}-secrets
     key: MARIADB_PASSWORD
-  maxUserConnections: 20
+  maxUserConnections: 1000
   host: "%"
   cleanupPolicy: Delete
