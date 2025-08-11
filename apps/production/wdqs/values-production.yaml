@@ -19,7 +19,7 @@ spec:
           memory: 24Gi
 
     updater:
-      enabled: true
+      enabled: false
       resources:
         requests:
           cpu: 200m
