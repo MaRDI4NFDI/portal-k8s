@@ -9,9 +9,9 @@ spec:
   values:
     runners:
       basic: 8
-      dispChanges: 0 #32
-      profiles: 0 # 4
-      cirrusSearch: 16
+      dispChanges: 32
+      profiles: 4
+      cirrusSearch: 4
     memory:
       cirrusSearchElasticaWrite: "800M"
       cirrusSearchMassIndex: "600M"
