@@ -46,7 +46,7 @@ spec:
         ports:
         - containerPort: {{ .Values.port }}
         volumeMounts:
-        - name: apache-logs
+        - name: apache-logs-tmp
           mountPath: /var/log/apache2
         - name: mediawiki-cache
           mountPath: /var/www/html/w/images
