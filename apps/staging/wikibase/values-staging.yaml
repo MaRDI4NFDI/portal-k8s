@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.27"
+      version: "0.1.28"
   values:
     replicas: 2
     port: 80
