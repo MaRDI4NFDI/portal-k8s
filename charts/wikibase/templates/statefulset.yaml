@@ -18,6 +18,20 @@ spec:
     spec:
       securityContext:
         fsGroup: 33 # www-data
+      initContainers:
+      - name: setup-apache-logging
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          mkdir -p /var/log/apache2
+          ln -sf /dev/stderr /var/log/apache2/error.log
+          ln -sf /dev/stdout /var/log/apache2/access.log
+          ln -sf /dev/stdout /var/log/apache2/other_vhosts_access.log
+        volumeMounts:
+        - name: apache-logs-tmp
+          mountPath: /var/log/apache2
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -83,6 +97,10 @@ spec:
         - secretRef:
             name: {{ .Release.Name }}-env-secrets
       volumes:
+      - name: apache-logs-tmp
+        emptyDir:
+          medium: Memory
+          sizeLimit: 200Mi
       - name: oauth-secrets
         secret:
           secretName: {{ .Release.Name }}-oauth-secrets
@@ -94,15 +112,6 @@ spec:
             path: oauth.cert
             mode: 0660
   volumeClaimTemplates:
-  - metadata:
-      name: apache-logs
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: "csi-rbd-sc"
-      resources:
-        requests:
-          storage: {{ .Values.storage.logs.size }}
   - metadata:
       name: mediawiki-cache
     spec:
