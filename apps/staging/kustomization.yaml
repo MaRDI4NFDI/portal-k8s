@@ -13,11 +13,11 @@ resources:
   - wdqs
   - quickstatements
   - importer
-  - matomo
   - latexml
   - ffmpeg
   - s3-proxy
   - external-services
+  # - matomo
   
 patches:
   - target:
