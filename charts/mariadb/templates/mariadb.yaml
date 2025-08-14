@@ -94,3 +94,11 @@ spec:
 
   metrics:
     enabled: true
+
+  affinity:
+    antiAffinityEnabled: true
+
+  podDisruptionBudget:
+    maxUnavailable: 1
+
+  priorityClassName: system-node-critical
