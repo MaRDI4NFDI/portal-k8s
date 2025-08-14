@@ -319,6 +319,16 @@ entries:
   maintenance:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-08-14T16:02:16.137692971Z"
+    description: A Helm chart for maintenance mode
+    digest: 117921d3c151ab50384b02d0b57180573787ccd0112d7d68cbc6cf1e7e580510
+    name: maintenance
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/maintenance-0.1.1/maintenance-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-08-14T14:42:57.128991376Z"
     description: A Helm chart for maintenance mode
     digest: e73ef024b462ce90ca3caf9d622985e01325f743763fdd044cf8216ac2219fda
@@ -1389,4 +1399,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-14T14:42:57.129437298Z"
+generated: "2025-08-14T16:02:16.137987894Z"
