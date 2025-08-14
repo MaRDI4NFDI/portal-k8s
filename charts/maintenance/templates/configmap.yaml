@@ -1,0 +1,136 @@
+{{- if .Values.maintenance.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maintenance Mode</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: linear-gradient(135deg, #005fad 0%, #d0662b 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .maintenance-container {
+                background: white;
+                padding: 3rem;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                text-align: center;
+                max-width: 500px;
+                margin: 2rem;
+            }
+            .maintenance-icon {
+                font-size: 4rem;
+                margin-bottom: 1.5rem;
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 1rem;
+                font-size: 2rem;
+            }
+            p {
+                color: #666;
+                line-height: 1.6;
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+            .timestamp {
+                color: #999;
+                font-size: 0.9rem;
+                border-top: 1px solid #eee;
+                padding-top: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="maintenance-container">
+            <div class="maintenance-icon">
+              {{ .Values.logo.svg | nindent 14 }}
+            </div>
+            <h1>Maintenance mode</h1>
+            <p>{{ .Values.maintenance.message }}</p>
+            <div class="timestamp">
+                Last updated: <span id="timestamp"></span>
+            </div>
+        </div>
+        <script>
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        </script>
+    </body>
+    </html>
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name _;
+        
+        location / {
+            # Return 503 status for all requests
+            return 503;
+        }
+        
+        # Custom error page for 503
+        error_page 503 /maintenance.html;
+        location = /maintenance.html {
+            root /usr/share/nginx/html;
+            internal;
+        }
+        
+        # Serve static assets for the maintenance page
+        location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
+            root /usr/share/nginx/html;
+            expires 1h;
+            add_header Cache-Control "public, immutable";
+        }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {
+        worker_connections 1024;
+    }
+    
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+        
+        sendfile        on;
+        tcp_nopush      on;
+        tcp_nodelay     on;
+        keepalive_timeout  65;
+        types_hash_max_size 2048;
+        
+        server {
+            listen 80;
+            server_name _;
+            
+            # Always return 503 for the root and all paths
+            location / {
+                return 503;
+            }
+            
+            # Custom 503 error page
+            error_page 503 /maintenance.html;
+            location = /maintenance.html {
+                root /usr/share/nginx/html;
+                internal;
+                # Add retry-after header suggesting clients retry in 1 hour
+                add_header Retry-After 3600;
+            }
+        }
+    }
+{{- end }}

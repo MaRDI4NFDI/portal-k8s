@@ -1,0 +1,41 @@
+{{- if .Values.maintenance.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.maintenance.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: maintenance
+        image: {{ .Values.maintenance.image }}
+        ports:
+        - containerPort: 80
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        volumeMounts:
+        - name: maintenance-html
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: maintenance-html
+        configMap:
+          name: nginx-html
+          items:
+          - key: index.html
+            path: maintenance.html
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+{{- end }}

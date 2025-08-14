@@ -1,0 +1,22 @@
+{{- if .Values.maintenance.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.priority: "100"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.global.baseDomain }}`)
+      kind: Rule
+      priority: 100
+      middlewares:
+        - name: maintenance-headers
+      services:
+        - name: {{ .Release.Name }}
+          port: 80
+  tls:
+    secretName: {{ .Values.target.name }}-tls
+{{- end }}
