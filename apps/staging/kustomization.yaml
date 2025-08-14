@@ -17,6 +17,7 @@ resources:
   - ffmpeg
   - s3-proxy
   - external-services
+  - maintenance
   # - matomo
   
 patches:
