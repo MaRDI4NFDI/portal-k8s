@@ -316,6 +316,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/latexml-0.1.0/latexml-0.1.0.tgz
     version: 0.1.0
+  maintenance:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-08-14T14:42:57.128991376Z"
+    description: A Helm chart for maintenance mode
+    digest: e73ef024b462ce90ca3caf9d622985e01325f743763fdd044cf8216ac2219fda
+    name: maintenance
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/maintenance-0.1.0/maintenance-0.1.0.tgz
+    version: 0.1.0
   mariadb:
   - apiVersion: v2
     appVersion: 10.11.3
@@ -1378,4 +1389,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-14T09:32:36.467595901Z"
+generated: "2025-08-14T14:42:57.129437298Z"
