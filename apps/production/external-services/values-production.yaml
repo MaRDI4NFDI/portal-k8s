@@ -26,3 +26,5 @@ spec:
         subdomain: msceval
       - name: flask
         subdomain: flask
+      - name: portainer
+        subdomain: portainer
