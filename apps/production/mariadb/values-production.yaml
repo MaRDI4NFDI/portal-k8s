@@ -55,10 +55,10 @@ spec:
       resources:
         requests:
           cpu: 1000m
-          memory: 8Gi
+          memory: 4Gi # 8Gi
         limits:
           cpu: 4000m
-          memory: 20Gi
+          memory: 6Gi # 20Gi
     physicalbackup:
       bucket: "mardi"
       prefix: "production/physicalbackup/mariadb"
