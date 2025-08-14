@@ -48,7 +48,7 @@ spec:
       schedule: "0 5 * * *"
     resources:
       requests:
-        cpu: 500m
+        cpu: 400m
         memory: 2Gi
       limits:
         cpu: 1000m
