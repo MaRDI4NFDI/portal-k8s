@@ -30,6 +30,10 @@ spec:
   headers:
     accessControlAllowHeaders:
       - "*"
+    accessControlAllowOrigin: 
+      - "https://www.mardi4nfdi.de"
+      - "https://mardi4nfdi.de"
+      - "https://portal.mardi4nfdi.de"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
