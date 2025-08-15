@@ -15,12 +15,20 @@ spec:
     elasticsearch:
       host: staging-elasticsearch
     resources:
-      requests:
-        cpu: 500m
-        memory: 256Mi
-      limits:
-        cpu: 1000m
-        memory: 512Mi
+      jobrunner:
+        requests:
+          cpu: 500m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 512Mi
+      rescheduler:
+        requests:
+          cpu: 500m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 512Mi      
     secrets:
       mariadb: staging-mariadb-secrets
       wikibase: staging-wikibase-env-secrets
