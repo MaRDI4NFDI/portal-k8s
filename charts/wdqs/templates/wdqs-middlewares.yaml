@@ -30,7 +30,7 @@ spec:
   headers:
     accessControlAllowHeaders:
       - "*"
-    accessControlAllowOrigin: 
+    accessControlAllowOriginList: 
       - "https://www.mardi4nfdi.de"
       - "https://mardi4nfdi.de"
       - "https://portal.mardi4nfdi.de"
