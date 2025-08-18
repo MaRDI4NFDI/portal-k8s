@@ -8,7 +8,7 @@ spec:
       version: "0.1.1"
   values:
     maintenance:
-      enabled: true
+      enabled: false
     target:
       name: "staging-wikibase"
 
