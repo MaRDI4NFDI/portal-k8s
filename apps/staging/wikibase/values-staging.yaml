@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.30"
+      version: "0.1.31"
   values:
     replicas: 1
     port: 80
@@ -33,7 +33,7 @@ spec:
       limits:
         cpu: 1
         memory: 1Gi
-    fail2ban:
+    rateLimit:
       enabled: true
     secrets:
       mariadb: staging-mariadb-secrets
