@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.28"
+      version: "0.1.25"
   values:
     image:
       tag: kubernetes-prod
@@ -26,6 +26,8 @@ spec:
       formulasearch_host: formulasearch
       latexml_host: latexml
     storage:
+      logs:
+        size: 200Mi
       cache:
         size: 800Gi
     resources:
