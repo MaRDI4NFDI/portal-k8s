@@ -7,7 +7,6 @@ resources:
   - mariadb
   - elasticsearch
   #- wikibase
-  - wikibase-repl
   - jobrunner
   - ffmpeg
   - latexml
