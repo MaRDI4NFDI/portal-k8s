@@ -9,9 +9,9 @@ spec:
   routes:
     - match: Host(`{{ .Values.global.baseDomain }}`)
       kind: Rule
-      {{- if .Values.fail2ban.enabled }}
+      {{- if .Values.rateLimit.enabled }}
       middlewares:
-        - name: {{ .Release.Name }}-fail2ban
+        - name: {{ .Release.Name }}-ratelimit
           namespace: {{ .Release.Namespace }}
       {{- end }}
       services:

@@ -1,14 +1,12 @@
-{{- if .Values.fail2ban.enabled }}
+{{- if .Values.rateLimit.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ .Release.Name }}-fail2ban
+  name: {{ .Release.Name }}-ratelimit
   namespace: {{ .Release.Namespace }}
 spec:
-  plugin:
-    fail2ban:
-      bantime: {{ .Values.fail2ban.bantime | quote }}
-      findtime: {{ .Values.fail2ban.findtime | quote }}
-      maxretry: {{ .Values.fail2ban.maxretry }}
-      enabled: true
+  rateLimit:
+    average: {{ .Values.rateLimit.average }}
+    burst: {{ .Values.rateLimit.burst }}
+    period: {{ .Values.rateLimit.period }}
 {{- end }}

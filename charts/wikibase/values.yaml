@@ -31,10 +31,10 @@ resources:
   limits:
     cpu: 1
     memory: 1Gi
-fail2ban:
+rateLimit:
   enabled: false
-  bantime: "3h"
-  findtime: "60s"
-  maxretry: 120
+  average: 2
+  burst: 20
+  period: 1s
 secrets:
   mariadb: mariadb-secrets
