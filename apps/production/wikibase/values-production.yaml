@@ -26,14 +26,12 @@ spec:
       formulasearch_host: formulasearch
       latexml_host: latexml
     storage:
-      logs:
-        size: 200Mi
       cache:
         size: 800Gi
     resources:
       requests:
         cpu: "1000m"
-        memory: "3Gi" # 4Gi
+        memory: "4Gi" # 4Gi
       limits:
-        cpu: "4000m" 
-        memory: "6Gi" # 6Gi
+        cpu: "8000m" 
+        memory: "10Gi" # 6Gi
