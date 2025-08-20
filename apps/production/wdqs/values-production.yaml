@@ -17,9 +17,8 @@ spec:
         limits:
           cpu: 4000m
           memory: 24Gi
-
     updater:
-      enabled: false
+      enabled: true
       resources:
         requests:
           cpu: 200m
