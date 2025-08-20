@@ -16,7 +16,7 @@ resources:
   - redis
   - s3-proxy
   - wdqs
-  # - matomo
+  - matomo
   - external-services
 
 patches:
