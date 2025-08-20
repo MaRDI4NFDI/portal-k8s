@@ -25,9 +25,19 @@ spec:
         - "Ubuntu/10\\."                   # Old Ubuntu
         - "Trident/[0-3]\\."               # Old Trident
         - "rv:1\\.9\\."                    # Old Gecko revision
+        - "AppleWebKit/[1-4][0-9][0-9]\\." # Very old WebKit (100-499)
+        - "Safari/[1-4][0-9][0-9]"         # Old Safari versions
+        - "PPC Mac OS X"                   # PowerPC Macs (ancient)
+        - "CPU iPad OS [0-6]_"             # Old iPad OS
+        - "CPU iPhone OS 1[0-4]_"          # Old iPhone OS  
+        - "MSIE 9\\.0.*Trident/[45]\\."    # Wrong IE/Trident combos
+        - "Windows; U; Windows NT 10\\.0"  # Fake Win10 user agents
+        - "CriOS/[1-4][0-9]\\."            # Very old Chrome on iOS
+        - "FxiOS/1[0-4]\\."                # Old Firefox on iOS
       regexAllow:
         - "Googlebot"                      # Allow Googlebot
         - "SemrushBot"                     # Allow SemrushBot  
         - "Amazonbot"                      # Allow Amazonbot
         - "compatible;.*bot"               # Allow other identified bots
+        - "Wikidata Query Service Updater Bot"
 {{- end }}
