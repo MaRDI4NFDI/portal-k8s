@@ -7,4 +7,4 @@ spec:
   interval: 24h
   url: oci://registry-1.docker.io/bitnamicharts/matomo
   ref:
-    tag: "9.3.13"
+    tag: "11.0.0"
