@@ -1,13 +1,16 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
 metadata:
-  name: staging-matomo-tls
+  name: staging-matomo
 spec:
-  secretName: staging-matomo-tls
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  dnsNames:
-    - matomo.staging.mardi4nfdi.org
-  duration: 2160h # 90d
-  renewBefore: 360h # 15d
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`matomo.mardi4nfdi.org`)
+      kind: Rule
+      services:
+        - name: staging-matomo
+          namespace: staging
+          port: 80
+  tls:
+    secretName: staging-matomo-tls
