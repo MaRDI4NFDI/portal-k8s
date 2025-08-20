@@ -23,6 +23,7 @@ updater:
     limits:
       cpu: 500m
       memory: 1Gi
+  opts: "-Dorg.wikidata.query.rdf.tool.wikibase.WikibaseRepository.timeout=30000"
 
 frontend:
   image:

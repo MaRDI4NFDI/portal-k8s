@@ -30,6 +30,8 @@ spec:
           value: "{{ .Values.wdqs.host }}"
         - name: WDQS_PORT
           value: "{{ .Values.wdqs.port }}"
+        - name: UPDATER_OPTS
+          value: "{{ .Values.updater.opts }}"
         resources:
           requests:
             cpu: {{ .Values.updater.resources.requests.cpu }}
