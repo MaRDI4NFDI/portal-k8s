@@ -1,0 +1,28 @@
+image:
+  repository: mariadb
+  tag: 11.8.2
+  pullPolicy: IfNotPresent
+secrets: "matomo-secrets"
+db:
+  user: "matomo"
+  name: "matomo"
+  port: 3306
+storage:
+  size: 2Gi
+backup:
+  name: "backup-matomo"
+  schedule: "0 2 * * *"
+  bucket: "bucket-name"
+  prefix: "prefix"
+  endpoint: "s3-endpoint"
+  region: "region"
+  secrets: "mariadb-secrets"
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m" 
+    memory: "512Mi"
+metrics:
+  enabled: true

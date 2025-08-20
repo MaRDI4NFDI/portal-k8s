@@ -1,0 +1,6 @@
+apiVersion: v2
+name: matomo-stack
+description: A Helm chart for a single MariaDB instance for Matomo
+type: application
+version: 0.1.0
+appVersion: "1.0"
