@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.31"
+      version: "0.1.32"
   values:
     image:
       tag: kubernetes-prod
@@ -29,6 +29,8 @@ spec:
       cache:
         size: 800Gi
     rateLimit:
+      enabled: true
+    blockBots:
       enabled: true
     resources:
       requests:
