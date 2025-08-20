@@ -7,4 +7,4 @@ patches:
   - path: values-production.yaml
     target:
       kind: HelmRelease
-      name: matomo
+      name: matomo-stack
