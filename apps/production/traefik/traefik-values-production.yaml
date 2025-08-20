@@ -21,3 +21,8 @@ spec:
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
+    experimental:
+      plugins:
+        blockuseragent:
+          moduleName: "github.com/agence-gaya/traefik-plugin-blockuseragent"
+          version: "v0.1.7"
