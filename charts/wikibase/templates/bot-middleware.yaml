@@ -9,6 +9,7 @@ spec:
     blockuseragent:
       regex:
         - "Chrome/[0-6][0-9]\\."           # Old Chrome versions
+        - "Chrome/7[0-9]\\..*Safari/537\\.36"
         - "Firefox/[0-3][0-9]\\."          # Old Firefox versions  
         - "Windows NT [45]\\."             # Win XP/2000
         - "Windows 98|Windows CE"          # Ancient Windows
