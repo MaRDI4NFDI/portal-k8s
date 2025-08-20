@@ -36,5 +36,7 @@ rateLimit:
   average: 2
   burst: 20
   period: 1s
+blockBots:
+  enabled: false
 secrets:
   mariadb: mariadb-secrets

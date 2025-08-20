@@ -1,0 +1,32 @@
+{{- if .Values.blockBots.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-block-fake-agents
+  namespace: {{ .Release.Namespace }}
+spec:
+  plugin:
+    blockuseragent:
+      regex:
+        - "Chrome/[0-6][0-9]\\."           # Old Chrome versions
+        - "Firefox/[0-3][0-9]\\."          # Old Firefox versions  
+        - "Windows NT [45]\\."             # Win XP/2000
+        - "Windows 98|Windows CE"          # Ancient Windows
+        - "MSIE [5-8]\\."                  # Old IE versions
+        - "Opera/[0-8]\\."                 # Old Opera
+        - "AppleWebKit/53[0-4]\\."         # Old WebKit
+        - "CPU iPhone OS [0-9]_"           # iOS 0-9
+        - "iPad OS 1_"                     # Fake iPad OS
+        - "Android [0-4]\\."               # Old Android
+        - "Presto/2\\.9\\."                # Old Presto engine
+        - "Gecko/[0-9]{4}-"                # Malformed Gecko
+        - "Version/[0-4]\\."               # Very old Safari
+        - "Ubuntu/10\\."                   # Old Ubuntu
+        - "Trident/[0-3]\\."               # Old Trident
+        - "rv:1\\.9\\."                    # Old Gecko revision
+      regexAllow:
+        - "Googlebot"                      # Allow Googlebot
+        - "SemrushBot"                     # Allow SemrushBot  
+        - "Amazonbot"                      # Allow Amazonbot
+        - "compatible;.*bot"               # Allow other identified bots
+{{- end }}
