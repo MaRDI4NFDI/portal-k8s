@@ -9,6 +9,8 @@ spec:
   values:
     matomo:
       websiteName: "MaRDI Portal"
+      storage:
+        size: 10Gi
     mariadb:
       image:
         repository: mariadb
