@@ -8,4 +8,4 @@ patches:
   - path: values-staging.yaml
     target:
       kind: HelmRelease
-      name: matomo
+      name: matomo-stack
