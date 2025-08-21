@@ -17,6 +17,9 @@ spec:
       containers:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        volumeMounts:
+        - name: quickstatements-data
+          mountPath: /quickstatements
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
@@ -47,3 +50,6 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-secrets
               key: OAUTH_CONSUMER_SECRET
+      volumes:
+      - name: quickstatements-data
+        emptyDir: {}
