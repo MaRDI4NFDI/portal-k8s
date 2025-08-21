@@ -19,7 +19,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         volumeMounts:
         - name: quickstatements-data
-          mountPath: /quickstatements
+          mountPath: /quickstatements/data
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
