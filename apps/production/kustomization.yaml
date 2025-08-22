@@ -16,7 +16,7 @@ resources:
   - redis
   - s3-proxy
   - wdqs
-  # - matomo
+  - mariadb-matomo
   - external-services
 
 patches:
