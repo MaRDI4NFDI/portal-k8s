@@ -9,5 +9,5 @@ spec:
     matomoWebsiteName: "Staging MaRDI Portal"
     matomoWebsiteHost: "staging.matomo.mardi4nfdi.org"
     externalDatabase:
-      host: "staging-matomo-mariadb"
+      host: "staging-mariadb-matomo"
       existingSecret: "staging-matomo-secrets"
