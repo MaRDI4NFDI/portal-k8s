@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: matomo
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`matomo.portal.mardi4nfdi.de`)
+      kind: Rule
+      services:
+        - name: matomo
+          namespace: production
+          port: 80
+  tls:
+    secretName: matomo-tls
