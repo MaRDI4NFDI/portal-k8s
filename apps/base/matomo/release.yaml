@@ -14,7 +14,7 @@ spec:
     mariadb:
       enabled: false    
     externalDatabase:
-      host: "matomo-mariadb"
+      host: "mariadb-matomo"
       port: 3306
       user: "matomo"
       database: "matomo"
