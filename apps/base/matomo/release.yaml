@@ -25,7 +25,8 @@ spec:
     ingress:
       enabled: false    
     persistence:
-      enabled: true   
+      enabled: true
+      size: 2Gi
     cronjobs:
       archive:
         enabled: false
