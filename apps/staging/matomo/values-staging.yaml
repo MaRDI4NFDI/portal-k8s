@@ -8,6 +8,7 @@ spec:
     matomoEmail: "admin@example.com"
     matomoWebsiteName: "Staging MaRDI Portal"
     matomoWebsiteHost: "matomo.staging.mardi4nfdi.org"
+    existingSecret: "staging-matomo-secrets"
     externalDatabase:
       host: "staging-mariadb-matomo"
       existingSecret: "staging-matomo-secrets"

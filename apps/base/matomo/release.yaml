@@ -12,7 +12,8 @@ spec:
     updateStrategy:
       type: Recreate    
     mariadb:
-      enabled: false    
+      enabled: false  
+    existingSecret: "matomo-secrets"  
     externalDatabase:
       host: "mariadb-matomo"
       port: 3306
