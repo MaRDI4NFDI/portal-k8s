@@ -25,7 +25,12 @@ spec:
     ingress:
       enabled: false    
     persistence:
-      enabled: true    
+      enabled: true   
+    cronjobs:
+      archive:
+        enabled: false
+      taskScheduler:
+        enabled: false 
     resources:
       requests:
         cpu: "250m"
