@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: staging-matomo-tls
+  name: matomo-tls
 spec:
   secretName: staging-matomo-tls
   issuerRef:
