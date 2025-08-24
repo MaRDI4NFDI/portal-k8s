@@ -18,9 +18,9 @@ resources:
   - s3-proxy
   - external-services
   - maintenance
-  - mariadb-matomo
+  # - mariadb-matomo
   # - matomo
-  
+
 patches:
   - target:
       kind: HelmRelease
