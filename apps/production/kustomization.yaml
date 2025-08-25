@@ -19,6 +19,7 @@ resources:
   - mariadb-matomo
   # - matomo
   - external-services
+  - maintenance
 
 patches:
   - target:
