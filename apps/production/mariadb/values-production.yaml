@@ -35,7 +35,7 @@ spec:
               cpu: "2000m"
               memory: "8Gi"
       extendedTimeouts:
-        enabled: false
+        enabled: true
       replicaThreads: 4
       cacheSize: "2G"
       flowControlLimit: "256"
