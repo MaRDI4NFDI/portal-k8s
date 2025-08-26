@@ -8,7 +8,7 @@ spec:
       version: "0.1.6"
   values:
     database:
-      host: "mariadb-secondary"
+      host: "mariadb-primary"
     endpoints:
       mediawiki: "http://wikibase/w/api.php"
       wikibase: "http://wikibase"
