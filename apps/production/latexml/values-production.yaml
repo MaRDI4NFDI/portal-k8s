@@ -8,5 +8,5 @@ spec:
       version: "0.1.3"
   values:
     ingress:
-      enabled: false
+      enabled: true
 
