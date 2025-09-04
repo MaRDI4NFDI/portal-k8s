@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}
 spec:
+  serviceName: {{ .Release.Name }}
   replicas: 1
   selector:
     matchLabels:
@@ -17,6 +18,13 @@ spec:
         image: "{{ .Values.image.repository }}"
         ports:
         - containerPort: {{ .Values.containerPort }}
+        env:
+        - name: LATEXMLINPUTS
+          value: "/DRMF"
+        volumeMounts:
+        - name: drmf-data
+          mountPath: /DRMF
+          readOnly: true
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
@@ -24,3 +32,13 @@ spec:
           limits:
             cpu: {{ .Values.resources.limits.cpu }}
             memory: {{ .Values.resources.limits.memory }}
+  volumeClaimTemplates:
+  - metadata:
+      name: drmf-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: "csi-rbd-sc"
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}
