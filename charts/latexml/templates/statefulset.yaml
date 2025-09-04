@@ -24,7 +24,7 @@ spec:
         volumeMounts:
         - name: drmf-data
           mountPath: /DRMF
-          readOnly: true
+          readOnly: false
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}
