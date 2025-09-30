@@ -1,0 +1,17 @@
+image:
+  repository: digitalocean/flask-helloworld
+
+containerPort: 5000
+servicePort: 80
+
+ingress:
+  enabled: true
+  subdomain: "demoservice"
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 1Gi
+    cpu: 500m
