@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  demoservice:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-09-30T09:47:44.965456892Z"
+    description: Demo service
+    digest: ea6d7b38c1490f9d4f56ea6c1cec53ae97351863daab6efddc0a207a9ebb5c1f
+    name: demoservice
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/demoservice-0.1.0/demoservice-0.1.0.tgz
+    version: 0.1.0
   elasticsearch:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -1550,4 +1561,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-04T09:41:05.613684763Z"
+generated: "2025-09-30T09:47:44.965765147Z"
