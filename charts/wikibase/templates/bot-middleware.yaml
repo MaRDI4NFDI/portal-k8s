@@ -8,7 +8,7 @@ spec:
   plugin:
     blockuseragent:
       regex:
-        - "Chrome/([0-9]|[1-9][0-9]|1[0-1][0-4])\\."  # Chrome 0-114
+        - "Chrome/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-4])\\."  # Chrome 0-124
         - "Firefox/[0-3][0-9]\\."          # Old Firefox versions  
         - "Windows NT [45]\\."             # Win XP/2000
         - "Windows 98|Windows CE"          # Ancient Windows
