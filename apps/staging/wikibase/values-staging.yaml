@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.34"
+      version: "0.1.36"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
