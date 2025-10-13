@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.36"
+      version: "0.1.37"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
@@ -24,6 +24,7 @@ spec:
       db_secondary: staging-mariadb-secondary
       elasticsearch_host: staging-elasticsearch
       redis_host: staging-redis-master
+      memcached_host: staging-memcached
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
     storage:
