@@ -7,4 +7,5 @@ resources:
   - portainer.yaml
   - bitnami-redis.yaml
   - bitnami-matomo.yaml
+  - bitnami-memcached.yaml
   - jetstack.yaml
