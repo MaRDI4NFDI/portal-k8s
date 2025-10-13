@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: memcached
+spec:
+  interval: 5m
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-memcached
+    namespace: flux-system
+  values:
+    image:
+      tag: "1.6.29" 
+
+    architecture: standalone
+    replicaCount: 1
+    
+    auth:
+      enabled: false
+    
+    persistence:
+      enabled: false
