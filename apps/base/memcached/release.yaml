@@ -9,9 +9,6 @@ spec:
     name: bitnami-memcached
     namespace: flux-system
   values:
-    image:
-      tag: "1.6.29" 
-
     architecture: standalone
     replicaCount: 1
     
