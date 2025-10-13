@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: bitnami-memcached
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: oci://registry-1.docker.io/bitnamicharts/memcached
+  ref:
+    tag: "8.0.5"
