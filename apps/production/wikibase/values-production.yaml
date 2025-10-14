@@ -8,7 +8,8 @@ spec:
       version: "0.1.36"
   values:
     image:
-      tag: kubernetes-prod
+      repository: ghcr.io/mardi4nfdi/wikibase-production
+      tag: 1.44.22
     replicas: 1
     port: 80
     ingress:
