@@ -29,9 +29,7 @@ spec:
     storage:
       cache:
         size: 800Gi
-    rateLimit:
-      enabled: true
-    blockBots:
+    blockHeaders:
       enabled: true
     fail2ban:
       enabled: true
