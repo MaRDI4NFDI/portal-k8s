@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.38"
+      version: "0.1.41"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-production
@@ -32,6 +32,8 @@ spec:
     rateLimit:
       enabled: true
     blockBots:
+      enabled: true
+    fail2ban:
       enabled: true
     resources:
       requests:
