@@ -26,6 +26,3 @@ spec:
         blockuseragent:
           moduleName: "github.com/agence-gaya/traefik-plugin-blockuseragent"
           version: "v0.1.7"
-        denyip:
-          moduleName: "github.com/kevtainer/denyip"
-          version: "v2.0.0"
