@@ -6,8 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.15"
+      version: "0.1.17"
   values:
+    image:
+      repository: ghcr.io/mardi4nfdi/redis-jobrunner-staging
+      tag: latest
     redis:
       host: "staging-redis-master"
     mediawiki:
