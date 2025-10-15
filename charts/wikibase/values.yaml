@@ -40,5 +40,7 @@ rateLimit:
   period: 1s
 blockBots:
   enabled: false
+blockIPs:
+  enabled: false
 secrets:
   mariadb: mariadb-secrets

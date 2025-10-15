@@ -19,6 +19,10 @@ spec:
         - name: {{ .Release.Name }}-ratelimit
           namespace: {{ .Release.Namespace }}
         {{- end }}
+        {{- if .Values.blockIPs.enabled }}
+        - name: {{ .Release.Name }}-ipblock
+          namespace: {{ .Release.Namespace }}
+        {{- end }}
       {{- end }}
       services:
         - name: {{ .Release.Name }}
