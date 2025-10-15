@@ -20,6 +20,7 @@ resources:
   # - matomo
   - external-services
   - maintenance
+  - memcached
 
 patches:
   - target:
