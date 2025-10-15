@@ -33,12 +33,7 @@ resources:
   limits:
     cpu: 1
     memory: 1Gi
-rateLimit:
-  enabled: false
-  average: 2
-  burst: 20
-  period: 1s
-blockBots:
+blockHeaders:
   enabled: false
 fail2ban:
   enabled: false

@@ -1,4 +1,4 @@
-{{- if .Values.blockBots.enabled }}
+{{- if .Values.blockHeaders.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
