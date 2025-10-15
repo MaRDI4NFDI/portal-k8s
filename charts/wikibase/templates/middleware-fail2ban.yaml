@@ -1,0 +1,27 @@
+{{- if .Values.fail2ban.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-fail2ban
+spec:
+  plugin:
+    fail2ban:
+      denylist:
+        ip:
+          - "43.173.173.0/24"
+          - "43.173.174.0/24"
+          - "43.173.175.0/24"
+          - "43.173.176.0/24"
+          - "43.173.177.0/24"
+          - "43.173.178.0/24"
+          - "43.173.179.0/24"
+          - "43.173.180.0/24"
+          - "43.173.181.0/24"
+          - "43.173.182.0/24"
+      rules:
+        enabled: true
+        bantime: "1h"
+        findtime: "10m"
+        maxretry: 5
+        statuscode: "401,403,404,429"
+{{- end }}

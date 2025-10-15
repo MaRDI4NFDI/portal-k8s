@@ -19,8 +19,8 @@ spec:
         - name: {{ .Release.Name }}-ratelimit
           namespace: {{ .Release.Namespace }}
         {{- end }}
-        {{- if .Values.blockIPs.enabled }}
-        - name: {{ .Release.Name }}-ipblock
+        {{- if .Values.fail2ban.enabled }}
+        - name: {{ .Release.Name }}-fail2ban
           namespace: {{ .Release.Namespace }}
         {{- end }}
       {{- end }}
