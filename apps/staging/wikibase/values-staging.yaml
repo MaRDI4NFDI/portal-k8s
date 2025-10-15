@@ -42,6 +42,6 @@ spec:
     blockBots:
       enabled: true
     blockIPs:
-      enabled: true
+      enabled: false
     secrets:
       mariadb: staging-mariadb-secrets
