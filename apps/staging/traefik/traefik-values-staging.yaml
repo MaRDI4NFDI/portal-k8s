@@ -26,3 +26,6 @@ spec:
         blockuseragent:
           moduleName: "github.com/agence-gaya/traefik-plugin-blockuseragent"
           version: "v0.1.7"
+        fail2ban:
+          moduleName: "github.com/tomMoulard/fail2ban"
+          version: "v0.8.7"
