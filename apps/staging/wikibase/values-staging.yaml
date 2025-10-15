@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.38"
+      version: "0.1.39"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
@@ -40,6 +40,8 @@ spec:
     rateLimit:
       enabled: true
     blockBots:
+      enabled: true
+    blockIPs:
       enabled: true
     secrets:
       mariadb: staging-mariadb-secrets
