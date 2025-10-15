@@ -4,6 +4,10 @@ metadata:
   name: memcached
 spec:
   values:
+    extraEnvVars:
+    # -- MEMCACHED_CACHE_SIZE is the amount of memory allocated to memcached for object storage
+    - name: MEMCACHED_CACHE_SIZE
+      value: "4096"
     resources:
       requests:
         memory: 4Gi
