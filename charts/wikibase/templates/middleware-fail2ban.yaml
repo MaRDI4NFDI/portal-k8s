@@ -23,5 +23,5 @@ spec:
         bantime: "1h"
         findtime: "10m"
         maxretry: 5
-        statuscode: "401,403,404,429"
+        statuscode: "401,403,429"
 {{- end }}
