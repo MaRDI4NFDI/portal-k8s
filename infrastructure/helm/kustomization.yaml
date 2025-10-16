@@ -9,3 +9,4 @@ resources:
   - bitnami-matomo.yaml
   - bitnami-memcached.yaml
   - jetstack.yaml
+  - varnish.yaml
