@@ -4,10 +4,15 @@ metadata:
   name: varnish
 spec:
   values:
-    resources:
-      requests:
-        cpu: 250m
-        memory: 256Mi
-      limits:
-        cpu: 1000m
-        memory: 1Gi
+    server:
+      extraVolumes:
+        - name: vcl-config
+          configMap:
+            name: staging-varnish-vcl
+      resources:
+        requests:
+          cpu: 250m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
