@@ -9,49 +9,39 @@ spec:
     name: varnish
     namespace: flux-system
   values:
-    replicas: 1
-      
-    extraVolumes:
-      - name: vcl-config
-        configMap:
-          name: varnish-vcl
-    
-    extraVolumeMounts:
-      - name: vcl-config
-        mountPath: /etc/varnish
-        readOnly: true
-    
-    vclConfigPath: "/etc/varnish/default.vcl"
-    
-    resources:
-      requests:
-        cpu: 500m
-        memory: 512Mi
-      limits:
-        cpu: 2000m
-        memory: 1Gi
-    
-    service:
-      enabled: true
-      type: ClusterIP
-      http:
-        enabled: true
-        port: 80
-    
-    ingress:
-      enabled: false
+    server:
+      replicas: 1
 
-    readinessProbe:
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 1
-      successThreshold: 1
-      failureThreshold: 3
-    
-    livenessProbe:
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      successThreshold: 1
-      failureThreshold: 3
+      vclConfig: ""
+      vclConfigFile: "" 
+        
+      extraVolumes:
+        - name: vcl-config
+          configMap:
+            name: varnish-vcl
+      
+      extraVolumeMounts:
+        - name: vcl-config
+          mountPath: /etc/varnish
+          readOnly: true
+      
+      vclConfigPath: "/etc/varnish/default.vcl"
+      
+      resources:
+        requests:
+          cpu: 500m
+          memory: 512Mi
+        limits:
+          cpu: 2000m
+          memory: 1Gi
+      
+      service:
+        enabled: true
+        type: ClusterIP
+        http:
+          enabled: true
+          port: 80
+      
+      ingress:
+        enabled: false
     
