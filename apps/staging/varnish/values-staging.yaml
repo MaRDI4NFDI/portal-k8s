@@ -4,6 +4,7 @@ metadata:
   name: varnish
 spec:
   values:
+    fullnameOverride: "staging-varnish"
     server:
       vclConfig: |
         vcl 4.0;
