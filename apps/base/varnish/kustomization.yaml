@@ -3,10 +3,3 @@ kind: Kustomization
 
 resources:
   - release.yaml
-
-configMapGenerator:
-  - name: varnish-vcl
-    files:
-      - default.vcl
-    options:
-      disableNameSuffixHash: true
