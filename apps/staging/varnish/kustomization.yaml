@@ -3,20 +3,6 @@ kind: Kustomization
 namePrefix: staging-
 resources:
   - ../../base/varnish
-  - varnish-config.yaml
-replacements:
-  - source:
-      kind: ConfigMap
-      name: varnish-config
-      fieldPath: data.service_name
-    targets:
-      - select:
-          kind: ConfigMap
-          name: varnish-vcl
-        fieldPaths:
-          - data.default\.vcl
-        options:
-          delimiter: 'MEDIAWIKI_SERVICE_NAME'
 patches:
   - path: values-staging.yaml
     target:
