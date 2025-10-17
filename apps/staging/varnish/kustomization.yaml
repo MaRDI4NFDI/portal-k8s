@@ -3,6 +3,7 @@ kind: Kustomization
 namePrefix: staging-
 resources:
   - ../../base/varnish
+  - ingressroute.yaml
 patches:
   - path: values-staging.yaml
     target:
