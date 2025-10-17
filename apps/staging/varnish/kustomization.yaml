@@ -4,6 +4,7 @@ namePrefix: staging-
 resources:
   - ../../base/varnish
   - ingressroute.yaml
+  - certificate.yaml
 patches:
   - path: values-staging.yaml
     target:

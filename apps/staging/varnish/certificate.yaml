@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: varnish-tls
+spec:
+  secretName: staging-varnish-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - varnish.staging.mardi4nfdi.org
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d

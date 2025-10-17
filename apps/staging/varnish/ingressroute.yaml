@@ -1,21 +1,16 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: staging-varnish
-  namespace: staging
+  name: varnish
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`staging.mardi4nfdi.org`)
+    - match: Host(`varnish.staging.mardi4nfdi.org`)
       kind: Rule
-      priority: 100
-      middlewares:
-        - name: staging-wikibase-fail2ban
-          namespace: staging
       services:
         - name: staging-varnish
           namespace: staging
           port: 80
   tls:
-    secretName: staging-wikibase-tls
+    secretName: staging-varnish-tls
