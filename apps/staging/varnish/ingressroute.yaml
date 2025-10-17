@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`varnish.staging.mardi4nfdi.org`)
+    - match: Host(`staging.mardi4nfdi.org`)
       kind: Rule
       services:
         - name: staging-varnish

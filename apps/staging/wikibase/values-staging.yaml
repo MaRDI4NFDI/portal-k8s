@@ -14,7 +14,7 @@ spec:
     replicas: 1
     port: 80
     ingress:
-      enabled: true
+      enabled: false
     mediawiki:
       scheme: https
       db_server: staging-mariadb-primary:3306

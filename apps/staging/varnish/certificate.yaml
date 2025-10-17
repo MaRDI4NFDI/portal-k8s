@@ -8,6 +8,6 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - varnish.staging.mardi4nfdi.org
+    - staging.mardi4nfdi.org
   duration: 2160h # 90d
   renewBefore: 360h # 15d
