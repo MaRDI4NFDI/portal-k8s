@@ -1,3 +1,4 @@
+{{- if .Values.varnish.enabled }}
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -123,3 +124,4 @@ spec:
       
       ingress:
         enabled: false
+{{- end }}
