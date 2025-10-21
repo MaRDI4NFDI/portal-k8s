@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.47"
+      version: "0.1.48"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
@@ -39,9 +39,7 @@ spec:
       limits:
         cpu: 1
         memory: 1Gi
-    rateLimit:
-      enabled: true
-    blockBots:
+    blockHeaders:
       enabled: true
     fail2ban:
       enabled: true
