@@ -19,7 +19,6 @@ resources:
   - external-services
   - maintenance
   - memcached
-  # - varnish
   # - mariadb-matomo
   # - matomo
 
