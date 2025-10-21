@@ -6,15 +6,16 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.42"
+      version: "0.1.44"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
       tag: latest
     replicas: 1
     port: 80
-    ingress:
+    varnish:
       enabled: false
+      backendHost: "staging-wikibase"
     mediawiki:
       scheme: https
       db_server: staging-mariadb-primary:3306
