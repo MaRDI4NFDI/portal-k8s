@@ -90,6 +90,8 @@ spec:
           value: "{{ .Values.mediawiki.formulasearch_host }}"
         - name: MW_FORMULASEARCH_PORT
           value: "{{ .Values.mediawiki.formulasearch_port }}"
+        - name: USE_CDN
+          value: "{{ .Values.varnish.enabled }}"
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
