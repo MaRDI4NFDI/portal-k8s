@@ -4,8 +4,6 @@ image:
   pullPolicy: Always
 replicas: 1
 port: 80
-ingress:
-  enabled: true
 mediawiki:
   scheme: https
   db_server: mariadb
@@ -39,3 +37,17 @@ fail2ban:
   enabled: false
 secrets:
   mariadb: mariadb-secrets
+varnish:
+  enabled: false
+  backendHost: "wikibase"
+  backendPort: "80"
+  backendFirstByteTimeout: "600s"
+  backendBetweenBytesTimeout: "600s"
+  purgeAcl: "10.217.0.0/16"
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "2000m"
+      memory: "1Gi"
