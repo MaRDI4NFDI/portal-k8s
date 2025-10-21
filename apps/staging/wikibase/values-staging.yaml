@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.46"
+      version: "0.1.47"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-staging
@@ -15,6 +15,7 @@ spec:
     port: 80
     varnish:
       enabled: true
+      fullnameOverride: "staging-varnish"
       backendHost: "staging-wikibase"
     mediawiki:
       scheme: https
