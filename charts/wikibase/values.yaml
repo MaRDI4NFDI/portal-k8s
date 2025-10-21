@@ -39,6 +39,7 @@ secrets:
   mariadb: mariadb-secrets
 varnish:
   enabled: false
+  fullnameOverride: "varnish"
   backendHost: "wikibase"
   backendPort: "80"
   backendFirstByteTimeout: "600s"

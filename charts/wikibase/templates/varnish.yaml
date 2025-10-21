@@ -10,7 +10,7 @@ spec:
     name: varnish
     namespace: flux-system
   values:
-    fullnameOverride: "varnish"
+    fullnameOverride: {{ .Values.varnish.fullnameOverride }}
     server:
       replicas: 1
 

@@ -21,7 +21,7 @@ spec:
       {{- end }}
       services:
         {{- if .Values.varnish.enabled }}
-        - name: {{ .Release.Name }}-varnish
+        - name: {{ .Values.varnish.fullnameOverride }}
           namespace: {{ .Release.Namespace }}
           port: 80
         {{- else }}
