@@ -70,11 +70,6 @@ spec:
         }
 
         sub vcl_backend_response {
-            # Simplify Vary header to reduce cache fragmentation
-            if (beresp.http.Vary) {
-                set beresp.http.Vary = "Accept-Encoding";
-            }
-
             # Don't cache error responses
             if (beresp.status >= 500) {
                 set beresp.uncacheable = true;
