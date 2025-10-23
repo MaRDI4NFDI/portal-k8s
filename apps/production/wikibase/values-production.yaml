@@ -14,12 +14,13 @@ spec:
     port: 80
     varnish:
       enabled: true
-      requests:
-        cpu: "2"
-        memory: "4Gi"
-      limits:
-        cpu: "6"
-        memory: "10Gi"
+      resources:
+        requests:
+          cpu: "2"
+          memory: "4Gi"
+        limits:
+          cpu: "6"
+          memory: "10Gi"
     mediawiki:
       host: portal.mardi4nfdi.de
       scheme: https
