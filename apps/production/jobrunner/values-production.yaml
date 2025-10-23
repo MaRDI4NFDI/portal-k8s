@@ -9,7 +9,7 @@ spec:
   values:
     image:
       repository: ghcr.io/mardi4nfdi/redis-jobrunner-production
-      tag: 1.44.23
+      tag: 1.44.26
     runners:
       basic: 8
       dispChanges: 32
