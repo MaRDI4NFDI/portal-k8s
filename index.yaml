@@ -1041,6 +1041,16 @@ entries:
   wdqs:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-10-23T09:09:11.173545759Z"
+    description: A Helm chart for the Wikibase Query System
+    digest: dec0f507665fe2e528a1fa4d1ccc8df2a9c566a9bfd6a30a7ede8465762efbb8
+    name: wdqs
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wdqs-0.1.17/wdqs-0.1.17.tgz
+    version: 0.1.17
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-08-20T12:14:26.193034886Z"
     description: A Helm chart for the Wikibase Query System
     digest: d60bc4e4a70cc05be4101c1cfbbbb047fa75c0031b2bfd3e25d077ab0ba4c990
@@ -1731,4 +1741,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-23T08:57:15.817750474Z"
+generated: "2025-10-23T09:09:11.173918784Z"
