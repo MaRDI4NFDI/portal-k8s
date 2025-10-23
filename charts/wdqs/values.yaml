@@ -6,6 +6,7 @@ wdqs:
   port: 9999
   storage: 5Gi
   memory: ""
+  heap_size: "1g"
   resources:
     requests:
       cpu: 500m

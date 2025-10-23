@@ -36,6 +36,8 @@ spec:
           value: "{{ .Values.wdqs.port }}"
         - name: MEMORY
           value: "{{ .Values.wdqs.memory }}"
+        - name: HEAP_SIZE
+          value: "{{ .Values.wdqs.heap_size }}"
         - name: BLAZEGRAPH_OPTS
           value: "-Dorg.wikidata.query.rdf.tool.rdf.RdfRepository.timeout=3600"
         volumeMounts:
