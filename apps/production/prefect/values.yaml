@@ -1,27 +1,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mariadb
-spec:
-  chart:
-    spec:
-      version: "0.1.39"
-  values:
-    replicas: 3
-    galera:
-      enabled: true
-      config:
-        reuseStorageVolume: false
-        volumeClaimTemplate:
-          resources:
-            requests:
-              storage: 300Mi
-          accessModes:
-            - ReadWriteOnce
-      recovery:
-        enabled: trueapiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
   name: prefect-server
 spec:
   chart:
@@ -77,61 +56,4 @@ spec:
             memory: 1Gi      
       image:
         repository: bitnamilegacy/postgresql
-        tag: 14.13.0
-    
-        minClusterSize: 1
-        clusterMonitorInterval: 30s
-        clusterHealthyTimeout: 2m
-        clusterBootstrapTimeout: 12h
-        podRecoveryTimeout: 6h
-        podSyncTimeout: 12h
-        job:
-          resources:
-            requests:
-              cpu: "1000m"
-              memory: "4Gi"
-            limits:
-              cpu: "2000m"
-              memory: "8Gi"
-      extendedTimeouts:
-        enabled: true
-      replicaThreads: 4
-      cacheSize: "2G"
-      flowControlLimit: "256"
-    mariadb:
-    config:
-      maxConnections: "1000"
-    database: my_wiki
-    user: sqluser
-    storage:
-      size: 600Gi
-    backup:
-      bucket: "mardi"
-      prefix: "production/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
-      schedule: "0 0 * * *"
-      storage: 600Gi
-      resources:
-        requests:
-          cpu: 1000m
-          memory: 4Gi # 8Gi
-        limits:
-          cpu: 4000m
-          memory: 6Gi # 20Gi
-    physicalbackup:
-      bucket: "mardi"
-      prefix: "production/physicalbackup/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
-      schedule: "0 2 * * *"
-      immediate: true
-      timeout: "6h"
-    resources:
-      requests:
-        cpu: 4000m
-        memory: 24Gi
-      limits:
-        cpu: 8000m
-        memory: 28Gi
-    secrets:
-      wikibase: wikibase-env-secrets
-    
+        tag: 14.13.0    
