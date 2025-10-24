@@ -47,6 +47,11 @@ spec:
                     return (purge);
                 }
             }
+
+            # Pass POST requests to backend
+            if (req.method == "POST") {
+                return (pass);
+            }
             
             # Pass requests from logged-in users
             if (req.http.Authorization || req.http.Cookie ~ "([sS]ession|Token)=") {
