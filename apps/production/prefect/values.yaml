@@ -43,7 +43,6 @@ spec:
     postgresql:
       enabled: true      
       auth:
-        existingSecret: "prefect-postgres-auth"
         persistence:
           enabled: true
           size: 20Gi
