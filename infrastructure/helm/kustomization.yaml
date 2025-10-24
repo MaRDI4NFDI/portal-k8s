@@ -10,3 +10,4 @@ resources:
   - bitnami-memcached.yaml
   - jetstack.yaml
   - varnish.yaml
+  - prefect.yaml
