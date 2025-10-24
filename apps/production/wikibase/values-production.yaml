@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.52"
+      version: "0.1.53"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-production
