@@ -21,7 +21,7 @@ resources:
   - external-services
   - maintenance
   - memcached
-  - prefect
+  #- prefect
 
 patches:
   - target:
