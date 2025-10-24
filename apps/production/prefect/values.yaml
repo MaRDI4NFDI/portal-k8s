@@ -39,6 +39,10 @@ spec:
     
     ingress:
       enabled: false
+
+    secret:
+      create: false
+      name: "prefect-server-postgresql"
     
     postgresql:
       enabled: true      
