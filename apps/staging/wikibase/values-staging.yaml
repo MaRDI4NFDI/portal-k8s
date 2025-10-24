@@ -42,6 +42,6 @@ spec:
     blockHeaders:
       enabled: true
     fail2ban:
-      enabled: false
+      enabled: true
     secrets:
       mariadb: staging-mariadb-secrets
