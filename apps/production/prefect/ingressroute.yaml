@@ -21,4 +21,4 @@ spec:
         - name: prefect-vpn-whitelist
       services:
         - name: prefect-server
-          port: 4200
+          port: server-svc-port
