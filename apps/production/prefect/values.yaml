@@ -42,11 +42,11 @@ spec:
 
     secret:
       create: false
-      name: "prefect-server-postgresql"
     
     postgresql:
       enabled: true      
       auth:
+        existingSecret: "prefect-server-postgresql"
         persistence:
           enabled: true
           size: 20Gi
