@@ -8,7 +8,7 @@ spec:
       version: "2025.10.23195705"
   values:
     server:
-      basicauth:
+      basicAuth:
         existingSecret: "prefect-server-auth"
 
       loggingLevel: WARNING
