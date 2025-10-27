@@ -17,8 +17,8 @@ spec:
   routes:
     - match: Host(`prefect.portal.mardi4nfdi.de`)
       kind: Rule
-      middlewares:
-        - name: prefect-vpn-whitelist
+      #middlewares:
+      #  - name: prefect-vpn-whitelist
       services:
         - name: prefect-server
           port: server-svc-port
