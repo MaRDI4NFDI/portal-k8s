@@ -15,7 +15,7 @@ spec:
       loggingLevel: WARNING
 
       uiConfig:
-        prefectUiApiUrl: "http://prefect.portal.mardi4nfdi.de/api"
+        prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
         prefectUiStaticDirectory: "/ui_build"
             
       resources:
