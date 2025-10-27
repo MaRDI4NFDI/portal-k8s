@@ -8,6 +8,9 @@ spec:
       version: "2025.10.23195705"
   values:
     server:
+      basicauth:
+        existingSecret: "prefect-server-auth"
+
       loggingLevel: WARNING
 
       #uiConfig:
