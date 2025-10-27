@@ -9,13 +9,14 @@ spec:
   values:
     server:
       basicAuth:
+        enabled: true
         existingSecret: "prefect-server-auth"
 
       loggingLevel: WARNING
 
-      #uiConfig:
-      #  prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
-      #  prefectUiStaticDirectory: "/ui_build"
+      uiConfig:
+        prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
+        prefectUiStaticDirectory: "/ui_build"
             
       resources:
         requests:
