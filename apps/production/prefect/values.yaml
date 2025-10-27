@@ -14,9 +14,9 @@ spec:
 
       loggingLevel: WARNING
 
-      uiConfig:
-        prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
-        prefectUiStaticDirectory: "/ui_build"
+      #uiConfig:
+      #  prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
+      #  prefectUiStaticDirectory: "/ui_build"
             
       resources:
         requests:
@@ -51,8 +51,9 @@ spec:
       enabled: true      
       auth:
         existingSecret: "prefect-server-postgresql"
+      primary:
         persistence:
-          enabled: true
+          enabled: false
           size: 20Gi
         resources:
           requests:
@@ -60,7 +61,7 @@ spec:
             memory: 256Mi
           limits:
             cpu: 1000m
-            memory: 1Gi      
+            memory: 1Gi 
       image:
         repository: bitnamilegacy/postgresql
         tag: 14.13.0    
