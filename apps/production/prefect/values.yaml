@@ -15,7 +15,7 @@ spec:
       loggingLevel: WARNING
 
       uiConfig:
-        prefectUiApiUrl: "https://prefect.portal.mardi4nfdi.de/api"
+        prefectUiApiUrl: "http://prefect-mardi.zib.de/api"
         prefectUiStaticDirectory: "/ui_build"
             
       resources:
@@ -42,7 +42,15 @@ spec:
       targetPort: 4200
     
     ingress:
-      enabled: false
+      enabled: true
+      className: "nginx"
+      host:
+        hostname: prefect-mardi.zib.de
+        path: /
+        pathType: Prefix
+      annotations:
+        nginx.ingress.kubernetes.io/whitelist-source-range: 130.73.0.0/16
+      servicePort: server-svc-port
 
     secret:
       create: false

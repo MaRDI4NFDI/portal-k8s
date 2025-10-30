@@ -4,8 +4,8 @@ resources:
   - ../../base/prefect
   - secret-auth.yaml
   - secret-postgresql.yaml
-  - ingressroute.yaml
-  - certificate.yaml
+  #- ingressroute.yaml
+  #- certificate.yaml
 patches:
   - path: values.yaml
     target:
