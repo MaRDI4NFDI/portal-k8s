@@ -61,7 +61,7 @@ spec:
         existingSecret: "prefect-server-postgresql"
       primary:
         persistence:
-          enabled: false
+          enabled: true
           size: 20Gi
         resources:
           requests:
