@@ -12,7 +12,7 @@ spec:
         enabled: true
         existingSecret: "prefect-server-auth"
 
-      loggingLevel: WARNING
+      loggingLevel: DEBUG
 
       uiConfig:
         prefectUiApiUrl: "http://prefect-mardi.zib.de/api"
