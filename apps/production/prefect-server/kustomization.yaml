@@ -1,11 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/prefect
+  - ../../base/prefect-server
   - secret-auth.yaml
   - secret-postgresql.yaml
-  #- ingressroute.yaml
-  #- certificate.yaml
 patches:
   - path: values.yaml
     target:
