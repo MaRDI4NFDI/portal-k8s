@@ -22,6 +22,7 @@ resources:
   - maintenance
   - memcached
   - prefect
+  - prefect-worker
 
 patches:
   - target:
