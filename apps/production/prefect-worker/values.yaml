@@ -13,6 +13,7 @@ spec:
       config:
         workPool: "K8WorkerPool"
         type: kubernetes
+        jobNamespace: production
         queryInterval: 5
         prefetchSeconds: 10
       
