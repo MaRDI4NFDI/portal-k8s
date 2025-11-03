@@ -17,7 +17,7 @@ spec:
         loadBalancerIP: "130.73.131.227"
     logs:
       general:
-        level: DEBUG
+        level: WARN
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
