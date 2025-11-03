@@ -9,7 +9,7 @@ spec:
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-production
-      tag: 1.45.1
+      tag: 1.45.2
     replicas: 1
     port: 80
     varnish:
