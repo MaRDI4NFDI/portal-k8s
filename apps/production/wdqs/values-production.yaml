@@ -9,15 +9,15 @@ spec:
   values:
     wdqs:
       storage: 200Gi
-      memory: "-Xmx18g -Xms18g"
-      heap_size: "18g"
+      memory: "-Xmx22g -Xms22g"
+      heap_size: "22g"
       resources:
         requests:
           cpu: 1000m
-          memory: 20Gi
+          memory: 24Gi
         limits:
           cpu: 4000m
-          memory: 24Gi
+          memory: 28Gi
     updater:
       enabled: true
       resources:
