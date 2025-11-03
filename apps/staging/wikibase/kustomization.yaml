@@ -10,3 +10,7 @@ patches:
     target:
       kind: HelmRelease
       name: wikibase
+  - path: blocked-ips.yaml
+    target:
+      kind: HelmRelease
+      name: wikibase
