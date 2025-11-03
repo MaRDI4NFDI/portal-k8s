@@ -35,6 +35,7 @@ blockHeaders:
   enabled: false
 fail2ban:
   enabled: false
+  denylist: []
 secrets:
   mariadb: mariadb-secrets
 varnish:
