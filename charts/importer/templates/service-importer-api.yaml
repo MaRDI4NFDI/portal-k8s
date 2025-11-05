@@ -7,5 +7,5 @@ spec:
     app: {{ .Release.Name }}-api
   type: ClusterIP
   ports:
-  - port: {{ .Values.port }}
-    targetPort: {{ .Values.port }}
+  - port: {{ .Values.api.port }}
+    targetPort: {{ .Values.api.port }}

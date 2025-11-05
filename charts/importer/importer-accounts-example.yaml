@@ -1,0 +1,22 @@
+# This file documents the required secrets for this chart
+# The actual secrets should be created externally (e.g., via Kustomize)
+# and must be named {{ .Release.Name }}-importer-accounts
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: importer-accounts
+type: Opaque
+data:
+  CRAN_USER: <base64-encoded-cran-importer-user>
+  CRAN_PASS: <base64-encoded-cran-importer-password>
+  POLYDB_USER: <base64-encoded-polydb-importer-user>
+  POLYDB_PASS: <base64-encoded-polydb-importer-password>
+  ZBMATH_USER: <base64-encoded-zbmath-importer-user>
+  ZBMATH_PASS: <base64-encoded-zbmath-importer-password>
+  ZENODO_USER: <base64-encoded-zenodo-importer-user>
+  ZENODO_PASS: <base64-encoded-zenodo-importer-password>
+  CROSSREF_USER: <base64-encoded-crossref-importer-user>
+  CROSSREF_PASS: <base64-encoded-crossref-importer-password>
+  ARXIV_USER: <base64-encoded-arxiv-importer-user>
+  ARXIV_PASS: <base64-encoded-arxiv-importer-password>

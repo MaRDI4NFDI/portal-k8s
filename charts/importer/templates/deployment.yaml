@@ -17,6 +17,9 @@ spec:
       containers:
       - name: {{ .Release.Name }}
         image: {{ .Values.importer.image.repository }}:{{ .Values.importer.image.tag }}
+        envFrom:
+        - secretRef:
+            name: {{ .Release.Name }}-importer-accounts
         env:
         - name: DB_HOST
           value: {{ .Values.database.host }}

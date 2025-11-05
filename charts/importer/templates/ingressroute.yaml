@@ -11,6 +11,6 @@ spec:
       services:
         - name: {{ .Release.Name }}-api
           namespace: {{ .Release.Namespace }}
-          port: {{ .Values.port }}
+          port: {{ .Values.api.port }}
   tls:
     secretName: {{ .Release.Name }}-tls
