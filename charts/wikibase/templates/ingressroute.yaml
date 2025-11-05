@@ -10,12 +10,12 @@ spec:
       kind: Rule
       {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled}}
       middlewares:
-        {{- if .Values.blockHeaders.enabled }}
-        - name: {{ .Release.Name }}-block-fake-agents
-          namespace: {{ .Release.Namespace }}
-        {{- end }}
         {{- if .Values.fail2ban.enabled }}
         - name: {{ .Release.Name }}-fail2ban
+          namespace: {{ .Release.Namespace }}
+        {{- end }}
+        {{- if .Values.blockHeaders.enabled }}
+        - name: {{ .Release.Name }}-block-fake-agents
           namespace: {{ .Release.Namespace }}
         {{- end }}
       {{- end }}
