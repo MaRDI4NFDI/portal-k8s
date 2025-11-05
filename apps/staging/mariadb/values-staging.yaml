@@ -34,6 +34,10 @@ spec:
       flowControlLimit: "16"
     database: my_wiki
     user: sqluser
+    mariadb:
+      config:
+        innodbBufferPoolSize: "1.5G"
+        maxAllowedPacket: "64M"
     storage:
       size: 5Gi
     backup:
