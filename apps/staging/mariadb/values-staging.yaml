@@ -36,7 +36,7 @@ spec:
     user: sqluser
     mariadb:
       config:
-        innodbBufferPoolSize: "1.5G"
+        innodbBufferPoolSize: "1536M"
         maxAllowedPacket: "64M"
     storage:
       size: 5Gi
