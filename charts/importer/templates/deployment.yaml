@@ -19,7 +19,7 @@ spec:
         image: {{ .Values.importer.image.repository }}:{{ .Values.importer.image.tag }}
         envFrom:
         - secretRef:
-            name: {{ .Release.Name }}-importer-accounts
+            name: {{ .Release.Name }}-accounts
         env:
         - name: DB_HOST
           value: {{ .Values.database.host }}
