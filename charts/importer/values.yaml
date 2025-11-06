@@ -18,6 +18,7 @@ endpoints:
   mediawiki: "mardi-wikibase/w/api.php"
   wikibase: "mardi-wikibase"
   sparql: "mardi-wikibase/sparql"
+  importer-api: "importer-api"
 
 ingress:
   subdomain: "importer"
