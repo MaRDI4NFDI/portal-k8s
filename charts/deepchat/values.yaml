@@ -1,5 +1,5 @@
 image:
-  repository: registry.git.zib.de/bzfconra/mardi_llm_bottest
+  repository: ghcr.io/mardi4nfdi/mardi_llm_bottest
   tag: latest
   pullPolicy: Always
 
