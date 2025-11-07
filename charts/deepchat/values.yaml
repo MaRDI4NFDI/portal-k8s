@@ -1,0 +1,20 @@
+image:
+  repository: registry.git.zib.de/bzfconra/mardi_llm_bottest
+  tag: latest
+  pullPolicy: Always
+
+replicas: 1
+
+servicePort: 80
+containerPort: 8080
+
+ingress:
+  subdomain: "deepchat"
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
