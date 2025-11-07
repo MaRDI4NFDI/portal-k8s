@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matomo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matomo
+  template:
+    metadata:
+      labels:
+        app: matomo
+    spec:
+      containers:
+        - name: matomo
+          image: matomo:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: MATOMO_DATABASE_HOST
+              value: mariadb-matomo
+            - name: MATOMO_DATABASE_USERNAME
+              value: matomo
+            - name: MATOMO_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: matomo-secrets
+                  key: db-password
+            - name: MATOMO_DATABASE_DBNAME
+              value: matomo
+          volumeMounts:
+            - name: matomo-data
+              mountPath: /var/www/html
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      volumes:
+        - name: matomo-data
+          persistentVolumeClaim:
+            claimName: matomo-pvc
