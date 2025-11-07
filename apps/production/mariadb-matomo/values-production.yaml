@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.0"
+      version: "0.1.1"
   values:
     backup:
       name: "backup-matomo"
@@ -17,4 +17,4 @@ spec:
     storage:
       size: 10Gi
     metrics:
-      enabled: false
+      enabled: true
