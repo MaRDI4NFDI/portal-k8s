@@ -6,8 +6,3 @@ resources:
   - service.yaml
   # - certificate.yaml
   # - ingressroute.yaml
-patches:
-  - path: values-production.yaml
-    target:
-      kind: HelmRelease
-      name: matomo
