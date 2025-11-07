@@ -19,8 +19,6 @@ resources:
   - external-services
   - maintenance
   - memcached
-  # - mariadb-matomo
-  # - matomo
 
 patches:
   - target:
