@@ -6,7 +6,6 @@ resources:
   - traefik.yaml
   - portainer.yaml
   - bitnami-redis.yaml
-  - bitnami-matomo.yaml
   - bitnami-memcached.yaml
   - jetstack.yaml
   - varnish.yaml
