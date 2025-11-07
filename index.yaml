@@ -415,6 +415,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/maintenance-0.1.0/maintenance-0.1.0.tgz
     version: 0.1.0
+  mardi-chat:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-11-07T08:40:52.563722802Z"
+    description: A Helm chart for the MaRDI chat flask application
+    digest: ef58217287161266f45110d81c1e1ed4050884d8c47003cd5c8483c9db491e17
+    name: mardi-chat
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mardi-chat-0.1.0/mardi-chat-0.1.0.tgz
+    version: 0.1.0
   mariadb:
   - apiVersion: v2
     appVersion: 10.11.3
@@ -1818,4 +1829,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-06T10:44:31.750566449Z"
+generated: "2025-11-07T08:40:52.564195106Z"
