@@ -23,6 +23,7 @@ resources:
   - memcached
   - prefect-server
   - prefect-worker
+  - deepchat
 
 patches:
   - target:
