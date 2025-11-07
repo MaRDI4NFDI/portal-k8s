@@ -3,6 +3,16 @@ entries:
   deepchat:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-11-07T09:52:59.271840111Z"
+    description: A Helm chart for the MaRDI chat flask application
+    digest: 486fe7d8e0b3c3e67578484a7c54752dfd3f1df4a054d0c3e8bac64beb9425f9
+    name: deepchat
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/deepchat-0.1.1/deepchat-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-11-07T09:22:53.660953421Z"
     description: A Helm chart for the MaRDI chat flask application
     digest: 6ab775926674fe5160d9d1b53f125a49bd332745bec95950ccfbc8dda900a2a3
@@ -1840,4 +1850,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-07T09:22:53.661367405Z"
+generated: "2025-11-07T09:52:59.272250975Z"
