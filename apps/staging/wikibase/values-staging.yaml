@@ -16,6 +16,7 @@ spec:
       enabled: true
       fullnameOverride: "staging-varnish"
       backendHost: "staging-wikibase"
+      purgeAcl: "10.0.0.0/8"
     mediawiki:
       scheme: https
       db_server: staging-mariadb-primary:3306
