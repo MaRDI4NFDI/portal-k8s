@@ -16,7 +16,7 @@ resources:
   - latexml
   - ffmpeg
   - s3-proxy
-  - external-services
+  # - external-services
   - maintenance
   - memcached
 
