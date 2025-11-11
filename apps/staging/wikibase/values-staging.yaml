@@ -13,7 +13,7 @@ spec:
     replicas: 1
     port: 80
     varnish:
-      enabled: false
+      enabled: true
       fullnameOverride: "staging-varnish"
       backendHost: "staging-wikibase"
     mediawiki:
