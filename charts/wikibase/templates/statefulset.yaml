@@ -92,6 +92,8 @@ spec:
           value: "{{ .Values.mediawiki.formulasearch_port }}"
         - name: USE_CDN
           value: "{{ .Values.varnish.enabled }}"
+        - name: CDN_BACKEND_HOST
+          value: "{{ .Values.varnish.backendHost }}"
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
