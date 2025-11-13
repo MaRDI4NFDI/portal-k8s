@@ -94,6 +94,8 @@ spec:
           value: "{{ .Values.varnish.enabled }}"
         - name: CDN_BACKEND_HOST
           value: "{{ .Values.varnish.backendHost }}"
+        - name: CDN_SERVER
+          value: "{{ .Values.varnish.fullnameOverride }}"
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
