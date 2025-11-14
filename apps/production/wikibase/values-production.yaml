@@ -5,11 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.55"
+      version: "0.1.57"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/wikibase-production
-      tag: 1.45.2
+      tag: 1.45.3
     replicas: 1
     port: 80
     varnish:
