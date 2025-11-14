@@ -54,6 +54,6 @@ spec:
         - name: WIKIBASE_URL
           value: {{ .Values.endpoints.wikibase }}
         - name: IMPORTER_API_URL
-          value: {{ .Values.endpoints.importer-api }}
+          value: {{ .Values.endpoints.importerApi }}
         
         
