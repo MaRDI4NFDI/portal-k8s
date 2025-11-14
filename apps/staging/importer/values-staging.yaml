@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.9"
+      version: "0.1.10"
   values:
     database:
       host: "staging-mariadb-primary"
@@ -13,6 +13,6 @@ spec:
       mediawiki: "http://staging-wikibase/w/api.php"
       wikibase: "http://staging-wikibase"
       sparql: "http://staging-wdqs:9999/sparql"
-      importer-api: "http://staging-importer-api"
+      importerApi: "http://staging-importer-api"
 
 
