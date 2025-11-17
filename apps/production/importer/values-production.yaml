@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.8"
+      version: "0.1.12"
   values:
     database:
       host: "mariadb-primary"
@@ -13,5 +13,6 @@ spec:
       mediawiki: "http://wikibase/w/api.php"
       wikibase: "http://wikibase"
       sparql: "http://wdqs:9999/sparql"
+      importerApi: "http://importer-api"
 
 
