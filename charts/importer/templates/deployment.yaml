@@ -17,6 +17,7 @@ spec:
       containers:
       - name: {{ .Release.Name }}
         image: {{ .Values.importer.image.repository }}:{{ .Values.importer.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         envFrom:
         - secretRef:
             name: {{ .Release.Name }}-accounts

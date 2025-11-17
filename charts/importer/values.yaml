@@ -2,11 +2,13 @@ importer:
   image:
     repository: "ghcr.io/mardi4nfdi/docker-importer"
     tag: "main"
+    pullPolicy: Always
 
 api:
   image:
     repository: "ghcr.io/mardi4nfdi/importer-api"
     tag: "main"
+    pullPolicy: Always
   port: 80
 
 database:
