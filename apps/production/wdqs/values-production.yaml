@@ -29,6 +29,7 @@ spec:
           memory: 2Gi
 
     frontend:
+      replicas: 1
       resources:
         requests:
           cpu: 50m

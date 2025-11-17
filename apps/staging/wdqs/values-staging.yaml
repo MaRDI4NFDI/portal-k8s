@@ -9,3 +9,5 @@ spec:
   values:
     wdqs:
       host: staging-wdqs
+    frontend:
+      replicas: 1
