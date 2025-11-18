@@ -24,6 +24,7 @@ resources:
   - prefect-server
   - prefect-worker
   - deepchat
+  - fdo
 
 patches:
   - target:
