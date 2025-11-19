@@ -1,0 +1,109 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: crowdsec
+  namespace: crowdsec
+spec:
+  interval: 30m
+  releaseName: crowdsec
+  chart:
+    spec:
+      chart: crowdsec
+      version: ">=0.9.0 <1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: flux-system
+      interval: 12h
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    lapi:
+      replicas: 2
+      resources:
+        limits:
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      persistentVolume:
+        enabled: true
+        size: 2Gi
+      env:
+        - name: COLLECTIONS
+          value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
+        - name: ENROLL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: crowdsec-secrets
+              key: enroll-key
+              optional: true
+        - name: ENROLL_INSTANCE_NAME
+          value: "mardi-k8s-cluster"
+        - name: ENROLL_TAGS
+          value: "k8s production staging"
+      dashboard:
+        enabled: false
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+    agent:
+      enabled: true
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      
+      acquisition:
+        - namespace: staging
+          podName: staging-traefik-*
+          program: traefik
+        #- namespace: production
+        #  podName: traefik-*
+        #  program: traefik
+      
+      env:
+        - name: SCENARIOS
+          value: "crowdsecurity/http-crawl-non_statics crowdsecurity/http-probing crowdsecurity/http-sensitive-files crowdsecurity/http-bad-user-agent"
+        - name: PARSERS
+          value: "crowdsecurity/traefik-logs"
+        - name: COLLECTIONS
+          value: "crowdsecurity/traefik"
+        - name: LOG_LEVEL
+          value: "info"
+      
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: false
+
+    service:
+      type: ClusterIP
+      port: 8080
+
+    image:
+      repository: crowdsecurity/crowdsec
+      pullPolicy: IfNotPresent
+
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1000
