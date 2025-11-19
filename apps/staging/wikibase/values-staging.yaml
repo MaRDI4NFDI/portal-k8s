@@ -13,7 +13,7 @@ spec:
     replicas: 1
     port: 80
     varnish:
-      enabled: false
+      enabled: true
       fullnameOverride: "staging-varnish"
       backendHost: "staging-wikibase"
     mediawiki:
@@ -39,8 +39,8 @@ spec:
         cpu: 1
         memory: 2Gi
     blockHeaders:
-      enabled: false
+      enabled: true
     fail2ban:
-      enabled: false
+      enabled: true
     secrets:
       mariadb: staging-mariadb-secrets
