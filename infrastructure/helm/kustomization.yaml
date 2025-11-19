@@ -10,3 +10,4 @@ resources:
   - jetstack.yaml
   - varnish.yaml
   - prefect.yaml
+  - crowdsec.yaml
