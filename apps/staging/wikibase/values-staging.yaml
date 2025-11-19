@@ -39,8 +39,8 @@ spec:
         cpu: 1
         memory: 2Gi
     blockHeaders:
-      enabled: true
+      enabled: false
     fail2ban:
-      enabled: true
+      enabled: false
     secrets:
       mariadb: staging-mariadb-secrets
