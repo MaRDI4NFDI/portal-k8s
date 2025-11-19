@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     lapi:
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           memory: 512Mi
@@ -34,6 +34,7 @@ spec:
       persistentVolume:
         enabled: true
         size: 2Gi
+        storageClassName: ""
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
