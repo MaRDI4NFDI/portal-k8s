@@ -18,6 +18,9 @@ spec:
     logs:
       general:
         level: WARN
+      access:
+        enabled: true
+        format: common
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
