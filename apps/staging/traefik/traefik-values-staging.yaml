@@ -7,7 +7,7 @@ spec:
     - name: staging-traefik-crds
   chart:
     spec:
-      version: "34.4.1"
+      version: "37.3.0"
   values:
     ingressRoute:
       dashboard:
