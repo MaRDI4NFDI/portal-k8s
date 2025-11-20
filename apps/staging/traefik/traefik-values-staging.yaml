@@ -29,3 +29,12 @@ spec:
         fail2ban:
           moduleName: "github.com/tomMoulard/fail2ban"
           version: "v0.8.7"
+        crowdsec:
+          moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+          version: "v1.4.6"
+    env:
+      - name: CROWDSEC_BOUNCER_KEY
+        valueFrom:
+          secretKeyRef:
+            name: staging-crowdsec-bouncer-key
+            key: bouncer-key
