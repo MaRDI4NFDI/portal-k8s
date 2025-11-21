@@ -15,3 +15,10 @@ patches:
     target:
       kind: HelmRelease
       name: traefik-crds
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: crowdsec-bouncer
+    target:
+      kind: Middleware
+      name: staging-crowdsec-bouncer
