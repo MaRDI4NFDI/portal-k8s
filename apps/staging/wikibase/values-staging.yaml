@@ -39,7 +39,7 @@ spec:
         cpu: 1
         memory: 2Gi
     crowdsec:
-      enabled: false
+      enabled: true
     blockHeaders:
       enabled: false
     fail2ban:
