@@ -11,7 +11,7 @@ spec:
       {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled .Values.crowdsec.enabled}}
       middlewares:
         {{- if .Values.crowdsec.enabled }}
-        - name: {{ .Release.Name }}-crowdsec-bouncer
+        - name: {{ if .Values.prefix }}{{ .Values.prefix }}-{{ end }}-crowdsec-bouncer
           namespace: {{ .Release.Namespace }}
         {{- end }}
         {{- if .Values.fail2ban.enabled }}

@@ -3,6 +3,7 @@ image:
   tag: kubernetes
   pullPolicy: Always
 replicas: 1
+prefix: ""
 port: 80
 mediawiki:
   scheme: https
