@@ -8,8 +8,12 @@ spec:
   routes:
     - match: Host(`{{ .Values.global.baseDomain }}`)
       kind: Rule
-      {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled}}
+      {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled .Values.crowdsec.enabled}}
       middlewares:
+        {{- if .Values.crowdsec.enabled }}
+        - name: {{ .Release.Name }}-crowdsec-bouncer
+          namespace: {{ .Release.Namespace }}
+        {{- end }}
         {{- if .Values.fail2ban.enabled }}
         - name: {{ .Release.Name }}-fail2ban
           namespace: {{ .Release.Namespace }}
