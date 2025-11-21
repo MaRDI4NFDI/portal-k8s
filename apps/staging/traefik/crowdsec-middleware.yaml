@@ -12,7 +12,7 @@ spec:
       defaultDecisionSeconds: 300
       httpTimeoutSeconds: 10
       crowdsecMode: live
-      crowdsecLapiKey: ${CROWDSEC_BOUNCER_KEY}
+      crowdsecLapiKey: /etc/traefik/crowdsec/bouncer-key
       crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local:8080
       crowdsecLapiScheme: http      
       forwardedHeadersTrustedIPs:
