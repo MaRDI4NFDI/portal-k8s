@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: crowdsec-bouncer
+  namespace: staging
+spec:
+  plugin:
+    crowdsec:
+      enabled: true
+      logLevel: INFO
+      updateIntervalSeconds: 10
+      defaultDecisionSeconds: 300
+      httpTimeoutSeconds: 10
+      crowdsecMode: live
+      crowdsecLapiKey: ${CROWDSEC_BOUNCER_KEY}
+      crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local:8080
+      crowdsecLapiScheme: http      
+      forwardedHeadersTrustedIPs:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+      clientTrustedIPs:
+        - 10.0.0.0/8      # pods
+        - 10.96.0.0/12    # services
