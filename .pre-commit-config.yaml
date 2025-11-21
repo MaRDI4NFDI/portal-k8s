@@ -6,7 +6,10 @@ repos:
         entry: |
           bash -c '
           for file in "$@"; do
-            if [ -f "$file" ] && grep -q "kind.*Secret" "$file" && ! grep -q "sops:" "$file"; then
+            if [ -f "$file" ] \
+                && grep -Eq '^kind:[[:space:]]*Secret[[:space:]]*$' "$file" \
+                && grep -Eq '^metadata:' "$file" \
+                && ! grep -q 'sops:' "$file"; then
               echo "ERROR: $file contains unencrypted Kubernetes secret. Please encrypt with: sops -e -i $file"
               exit 1
             fi
