@@ -4,6 +4,7 @@ resources:
   - ../../base/traefik
   - crowdsec-bouncer-secret.yaml
   - crowdsec-middleware.yaml
+namePrefix: staging-
 namespace: staging
 patches:
   - path: traefik-values-staging.yaml
