@@ -41,11 +41,12 @@ spec:
           secretKeyRef:
             name: staging-crowdsec-bouncer-key
             key: bouncer-key
-    volumes:
-      - name: crowdsec-bouncer-key
-        secret:
-          secretName: staging-crowdsec-bouncer-key
-    volumeMounts:
+    deployment:
+      additionalVolumes:
+        - name: crowdsec-bouncer-key
+          secret:
+            secretName: staging-crowdsec-bouncer-key
+    additionalVolumeMounts:
       - name: crowdsec-bouncer-key
         mountPath: /etc/traefik/crowdsec
         readOnly: true
