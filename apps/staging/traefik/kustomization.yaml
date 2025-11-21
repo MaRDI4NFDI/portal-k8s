@@ -4,7 +4,6 @@ resources:
   - ../../base/traefik
   - crowdsec-bouncer-secret.yaml
   - crowdsec-middleware.yaml
-namePrefix: staging-
 namespace: staging
 patches:
   - path: traefik-values-staging.yaml
@@ -15,10 +14,3 @@ patches:
     target:
       kind: HelmRelease
       name: traefik-crds
-  - patch: |-
-      - op: replace
-        path: /metadata/name
-        value: crowdsec-bouncer
-    target:
-      kind: Middleware
-      name: staging-crowdsec-bouncer
