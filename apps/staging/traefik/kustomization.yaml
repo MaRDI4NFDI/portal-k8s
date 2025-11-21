@@ -15,3 +15,14 @@ patches:
     target:
       kind: HelmRelease
       name: traefik-crds
+replacements:
+  - source:
+      kind: Secret
+      name: staging-crowdsec-bouncer-key
+      fieldPath: data.bouncer-key
+    targets:
+      - select:
+          kind: Middleware
+          name: staging-crowdsec-bouncer
+        fieldPaths:
+          - spec.plugin.crowdsec.crowdsecLapiKey
