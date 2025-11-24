@@ -32,4 +32,39 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-secrets
               key: IMPORTER_DB_PASSWORD
+        - name: GUNICORN_WORKERS
+          value: {{ .Values.api.gunicorn.workers }}
+        - name: GUNICORN_THREADS
+          value: {{ .Values.api.gunicorn.threads }}
+        - name: GUNICORN_RELOAD
+          value: "false"
+        - name: DB_POOL_SIZE
+          value: {{ .Values.api.database.poolSize }}
+        - name: DB_MAX_OVERFLOW
+          value: {{ .Values.api.database.maxOverflow }}
+        - name: LOG_LEVEL
+          value: {{ .Values.api.logging.level }}        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.api.port }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.api.port }}
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3        
+        resources:
+          requests:
+            memory: {{ .Values.api.resources.requests.memory }}
+            cpu: {{ .Values.api.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.api.resources.limits.memory }}
+            cpu: {{ .Values.api.resources.limits.cpu }}
         

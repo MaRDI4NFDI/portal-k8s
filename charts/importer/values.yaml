@@ -3,6 +3,13 @@ importer:
     repository: "ghcr.io/mardi4nfdi/docker-importer"
     tag: "main"
     pullPolicy: Always
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "1000m"
 
 api:
   image:
@@ -10,6 +17,21 @@ api:
     tag: "main"
     pullPolicy: Always
   port: 80
+  gunicorn:
+    workers: "2"
+    threads: "2"
+  database:
+    poolSize: "2"
+    maxOverflow: "1"
+  logging:
+    level: "info"
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
 
 database:
   host: "mariadb"
