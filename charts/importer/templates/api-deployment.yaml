@@ -19,7 +19,7 @@ spec:
         image: {{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}
         imagePullPolicy: {{ .Values.api.image.pullPolicy }}
         ports:
-        - containerPort: {{ .Values.api.port }}
+        - containerPort: {{ .Values.api.containerPort }}
         env:
         - name: DB_HOST
           value: {{ .Values.database.host }}
@@ -47,7 +47,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.api.port }}
+            port: {{ .Values.api.containerPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -55,7 +55,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.api.port }}
+            port: {{ .Values.api.containerPort }}
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3

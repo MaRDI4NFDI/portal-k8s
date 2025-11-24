@@ -16,7 +16,8 @@ api:
     repository: "ghcr.io/mardi4nfdi/importer-api"
     tag: "main"
     pullPolicy: Always
-  port: 80
+  servicePort: 80
+  containerPort: 8000
   gunicorn:
     workers: "2"
     threads: "2"
