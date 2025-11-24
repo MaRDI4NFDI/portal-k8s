@@ -5,11 +5,32 @@ image:
 
 replicas: 1
 
-servicePort: 80
-containerPort: 8000
+global:
+  baseDomain: example.com
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: doip-tcp
+      port: 3567
+      targetPort: 3567
+    - name: doip-tls
+      port: 3568
+      targetPort: 3568
 
 ingress:
   subdomain: "doip"
+
+tcpEntryPoints:
+  - entryPoint: doip-tls1
+    servicePort: 3567
+    tlsPassthrough: true
+  - entryPoint: doip-tls2
+    servicePort: 3568
+    tlsPassthrough: true
 
 resources:
   requests:

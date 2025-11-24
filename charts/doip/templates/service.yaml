@@ -5,7 +5,10 @@ metadata:
 spec:
   selector:
     app: {{ .Release.Name }}
-  type: ClusterIP
+  type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.servicePort }}
-    targetPort: {{ .Values.containerPort }}
+{{- range .Values.service.ports }}
+  - name: {{ .name }}
+    port: {{ .port }}
+    targetPort: {{ .targetPort }}
+{{- end }}
