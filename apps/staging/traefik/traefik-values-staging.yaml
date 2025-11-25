@@ -20,13 +20,13 @@ spec:
         port: 3567
         expose: 
           default: true
-        exposePort: 3567
+        exposedPort: 3567
         protocol: TCP
       doip-tls2:
         port: 3568
         expose: 
           default: true
-        exposePort: 3568
+        exposedPort: 3568
         protocol: TCP
     logs:
       general:
