@@ -33,15 +33,15 @@ spec:
               name: {{ .Release.Name }}-secrets
               key: IMPORTER_DB_PASSWORD
         - name: GUNICORN_WORKERS
-          value: {{ .Values.api.gunicorn.workers }}
+          value: {{ .Values.api.gunicorn.workers | quote }}
         - name: GUNICORN_THREADS
-          value: {{ .Values.api.gunicorn.threads }}
+          value: {{ .Values.api.gunicorn.threads | quote }}
         - name: GUNICORN_RELOAD
           value: "false"
         - name: DB_POOL_SIZE
-          value: {{ .Values.api.database.poolSize }}
+          value: {{ .Values.api.database.poolSize | quote }}
         - name: DB_MAX_OVERFLOW
-          value: {{ .Values.api.database.maxOverflow }}
+          value: {{ .Values.api.database.maxOverflow | quote }}
         - name: LOG_LEVEL
           value: {{ .Values.api.logging.level }}        
         livenessProbe:
