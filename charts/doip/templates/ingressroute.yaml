@@ -10,6 +10,6 @@ spec:
       kind: Rule
       services:
         - name: {{ .Release.Name }}
-          port: {{ (index .Values.service.ports 0).port }}
+          port: {{ .Values.servicePort }}
   tls:
     secretName: {{ .Release.Name }}-tls
