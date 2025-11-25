@@ -20,6 +20,11 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.containerPort }}
+          name: http
+        {{- range .Values.doipConfig.ports }}
+        - containerPort: {{ .port }}
+          name: {{ .name }}
+        {{- end }}
         resources:
           requests:
             cpu: {{ .Values.resources.requests.cpu }}

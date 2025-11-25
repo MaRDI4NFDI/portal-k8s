@@ -6,7 +6,16 @@ image:
 replicas: 1
 
 servicePort: 80
-containerPort: 8000
+containerPort: 80
+  
+doipConfig:
+  ports:
+    - name: doip-tls1
+      port: 3567
+      tlsPassthrough: true
+    - name: doip-tls2
+      port: 3568
+      tlsPassthrough: true
 
 ingress:
   subdomain: "doip"
