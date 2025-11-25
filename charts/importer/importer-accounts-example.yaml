@@ -20,3 +20,5 @@ data:
   CROSSREF_PASS: <base64-encoded-crossref-importer-password>
   ARXIV_USER: <base64-encoded-arxiv-importer-user>
   ARXIV_PASS: <base64-encoded-arxiv-importer-password>
+  WIKIDATA_USER: <base64-encoded-wikidata-importer-user>
+  WIKIDATA_PASS: <base64-encoded-wikidata-importer-password>
