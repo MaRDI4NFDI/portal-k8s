@@ -18,6 +18,9 @@ spec:
       - name: {{ .Release.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        envFrom:
+        - secretRef:
+            name: {{ .Release.Name }}-secrets
         ports:
         - containerPort: {{ .Values.containerPort }}
           name: http
