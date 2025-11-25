@@ -35,6 +35,16 @@ entries:
   doip:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-11-25T15:23:29.355207651Z"
+    description: A Helm chart for the MaRDI Digital Object Interface Protocol server
+    digest: fc3101e646838b13a174823fdc6b373d3a57107b2ad1c747d559147e1e093038
+    name: doip
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/doip-0.1.2/doip-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-11-25T08:04:50.273928413Z"
     description: A Helm chart for the MaRDI Digital Object Interface Protocol server
     digest: ae56baeca76c91ff08c151ee412a839e6a820c048924cdea3795dba529871be7
@@ -2014,4 +2024,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-25T14:28:50.976697524Z"
+generated: "2025-11-25T15:23:29.355567717Z"
