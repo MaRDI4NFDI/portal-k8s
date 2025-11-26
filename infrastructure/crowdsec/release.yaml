@@ -32,9 +32,9 @@ spec:
           cpu: 100m
           memory: 256Mi
       persistentVolume:
-        enabled: true
-        size: 2Gi
-        storageClassName: ""
+        data:
+          enabled: true
+          size: 2Gi
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
