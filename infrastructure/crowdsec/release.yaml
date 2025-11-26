@@ -38,16 +38,6 @@ spec:
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
-        - name: ENROLL_KEY
-          valueFrom:
-            secretKeyRef:
-              name: crowdsec-secrets
-              key: enroll-key
-              optional: true
-        - name: ENROLL_INSTANCE_NAME
-          value: "mardi-k8s-cluster"
-        - name: ENROLL_TAGS
-          value: "k8s production staging"
       dashboard:
         enabled: false
       metrics:
@@ -87,6 +77,13 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: false
+
+    config:
+      console.yaml: |
+        share_manual_decisions: false
+        share_custom: false
+        share_tainted: false
+        share_context: false
 
     service:
       type: ClusterIP
