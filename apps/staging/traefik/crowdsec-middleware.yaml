@@ -12,13 +12,41 @@ spec:
       defaultDecisionSeconds: 300
       httpTimeoutSeconds: 10
       crowdsecMode: live
-      crowdsecLapiKey: ""
+      crowdsecLapiKey: ENC[AES256_GCM,data:0woJyYpsI8wl9KSaG36j45ayeoiDAvL6HYmHmauzK5E6hRhR4fEb7pV6Iw==,iv:GOmAdS/3NdR0h5SR5v+jTc4M5f+FEp+o8BLPdfy8ksA=,tag:InIRqr6UybDtEor7QLkIqw==,type:str]
       crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local:8080
-      crowdsecLapiScheme: http      
+      crowdsecLapiScheme: http
       forwardedHeadersTrustedIPs:
         - 10.0.0.0/8
         - 172.16.0.0/12
         - 192.168.0.0/16
       clientTrustedIPs:
-        - 10.0.0.0/8      # pods
-        - 10.96.0.0/12    # services
+        # pods
+        - 10.0.0.0/8
+        # services
+        - 10.96.0.0/12
+sops:
+  lastmodified: "2025-11-26T08:50:38Z"
+  mac: ENC[AES256_GCM,data:x602uj+03y92lC9xng5Lu5sFZxEFGYCzkmRo9b0W5hUiCaeaGN48WAPGgjOkxWhaNTmOzuHPuHZ2uGHBJuJJFuDODBh5+cdehoa4oOTv8p4zwFbSCGvEHF+zQcKm/jQj/GjCY1igt9eSqaY0ziN3rh+nYCBI6PQGi1w0jJWjDV4=,iv:9IOHWwQYyKfxjlwlrc1vl7s0/qeCDAI60wKFT46Bmx4=,tag:6ipuCCtsUq26k65L4Z+k4w==,type:str]
+  pgp:
+    - created_at: "2025-11-26T08:50:38Z"
+      enc: |-
+        -----BEGIN PGP MESSAGE-----
+
+        hQIMA90tSATCInn5ARAAuBTEPKxQUlkhi9MH4fH+I3zL82Y/9zoRj0J6O4kKzFCc
+        RnAbmmtwsB5ZYulGTN0JhN67x/C/O5Ek0aNqPoVtI/WNEMNzeU91hDC8rsxVUIee
+        vdOeG1CKyagHJNg3dd0mXNxB5hBdRwP1MiT8EiwlnK8ycN2UaEl+8E0TgSl2y08l
+        PBWNY8erScuqD7cOuAmSR3sCLYRgxdPgKMmr4VqNg8w/2vG7LzeWdpVXeCKXiRcE
+        j2gCKAXm8Ujql7mj8ugBnvHr75dk3frab2+KZq5iajN+8Bcrt9/Jaq4DKGMWZyno
+        UxpqRMzKUbe4tRUMMMzvfd/7qKUJZLvTqgDA75YMHmthc7OSUp/pzqJacytVkUF1
+        3Fd58x2J7FBF3uZnAxWrjfNVcLNDF1iFZKzd2xtQZlO/rSqbJKpzSQr2eS7lRpUf
+        JFzAxNu/Hk0IbPsvvigqysZ9D2vzDbxFc/5JTBUF/xj2cg+VQVYRjdyPBJ8PlJof
+        8nSDi9ypD6TaUMPtIdrSejNg2SDhsJ9UxkSEyj9rjdbZb4XafJfYuCyOVrc2bsFP
+        tGUbAi/tnhX3kgJITgpd+mNtpftKWlhJtWAXfm0wwsOPpxsu6ewKwnirqUAKrbtF
+        n5tKby3gruMRtaMh2z9DpP64/MsMdtpvjYyRRzDbtj1LRinjcy6GNWtMgjmirqvS
+        XAHTlBzE/4NSQbDkQ0khzRFlSDX+mINjTwMxfbxGjNiLIAle2wGpbC7AORY7LnGB
+        YqPnY9tLvzkHP0UjOBBEb88C2QA3F8N02d8q7XRon5So+720HmAuc7FxMEYV
+        =szNW
+        -----END PGP MESSAGE-----
+      fp: BE155DFF5AD65EA97520D7E6B003A490455B332D
+  encrypted_regex: ^(crowdsecLapiKey)$
+  version: 3.10.2
