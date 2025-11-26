@@ -38,8 +38,6 @@ spec:
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
-      dashboard:
-        enabled: false
       metrics:
         enabled: true
         serviceMonitor:
@@ -101,23 +99,6 @@ spec:
         share_tainted: false
         share_context: false
 
-    service:
-      type: ClusterIP
-      port: 8080
-
     image:
       repository: crowdsecurity/crowdsec
       pullPolicy: IfNotPresent
-
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-
-    securityContext:
-      capabilities:
-        drop:
-          - ALL
-      readOnlyRootFilesystem: false
-      runAsNonRoot: true
-      runAsUser: 1000
