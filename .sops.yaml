@@ -1,4 +1,7 @@
 creation_rules:
+  - path_regex: .*/crowdsec-middleware\.yaml$
+    encrypted_regex: ^(crowdsecLapiKey)$
+    pgp: BE155DFF5AD65EA97520D7E6B003A490455B332D
   - path_regex: .*.yaml
     encrypted_regex: ^(data|stringData)$
     pgp: BE155DFF5AD65EA97520D7E6B003A490455B332D
