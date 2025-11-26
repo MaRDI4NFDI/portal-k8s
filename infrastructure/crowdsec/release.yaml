@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 3
   values:
+    container_runtime: containerd
     lapi:
       replicas: 1
       resources:
