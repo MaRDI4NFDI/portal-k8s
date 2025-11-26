@@ -33,7 +33,7 @@ spec:
         level: WARN
       access:
         enabled: true
-        format: common
+        format: json
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
