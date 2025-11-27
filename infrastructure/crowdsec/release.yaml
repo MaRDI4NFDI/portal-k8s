@@ -97,11 +97,6 @@ spec:
                 - "192.168.0.0/16"
                 - "10.0.0.0/8"
                 - "172.16.0.0/12"
-            online_client:
-              sharing: false
-              pull:
-                community: true
-                blocklists: true
       console.yaml: |
         share_manual_decisions: false
         share_custom: false
