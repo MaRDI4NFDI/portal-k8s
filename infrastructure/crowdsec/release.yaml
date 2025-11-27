@@ -39,6 +39,14 @@ spec:
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
+      extraVolumes:
+        - name: mediawiki-scenarios
+          configMap:
+            name: crowdsec-mediawiki-scenarios
+      extraVolumeMounts:
+        - name: mediawiki-scenarios
+          mountPath: /etc/crowdsec/scenarios/mediawiki
+          readOnly: true
       metrics:
         enabled: true
         serviceMonitor:

@@ -4,4 +4,4 @@ namespace: crowdsec
 resources:
   - namespace.yaml
   - release.yaml
-  # - secrets.yaml
+  - mediawiki-scenarios.yaml
