@@ -21,6 +21,11 @@ spec:
         envFrom:
         - secretRef:
             name: {{ .Release.Name }}-secrets
+        env:
+        - name: LAKEFS_URL
+          value: {{ .Values.lakefs.url }}
+        - name: LAKEFS_REPO
+          value: {{ .Values.lakefs.repo }}
         ports:
         - containerPort: {{ .Values.containerPort }}
           name: http
