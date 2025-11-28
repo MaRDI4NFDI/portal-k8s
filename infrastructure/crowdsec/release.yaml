@@ -39,14 +39,6 @@ spec:
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors"
-      #extraVolumes:
-      #  - name: mediawiki-scenarios
-      #    configMap:
-      #      name: crowdsec-mediawiki-scenarios
-      #extraVolumeMounts:
-      #  - name: mediawiki-scenarios
-      #    mountPath: /etc/crowdsec/scenarios/mediawiki
-      #    readOnly: true
       metrics:
         enabled: true
         serviceMonitor:
@@ -86,6 +78,57 @@ spec:
           enabled: false
 
     config:
+      scenarios:
+        mediawiki-special-page-abuse.yaml: |
+          type: leaky
+          name: myorg/mediawiki-special-page-abuse
+          description: "Detects aggressive crawling of MediaWiki special pages and export formats"
+          filter: |
+            evt.Parsed.request_uri matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Random|Contributions|Export)" or
+            evt.Parsed.request_uri contains ".n3" or
+            evt.Parsed.request_uri contains ".nt" or
+            evt.Parsed.request_uri contains ".rdf" or
+            evt.Parsed.request_uri contains ".ttl" or
+            evt.Parsed.request_uri contains ".json" or
+            evt.Parsed.request_uri matches ".*[?&]action=(info|purge|history|raw)"
+          leakspeed: "5s"
+          capacity: 6
+          groupby: evt.Meta.source_ip
+          labels:
+            service: mediawiki
+            type: special-page-abuse
+            remediation: true
+          blackhole: 48h
+        
+        mediawiki-diff-abuse.yaml: |
+          type: leaky
+          name: myorg/mediawiki-diff-abuse
+          description: "Detects bots crawling MediaWiki diffs and old revisions"
+          filter: |
+            evt.Parsed.request_uri matches ".*[?&](oldid=|diff=|curid=)"
+          leakspeed: "5s"
+          capacity: 6
+          groupby: evt.Meta.source_ip
+          labels:
+            service: mediawiki
+            type: diff-abuse
+            remediation: true
+          blackhole: 48h
+
+        mediawiki-talk-page-abuse.yaml: |
+          type: leaky
+          name: myorg/mediawiki-talk-page-abuse
+          description: "Detects rapid crawling of talk pages"
+          filter: |
+            evt.Parsed.request_uri matches "^/wiki/[^/]+_talk:"
+          leakspeed: "5s"
+          capacity: 6
+          groupby: evt.Meta.source_ip
+          labels:
+            service: mediawiki
+            type: talk-page-abuse
+            remediation: true
+          blackhole: 48h
       config.yaml.local: |
         api:
           server:
