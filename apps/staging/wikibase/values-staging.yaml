@@ -42,8 +42,8 @@ spec:
     crowdsec:
       enabled: true
     blockHeaders:
-      enabled: true
+      enabled: false
     fail2ban:
-      enabled: true
+      enabled: false
     secrets:
       mariadb: staging-mariadb-secrets
