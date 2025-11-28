@@ -25,6 +25,7 @@ resources:
   - prefect-worker
   - deepchat
   - fdo
+  - doip
 
 patches:
   - target:
