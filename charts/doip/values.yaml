@@ -17,6 +17,10 @@ doipConfig:
       port: 3568
       tlsPassthrough: true
 
+lakefs:
+  url: ""
+  repo: ""
+
 ingress:
   subdomain: "doip"
 
