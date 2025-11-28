@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: doip
+  namespace: production
+spec:
+  chart:
+    spec:
+      version: "0.1.3"
+  values:
+    lakefs:
+      url: "lake-bioinfmed.zib.de"
+      repo: "sandbox"
+
