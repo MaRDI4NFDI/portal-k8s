@@ -28,6 +28,10 @@ spec:
           default: true
         exposedPort: 3568
         protocol: TCP
+      websecure:
+        http:
+          middlewares:
+            - staging-crowdsec-bouncer@kubernetescrd
     logs:
       general:
         level: WARN
