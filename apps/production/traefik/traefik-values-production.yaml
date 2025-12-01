@@ -15,6 +15,8 @@ spec:
     service:
       spec:
         loadBalancerIP: "130.73.131.224"
+    additionalArguments:
+      - "--entrypoints.websecure.http.middlewares=production-crowdsec-bouncer@kubernetescrd"
     logs:
       general:
         level: WARN
@@ -32,3 +34,6 @@ spec:
         fail2ban:
           moduleName: "github.com/tomMoulard/fail2ban"
           version: "v0.8.7"
+        crowdsec:
+          moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+          version: "v1.4.6"
