@@ -29,7 +29,7 @@ spec:
         exposedPort: 3568
         protocol: TCP
     additionalArguments:
-      - "--entrypoints.websecure.http.middlewares=staging-crowdsec-bouncer@kubernetescrd"
+      - "--entrypoints.websecure.http.middlewares=staging-staging-crowdsec-bouncer@kubernetescrd"
     logs:
       general:
         level: WARN
