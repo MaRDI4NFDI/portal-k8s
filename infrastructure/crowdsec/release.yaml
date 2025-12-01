@@ -84,13 +84,13 @@ spec:
           name: myorg/mediawiki-special-page-abuse
           description: "Detects aggressive crawling of MediaWiki special pages and export formats"
           filter: |
-            evt.Parsed.RequestPath matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Random|Contributions|Export)" or
-            evt.Parsed.RequestPath contains ".n3" or
-            evt.Parsed.RequestPath contains ".nt" or
-            evt.Parsed.RequestPath contains ".rdf" or
-            evt.Parsed.RequestPath contains ".ttl" or
-            evt.Parsed.RequestPath contains ".json" or
-            evt.Parsed.RequestPath matches ".*[?&]action=(info|purge|history|raw)"
+            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Random|Contributions|Export)" or
+            evt.Meta.http_path contains ".n3" or
+            evt.Meta.http_path contains ".nt" or
+            evt.Meta.http_path contains ".rdf" or
+            evt.Meta.http_path contains ".ttl" or
+            evt.Meta.http_path contains ".json" or
+            evt.Meta.http_path matches ".*[?&]action=(info|purge|history|raw)"
           leakspeed: "5s"
           capacity: 6
           groupby: evt.Meta.source_ip
@@ -103,9 +103,9 @@ spec:
         mediawiki-diff-abuse.yaml: |
           type: leaky
           name: myorg/mediawiki-diff-abuse
-          description: "Detects bots crawling MediaWiki diffs and old revisions"
+          description: "Detects bots crawling MediaWiki diffs, old revisions, and related pages"
           filter: |
-            evt.Parsed.RequestPath matches ".*[?&](oldid=|diff=|curid=)"
+            evt.Meta.http_path matches ".*[?&](oldid=|diff=|curid=)"
           leakspeed: "5s"
           capacity: 6
           groupby: evt.Meta.source_ip
@@ -120,7 +120,7 @@ spec:
           name: myorg/mediawiki-talk-page-abuse
           description: "Detects rapid crawling of talk pages"
           filter: |
-            evt.Parsed.RequestPath matches "^/wiki/[^/]+_talk:"
+            evt.Meta.http_path matches "^/wiki/[^/]+_talk:"
           leakspeed: "5s"
           capacity: 6
           groupby: evt.Meta.source_ip
@@ -135,7 +135,7 @@ spec:
           name: myorg/mediawiki-login-crawl
           description: "Detects bots systematically crawling login pages"
           filter: |
-            evt.Parsed.RequestPath matches ".*title=Special:UserLogin"
+            evt.Meta.http_path matches ".*title=Special:UserLogin"
           leakspeed: "10s"
           capacity: 5
           groupby: evt.Meta.source_ip
