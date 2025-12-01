@@ -133,10 +133,9 @@ spec:
         mediawiki-login-crawl.yaml: |
           type: leaky
           name: myorg/mediawiki-login-crawl
-          description: "Detects bots systematically crawling login pages with oldid/diff parameters"
+          description: "Detects bots systematically crawling login pages"
           filter: |
-            evt.Parsed.RequestPath matches ".*title=Special:UserLogin" and
-            evt.Parsed.RequestPath matches ".*(oldid|diff|curid)="
+            evt.Parsed.RequestPath matches ".*title=Special:UserLogin"
           leakspeed: "10s"
           capacity: 5
           groupby: evt.Meta.source_ip
