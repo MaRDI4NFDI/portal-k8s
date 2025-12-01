@@ -58,9 +58,9 @@ spec:
         - namespace: staging
           podName: staging-traefik-*
           program: traefik
-        #- namespace: production
-        #  podName: traefik-*
-        #  program: traefik
+        - namespace: production
+          podName: traefik-*
+          program: traefik
       
       env:
         - name: SCENARIOS
