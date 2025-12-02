@@ -84,15 +84,15 @@ spec:
           name: myorg/mediawiki-special-page-abuse
           description: "Detects aggressive crawling of MediaWiki special pages and export formats"
           filter: |
-            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Random|Contributions|Export)" or
+            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Contributions|Export)" or
             evt.Meta.http_path contains ".n3" or
             evt.Meta.http_path contains ".nt" or
             evt.Meta.http_path contains ".rdf" or
             evt.Meta.http_path contains ".ttl" or
             evt.Meta.http_path contains ".json" or
             evt.Meta.http_path matches ".*[?&]action=(info|purge|history|raw)"
-          leakspeed: "5s"
-          capacity: 6
+          leakspeed: "10s"
+          capacity: 5
           groupby: evt.Meta.source_ip
           labels:
             service: mediawiki
