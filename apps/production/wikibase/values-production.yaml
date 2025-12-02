@@ -39,7 +39,7 @@ spec:
     blockHeaders:
       enabled: false
     fail2ban:
-      enabled: true
+      enabled: false
     resources:
       requests:
         cpu: "6"
