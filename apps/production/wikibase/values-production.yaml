@@ -37,7 +37,7 @@ spec:
       cache:
         size: 800Gi
     blockHeaders:
-      enabled: true
+      enabled: false
     fail2ban:
       enabled: true
     resources:
