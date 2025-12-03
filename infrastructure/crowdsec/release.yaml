@@ -84,7 +84,7 @@ spec:
           name: myorg/mediawiki-special-page-abuse
           description: "Detects aggressive crawling of MediaWiki special pages and export formats"
           filter: |
-            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|RecentChanges|Contributions|Export)" or
+            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|Contributions|Export)" or
             evt.Meta.http_path contains ".n3" or
             evt.Meta.http_path contains ".nt" or
             evt.Meta.http_path contains ".rdf" or
@@ -93,6 +93,20 @@ spec:
             evt.Meta.http_path matches ".*[?&]action=(info|purge|history|raw)"
           leakspeed: "10s"
           capacity: 5
+          groupby: evt.Meta.source_ip
+          labels:
+            service: mediawiki
+            type: special-page-abuse
+            remediation: true
+          blackhole: 48h
+
+        mediawiki-recent-changes-abuse.yaml: |
+          type: leaky
+          name: myorg/mediawiki-recent-changes-abuse
+          description: "Detects aggressive crawling of Recent changes"
+          filter: evt.Meta.http_path matches "^/wiki/Special:RecentChanges"
+          leakspeed: "1s"
+          capacity: 10
           groupby: evt.Meta.source_ip
           labels:
             service: mediawiki
