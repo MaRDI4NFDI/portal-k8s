@@ -144,6 +144,24 @@ spec:
             type: login-crawl
             remediation: true
           blackhole: 48h
+
+        mediawiki-abusive-crawlers.yaml: |
+          type: leaky
+          name: myorg/mediawiki-abusive-crawlers
+          description: "Blocks known abusive crawlers"
+          filter: |
+            evt.Meta.http_user_agent contains "meta-externalagent" or
+            evt.Meta.http_user_agent contains "Sogou web spider" or
+            evt.Meta.http_user_agent contains "Bytespider"
+          leakspeed: "10s"
+          capacity: 15
+          groupby: evt.Meta.http_user_agent
+          labels:
+            service: mediawiki
+            type: abusive-crawler
+            remediation: true
+          blackhole: 4h
+
       config.yaml.local: |
         api:
           server:
