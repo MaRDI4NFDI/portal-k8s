@@ -36,6 +36,11 @@ spec:
       access:
         enabled: true
         format: json
+        fields:
+          headers:
+            defaultmode: keep
+            names:
+              User-Agent: keep
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
