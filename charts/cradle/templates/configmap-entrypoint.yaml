@@ -29,9 +29,9 @@ data:
         "api":'https://${WIKIBASE_HOST}/w/api.php',
         "wikibase_api":'https://${WIKIBASE_HOST}/w/api.php',
         "oauth_url":'https://${WIKIBASE_HOST}/w/index.php?title=Special:OAuth',
-        "cradle_url":'https://cradle.staging.mardi4nfdi.org/tools/cradle/',
-        "cradle_api":'https://cradle.staging.mardi4nfdi.org/tools/cradle/api.php',
-        "vue_components_base_url": 'https://cradle.staging.mardi4nfdi.org/tools/cradle/resources/vue/'
+        "cradle_url":'https://cradle.staging.mardi4nfdi.org/',
+        "cradle_api":'https://cradle.staging.mardi4nfdi.org/api.php',
+        "vue_components_base_url": 'https://cradle.staging.mardi4nfdi.org/resources/vue/'
     };
     EOF
         echo "config.js created successfully"
