@@ -3,6 +3,16 @@ entries:
   cradle:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-12-03T14:08:02.500920507Z"
+    description: A Helm chart for Cradle
+    digest: 63ca57d715791fd5090087aa6fea3815c6bd61bea20794eec6d2dfb14204adae
+    name: cradle
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/cradle-0.1.1/cradle-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-12-03T10:21:43.416491412Z"
     description: A Helm chart for Cradle
     digest: e133dd7220fd0474c1482f1e42f8cc345f13b950406cf13ca7b515834636ee7d
@@ -2055,4 +2065,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-03T10:21:43.416797362Z"
+generated: "2025-12-03T14:08:02.501324252Z"
