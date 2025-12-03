@@ -153,8 +153,8 @@ spec:
             evt.Meta.http_user_agent contains "meta-externalagent" or
             evt.Meta.http_user_agent contains "Sogou web spider" or
             evt.Meta.http_user_agent contains "Bytespider"
-          leakspeed: "10s"
-          capacity: 15
+          leakspeed: "1s"
+          capacity: 1
           groupby: evt.Meta.source_ip
           labels:
             service: mediawiki
