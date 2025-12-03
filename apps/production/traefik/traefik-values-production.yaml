@@ -15,6 +15,19 @@ spec:
     service:
       spec:
         loadBalancerIP: "130.73.131.224"
+    ports:
+      doip-tls1:
+        port: 3567
+        expose: 
+          default: true
+        exposedPort: 3567
+        protocol: TCP
+      doip-tls2:
+        port: 3568
+        expose: 
+          default: true
+        exposedPort: 3568
+        protocol: TCP
     additionalArguments:
       - "--entrypoints.websecure.http.middlewares=production-crowdsec-bouncer@kubernetescrd"
     logs:
