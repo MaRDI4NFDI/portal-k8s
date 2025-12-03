@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-entrypoint
+data:
+  entrypoint.sh: |
+    #!/usr/bin/env bash
+
+    # Create oauth.ini from environment variables
+    if [ -n "$OAUTH_CONSUMER_KEY" ] && [ -n "$OAUTH_CONSUMER_SECRET" ]; then
+        cat > /var/www/html/cradle/oauth.ini <<EOF
+    [settings]
+    agent = Cradle
+    consumerKey = ${OAUTH_CONSUMER_KEY}
+    consumerSecret = ${OAUTH_CONSUMER_SECRET}
+    EOF
+        echo "oauth.ini created successfully"
+    else
+        echo "Warning: OAUTH_CONSUMER_KEY or OAUTH_CONSUMER_SECRET not set"
+    fi
+
+    # Create config.js from environment variables
+    if [ -n "$WIKIBASE_HOST" ]; then
+        cat > /var/www/html/cradle/public_html/config.js <<EOF
+    'use strict';
+    let config = {
+        "source_page":'Project:Cradle',
+        "wikibase_url":'https://${WIKIBASE_HOST}/wiki/',
+        "api":'https://${WIKIBASE_HOST}/w/api.php',
+        "wikibase_api":'https://${WIKIBASE_HOST}/w/api.php',
+        "oauth_url":'https://${WIKIBASE_HOST}/w/index.php?title=Special:OAuth',
+        "cradle_url":'https://cradle.staging.mardi4nfdi.org/tools/cradle/',
+        "cradle_api":'https://cradle.staging.mardi4nfdi.org/tools/cradle/api.php',
+        "vue_components_base_url": 'https://cradle.staging.mardi4nfdi.org/tools/cradle/resources/vue/'
+    };
+    EOF
+        echo "config.js created successfully"
+    else
+        echo "Warning: WIKIBASE_HOST not set"
+    fi
+
+    # Start Apache
+    docker-php-entrypoint apache2-foreground

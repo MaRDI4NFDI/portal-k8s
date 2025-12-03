@@ -28,6 +28,8 @@ spec:
               secretKeyRef:
                 name: {{ .Release.Name }}-secrets
                 key: OAUTH_CONSUMER_SECRET
+          - name: WIKIBASE_HOST
+            value: {{ .Values.global.baseDomain }}
         volumeMounts:
           - name: entrypoint
             mountPath: /entrypoint.sh
