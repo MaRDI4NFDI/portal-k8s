@@ -1,0 +1,16 @@
+image:
+  repository: ghcr.io/wbstack/cradle
+  tag: sha-22061d4
+
+port: 80
+
+ingress:
+  subdomain: "cradle"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi

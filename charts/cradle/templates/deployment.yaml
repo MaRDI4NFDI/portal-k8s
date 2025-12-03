@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+          - name: OAUTH_CONSUMER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-secrets
+                key: OAUTH_CONSUMER_KEY
+          - name: OAUTH_CONSUMER_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-secrets
+                key: OAUTH_CONSUMER_SECRET
+        volumeMounts:
+          - name: entrypoint
+            mountPath: /entrypoint.sh
+            subPath: entrypoint.sh
+      volumes:
+        - name: entrypoint
+          configMap:
+            name: {{ .Release.Name }}-entrypoint
+            defaultMode: 0755
