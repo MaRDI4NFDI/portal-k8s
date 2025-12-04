@@ -10,5 +10,5 @@ spec:
   values:
     lakefs:
       url: "lake-bioinfmed.zib.de"
-      repo: "sandbox"
+      repo: "mardi-fdo-data"
 
