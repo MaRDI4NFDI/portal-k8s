@@ -169,7 +169,7 @@ spec:
             evt.Meta.http_user_agent contains "Bytespider"
           leakspeed: "1s"
           capacity: 1
-          groupby: evt.Meta.source_ip
+          groupby: evt.Meta.http_user_agent
           labels:
             service: mediawiki
             type: abusive-crawler
