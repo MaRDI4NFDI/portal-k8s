@@ -84,7 +84,7 @@ spec:
           name: myorg/mediawiki-special-page-abuse
           description: "Detects aggressive crawling of MediaWiki special pages and export formats"
           filter: |
-            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|Contributions|Export)" or
+            evt.Meta.http_path matches "^/wiki/Special:(WhatLinksHere|RecentChangesLinked|EntityData|EntityPage|EntityUsage|Contributions|Export)" or
             evt.Meta.http_path contains ".n3" or
             evt.Meta.http_path contains ".nt" or
             evt.Meta.http_path contains ".rdf" or
