@@ -119,8 +119,7 @@ spec:
           type: leaky
           name: myorg/mediawiki-diff-abuse
           description: "Detects bots crawling MediaWiki diffs, old revisions, and related pages"
-          filter: |
-            evt.Meta.http_path matches ".*[?&](oldid=|diff=|curid=)"
+          filter: evt.Meta.http_path matches ".*[?&](oldid=|diff=|curid=)"
           leakspeed: "5s"
           capacity: 6
           groupby: evt.Meta.source_ip
@@ -149,8 +148,7 @@ spec:
           type: leaky
           name: myorg/mediawiki-login-crawl
           description: "Detects bots systematically crawling login pages"
-          filter: |
-            evt.Meta.http_path matches ".*title=Special:UserLogin"
+          filter: evt.Meta.http_path matches ".*title=Special:UserLogin"
           leakspeed: "10s"
           capacity: 5
           groupby: evt.Meta.source_ip
@@ -164,10 +162,7 @@ spec:
           type: leaky
           name: myorg/mediawiki-abusive-crawlers
           description: "Blocks known abusive crawlers"
-          filter: |
-            evt.Meta.http_user_agent contains "meta-externalagent" or
-            evt.Meta.http_user_agent contains "Sogou web spider" or
-            evt.Meta.http_user_agent contains "Bytespider"
+          filter: evt.Meta.http_user_agent matches "(meta-externalagent|Sogou web spider|Bytespider)"
           leakspeed: "10s"
           capacity: 1
           groupby: evt.Meta.source_ip
