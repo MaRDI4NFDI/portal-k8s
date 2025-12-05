@@ -99,7 +99,7 @@ spec:
             service: mediawiki
             type: special-page-abuse
             remediation: true
-          blackhole: 48h
+          blackhole: 4h
 
         mediawiki-recent-changes-abuse.yaml: |
           type: leaky
@@ -113,7 +113,7 @@ spec:
             service: mediawiki
             type: special-page-abuse
             remediation: true
-          blackhole: 48h
+          blackhole: 4h
         
         mediawiki-diff-abuse.yaml: |
           type: leaky
@@ -127,7 +127,7 @@ spec:
             service: mediawiki
             type: diff-abuse
             remediation: true
-          blackhole: 48h
+          blackhole: 4h
 
         mediawiki-talk-page-abuse.yaml: |
           type: leaky
@@ -142,7 +142,7 @@ spec:
             service: mediawiki
             type: talk-page-abuse
             remediation: true
-          blackhole: 48h
+          blackhole: 4h
 
         mediawiki-login-crawl.yaml: |
           type: leaky
@@ -156,7 +156,7 @@ spec:
             service: mediawiki
             type: login-crawl
             remediation: true
-          blackhole: 48h
+          blackhole: 4h
 
         mediawiki-abusive-crawlers.yaml: |
           type: leaky
