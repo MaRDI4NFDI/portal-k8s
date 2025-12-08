@@ -59,9 +59,11 @@ spec:
         - namespace: staging
           podName: staging-traefik-*
           program: traefik
+          poll_without_inotify: true
         - namespace: production
           podName: traefik-*
           program: traefik
+          poll_without_inotify: true
       
       env:
         - name: SCENARIOS
