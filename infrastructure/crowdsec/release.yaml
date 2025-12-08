@@ -249,29 +249,29 @@ spec:
 
       rules:
         outdated-chrome-rule.yaml: |
-        name: myorg/outdated-chrome-rule
-        description: "Block requests from outdated Chrome versions (1-120), excluding known search bots"
-        rules:
-          - and:
-            - zones:
-                - HEADERS
-              variables:
-                - user-agent
-              match:
-                type: regex
-                value: "Chrome/([1-9]|[1-9][0-9]|10[0-9]|11[0-9]|120)\\."
-            - zones:
-                - HEADERS
-              variables:
-                - user-agent
-              match:
-                type: regex
-                value: "(?i)(googlebot|bingbot)"
-                not: true
-        labels:
-          type: exploit
-          service: http
-          confidence: 3
+          name: myorg/outdated-chrome-rule
+          description: "Block requests from outdated Chrome versions (1-120), excluding known search bots"
+          rules:
+            - and:
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "Chrome/([1-9]|[1-9][0-9]|10[0-9]|11[0-9]|120)\\."
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "(?i)(googlebot|bingbot)"
+                  not: true
+          labels:
+            type: exploit
+            service: http
+            confidence: 3
 
     image:
       repository: crowdsecurity/crowdsec
