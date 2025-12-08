@@ -212,6 +212,67 @@ spec:
         share_tainted: false
         share_context: false
 
+    appsec:
+      enabled: true
+      replicas: 1
+      resources:
+        limits:
+          memory: 256Mi
+          cpu: 500m
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      
+      acquisitions:
+        - source: appsec
+          listen_addr: "0.0.0.0:7422"
+          path: /
+          appsec_config: myorg/block-old-browsers
+          labels:
+            type: appsec
+      
+      env:
+        - name: COLLECTIONS
+          value: "crowdsecurity/appsec-virtual-patching"
+      
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+      configs:
+        block-old-browsers.yaml: |
+          name: myorg/block-old-browsers
+          default_remediation: ban
+          inband_rules:
+            - myorg/outdated-chrome-rule
+
+      rules:
+        outdated-chrome-rule.yaml: |
+        name: myorg/outdated-chrome-rule
+        description: "Block requests from outdated Chrome versions (1-120), excluding known search bots"
+        rules:
+          - and:
+            - zones:
+                - HEADERS
+              variables:
+                - user-agent
+              match:
+                type: regex
+                value: "Chrome/([1-9]|[1-9][0-9]|10[0-9]|11[0-9]|120)\\."
+            - zones:
+                - HEADERS
+              variables:
+                - user-agent
+              match:
+                type: regex
+                value: "(?i)(googlebot|bingbot)"
+                not: true
+        labels:
+          type: exploit
+          service: http
+          confidence: 3
+
     image:
       repository: crowdsecurity/crowdsec
       pullPolicy: IfNotPresent
