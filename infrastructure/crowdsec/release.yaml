@@ -173,6 +173,22 @@ spec:
             type: abusive-crawler
             remediation: true
           blackhole: 4h
+        
+        mediawiki-talk-404-abuse.yaml: |
+          type: leaky
+          name: myorg/mediawiki-talk-404-abuse
+          description: "Detects bots hitting non-existent talk pages"
+          filter: |
+            evt.Meta.http_path matches "_talk:" and
+            evt.Meta.http_status == "404"
+          leakspeed: "10s"
+          capacity: 2
+          groupby: evt.Meta.source_ip
+          labels:
+            service: mediawiki
+            type: talk-404-abuse
+            remediation: true
+          blackhole: 4h
 
       config.yaml.local: |
         api:
