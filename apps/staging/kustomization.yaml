@@ -21,7 +21,6 @@ resources:
   - memcached
   - fdo
   - doip
-  - cradle
 
 patches:
   - target:
