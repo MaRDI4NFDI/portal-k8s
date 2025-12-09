@@ -266,7 +266,7 @@ spec:
                   - user-agent
                 match:
                   type: regex
-                  value: "(?i)(googlebot|bingbot)"
+                  value: "(?i)(googlebot|amazonbot|bingbot|applebot)"
                   not: true
           labels:
             type: exploit
