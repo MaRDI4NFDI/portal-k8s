@@ -26,6 +26,7 @@ resources:
   - deepchat
   - fdo
   - doip
+  - qdrant
 
 patches:
   - target:
