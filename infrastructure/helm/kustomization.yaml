@@ -11,3 +11,4 @@ resources:
   - varnish.yaml
   - prefect.yaml
   - crowdsec.yaml
+  - qdrant.yaml
