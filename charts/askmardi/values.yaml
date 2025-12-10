@@ -1,0 +1,20 @@
+image:
+  repository: ghcr.io/mardi4nfdi/askmardi_chatbot
+  tag: latest
+  pullPolicy: Always
+
+replicas: 1
+
+servicePort: 80
+containerPort: 80
+
+ingress:
+  subdomain: "ask"
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"

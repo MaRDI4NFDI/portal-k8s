@@ -21,6 +21,7 @@ resources:
   - memcached
   - fdo
   - doip
+  - askmardi
 
 patches:
   - target:
