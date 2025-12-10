@@ -7,6 +7,8 @@ spec:
     spec:
       version: 0.1.0
   values:
+    qdrant:
+      url: "http://qdrant:6333"
     resources:
       requests:
         memory: "1Gi"

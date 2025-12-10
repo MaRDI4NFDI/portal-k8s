@@ -8,6 +8,9 @@ replicas: 1
 servicePort: 80
 containerPort: 80
 
+qdrant:
+  url: ""
+
 ingress:
   subdomain: "ask"
 
