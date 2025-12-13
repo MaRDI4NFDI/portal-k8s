@@ -165,7 +165,7 @@ spec:
           name: myorg/mediawiki-abusive-crawlers
           description: "Blocks known abusive crawlers"
           filter: evt.Meta.http_user_agent matches "(meta-externalagent|Sogou web spider|Bytespider|newsai)"
-          leakspeed: "10s"
+          leakspeed: "60s"
           capacity: 1
           groupby: evt.Meta.source_ip
           labels:
