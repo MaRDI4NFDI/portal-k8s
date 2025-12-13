@@ -27,6 +27,7 @@ resources:
   - fdo
   - doip
   - qdrant
+  - askmardi
 
 patches:
   - target:
