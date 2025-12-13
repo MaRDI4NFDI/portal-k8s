@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  askmardi:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-12-13T08:59:20.661606067Z"
+    description: A Helm chart for the Ask Mardi streamlit application
+    digest: 5ebe10c20d2a80dc2318134e79e28b9bfacbadd83e262c2693ec0d732fb969b9
+    name: askmardi
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/askmardi-0.1.0/askmardi-0.1.0.tgz
+    version: 0.1.0
   cradle:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -2075,4 +2086,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-03T14:21:14.761572631Z"
+generated: "2025-12-13T08:59:20.662144471Z"
