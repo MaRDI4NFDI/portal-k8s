@@ -20,6 +20,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.containerPort }}
+        env:
+        - name: QDRANT_URL
+          value: "{{ .Values.qdrant.url }}"
         envFrom:
         - secretRef:
             name: {{ .Release.Name }}-secrets

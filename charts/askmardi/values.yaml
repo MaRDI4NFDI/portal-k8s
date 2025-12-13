@@ -9,7 +9,7 @@ servicePort: 80
 containerPort: 80
 
 qdrant:
-  url: ""
+  url: "http://qdrant:6333"
 
 ingress:
   subdomain: "ask"
