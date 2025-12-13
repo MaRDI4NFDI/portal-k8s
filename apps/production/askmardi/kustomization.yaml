@@ -4,7 +4,7 @@ resources:
   - ../../base/askmardi
   - secrets.yaml
 patches:
-  - path: values-staging.yaml
+  - path: values-production.yaml
     target:
       kind: HelmRelease
       name: askmardi
