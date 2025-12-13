@@ -5,10 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.1.1
   values:
-    qdrant:
-      url: "http://qdrant:6333"
     resources:
       requests:
         memory: "1Gi"
