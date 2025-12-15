@@ -12,7 +12,7 @@ spec:
     endpoints:
       mediawiki: "http://wikibase/w/api.php"
       wikibase: "http://wikibase"
-      sparql: "http://wdqs:9999/sparql"
+      sparql: "http://wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://importer-api"
 
 

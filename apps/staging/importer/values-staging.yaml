@@ -12,7 +12,7 @@ spec:
     endpoints:
       mediawiki: "http://staging-wikibase/w/api.php"
       wikibase: "http://staging-wikibase"
-      sparql: "http://staging-wdqs:9999/sparql"
+      sparql: "http://staging-wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://staging-importer-api"
 
 
