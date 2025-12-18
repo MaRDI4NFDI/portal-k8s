@@ -13,7 +13,6 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
-        statefulset-group: {{ .Release.Name }} 
     spec:
       securityContext:
         fsGroup: 33 # www-data
