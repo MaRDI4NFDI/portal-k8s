@@ -1,11 +1,10 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
 spec:
-  serviceName: {{ .Release.Name }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
@@ -48,8 +47,6 @@ spec:
         volumeMounts:
         - name: apache-logs-tmp
           mountPath: /var/log/apache2
-        - name: mediawiki-cache
-          mountPath: /var/www/html/w/images
         - name: oauth-secrets
           mountPath: /var/oauth
           readOnly: true
@@ -121,13 +118,3 @@ spec:
           - key: oauth.cert
             path: oauth.cert
             mode: 0660
-  volumeClaimTemplates:
-  - metadata:
-      name: mediawiki-cache
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: "csi-rbd-sc"
-      resources:
-        requests:
-          storage: {{ .Values.storage.cache.size }}
