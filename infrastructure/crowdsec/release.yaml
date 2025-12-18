@@ -217,11 +217,11 @@ spec:
       replicas: 1
       resources:
         limits:
-          memory: 512Mi
+          memory: 1Gi
           cpu: 500m
         requests:
           cpu: 100m
-          memory: 128Mi
+          memory: 512Mi
       
       acquisitions:
         - source: appsec
