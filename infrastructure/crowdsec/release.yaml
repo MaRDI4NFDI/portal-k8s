@@ -246,6 +246,9 @@ spec:
           default_remediation: ban
           inband_rules:
             - myorg/outdated-chrome-rule
+            - myorg/fake-opera-rule
+            - myorg/fake-gecko-date-rule
+            - myorg/ancient-ie-rule
 
       rules:
         outdated-chrome-rule.yaml: |
@@ -272,6 +275,81 @@ spec:
             type: exploit
             service: http
             confidence: 3
+
+        fake-opera-rule.yaml: |
+          name: myorg/fake-opera-rule
+          description: "Block fake Opera UAs with impossible Opera/Presto version combinations"
+          rules:
+            - and:
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "Opera/[89]\\.[0-9]+\\.?.*Presto/2\\.9\\.[0-9]+"
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "(?i)(googlebot|amazonbot|bingbot|applebot|semrush)"
+                  not: true
+          labels:
+            type: bot
+            service: http
+            confidence: 5
+
+        fake-gecko-date-rule.yaml: |
+          name: myorg/fake-gecko-date-rule
+          description: "Block fake Firefox/Gecko UAs with impossible build dates"
+          rules:
+            - and:
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "Gecko/[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "(?i)(googlebot|amazonbot|bingbot|applebot)"
+                  not: true
+          labels:
+            type: bot
+            service: http
+            confidence: 5
+
+        ancient-ie-rule.yaml: |
+          name: myorg/ancient-ie-rule
+          description: "Block ancient Internet Explorer versions (MSIE 5-8)"
+          rules:
+            - and:
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "MSIE [5-8]\\."
+              - zones:
+                  - HEADERS
+                variables:
+                  - user-agent
+                match:
+                  type: regex
+                  value: "(?i)(googlebot|amazonbot|bingbot|applebot)"
+                  not: true
+          labels:
+            type: bot
+            service: http
+            confidence: 4
 
     image:
       repository: crowdsecurity/crowdsec
