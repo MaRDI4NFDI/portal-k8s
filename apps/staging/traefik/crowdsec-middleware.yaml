@@ -24,10 +24,10 @@ spec:
         - 10.0.0.0/8
         # services
         - 10.96.0.0/12
-      crowdsecAppsecEnabled: true
-      crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local:7422
-      crowdsecAppsecFailureBlock: false
-      crowdsecAppsecUnreachableBlock: false
+      #crowdsecAppsecEnabled: true
+      #crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local:7422
+      #crowdsecAppsecFailureBlock: false
+      #crowdsecAppsecUnreachableBlock: false
 sops:
   lastmodified: "2025-12-09T09:44:10Z"
   mac: ENC[AES256_GCM,data:MtBVqxOLUiw6cFN9ZnEMcNsCdiZaF9OL6V06wS7yq5Fz9XQds6Idsnc9n6IBVHF2jYFWxkeJk4hDHkHj/RBXTnqCnMQ0NYvxqETMK3a+65oi+o7dXmICC0X20hT9/59I9pH9+5b3Q1wHiVAXQqWX+u7qv1DK4C2I0E7KHCDVs60=,iv:lHXcIKfzN+VihvQSjG1QKXgECE2uv3iUfIX1/50xWq4=,tag:GaASjXyij3jxYdHYpm57Vw==,type:str]
