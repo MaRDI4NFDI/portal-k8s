@@ -12,7 +12,7 @@ spec:
       defaultDecisionSeconds: 300
       httpTimeoutSeconds: 10
       crowdsecMode: live
-      crowdsecLapiKey: ENC[AES256_GCM,data:QxuXIDP/8FCPFTXVqxb4+4+Ia7l+66VYAyLCSdM/jKWMo0nkYPxnqblb6A==,iv:1lS0iluFReMPyTlX8m49HRldfbvGIEpUNNFTojaHiwY=,tag:TNsRAaENgTerR+2FXRcb9A==,type:str]
+      crowdsecLapiKey: ENC[AES256_GCM,data:ODZj8tN0kjlbSezz4tdOwV5dBsoGnFFa21esqjgRGrmoUnZ5076x7L4vlA==,iv:5QvyPcMpGwR58sL8qb1F781CcchlD9+Qzc6abe2K/1c=,tag:foAmLgF67EgA2zOGxQS5ZQ==,type:str]
       crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local:8080
       crowdsecLapiScheme: http
       forwardedHeadersTrustedIPs:
@@ -24,32 +24,32 @@ spec:
         - 10.0.0.0/8
         # services
         - 10.96.0.0/12
-      crowdsecAppsecEnabled: true
-      crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local:7422
-      crowdsecAppsecFailureBlock: false
-      crowdsecAppsecUnreachableBlock: false
+      #crowdsecAppsecEnabled: true
+      #crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local:7422
+      #crowdsecAppsecFailureBlock: false
+      #crowdsecAppsecUnreachableBlock: false
 sops:
-  lastmodified: "2025-12-09T10:15:57Z"
-  mac: ENC[AES256_GCM,data:9sYhvjQucjjxh2SWTVnry37g2tcI+4xb9i+KqFzVhFGgcNVfE1Yt2rQyc5mF+XhhnapvI0NPQVs05ljPgCLTNvt6EissQjRFpqSjJ3COS3yiEPnpIR4g7HRz5kfVVUkzBdJI5dHJat8dzBBtV9CLYJwoLolNbFMNF0cRnHLHrOI=,iv:rgghe+KQIBxSBMnZCpZrA27V3E1chTilH1DTmw/dChQ=,tag:HiBXykDa845zAvpcBENLVQ==,type:str]
+  lastmodified: "2025-12-18T16:38:28Z"
+  mac: ENC[AES256_GCM,data:eRSJqHCRhn/rA9+eAgoWGWuMQ2mP+DeAPFX5q70cAhW1L3XgBthuiLFWvXb6zoj5bIA7yIHeerr7VNXHFbEirtxRqwDjGJDcU/bqbw9249BbT+AumQE0xUc95n5zeWcllyiBcGk99N3tKCKLWgcZRTHmq8UvG0CmKYNNtKbGjlc=,iv:kc7SD8Gp0V/hsW/cjp9G6Qa2pcqBxPN/2rI5WKOes7k=,tag:MjbNi+cczm/4sHGI5n+w3w==,type:str]
   pgp:
-    - created_at: "2025-12-09T10:15:57Z"
+    - created_at: "2025-12-18T16:38:28Z"
       enc: |-
         -----BEGIN PGP MESSAGE-----
 
-        hQIMA90tSATCInn5AQ//eQ1PPDYumi/sWdbsBxma3Dp85guGIPy0guXc/+leFrcP
-        0wdroJIPIxiT41tcTUy0d43EN89s05hNrM0OXlcI8+tbbChNpBWqAqhvbOSWfdFj
-        4adWIF/Ts9KlRKkpJ063VwaFXUv8f28b6yeX/ROEzR5E3EJYl8iaukROZeEBtv7Q
-        8vGEnLBewOilyXhqN5lLJvZyaR/OlzlAue7qbmnYCmnsuryd0jQHWeMxlhIIpRv3
-        WV75taqDs05fn6zlo4/xo+jwrBSi1OTBzn6wnJLxyvFJ6VNINgqlQOb/HW+QD2Tt
-        LQMag9Z3sI4zzb6YjuzAbsMZ3KBxra5xtDobQqK03ccroDzAqv5EwMGrlAvXwysj
-        Wd4S66y3QpfaiTE38mHrF1ndoUdYCuesxR9GdFkHb+On+BrnEpMR7zwUvyIZUCWy
-        2X0nNsUTi8miGBwwQCDkDu+lLgfHFYSOp3H8trexVQG6qrO6ulDrZtoO86VkQ/Ol
-        2rhZupOZlY74z1Gyjb5W6gUFsKiqQQRzKWBDMLHwoPzn7hQ4ZisDKR6Q0j1mJJKd
-        Rhq78GuFF/u8ycQrVzxKsk3ONTHqigt8H9O49HXfi7Up9vR+/6P+Z7Ao2EpI0Nlo
-        dW3nEt5YiJP385gIg6owEXt7Bmf5XxXP5kibGWOATfH5KelyIX1u1NUKl7/bEyTS
-        XgG5GgWUgTWq5nadtxHZgw/xImWgmwwJpeP5LcZV1h5twJrve4CSCP516ZsUwQwm
-        IiXCECW+ks7qXWnp2xo2t1t2tox//V2YGIEi0indhd9bi4Mb8GZMQkNUG7+C6xk=
-        =FYvv
+        hQIMA90tSATCInn5ARAAugsk6HHpISsfly8rkuhmNpheQeAZmWyzVCcfWCAUHoku
+        RaYORB4w+wQ7mM/gQFjBVd/1fFSZGI4t6x68uNCxhgQDG4UjNZDnFpeA+z1WNt+n
+        DQWjKNkTHRYqhX3uxxuHdXy8sVKx1kuLjwKssba0Cx4Fh9SjCYnFsAT3vmjEQm8N
+        6vnNCH265j+8AUl+qVHpGemOdCW0JTt7Pl5e8yUwuVDMkccf/XGIwVDsxRLScaX+
+        kNQyiaqB4GId5aNaR9naLjyyDmnbuc/MXD/FV632mVO84lU47zB9pj0pMfvFwn5P
+        wHN0Mst42qnoc05ox9OWOC2tnBAD5dQLZJ+bU3zyFjKzFt7PUiYpjt3kmArShu+F
+        5n6McKrFmkTpN8sHqAMUm17pgzpZxspChDaoxWIvmL3kfLcw9j6M7pUD46C8Wy1m
+        fgvdF7UAyqnVY57OzjVS5S5ka8nQa7Nwf1zVfk8PsLZwUwrUBLtJOsYHnneJkXRx
+        pxKhmk5NdmtrI4Xp78xVaGtJpgPVekfFJa03WvEEaUhG+3bJHzbz+sQIDpAs2Stq
+        zzi+tJfHI3NGphWxvVQjGWwioruWHmZADGs9Jh6kVQPa+Pr6z1kJdDTaq7dCXATA
+        rVAtbLdMvLQSsiJre2YAQGqwm4ooLnwjSIuAn71vWUcMrSzL3IRrpXVlhUOCVCzS
+        XAEto1/O43oFa87O5WFsD94/QeGtF1Ya3nxeYu7SUZAy4jFIVWE9Vp/lSv+seocT
+        tWDR6PsRNyitvP3V/Gc5LGvBHT5EgnR0vMLp9UwK+/DgqPBMQ8mCsDBL3dO0
+        =auU8
         -----END PGP MESSAGE-----
       fp: BE155DFF5AD65EA97520D7E6B003A490455B332D
   encrypted_regex: ^(crowdsecLapiKey)$
