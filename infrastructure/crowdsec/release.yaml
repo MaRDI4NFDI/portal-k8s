@@ -191,6 +191,15 @@ spec:
           blackhole: 4h
 
       config.yaml.local: |
+        common:
+          log_level: debug
+        db_config:
+          log_level: debug
+          type: sqlite
+          db_path: /var/lib/crowdsec/data/crowdsec.db
+          flush:
+            max_items: 100000
+            max_age: 7d
         api:
           server:
             auto_registration:
