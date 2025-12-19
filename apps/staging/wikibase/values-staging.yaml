@@ -5,23 +5,14 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.62"
+      version: "0.1.65"
   values:
-    image:
-      repository: ghcr.io/mardi4nfdi/wikibase-staging
-      tag: latest
-    replicas: 1
-    prefix: staging
-    port: 80
-    varnish:
-      enabled: true
-      fullnameOverride: "staging-varnish"
-      backendHost: "staging-wikibase"
     mediawiki:
-      scheme: https
+      image:
+        repository: ghcr.io/mardi4nfdi/wikibase-staging
+        tag: latest
+      replicas: 1
       db_server: staging-mariadb-primary:3306
-      db_name: my_wiki
-      db_user: sqluser
       db_primary: staging-mariadb-primary
       db_secondary: staging-mariadb-secondary
       elasticsearch_host: staging-elasticsearch
@@ -29,16 +20,17 @@ spec:
       memcached_host: staging-memcached
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
-    storage:
-      cache:
-        size: 5Gi
-    resources:
-      requests:
-        cpu: 500m
-        memory: 512Mi
-      limits:
-        cpu: 1
-        memory: 2Gi
+      resources:
+        requests:
+          cpu: 500m
+          memory: 512Mi
+        limits:
+          cpu: 1
+          memory: 2Gi
+    varnish:
+      enabled: true
+      fullnameOverride: "staging-varnish"
+      backendHost: "staging-wikibase"    
     blockHeaders:
       enabled: false
     fail2ban:
