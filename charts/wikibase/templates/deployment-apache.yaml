@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-apache
+  labels:
+    app: {{ .Release.Name }}-apache
+spec:
+  replicas: {{ .Values.apache.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-apache
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-apache
+    spec:
+      containers:
+      - name: apache
+        image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
+        imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
+        resources:
+          requests:
+            cpu: {{ .Values.apache.resources.requests.cpu }}
+            memory: {{ .Values.apache.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.apache.resources.limits.cpu }}
+            memory: {{ .Values.apache.resources.limits.memory }}
+        ports:
+        - containerPort: 80
+        env:
+        - name: WIKIBASE_HOST
+          value: "{{ .Release.Name }}-fpm"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5

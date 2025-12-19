@@ -1,11 +1,9 @@
-image:
-  repository: ghcr.io/mardi4nfdi/docker-wikibase
-  tag: kubernetes
-  pullPolicy: Always
-replicas: 1
-prefix: ""
-port: 80
 mediawiki:
+  repository: ghcr.io/mardi4nfdi/wikibase-staging
+  latest: kubernetes
+  pullPolicy: Always
+  replicas: 1
+  port: 9000
   scheme: https
   db_server: mariadb
   db_name: my_wiki
@@ -22,28 +20,32 @@ mediawiki:
   latexml_port: 80
   formulasearch_host: formulasearch
   formulasearch_port: 1985
-storage:
-  cache:
-    size: 200Mi
-resources:
-  requests:
-    cpu: 500m
-    memory: 512Mi
-  limits:
-    cpu: 1
-    memory: 1Gi
-blockHeaders:
-  enabled: false
-fail2ban:
-  enabled: false
-  denylist: []
-secrets:
-  mariadb: mariadb-secrets
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+apache:
+  image:
+    repository: ghcr.io/mardi4nfdi/apache
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  port: 80
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
 varnish:
   enabled: false
   fullnameOverride: "varnish"
-  backendHost: "wikibase"
-  backendPort: "80"
   backendFirstByteTimeout: "600s"
   backendBetweenBytesTimeout: "600s"
   purgeAcl: "10.0.0.0/8"
@@ -54,3 +56,11 @@ varnish:
     limits:
       cpu: 1000m
       memory: 1Gi
+
+blockHeaders:
+  enabled: false
+fail2ban:
+  enabled: false
+  denylist: []
+secrets:
+  mariadb: mariadb-secrets

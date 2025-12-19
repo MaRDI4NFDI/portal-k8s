@@ -25,9 +25,9 @@ spec:
           namespace: {{ .Release.Namespace }}
           port: 80
         {{- else }}
-        - name: {{ .Release.Name }}
+        - name: {{ .Release.Name }}-apache
           namespace: {{ .Release.Namespace }}
-          port: {{ .Values.port }}
+          port: {{ .Values.apache.port }}
         {{- end }}
   tls:
     secretName: {{ .Release.Name }}-tls

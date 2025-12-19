@@ -1,51 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-fpm
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-fpm
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.mediawiki.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ .Release.Name }}-fpm
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ .Release.Name }}-fpm
     spec:
       securityContext:
         fsGroup: 33 # www-data
-      initContainers:
-      - name: setup-apache-logging
-        image: busybox
-        command:
-        - sh
-        - -c
-        - |
-          mkdir -p /var/log/apache2
-          ln -sf /dev/stderr /var/log/apache2/error.log
-          ln -sf /dev/stdout /var/log/apache2/access.log
-          ln -sf /dev/stdout /var/log/apache2/other_vhosts_access.log
-        volumeMounts:
-        - name: apache-logs-tmp
-          mountPath: /var/log/apache2
       containers:
-      - name: {{ .Release.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      - name: php-fpm
+        image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
+        imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
         resources:
           requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.mediawiki.resources.requests.cpu }}
+            memory: {{ .Values.mediawiki.resources.requests.memory }}
           limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.mediawiki.resources.limits.cpu }}
+            memory: {{ .Values.mediawiki.resources.limits.memory }}
         ports:
-        - containerPort: {{ .Values.port }}
+        - containerPort: {{ .Values.mediawiki.port }}
         volumeMounts:
-        - name: apache-logs-tmp
-          mountPath: /var/log/apache2
         - name: oauth-secrets
           mountPath: /var/oauth
           readOnly: true
@@ -55,7 +39,7 @@ spec:
         - name: WIKIBASE_HOST
           value: "{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_PORT
-          value: "{{ .Values.port }}"
+          value: "{{ .Values.apache.port }}"
         - name: DB_SERVER
           value: "{{ .Values.mediawiki.db_server }}"
         - name: DB_NAME
@@ -103,10 +87,6 @@ spec:
         - secretRef:
             name: {{ .Release.Name }}-env-secrets
       volumes:
-      - name: apache-logs-tmp
-        emptyDir:
-          medium: Memory
-          sizeLimit: 200Mi
       - name: oauth-secrets
         secret:
           secretName: {{ .Release.Name }}-oauth-secrets
