@@ -14,31 +14,61 @@ spec:
       labels:
         app: {{ .Release.Name }}-apache
     spec:
+      initContainers:
+        - name: copy-static-files
+          image: "{{ .Values.fpm.image.repository }}:{{ .Values.fpm.image.tag }}"
+          command:
+            - sh
+            - -c
+            - |
+              cp -r /var/www/html/w/skins /static/skins
+              cp -r /var/www/html/w/resources /static/resources
+              cp -r /var/www/html/w/extensions /static/extensions
+              cp -r /var/www/html/w/images_repo /static/images_repo
+          volumeMounts:
+            - name: static-files
+              mountPath: /static
       containers:
-      - name: apache
-        image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
-        imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
-        resources:
-          requests:
-            cpu: {{ .Values.apache.resources.requests.cpu }}
-            memory: {{ .Values.apache.resources.requests.memory }}
-          limits:
-            cpu: {{ .Values.apache.resources.limits.cpu }}
-            memory: {{ .Values.apache.resources.limits.memory }}
-        ports:
-        - containerPort: 80
-        env:
-        - name: WIKIBASE_HOST
-          value: "{{ .Release.Name }}-fpm"
-        livenessProbe:
-          httpGet:
-            path: /w/api.php?action=query&meta=siteinfo&format=json
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /w/api.php?action=query&meta=siteinfo&format=json
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: apache
+          image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
+          imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.apache.resources.requests.cpu }}
+              memory: {{ .Values.apache.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.apache.resources.limits.cpu }}
+              memory: {{ .Values.apache.resources.limits.memory }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: WIKIBASE_HOST
+              value: "{{ .Release.Name }}-fpm"
+          volumeMounts:
+            - name: static-files
+              mountPath: /var/www/html/w/skins
+              subPath: skins
+            - name: static-files
+              mountPath: /var/www/html/w/resources
+              subPath: resources
+            - name: static-files
+              mountPath: /var/www/html/w/extensions
+              subPath: extensions
+            - name: static-files
+              mountPath: /var/www/html/w/images_repo
+              subPath: images_repo
+          livenessProbe:
+            httpGet:
+              path: /w/api.php?action=query&meta=siteinfo&format=json
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /w/api.php?action=query&meta=siteinfo&format=json
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      volumes:
+        - name: static-files
+          emptyDir: {}
