@@ -5,15 +5,20 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.60"
+      version: "0.1.68"
   values:
-    image:
-      repository: ghcr.io/mardi4nfdi/wikibase-production
-      tag: 1.45.5
-    replicas: 1
-    port: 80
-    varnish:
-      enabled: true
+    mediawiki:
+      image:
+        repository: ghcr.io/mardi4nfdi/wikibase-production
+        tag: 1.45.6
+      replicas: 1
+      db_server: mariadb-primary:3306
+      db_primary: mariadb-primary
+      db_secondary: mariadb-secondary
+      elasticsearch_host: elasticsearch
+      redis_host: redis-master
+      formulasearch_host: formulasearch
+      latexml_host: latexml
       resources:
         requests:
           cpu: "2"
@@ -21,29 +26,9 @@ spec:
         limits:
           cpu: "6"
           memory: "10Gi"
-    mediawiki:
-      host: portal.mardi4nfdi.de
-      scheme: https
-      db_server: mariadb-primary:3306
-      db_name: my_wiki
-      db_user: sqluser
-      db_primary: mariadb-primary
-      db_secondary: mariadb-secondary
-      elasticsearch_host: elasticsearch
-      redis_host: redis-master
-      formulasearch_host: formulasearch
-      latexml_host: latexml
-    storage:
-      cache:
-        size: 800Gi
+    varnish:
+      enabled: true
     blockHeaders:
       enabled: true
     fail2ban:
       enabled: true
-    resources:
-      requests:
-        cpu: "6"
-        memory: "4Gi"
-      limits:
-        cpu: "12"
-        memory: "10Gi"
