@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: copy-static-files
-          image: "{{ .Values.fpm.image.repository }}:{{ .Values.fpm.image.tag }}"
+          image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           command:
             - sh
             - -c
