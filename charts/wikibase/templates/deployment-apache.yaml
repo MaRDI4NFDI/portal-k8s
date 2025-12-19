@@ -32,13 +32,13 @@ spec:
           value: "{{ .Release.Name }}-fpm"
         livenessProbe:
           httpGet:
-            path: /
+            path: /w/api.php?action=query&meta=siteinfo&format=json
             port: 80
           initialDelaySeconds: 10
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /w/api.php?action=query&meta=siteinfo&format=json
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
