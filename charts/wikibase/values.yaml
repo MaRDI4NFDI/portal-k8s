@@ -1,7 +1,8 @@
 mediawiki:
-  repository: ghcr.io/mardi4nfdi/wikibase-staging
-  latest: kubernetes
-  pullPolicy: Always
+  image:
+    repository: ghcr.io/mardi4nfdi/wikibase-staging
+    latest: kubernetes
+    pullPolicy: Always
   replicas: 1
   port: 9000
   scheme: https
