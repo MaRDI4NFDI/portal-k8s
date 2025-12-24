@@ -21,3 +21,5 @@ data:
     innodb_log_file_size=512M
     max_connections={{ .Values.mariadb.config.maxConnections | default "200" }}
     ignore_db_dirs=lost+found
+    innodb_snapshot_isolation=OFF
+    
