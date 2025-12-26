@@ -223,7 +223,7 @@ spec:
         share_context: false
 
     appsec:
-      enabled: true
+      enabled: false
       replicas: 1
       resources:
         limits:
