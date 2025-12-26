@@ -59,13 +59,13 @@ spec:
               subPath: images_repo
           livenessProbe:
             httpGet:
-              path: /w/api.php?action=query&meta=siteinfo&format=json
+              path: w/images_repo/swMATH.svg
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 30
           readinessProbe:
             httpGet:
-              path: /w/api.php?action=query&meta=siteinfo&format=json
+              path: /w/images_repo/swMATH.svg
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
