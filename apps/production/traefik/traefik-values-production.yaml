@@ -12,6 +12,8 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
+        matchRule: Host(`traefik.portal.mardi4nfdi.de`)
+        entryPoints: ["websecure"]
     service:
       spec:
         loadBalancerIP: "130.73.131.224"
