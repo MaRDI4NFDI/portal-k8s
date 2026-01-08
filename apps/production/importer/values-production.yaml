@@ -10,8 +10,8 @@ spec:
     database:
       host: "mariadb-primary"
     endpoints:
-      mediawiki: "http://wikibase/w/api.php"
-      wikibase: "http://wikibase"
+      mediawiki: "http://wikibase-apache/w/api.php"
+      wikibase: "http://wikibase-apache"
       sparql: "http://wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://importer-api"
 
