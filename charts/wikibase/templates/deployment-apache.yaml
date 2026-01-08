@@ -25,6 +25,7 @@ spec:
               cp -r /var/www/html/w/resources /static/resources
               cp -r /var/www/html/w/extensions /static/extensions
               cp -r /var/www/html/w/images_repo /static/images_repo
+              cp /var/www/html/w/robots.txt /static/robots.txt
           volumeMounts:
             - name: static-files
               mountPath: /static
