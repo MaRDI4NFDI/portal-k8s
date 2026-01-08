@@ -58,6 +58,9 @@ spec:
             - name: static-files
               mountPath: /var/www/html/w/images_repo
               subPath: images_repo
+            - name: static-files
+              mountPath: /var/www/html/w/robots.txt
+              subPath: robots.txt
           livenessProbe:
             httpGet:
               path: w/images_repo/swMATH.svg
