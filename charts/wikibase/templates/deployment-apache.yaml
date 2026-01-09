@@ -63,13 +63,13 @@ spec:
               subPath: robots.txt
           livenessProbe:
             httpGet:
-              path: w/images_repo/swMATH.svg
+              path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 30
           readinessProbe:
             httpGet:
-              path: /w/images_repo/swMATH.svg
+              path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
