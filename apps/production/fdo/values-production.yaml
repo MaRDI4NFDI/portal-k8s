@@ -6,3 +6,11 @@ spec:
   chart:
     spec:
       version: 0.1.1
+  values:
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "200m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
