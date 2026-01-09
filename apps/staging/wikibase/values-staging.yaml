@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.71"
+      version: "0.1.72"
   values:
     mediawiki:
       image:
