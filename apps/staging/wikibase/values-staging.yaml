@@ -15,7 +15,7 @@ spec:
       db_server: staging-mariadb-primary:3306
       db_primary: staging-mariadb-primary
       db_secondary: staging-mariadb-secondary
-      elasticsearch_host: staging-elasticsearch
+      elasticsearch_host: staging-opensearch
       redis_host: staging-redis-master
       memcached_host: staging-memcached
       formulasearch_host: staging-formulasearch
