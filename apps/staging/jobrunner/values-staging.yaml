@@ -16,7 +16,7 @@ spec:
     mediawiki:
       db_server: staging-mariadb-primary:3306
     elasticsearch:
-      host: staging-elasticsearch
+      host: staging-opensearch
     resources:
       jobrunner:
         requests:
