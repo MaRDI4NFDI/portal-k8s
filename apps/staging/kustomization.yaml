@@ -4,7 +4,7 @@ namespace: staging
 
 resources:
   - namespace.yaml
-  - elasticsearch
+  # - elasticsearch
   - opensearch
   - mariadb
   - wikibase
