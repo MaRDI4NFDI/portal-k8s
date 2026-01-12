@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+          - containerPort: {{ .Values.port }}
+          - containerPort: 9300
+        env:
+        - name: discovery.type
+          value: "single-node"
+        - name: OPENSEARCH_JAVA_OPTS
+          value: {{ .Values.javaOpts }}
+        - name: DISABLE_SECURITY_PLUGIN
+          value: "true"
+        - name: DISABLE_INSTALL_DEMO_CONFIG
+          value: "true"
+        - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
+          value: "true"
+        resources:
+          requests:
+            memory: "{{ .Values.resources.requests.memory }}"
+            cpu: "{{ .Values.resources.requests.cpu }}"
+          limits:
+            memory: "{{ .Values.resources.limits.memory }}"
+            cpu: "{{ .Values.resources.limits.cpu }}"
+        volumeMounts:
+        - name: opensearch-data
+          mountPath: /usr/share/opensearch/data
+  volumeClaimTemplates:
+  - metadata:
+      name: opensearch-data
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      storageClassName: "csi-rbd-sc"
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}

@@ -1,0 +1,15 @@
+image:
+  repository: docker-registry.wikimedia.org/repos/search-platform/cirrussearch-opensearch-image
+  tag: v1.3.20-12
+replicas: 1
+storage:
+  size: 5Gi
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "200m"
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+javaOpts: "-Xms512m -Xmx512m"
+port: 9200
