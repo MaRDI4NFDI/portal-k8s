@@ -1083,6 +1083,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/matomo-stack-0.1.0/matomo-stack-0.1.0.tgz
     version: 0.1.0
+  opensearch:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-01-12T10:13:18.241270374Z"
+    description: A Helm chart for OpenSearch
+    digest: c3eb5e4e99cf6cd973a4c18db5fd2375b90c2cc29684e96282b6becc06025076
+    name: opensearch
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/opensearch-0.1.0/opensearch-0.1.0.tgz
+    version: 0.1.0
   quickstatements:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -2225,4 +2236,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-09T09:10:34.653404207Z"
+generated: "2026-01-12T10:13:18.241797486Z"
