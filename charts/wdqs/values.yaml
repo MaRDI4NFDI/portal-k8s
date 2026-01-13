@@ -14,6 +14,7 @@ wdqs:
     limits:
       cpu: 2
       memory: 4Gi
+  opts: "-Dorg.wikidata.query.rdf.tool.rdf.RdfRepository.timeout=3600"
 
 updater:
   enabled: true
