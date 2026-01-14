@@ -22,6 +22,7 @@ resources:
   - memcached
   - fdo
   - doip
+  - qlever
 
 patches:
   - target:
