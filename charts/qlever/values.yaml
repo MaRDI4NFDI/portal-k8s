@@ -1,0 +1,33 @@
+qlever:
+  image:
+    repository: adfreiburg/qlever
+    tag: latest
+  port: 7001
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "200m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  storage: "5Gi"
+  cmdString: "qlever start"
+
+qlever-ui:
+  image:
+    repository: adfreiburg/qlever-ui
+    tag: latest
+  port: 7000
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "400m"
+  storage: "300Mi"
+
+ingress:
+  enabled: false
+  subdomain: "qlever"
+
