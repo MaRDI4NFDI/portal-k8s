@@ -12,7 +12,7 @@ spec:
       services:
         - name: {{ .Release.Name }}-ui
           namespace: {{ .Release.Namespace }}
-          port: {{ .Values.qlever-ui.port }}
+          port: {{ .Values.frontend.port }}
   tls:
     secretName: {{ .Release.Name }}-tls
 {{- end }}

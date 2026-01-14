@@ -1,1 +1,40 @@
-https://hub.docker.com/u/adfreiburg
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-ui
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate 
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-ui
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-ui
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-ui
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.frontend.port }}
+        volumeMounts:
+        - name: db-volume
+          mountPath: /app/db
+      volumes:
+      - name: db-volume
+        persistentVolumeClaim:
+          claimName: qlever-ui-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qlever-ui-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "csi-rbd-sc"
+  resources:
+    requests:
+      storage: {{ .Values.frontend.storage }}

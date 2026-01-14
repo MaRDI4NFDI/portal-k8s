@@ -13,7 +13,7 @@ qlever:
   storage: "5Gi"
   cmdString: "qlever start"
 
-qlever-ui:
+frontend:
   image:
     repository: adfreiburg/qlever-ui
     tag: latest

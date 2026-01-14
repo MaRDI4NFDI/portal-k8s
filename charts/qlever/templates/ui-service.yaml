@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.qlever-ui.port }}
-      targetPort: {{ .Values.qlever-ui.port }}
+    - port: {{ .Values.frontend.port }}
+      targetPort: {{ .Values.frontend.port }}
   selector:
     app: {{ .Release.Name }}-ui
