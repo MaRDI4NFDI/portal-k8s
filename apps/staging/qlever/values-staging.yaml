@@ -12,5 +12,5 @@ spec:
       image:
         repository: adfreiburg/qlever
         tag: commit-7ec91f8
-      cmdString: "sleep infinity"
+      cmdString: "qlever start --run-in-foreground"
     
