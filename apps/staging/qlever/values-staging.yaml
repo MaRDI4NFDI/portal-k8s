@@ -12,6 +12,7 @@ spec:
       image:
         repository: adfreiburg/qlever
         tag: commit-7ec91f8
+      port: 7019
       cmdString: "qlever start --run-in-foreground"
     ingress:
       enabled: true
