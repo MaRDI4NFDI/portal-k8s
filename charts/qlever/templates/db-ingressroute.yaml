@@ -1,0 +1,18 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-db
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.ingress.subdomain }}-db.{{ .Values.global.baseDomain }}`)
+      kind: Rule
+      services:
+        - name: {{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+          port: {{ .Values.qlever.port }}
+  tls:
+    secretName: {{ .Release.Name }}-db-tls
+{{- end }}
