@@ -44,6 +44,7 @@ endpoints:
   wikibase: "mardi-wikibase"
   sparql: "mardi-wikibase/sparql"
   importerApi: "importer-api"
+  prefect: "http://prefect-server:4200/api"
 
 ingress:
   subdomain: "importer"
