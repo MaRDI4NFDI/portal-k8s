@@ -22,8 +22,8 @@ resources:
       cpu: 500m
       memory: 64Mi
     limits:
-      cpu: 1000m
-      memory: 128Mi
+      cpu: 2000m
+      memory: 2048Mi
   rescheduler:
     requests:
       cpu: 500m
@@ -39,11 +39,11 @@ redis:
 runners:
   basic: 2
   dispChanges: 2
-  profiles: 2
-  cirrusSearch: 0
+  profiles: 8
+  cirrusSearch: 1
 
 memory:
-  default: "400M"
+  default: "512M"
   cirrusSearchElasticaWrite: "600M"
   cirrusSearchMassIndex: "600M"
 
