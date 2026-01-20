@@ -6,7 +6,7 @@ resources:
   - namespace.yaml
   - mariadb
   - elasticsearch
-  - opensearch
+  #- opensearch
   - wikibase
   - jobrunner
   - ffmpeg
