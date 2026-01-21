@@ -11,6 +11,11 @@ spec:
     image:
       repository: ghcr.io/mardi4nfdi/redis-jobrunner-staging
       tag: latest
+    runners:
+      basic: 0
+      dispChanges: 0
+      profiles: 0
+      cirrusSearch: 0
     redis:
       host: "staging-redis-master"
     mediawiki:
