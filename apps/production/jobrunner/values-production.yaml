@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.18"
+      version: "0.1.19"
   values:
     image:
       repository: ghcr.io/mardi4nfdi/redis-jobrunner-production
