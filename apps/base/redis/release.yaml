@@ -24,7 +24,6 @@ spec:
       appendonly no
       save 900 1
       save 300 10
-      save 60 10000
       timeout 300
       tcp-keepalive 300
       hz 10
