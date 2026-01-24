@@ -11,10 +11,10 @@ spec:
       repository: ghcr.io/mardi4nfdi/redis-jobrunner-production
       tag: 1.46.3
     runners:
-      basic: 8
-      dispChanges: 32
+      basic: 0
+      dispChanges: 0
       profiles: 16
-      cirrusSearch: 32
+      cirrusSearch: 0
     memory:
       default: "512M"
       cirrusSearchElasticaWrite: "800M"
