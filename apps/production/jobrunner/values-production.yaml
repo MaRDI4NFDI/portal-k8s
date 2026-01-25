@@ -13,7 +13,7 @@ spec:
     runners:
       basic: 8
       dispChanges: 32
-      profiles: 4
+      profiles: 32
       cirrusSearch: 0
     memory:
       default: "512M"
