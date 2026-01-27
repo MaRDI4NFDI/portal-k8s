@@ -46,20 +46,22 @@ spec:
           value: {{ .Values.api.logging.level }}        
         livenessProbe:
           httpGet:
-            path: /health
-            port: {{ .Values.api.containerPort }}
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3        
+            path: /health/live
+            port: http
+          initialDelaySeconds: {{ .Values.api.probes.liveness.initialDelaySeconds | default 30 }}
+          periodSeconds: {{ .Values.api.probes.liveness.periodSeconds | default 15 }}
+          timeoutSeconds: {{ .Values.api.probes.liveness.timeoutSeconds | default 5 }}
+          failureThreshold: {{ .Values.api.probes.liveness.failureThreshold | default 3 }}
+          successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /health
-            port: {{ .Values.api.containerPort }}
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 3
-          failureThreshold: 3        
+            path: /health/ready
+            port: http
+          initialDelaySeconds: {{ .Values.api.probes.readiness.initialDelaySeconds | default 10 }}
+          periodSeconds: {{ .Values.api.probes.readiness.periodSeconds | default 10 }}
+          timeoutSeconds: {{ .Values.api.probes.readiness.timeoutSeconds | default 3 }}
+          failureThreshold: {{ .Values.api.probes.readiness.failureThreshold | default 3 }}
+          successThreshold: 1      
         resources:
           requests:
             memory: {{ .Values.api.resources.requests.memory }}
