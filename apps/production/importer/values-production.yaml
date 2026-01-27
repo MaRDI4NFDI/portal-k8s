@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.18"
+      version: "0.1.21"
   values:
     database:
       host: "mariadb-primary"
@@ -14,5 +14,8 @@ spec:
       wikibase: "http://wikibase-apache"
       sparql: "http://wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://importer-api"
+    api:
+      logging:
+        level: "debug"
 
 
