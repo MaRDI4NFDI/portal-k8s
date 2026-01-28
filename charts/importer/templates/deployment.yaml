@@ -59,6 +59,8 @@ spec:
           value: {{ .Values.endpoints.mediawiki }}
         - name: WIKIBASE_URL
           value: {{ .Values.endpoints.wikibase }}
+        - name: WIKIBASE_SCHEME
+          value: {{ .Values.endpoints.wikibase_scheme }}
         - name: WIKIBASE_HOST
           value: {{ .Values.global.baseDomain }}
         - name: IMPORTER_API_URL
