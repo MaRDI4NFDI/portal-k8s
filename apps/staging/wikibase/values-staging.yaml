@@ -30,7 +30,7 @@ spec:
     varnish:
       enabled: true
       fullnameOverride: "staging-varnish"
-      backendHost: "staging-wikibase"    
+      backendHost: "staging-wikibase-apache"    
     blockHeaders:
       enabled: false
     fail2ban:
