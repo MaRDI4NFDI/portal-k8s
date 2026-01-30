@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.40"
+      version: "0.1.42"
   values:
     replicas: 3
     galera:
@@ -41,11 +41,13 @@ spec:
     storage:
       size: 5Gi
     backup:
+      enabled: false
       bucket: "mardi"
       prefix: "staging/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 4 * * *"
     physicalbackup:
+      enabled: true
       bucket: "mardi"
       prefix: "staging/physicalbackup/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
