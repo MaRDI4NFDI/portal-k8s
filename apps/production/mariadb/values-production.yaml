@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.41"
+      version: "0.1.42"
   values:
     replicas: 3
     galera:
@@ -40,13 +40,15 @@ spec:
       cacheSize: "2G"
       flowControlLimit: "256"
     mariadb:
-    config:
-      maxConnections: "1000"
+      config:
+        innodbBufferPoolSize: "16G"
+        maxConnections: "1000"
     database: my_wiki
     user: sqluser
     storage:
       size: 600Gi
     backup:
+      enabled: false # Use physicalbackups
       bucket: "mardi"
       prefix: "production/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
@@ -55,17 +57,18 @@ spec:
       resources:
         requests:
           cpu: 1000m
-          memory: 4Gi # 8Gi
+          memory: 1Gi
         limits:
           cpu: 4000m
-          memory: 6Gi # 20Gi
+          memory: 2Gi
     physicalbackup:
+      enabled: true
       bucket: "mardi"
       prefix: "production/physicalbackup/mariadb"
       endpoint: "hsm-test-09.zib.de:9001"
       schedule: "0 2 * * *"
       immediate: true
-      timeout: "6h"
+      timeout: "30h"
     resources:
       requests:
         cpu: 4000m
