@@ -22,4 +22,5 @@ data:
     max_connections={{ .Values.mariadb.config.maxConnections | default "200" }}
     ignore_db_dirs=lost+found
     innodb_snapshot_isolation=OFF
+    innodb_flush_log_at_trx_commit=2
     

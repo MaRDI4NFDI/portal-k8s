@@ -32,6 +32,7 @@ storage:
   size: 1Ti
 
 backup:
+  enabled: false
   bucket: ""
   prefix: "mariadb"
   endpoint: ""
@@ -47,6 +48,7 @@ backup:
       memory: 512Mi
 
 physicalbackup:
+  enabled: true
   bucket: ""
   prefix: "physicalbackup/mariadb"
   endpoint: ""

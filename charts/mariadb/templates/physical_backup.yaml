@@ -1,3 +1,4 @@
+{{- if .Values.physicalbackup.enabled }}
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: PhysicalBackup
 metadata:
@@ -12,7 +13,7 @@ spec:
     immediate: {{ .Values.physicalbackup.immediate | default false }}
   maxRetention: 120h
   compression: gzip
-  timeout: {{ .Values.physicalbackup.timeout | default "2h" }}
+  timeout: {{ .Values.physicalbackup.timeout | default "30h" }}
   storage:
     s3:
       bucket: {{ .Values.physicalbackup.bucket }}
@@ -41,3 +42,4 @@ spec:
     limits:
       cpu: {{ .Values.backup.resources.limits.cpu }}
       memory: {{ .Values.backup.resources.limits.memory }}
+{{- end }}
