@@ -1165,6 +1165,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/matomo-stack-0.1.0/matomo-stack-0.1.0.tgz
     version: 0.1.0
+  mediawiki-events:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-02-04T11:49:34.675723688Z"
+    description: MediaWiki events chart including kafka, eventgate and eventstreamer
+    digest: 0c84a5c334270eadc2a8d39bdadb4d2aa361c4270597f14eef35bc1262ad32be
+    name: mediawiki-events
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mediawiki-events-0.1.0/mediawiki-events-0.1.0.tgz
+    version: 0.1.0
   opensearch:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -2383,4 +2394,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-30T14:00:41.701652037Z"
+generated: "2026-02-04T11:49:34.676157052Z"
