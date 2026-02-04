@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mediawiki-events
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"

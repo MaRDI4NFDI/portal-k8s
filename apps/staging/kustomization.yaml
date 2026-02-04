@@ -23,6 +23,7 @@ resources:
   - fdo
   - doip
   - qlever
+  - mediawiki-events
 
 patches:
   - target:
