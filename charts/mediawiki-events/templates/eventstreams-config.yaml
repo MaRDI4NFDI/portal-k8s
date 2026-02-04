@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventstreams-config
+data:
+  config.yaml: |
+    num_workers: {{ .Values.eventstreams.numWorkers | default 1 }}
+    logging:
+      level: {{ .Values.eventstreams.loggingLevel | quote }}
+
+    services:
+      - name: eventstreams
+        module: ./app.js
+        conf:
+          port: 8092          
+          stream_config_uri: /srv/service/stream-config.yaml          
+          kafka:
+            metadata.broker.list: kafka-0.kafka.svc:9092
+            group.id: eventstreams-consumer
+            api.version.request: true
+
+  stream-config.yaml: |
+    recentchange:
+      description: "MediaWiki Recent Changes"
+      topics:
+        - mediawiki.recentchange
