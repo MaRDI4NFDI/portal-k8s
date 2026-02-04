@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventstreams
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventstreams
+  template:
+    metadata:
+      labels:
+        app: eventstreams
+    spec:
+      containers:
+      - name: eventstreams
+        image: "{{ .Values.eventstreams.image.repository }}:{{ .Values.eventstreams.image.tag }}"
+        ports:
+        - containerPort: 8092
+        volumeMounts:
+        - name: config-volume
+          mountPath: /srv/service/config.yaml
+          subPath: config.yaml
+        - name: config-volume
+          mountPath: /srv/service/stream-config.yaml
+          subPath: stream-config.yaml
+        resources:
+          requests:
+            cpu: {{ .Values.eventstreams.resources.requests.cpu }}
+            memory: {{ .Values.eventstreams.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.eventstreams.resources.limits.cpu }}
+            memory: {{ .Values.eventstreams.resources.limits.memory }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: eventstreams-config
