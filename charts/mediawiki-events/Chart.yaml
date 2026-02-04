@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mediawiki-events
+description: MediaWiki events chart including kafka, eventgate and eventstreamer
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
