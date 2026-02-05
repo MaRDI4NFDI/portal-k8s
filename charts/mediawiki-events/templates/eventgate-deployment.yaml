@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventgate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventgate
+  template:
+    metadata:
+      labels:
+        app: eventgate
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: eventgate-config
+        - name: schema-storage
+          persistentVolumeClaim:
+            claimName: eventgate-schemas-pvc
+      
+      initContainers:
+        - name: sync-schemas
+          image: alpine/git
+          command:
+            - /bin/sh
+            - -c
+            - |
+              sync_repo() {
+                REPO_URL=$1
+                TARGET_DIR=$2
+                if [ -d "$TARGET_DIR/.git" ]; then
+                  echo "Updating $TARGET_DIR..."
+                  cd "$TARGET_DIR" && git fetch && git reset --hard origin/master
+                else
+                  echo "Cloning $TARGET_DIR..."
+                  git clone "$REPO_URL" "$TARGET_DIR"
+                fi
+              }
+              sync_repo https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-primary.git /schemas/primary
+              sync_repo https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-secondary.git /schemas/secondary
+          volumeMounts:
+            - name: schema-storage
+              mountPath: /schemas
+      
+      containers:
+        - name: eventgate
+          image: "{{ .Values.eventgate.image.repository }}:{{ .Values.eventgate.image.tag }}"
+          env:
+            - name: CONFIG_FILE
+              value: "/srv/service/config.yaml"
+            - name: NODE_PATH
+              value: "/srv/service/node_modules/@wikimedia"
+            - name: NODE_TLS_REJECT_UNAUTHORIZED
+              value: "0"
+          ports:
+            - containerPort: 8192
+          volumeMounts:
+            - name: config-volume
+              mountPath: /srv/service/config.yaml
+              subPath: config.yaml
+            - name: schema-storage
+              mountPath: /srv/service/schemas
+          resources:
+            requests:
+              cpu: {{ .Values.eventgate.resources.requests.cpu }}
+              memory: {{ .Values.eventgate.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.eventgate.resources.limits.cpu }}
+              memory: {{ .Values.eventgate.resources.limits.memory }}

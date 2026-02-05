@@ -12,6 +12,21 @@ kafka:
       memory: "1Gi"
   heapOpts: "-Xmx512M -Xms512M"
 
+eventgate:
+  image:
+    repository: docker-registry.wikimedia.org/wikimedia/eventgate-wikimedia
+    tag: ffd68c0de41e3395e2f8ba9422fbe8824c2a49ff
+  numWorkers: 1
+  loggingLevel: "info"
+  testMode: false
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
 eventstreams:
   image:
     repository: docker-registry.wikimedia.org/repos/data-engineering/eventstreams

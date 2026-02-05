@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventgate-config
+data:
+  config.yaml: |
+    num_workers: 1
+    logging:
+      level: {{ .Values.eventgate.loggingLevel | quote }}
+    services:
+      - name: eventgate-wikimedia
+        module: eventgate/app.js
+        conf:
+          port: 8192
+          eventgate_factory_module: eventgate-wikimedia.js
+          stream_field: meta.stream
+          topic_prefix: ''
+          schema_uri_field: $schema
+          schema_base_uris:
+            - file:///srv/service/schemas/primary/jsonschema
+            - file:///srv/service/schemas/secondary/jsonschema
+          test_mode: {{ .Values.eventgate.testMode | default false }}
+          kafka:
+            conf:
+              metadata.broker.list: 'kafka-0.kafka:9092'
+              compression.codec: snappy
+              api.version.request: true
