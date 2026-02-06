@@ -22,6 +22,7 @@ data:
           test_mode: {{ .Values.eventgate.testMode | default false }}
           kafka:
             conf:
-              metadata.broker.list: 'kafka-0.kafka:9092'
+              metadata.broker.list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'
+              topic.metadata.refresh.interval.ms: 30000
               compression.codec: snappy
               api.version.request: true

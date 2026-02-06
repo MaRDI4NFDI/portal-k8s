@@ -15,7 +15,7 @@ data:
           port: 8092          
           stream_config_uri: /srv/service/stream-config.yaml          
           kafka:
-            metadata.broker.list: kafka-0.kafka.svc:9092
+            metadata.broker.list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'
             group.id: eventstreams-consumer
             api.version.request: true
 
