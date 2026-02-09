@@ -1433,6 +1433,16 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/quickstatements-0.1.0/quickstatements-0.1.0.tgz
     version: 0.1.0
+  rdf-streaming-updater:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-02-09T11:34:48.589956232Z"
+    description: A Helm chart for the Flink-based RDF streaming updater
+    digest: c0b688c0434656b0885eb4725821948639083111ae46bcd7263fb3ba424aed2a
+    name: rdf-streaming-updater
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/rdf-streaming-updater-0.1.0/rdf-streaming-updater-0.1.0.tgz
+    version: 0.1.0
   s3-proxy:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -2444,4 +2454,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-06T08:58:39.236733468Z"
+generated: "2026-02-09T11:34:48.591211784Z"
