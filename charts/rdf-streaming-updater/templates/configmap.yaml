@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  rdf-updater.properties: |
+    kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
+    kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
+    kafka_producer_config.security.protocol=PLAINTEXT
+    kafka_consumer_config.client.dns.lookup=use_all_dns_ips
+    
+    page_change_stream={{ .Values.config.inputPageChangeStream }}
+    output_mutation_schema_version=v2
+    topic_prefixes={{ .Values.config.outputTopicPrefix }}
+    
+    stream_config_uri={{ .Values.config.eventStreamConfigUrl }}
+    schema_base_uris={{ .Values.config.schemaBaseUrl }}
+    http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}
+    
+    parallelism={{ .Values.flink.parallelism }}
+    checkpoint_interval={{ .Values.flink.checkpointInterval }}

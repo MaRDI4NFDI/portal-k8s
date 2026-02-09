@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: flink-main
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args: 
+            - "standalone-job"
+            - "--job-classname" 
+            - "org.wikidata.query.rdf.updater.UpdaterJob"
+            - "/etc/flink/conf/rdf-updater.properties"
+          env:
+            - name: DISABLE_JEMALLOC
+              value: "true"
+            - name: FLINK_PROPERTIES
+              value: |
+                jobmanager.rpc.address: localhost
+                taskmanager.numberOfTaskSlots: 1
+                jobmanager.memory.process.size: {{ .Values.flink.jobManagerMemory }}
+                taskmanager.memory.process.size: {{ .Values.flink.taskManagerMemory }}
+          ports:
+            - containerPort: 8081 # Dashboard
+            - containerPort: 6123 # RPC
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/flink/conf/rdf-updater.properties
+              subPath: rdf-updater.properties
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-config
