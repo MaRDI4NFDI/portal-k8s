@@ -16,7 +16,9 @@ spec:
         - name: flink-main
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args: 
-            - "standalone-job"
+            - "jobmanager"
+            - "-Dexecution.mode=standalone"
+            - "-Djobmanager.rpc.address=localhost"
             - "--job-classname" 
             - "org.wikidata.query.rdf.updater.UpdaterJob"
             - "/etc/flink/conf/rdf-updater.properties"
