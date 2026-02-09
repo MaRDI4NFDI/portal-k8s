@@ -16,12 +16,13 @@ spec:
         - name: flink-main
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args: 
-            - "jobmanager"
-            - "-Dexecution.mode=standalone"
-            - "-Djobmanager.rpc.address=localhost"
-            - "--job-classname" 
-            - "org.wikidata.query.rdf.updater.UpdaterJob"
-            - "/etc/flink/conf/rdf-updater.properties"
+          - "/usr/local/lib/python3.9/dist-packages/pyflink/bin/jobmanager.sh"
+          - "start-foreground"
+          - "-Dexecution.mode=standalone"
+          - "-Djobmanager.rpc.address=localhost"
+          - "--job-classname" 
+          - "org.wikidata.query.rdf.updater.UpdaterJob"
+          - "/etc/flink/conf/rdf-updater.properties"
           env:
             - name: DISABLE_JEMALLOC
               value: "true"
