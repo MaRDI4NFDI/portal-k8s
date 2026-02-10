@@ -11,8 +11,9 @@ data:
     kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
     kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
     kafka_producer_config.security.protocol=PLAINTEXT
-    kafka_consumer_config.client.dns.lookup=use_all_dns_ips
-    
+    kafka_consumer_config.client.dns.lookup=use_all_dns_ips    
+    brokers={{ .Values.config.kafkaBootstrap }}
+
     page_change_stream={{ .Values.config.inputPageChangeStream }}
     output_mutation_schema_version=v2
     output_topic=rdf-streaming-updater.mutation.v2
@@ -26,7 +27,7 @@ data:
     parallelism={{ .Values.flink.parallelism }}
 
     # --- Wikibase URI & Namespace ---
-    uris_scheme=mediawiki
+    uris_scheme=wikidata
     wikibase_repo_url=https://{{ .Values.global.baseDomain }}
     concept_uri_prefix=https://{{ .Values.global.baseDomain }}/entity/
     entity_namespaces=120,122
@@ -40,3 +41,9 @@ data:
     state.backend.incremental=true
     state.checkpoints.num-retained=2
     generate_diff_timeout=300000
+
+    # --- Legacy Placeholders ---
+    rev_create_topic=unused-rev-create
+    page_delete_topic=unused-page-delete
+    page_undelete_topic=unused-page-undelete
+    suppressed_delete_topic=unused-page-suppress
