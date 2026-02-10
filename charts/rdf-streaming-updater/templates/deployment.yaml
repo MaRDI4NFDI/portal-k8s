@@ -14,6 +14,15 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      securityContext:
+        fsGroup: 186         
+      initContainers:
+        - name: fix-pvc-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R 186:186 /opt/flink/checkpoints && chmod -R 775 /opt/flink/checkpoints"]
+          volumeMounts:
+            - name: checkpoint-storage
+              mountPath: /opt/flink/checkpoints
       containers:
         - name: flink-main
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -49,6 +58,7 @@ spec:
                 taskmanager.memory.process.size: {{ .Values.flink.taskManagerMemory }}
                 taskmanager.state.latency_tracking.enabled: true
                 web.tmpdir: /opt/flink/checkpoints/web
+                state.checkpoints.dir: file:///opt/flink/checkpoints/metadata
           ports:
             - containerPort: 8081 # Dashboard
             - containerPort: 6123 # RPC
