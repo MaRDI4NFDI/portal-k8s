@@ -10,10 +10,10 @@ flink:
   checkpointInterval: 60000
 
 config:
-  kafkaBootstrap: "kafka-0.kafka.{{ .Release.Namespace }}.svc.local:9092"
-  wikiInternalUrl: "http://wikibase-apache.{{ .Release.Namespace }}.svc.cluster.local"
-  eventStreamConfigUrl: "http://eventstreams.{{ .Release.Namespace }}.svc.cluster.local:8092/v1/streams"
-  schemaBaseUrl: "http://eventgate.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema"
+  kafkaBootstrap: "kafka-0.kafka"
+  wikiInternalUrl: "http://wikibase-apache"
+  eventStreamConfigUrl: "http://eventstreams"
+  schemaBaseUrl: "http://eventgate"
   inputPageChangeStream: "mediawiki.page_change.v1"
   outputTopicPrefix: ""
 

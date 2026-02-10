@@ -8,11 +8,11 @@ data:
     job_name=rdf-streaming-updater
     consumer_group=flink-rdf-updater-group
 
-    kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
-    kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
+    kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
+    kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
     kafka_producer_config.security.protocol=PLAINTEXT
     kafka_consumer_config.client.dns.lookup=use_all_dns_ips    
-    brokers={{ .Values.config.kafkaBootstrap }}
+    brokers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
 
     page_change_stream={{ .Values.config.inputPageChangeStream }}
     output_mutation_schema_version=v2
@@ -20,9 +20,9 @@ data:
     output_topic_partition=0
     topic_prefixes={{ .Values.config.outputTopicPrefix }}
     
-    stream_config_uri={{ .Values.config.eventStreamConfigUrl }}
-    schema_base_uris={{ .Values.config.schemaBaseUrl }}
-    http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}
+    stream_config_uri={{ .Values.config.eventStreamConfigUrl }}.{{ .Release.Namespace }}.svc.cluster.local:8092/v1/streams
+    schema_base_uris={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema
+    http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local
     
     parallelism={{ .Values.flink.parallelism }}
 
@@ -31,7 +31,7 @@ data:
     wikibase_repo_url=https://{{ .Values.global.baseDomain }}
     concept_uri_prefix=https://{{ .Values.global.baseDomain }}/entity/
     entity_namespaces=120,122
-    entity_data_url={{ .Values.config.wikiInternalUrl }}/wiki/Special:EntityData/
+    entity_data_url={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local/wiki/Special:EntityData/
 
     # --- State & Checkpointing ---
     checkpoint_dir=file:///opt/flink/checkpoints
