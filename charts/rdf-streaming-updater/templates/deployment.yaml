@@ -4,6 +4,8 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -31,13 +33,15 @@ spec:
                 taskmanager.numberOfTaskSlots: 1
                 jobmanager.memory.process.size: {{ .Values.flink.jobManagerMemory }}
                 taskmanager.memory.process.size: {{ .Values.flink.taskManagerMemory }}
+                taskmanager.state.latency_tracking.enabled: true
           ports:
             - containerPort: 8081 # Dashboard
             - containerPort: 6123 # RPC
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/flink/conf/rdf-updater.properties
-              subPath: rdf-updater.properties
+              mountPath: /etc/flink/conf
+            - name: checkpoint-storage
+              mountPath: /opt/flink/checkpoints
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
@@ -49,3 +53,6 @@ spec:
         - name: config-volume
           configMap:
             name: {{ .Release.Name }}-config
+        - name: checkpoint-storage
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-checkpoints

@@ -18,4 +18,18 @@ data:
     http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}
     
     parallelism={{ .Values.flink.parallelism }}
+
+    # --- Wikibase URI & Namespace ---
+    wikibase_repo_url=https://{{ .Values.global.baseDomain }}
+    concept_uri_prefix=https://{{ .Values.global.baseDomain }}/entity/
+    entity_namespaces=120,122
+    entity_data_url={{ .Values.config.wikiInternalUrl }}/wiki/Special:EntityData/
+
+    # --- State & Checkpointing ---
+    checkpoint_dir=file:///opt/flink/checkpoints
     checkpoint_interval={{ .Values.flink.checkpointInterval }}
+    state.backend=rocksdb
+    state.checkpoints.dir=file:///opt/flink/checkpoints
+    state.backend.incremental=true
+    state.checkpoints.num-retained=2
+    generate_diff_timeout=300000
