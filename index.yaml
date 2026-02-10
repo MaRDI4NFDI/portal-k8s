@@ -1436,6 +1436,15 @@ entries:
   rdf-streaming-updater:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-10T13:08:08.160860221Z"
+    description: A Helm chart for the Flink-based RDF streaming updater
+    digest: 564ef7dd4a034f1948c5f3020e592fb65dd8f08d3edc656083a22276a8382ce5
+    name: rdf-streaming-updater
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/rdf-streaming-updater-0.1.8/rdf-streaming-updater-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-10T12:53:12.435522535Z"
     description: A Helm chart for the Flink-based RDF streaming updater
     digest: 43001d22d41187010531b800178de07ac546ce11a6e6b4273d8589b3a1a4c831
@@ -2517,4 +2526,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-10T12:53:12.435926612Z"
+generated: "2026-02-10T13:08:08.16147072Z"
