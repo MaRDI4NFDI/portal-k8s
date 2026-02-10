@@ -43,7 +43,7 @@ data:
     generate_diff_timeout=300000
 
     # --- Legacy Placeholders ---
-    rev_create_topic=unused-rev-create
-    page_delete_topic=unused-page-delete
-    page_undelete_topic=unused-page-undelete
-    suppressed_delete_topic=unused-page-suppress
+    rev_create_topic={{ .Values.config.inputPageChangeStream }}
+    page_delete_topic={{ .Values.config.inputPageChangeStream }}
+    page_undelete_topic={{ .Values.config.inputPageChangeStream }}
+    suppressed_delete_topic={{ .Values.config.inputPageChangeStream }}
