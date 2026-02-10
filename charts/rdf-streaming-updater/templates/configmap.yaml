@@ -4,6 +4,10 @@ metadata:
   name: {{ .Release.Name }}-config
 data:
   rdf-updater.properties: |
+    hostname={{ .Values.global.baseDomain }}
+    job_name=rdf-streaming-updater
+    consumer_group=flink-rdf-updater-group
+
     kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
     kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}
     kafka_producer_config.security.protocol=PLAINTEXT
@@ -11,6 +15,8 @@ data:
     
     page_change_stream={{ .Values.config.inputPageChangeStream }}
     output_mutation_schema_version=v2
+    output_topic=rdf-streaming-updater.mutation.v2
+    output_topic_partition=0
     topic_prefixes={{ .Values.config.outputTopicPrefix }}
     
     stream_config_uri={{ .Values.config.eventStreamConfigUrl }}
@@ -20,6 +26,7 @@ data:
     parallelism={{ .Values.flink.parallelism }}
 
     # --- Wikibase URI & Namespace ---
+    uris_scheme=mediawiki
     wikibase_repo_url=https://{{ .Values.global.baseDomain }}
     concept_uri_prefix=https://{{ .Values.global.baseDomain }}/entity/
     entity_namespaces=120,122
