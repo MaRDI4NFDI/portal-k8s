@@ -6,4 +6,4 @@ patches:
   - path: values-staging.yaml
     target:
       kind: HelmRelease
-      name: mediawiki-events
+      name: rdf-streaming-updater
