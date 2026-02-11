@@ -26,7 +26,7 @@ data:
     topic_prefixes={{ .Values.config.outputTopicPrefix }}
     
     stream_config_uri={{ .Values.config.wikiInternalUrl }}/w/api.php
-    schema_repositories={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema
+    schema_repositories={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/primary/jsonschema,{{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/secondary/jsonschema
     http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local
     
     parallelism={{ .Values.flink.parallelism }}

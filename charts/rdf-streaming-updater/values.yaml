@@ -14,7 +14,7 @@ config:
   kafkaBootstrap: "kafka-0.kafka"
   wikiInternalUrl: "http://wikibase-apache"
   eventStreamConfigUrl: "http://eventstreams"
-  schemaBaseUrl: "http://eventgate"
+  schemaBaseUrl: "http://schema-registry"
   inputPageChangeStream: "mediawiki.page_change.v1"
   outputTopicPrefix: ""
 
