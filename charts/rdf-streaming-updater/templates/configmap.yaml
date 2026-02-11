@@ -14,14 +14,19 @@ data:
     kafka_consumer_config.client.dns.lookup=use_all_dns_ips    
     brokers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
 
+    use_event_streams_api=true
     page_change_stream={{ .Values.config.inputPageChangeStream }}
+    page_change_stream={{ .Values.config.inputPageChangeStream }}
+    page_change_content_models=wikibase-item,wikibase-property,wikibase-lexeme
+    main_output_stream=rdf-streaming-updater.mutation
+
     output_mutation_schema_version=v2
     output_topic=rdf-streaming-updater.mutation.v2
     output_topic_partition=0
     topic_prefixes={{ .Values.config.outputTopicPrefix }}
     
     stream_config_uri={{ .Values.config.eventStreamConfigUrl }}.{{ .Release.Namespace }}.svc.cluster.local:8092/v1/streams
-    schema_base_uris={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema
+    schema_repositories={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema
     http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local
     
     parallelism={{ .Values.flink.parallelism }}
@@ -41,12 +46,6 @@ data:
     state.backend.incremental=true
     state.checkpoints.num-retained=2
     generate_diff_timeout=300000
-
-    # --- Legacy topics ---
-    rev_create_topic=mediawiki.revision-create
-    page_delete_topic=mediawiki.page-delete
-    page_undelete_topic=mediawiki.page-undelete
-    suppressed_delete_topic=mediawiki.page-suppress
 
   log4j-console.properties: |
     rootLogger.level = INFO
