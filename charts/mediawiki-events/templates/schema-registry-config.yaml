@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: schema-registry-nginx-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+        root /usr/share/nginx/html;
+
+        location / {
+            try_files $uri $uri.yaml $uri.json =404;
+            autoindex on;
+            
+            types {
+                application/json json;
+                application/x-yaml yaml;
+                application/x-yaml yml;
+            }
+        }
+    }

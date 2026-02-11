@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schema-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: schema-registry
+  template:
+    metadata:
+      labels:
+        app: schema-registry
+    spec:
+      volumes:
+        - name: schema-data
+          persistentVolumeClaim:
+            claimName: schema-registry-pvc
+        - name: nginx-config
+          configMap:
+            name: schema-registry-nginx-config
+      initContainers:
+        - name: sync-schemas
+          image: alpine/git
+          command:
+            - /bin/sh
+            - -c
+            - |
+              sync_repo() {
+                REPO_URL=$1; TARGET_DIR=$2;
+                if [ -d "$TARGET_DIR/.git" ]; then
+                  echo "Updating $TARGET_DIR..."
+                  cd "$TARGET_DIR" && git fetch && git reset --hard origin/master
+                else
+                  echo "Cloning $TARGET_DIR..."
+                  git clone "$REPO_URL" "$TARGET_DIR"
+                fi
+              }
+              sync_repo https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-primary.git /schemas/primary
+              sync_repo https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-secondary.git /schemas/secondary
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: schema-data
+              mountPath: /schemas
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          volumeMounts:
+            - name: schema-data
+              mountPath: /usr/share/nginx/html/
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
