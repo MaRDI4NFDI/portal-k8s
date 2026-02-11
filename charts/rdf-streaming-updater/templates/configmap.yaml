@@ -25,7 +25,7 @@ data:
     output_topic_partition=0
     topic_prefixes={{ .Values.config.outputTopicPrefix }}
     
-    stream_config_uri={{ .Values.config.eventStreamConfigUrl }}.{{ .Release.Namespace }}.svc.cluster.local:8092/v1/streams
+    stream_config_uri={{ .Values.config.wikiInternalUrl }}/w/api.php
     schema_repositories={{ .Values.config.schemaBaseUrl }}.{{ .Release.Namespace }}.svc.cluster.local/srv/service/schemas/primary/jsonschema
     http_routes={{ .Values.global.baseDomain }}={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local
     
