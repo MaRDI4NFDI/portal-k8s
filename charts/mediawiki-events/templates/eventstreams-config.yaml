@@ -24,3 +24,9 @@ data:
       description: "MediaWiki Recent Changes"
       topics:
         - mediawiki.recentchange
+    mediawiki.page_change.v1:
+      topics:
+        - mediawiki.page_change.v1
+    rdf-streaming-updater.mutation.v2:
+      topics:
+        - rdf-streaming-updater.mutation.v2
