@@ -59,6 +59,7 @@ spec:
                 taskmanager.state.latency_tracking.enabled: true
                 web.tmpdir: /opt/flink/checkpoints/web
                 state.checkpoints.dir: file:///opt/flink/checkpoints/metadata
+                env.java.opts: -Dlog4j.configurationFile=file:///etc/flink/conf/log4j-console.properties
           ports:
             - containerPort: 8081 # Dashboard
             - containerPort: 6123 # RPC

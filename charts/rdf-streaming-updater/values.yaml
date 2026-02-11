@@ -8,6 +8,7 @@ flink:
   taskManagerMemory: "2048m"
   parallelism: 1
   checkpointInterval: 60000
+  logLevel: "INFO"
 
 config:
   kafkaBootstrap: "kafka-0.kafka"
