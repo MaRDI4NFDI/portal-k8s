@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.16"
+      version: "0.1.17"
   values:
     config:
       wikiInternalUrl: "http://staging-wikibase-apache"
