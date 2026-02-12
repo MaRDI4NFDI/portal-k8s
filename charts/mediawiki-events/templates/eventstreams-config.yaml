@@ -30,3 +30,15 @@ data:
     rdf-streaming-updater.mutation.v2:
       topics:
         - rdf-streaming-updater.mutation.v2
+    rdf-streaming-updater.lapsed-action:
+      topics:
+        - rdf-streaming-updater.lapsed-action
+    rdf-streaming-updater.state-inconsistency:
+      topics:
+        - rdf-streaming-updater.state-inconsistency
+    rdf-streaming-updater.fetch-failure:
+      topics:
+        - rdf-streaming-updater.fetch-failure
+    rdf-streaming-updater.reconcile:
+      topics:
+        - rdf-streaming-updater.reconcile

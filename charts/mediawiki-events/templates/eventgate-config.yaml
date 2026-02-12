@@ -17,8 +17,8 @@ data:
           topic_prefix: ''
           schema_uri_field: $schema
           schema_base_uris:
-            - file:///srv/service/schemas/primary/jsonschema
-            - file:///srv/service/schemas/secondary/jsonschema
+            - http://schema-registry/primary/jsonschema
+            - http://schema-registry/secondary/jsonschema
           test_mode: {{ .Values.eventgate.testMode | default false }}
           kafka:
             conf:
