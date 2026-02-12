@@ -1168,6 +1168,16 @@ entries:
   mediawiki-events:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-12T11:54:40.058004874Z"
+    description: MediaWiki events chart including kafka, eventgate and eventstreams
+    digest: 84318e269e1e76a3a074001f494b5c94eee1c2dc048022db966894d61c388a1c
+    name: mediawiki-events
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/mediawiki-events-0.1.8/mediawiki-events-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-11T15:11:09.678981221Z"
     description: MediaWiki events chart including kafka, eventgate and eventstreams
     digest: 617910006b8b5532d6e3151fb4b1177fcc1c5779f2c299be7e6e362557822818
@@ -2618,4 +2628,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-12T09:21:26.03526989Z"
+generated: "2026-02-12T11:54:40.058488647Z"
