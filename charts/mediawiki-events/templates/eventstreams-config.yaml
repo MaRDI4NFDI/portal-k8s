@@ -18,6 +18,14 @@ data:
             metadata.broker.list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'
             group.id: eventstreams-consumer
             api.version.request: true
+          allowed_streams:
+            - recentchange
+            - mediawiki.page_change.v1
+            - rdf-streaming-updater.mutation.v2
+            - rdf-streaming-updater.lapsed-action
+            - rdf-streaming-updater.state-inconsistency
+            - rdf-streaming-updater.fetch-failure
+            - rdf-streaming-updater.reconcile
 
   stream-config.yaml: |
     recentchange:
