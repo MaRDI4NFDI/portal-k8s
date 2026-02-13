@@ -9,9 +9,14 @@ data:
     consumer_group=flink-rdf-updater-group
 
     kafka_producer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
-    kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
     kafka_producer_config.security.protocol=PLAINTEXT
-    kafka_consumer_config.client.dns.lookup=use_all_dns_ips    
+
+    kafka_consumer_config.bootstrap.servers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
+    kafka_consumer_config.client.dns.lookup=use_all_dns_ips
+    kafka_consumer_config.auto.offset.reset=latest
+    kafka_consumer_config.request.timeout.ms=120000
+    kafka_consumer_config.session.timeout.ms=60000
+
     brokers={{ .Values.config.kafkaBootstrap }}.{{ .Release.Namespace }}.svc.cluster.local:9092
 
     use_event_streams_api=true
