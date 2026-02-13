@@ -9,16 +9,16 @@ spec:
   values:
     wdqs:
       storage: 200Gi
-      memory: "-Xmx22g -Xms22g"
-      heap_size: "22g"
+      memory: "-Xmx16g -Xms16g"
+      heap_size: "16g"
       opts: "-Dorg.wikidata.query.rdf.tool.rdf.RdfRepository.timeout=3600"
       resources:
         requests:
           cpu: 1000m
-          memory: 24Gi
+          memory: 48Gi
         limits:
           cpu: 4000m
-          memory: 36Gi
+          memory: 48Gi
     updater:
       enabled: true
       resources:
