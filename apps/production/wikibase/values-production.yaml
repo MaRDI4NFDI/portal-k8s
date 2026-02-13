@@ -27,7 +27,7 @@ spec:
           cpu: "6"
           memory: "10Gi"
     varnish:
-      enabled: false
+      enabled: true
     blockHeaders:
       enabled: true
     fail2ban:
