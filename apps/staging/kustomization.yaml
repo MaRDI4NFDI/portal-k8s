@@ -24,7 +24,7 @@ resources:
   - doip
   - qlever
   - mediawiki-events
-  #- rdf-streaming-updater
+  - rdf-streaming-updater
 
 patches:
   - target:
