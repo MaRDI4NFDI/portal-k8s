@@ -29,19 +29,15 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - |
-              # 1. Start the JobManager in the background
               /opt/flink/bin/jobmanager.sh start-foreground &
               
-              # 2. Start the TaskManager in the background
               /opt/flink/bin/taskmanager.sh start-foreground &
               
-              # 3. Wait for the REST API to be ready on port 8081
               echo "Waiting for Flink services to be ready..."
               until [ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8081/overview)" == "200" ]; do
                 sleep 2
               done
               
-              # 4. Submit the actual Updater Job
               echo "Submitting RDF Updater Job..."
               /opt/flink/bin/flink run \
                 --class org.wikidata.query.rdf.updater.UpdaterJob \
@@ -50,16 +46,8 @@ spec:
           env:
             - name: DISABLE_JEMALLOC
               value: "true"
-            - name: FLINK_PROPERTIES
-              value: |
-                jobmanager.rpc.address: localhost
-                taskmanager.numberOfTaskSlots: 1
-                jobmanager.memory.process.size: {{ .Values.flink.jobManagerMemory }}
-                taskmanager.memory.process.size: {{ .Values.flink.taskManagerMemory }}
-                taskmanager.state.latency_tracking.enabled: true
-                web.tmpdir: /opt/flink/checkpoints/web
-                state.checkpoints.dir: file:///opt/flink/checkpoints/metadata
-                env.java.opts: -Dlog4j.configurationFile=file:///etc/flink/conf/log4j-console.properties
+            - name: FLINK_CONF_DIR
+              value: /etc/flink/conf
           ports:
             - containerPort: 8081 # Dashboard
             - containerPort: 6123 # RPC

@@ -62,3 +62,13 @@ data:
 
     logger.updater.name = org.wikidata.query.rdf.updater
     logger.updater.level = {{ .Values.flink.logLevel | default "INFO" }}
+
+  flink-conf.yaml: |
+    jobmanager.rpc.address: localhost
+    taskmanager.numberOfTaskSlots: 1
+    jobmanager.memory.process.size: 1024m
+    taskmanager.memory.process.size: 2048m
+    taskmanager.state.latency_tracking.enabled: true
+    web.tmpdir: /opt/flink/checkpoints/web
+    state.checkpoints.dir: file:///opt/flink/checkpoints/metadata
+    env.java.opts: -Dlog4j.configurationFile=/etc/flink/conf/log4j-console.properties
