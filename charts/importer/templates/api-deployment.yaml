@@ -50,7 +50,7 @@ spec:
             port: {{ .Values.api.containerPort }}
           initialDelaySeconds: {{ .Values.api.probes.liveness.initialDelaySeconds | default 30 }}
           periodSeconds: {{ .Values.api.probes.liveness.periodSeconds | default 15 }}
-          timeoutSeconds: {{ .Values.api.probes.liveness.timeoutSeconds | default 5 }}
+          timeoutSeconds: {{ .Values.api.probes.liveness.timeoutSeconds | default 10 }}
           failureThreshold: {{ .Values.api.probes.liveness.failureThreshold | default 3 }}
           successThreshold: 1
         readinessProbe:
@@ -59,7 +59,7 @@ spec:
             port: {{ .Values.api.containerPort }}
           initialDelaySeconds: {{ .Values.api.probes.readiness.initialDelaySeconds | default 10 }}
           periodSeconds: {{ .Values.api.probes.readiness.periodSeconds | default 10 }}
-          timeoutSeconds: {{ .Values.api.probes.readiness.timeoutSeconds | default 3 }}
+          timeoutSeconds: {{ .Values.api.probes.readiness.timeoutSeconds | default 10 }}
           failureThreshold: {{ .Values.api.probes.readiness.failureThreshold | default 3 }}
           successThreshold: 1      
         resources:

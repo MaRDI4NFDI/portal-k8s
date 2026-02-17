@@ -20,10 +20,10 @@ api:
   containerPort: 8000
   gunicorn:
     workers: "2"
-    threads: "2"
+    threads: "4"
   database:
-    poolSize: "2"
-    maxOverflow: "1"
+    poolSize: "5"
+    maxOverflow: "3"
   logging:
     level: "info"
   resources:
