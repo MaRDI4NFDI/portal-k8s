@@ -25,6 +25,9 @@ resources:
   - qlever
   # - mediawiki-events
   - schema-registry
+  - eventgate
+  - eventstreams
+  - kafka
   # - rdf-streaming-updater
 
 patches:
