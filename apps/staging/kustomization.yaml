@@ -28,7 +28,7 @@ resources:
   - eventgate
   - eventstreams
   - kafka
-  # - rdf-streaming-updater
+  - rdf-streaming-updater
 
 patches:
   - target:
