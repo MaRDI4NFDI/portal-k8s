@@ -20,7 +20,7 @@ spec:
             name: eventgate-config      
       containers:
         - name: eventgate
-          image: "{{ .Values.eventgate.image.repository }}:{{ .Values.eventgate.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
             - name: CONFIG_FILE
               value: "/srv/service/config.yaml"
@@ -36,8 +36,8 @@ spec:
               subPath: config.yaml
           resources:
             requests:
-              cpu: {{ .Values.eventgate.resources.requests.cpu }}
-              memory: {{ .Values.eventgate.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
             limits:
-              cpu: {{ .Values.eventgate.resources.limits.cpu }}
-              memory: {{ .Values.eventgate.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}

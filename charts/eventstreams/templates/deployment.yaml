@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: eventstreams
-        image: "{{ .Values.eventstreams.image.repository }}:{{ .Values.eventstreams.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8092
         volumeMounts:
@@ -26,11 +26,11 @@ spec:
           subPath: stream-config.yaml
         resources:
           requests:
-            cpu: {{ .Values.eventstreams.resources.requests.cpu }}
-            memory: {{ .Values.eventstreams.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
           limits:
-            cpu: {{ .Values.eventstreams.resources.limits.cpu }}
-            memory: {{ .Values.eventstreams.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
       volumes:
       - name: config-volume
         configMap:

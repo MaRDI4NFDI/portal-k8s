@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: kafka
-        image: "{{ .Values.kafka.image.repository }}:{{ .Values.kafka.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
         - name: KAFKA_NODE_ID
           value: "0"
@@ -36,7 +36,7 @@ spec:
         - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
           value: "true"
         - name: KAFKA_HEAP_OPTS
-          value: {{ .Values.kafka.heapOpts | quote }}
+          value: {{ .Values.heapOpts | quote }}
         - name: CLUSTER_ID
           valueFrom:
             secretKeyRef:
@@ -44,11 +44,11 @@ spec:
               key: CLUSTER_ID
         resources:
           requests:
-            cpu: {{ .Values.kafka.resources.requests.cpu }}
-            memory: {{ .Values.kafka.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
           limits:
-            cpu: {{ .Values.kafka.resources.limits.cpu }}
-            memory: {{ .Values.kafka.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
         ports:
         - containerPort: 9092
         - containerPort: 9093
@@ -62,4 +62,4 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: {{ .Values.kafka.storage }}
+          storage: {{ .Values.storage }}

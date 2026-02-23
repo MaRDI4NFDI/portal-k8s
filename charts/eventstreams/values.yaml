@@ -1,0 +1,12 @@
+image:
+  repository: docker-registry.wikimedia.org/repos/data-engineering/eventstreams
+  tag: v0.9.0
+numWorkers: 1
+loggingLevel: "info"
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"

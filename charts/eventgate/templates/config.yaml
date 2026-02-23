@@ -6,7 +6,7 @@ data:
   config.yaml: |
     num_workers: 1
     logging:
-      level: {{ .Values.eventgate.loggingLevel | quote }}
+      level: {{ .Values.loggingLevel | quote }}
     services:
       - name: eventgate-wikimedia
         module: eventgate/app.js
@@ -19,7 +19,7 @@ data:
           schema_base_uris:
             - http://schema-registry/primary/jsonschema
             - http://schema-registry/secondary/jsonschema
-          test_mode: {{ .Values.eventgate.testMode | default false }}
+          test_mode: {{ .Values.testMode | default false }}
           kafka:
             conf:
               metadata.broker.list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'

@@ -4,9 +4,9 @@ metadata:
   name: eventstreams-config
 data:
   config.yaml: |
-    num_workers: {{ .Values.eventstreams.numWorkers | default 1 }}
+    num_workers: {{ .Values.numWorkers | default 1 }}
     logging:
-      level: {{ .Values.eventstreams.loggingLevel | quote }}
+      level: {{ .Values.loggingLevel | quote }}
 
     services:
       - name: eventstreams
