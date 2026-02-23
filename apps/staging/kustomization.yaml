@@ -23,7 +23,6 @@ resources:
   - fdo
   - doip
   - qlever
-  # - mediawiki-events
   - schema-registry
   - eventgate
   - eventstreams
