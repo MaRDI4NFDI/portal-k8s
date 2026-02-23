@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: schema-registry
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
