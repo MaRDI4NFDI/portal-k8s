@@ -1,0 +1,13 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: change-propagation
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: change-propagation
+      sourceRef:
+        kind: HelmRepository
+        name: portal-k8s
+        namespace: flux-system
