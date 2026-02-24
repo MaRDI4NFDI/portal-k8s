@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: change-propagation
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    mediawiki:
+      host: http://staging-wikibase-apache
+
+
