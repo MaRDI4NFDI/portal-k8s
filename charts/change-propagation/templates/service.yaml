@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: change-propagation
+  labels:
+    app: change-propagation
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+  selector:
+    app: change-propagation

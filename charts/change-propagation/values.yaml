@@ -1,0 +1,45 @@
+image:
+  repository: docker-registry.wikimedia.org/wikimedia/mediawiki-services-change-propagation
+  tag: 2025-07-28-033107-production
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 7200
+
+kafka:
+  dcName: mardi
+
+mediawiki:
+  host: http://wikibase-apache
+
+jobqueue:
+  # ------------------------------------------------------------------
+  # Concurrency
+  # ------------------------------------------------------------------
+  # Max concurrent job executions across ALL rules combined.
+  concurrency: 50
+
+  # Seconds before a failed job is re-enqueued for retry.
+  reenqueueDelay: 120
+
+  # Delay (seconds) after startup before consuming begins.
+  # Gives Kafka consumers time to settle.
+  startupDelay: 5
+
+  consumer:
+    fetchWaitMaxMs: "100"
+    fetchMinBytes: "1"
+
+  producer:
+    queueBufferingMaxMessages: "10"
+    compressionCodec: snappy
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi

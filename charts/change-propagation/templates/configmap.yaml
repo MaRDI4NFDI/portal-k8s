@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: change-propagation-config
+data:
+  config.yaml: |
+    num_workers: 1
+    worker_heap_limit_mb: 256
+    logging:
+      level: info
+    services:
+      - name: cpjobqueue
+        module: hyperswitch
+        conf:
+          port: {{ .Values.service.port }}
+          user_agent: ChangePropagation/JobQueue
+          spec:
+            x-sub-request-filters:
+              - type: default
+                name: http
+                options:
+                  allow:
+                    - pattern: '/^https?:\/\/.*/'
+                      forward_headers:
+                        user-agent: true
+                        x-request-id: true
+            paths:
+              /{api:sys}:
+                x-modules:
+                  - path: sys/kafka.js
+                    options:
+                      metadata_broker_list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'
+                      dc_name: {{ .Values.kafka.dcName }}
+                      startup_delay: {{ .Values.jobqueue.startupDelay }}
+                      consumer:
+                        fetch.wait.max.ms: {{ .Values.jobqueue.consumer.fetchWaitMaxMs | quote }}
+                        fetch.min.bytes: {{ .Values.jobqueue.consumer.fetchMinBytes | quote }}
+                      producer:
+                        queue.buffering.max.messages: {{ .Values.jobqueue.producer.queueBufferingMaxMessages | quote }}
+                        compression.codec: {{ .Values.jobqueue.producer.compressionCodec }}
+
+                      disable_ratelimit: true
+
+                      concurrency: {{ .Values.jobqueue.concurrency }}
+                      reenqueue_delay: {{ .Values.jobqueue.reenqueueDelay }}
+
+                      templates:
+                        # ==============================================
+                        # Job execution rule
+                        # ==============================================
+                        # Subscribes to all configured mediawiki.job.*
+                        # topics and POSTs each event to the MediaWiki
+                        # EventBus RunJob REST API for execution.
+                        #
+                        # Kafka topic naming:
+                        #   {dc_name}.mediawiki.job.{jobType}
+                        # e.g. mardi.mediawiki.job.refreshLinks
+                        #
+                        # Retry topics are auto-created by the service:
+                        #   {dc_name}.change-prop.retry.mediawiki.job.{jobType}
+                        # ==============================================
+                        job_execute:
+                          topic: '/^mediawiki\.job\..*/'
+                          # Retry up to 3 times with back-off on 5xx
+                          retry_limit: 3
+                          retry_delay: 500
+                          retry_on:
+                            status:
+                              - '5xx'
+                          exec:
+                            method: post
+                            uri: '{{ .Values.mediawiki.host }}/w/rest.php/eventbus/v0/internal/job/execute'
+                            headers:
+                              content-type: application/json
+                              host: '{{ "{{message.meta.domain}}" }}'
+                            body: '{{ "{{globals.message}}" }}'
