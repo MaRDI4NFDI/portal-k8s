@@ -159,6 +159,16 @@ entries:
   eventgate:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-24T09:21:22.400365836Z"
+    description: Eventgate chart to push events into kafka
+    digest: abbe198ffdb5e5a2fda6f60ed2ab926b299b3961d10b61920abd1a2aca596f64
+    name: eventgate
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventgate-0.1.1/eventgate-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-23T10:40:51.140902712Z"
     description: Eventgate chart to push events into kafka
     digest: 3140f075e1b5f81949e72c073cadb711d256905d442612903750366ea791623d
@@ -168,6 +178,16 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventgate-0.1.0/eventgate-0.1.0.tgz
     version: 0.1.0
   eventstreams:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-02-24T09:21:22.532102409Z"
+    description: Eventstreams chart (stream mediawiki events)
+    digest: 76773970371351563582320c444e3de02f89f4d2a09f0c711211c104ef48c51b
+    name: eventstreams
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventstreams-0.1.1/eventstreams-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2026-02-23T10:40:51.284348731Z"
@@ -2748,4 +2768,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-23T12:04:39.860953337Z"
+generated: "2026-02-24T09:21:22.532510636Z"
