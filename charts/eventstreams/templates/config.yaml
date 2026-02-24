@@ -35,11 +35,11 @@ data:
       recentchange:
         description: "MediaWiki Recent Changes"
         topics:
-          - mediawiki.recentchange
+          - mardi.mediawiki.recentchange
       mediawiki.page_change.v1:
         description: "MediaWiki Page Change Events"
         topics:
-          - mediawiki.page_change.v1
+          - mardi.mediawiki.page_change.v1
       rdf-streaming-updater.mutation.v2:
         description: "RDF Streaming Updater Mutations"
         topics:

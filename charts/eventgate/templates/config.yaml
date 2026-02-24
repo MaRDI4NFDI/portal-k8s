@@ -14,7 +14,7 @@ data:
           port: 8192
           eventgate_factory_module: eventgate-wikimedia.js
           stream_field: meta.stream
-          topic_prefix: ''
+          topic_prefix: 'mardi.'
           schema_uri_field: $schema
           schema_base_uris:
             - http://schema-registry/primary/jsonschema
