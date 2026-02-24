@@ -10,6 +10,7 @@ spec:
   values:
     config:
       wikiInternalUrl: "http://staging-wikibase-apache"
-      inputPageChangeStream: "mardi.mediawiki.page_change.v1"
+      inputPageChangeStream: "mediawiki.page_change.v1"
+      outputTopicPrefix: "mardi."
     flink:
       logLevel: "DEBUG"
