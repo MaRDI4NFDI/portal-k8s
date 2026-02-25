@@ -221,6 +221,16 @@ entries:
   eventstreams:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-25T14:08:33.075986827Z"
+    description: Eventstreams chart (stream mediawiki events)
+    digest: 2338e16192dcc2c18ece6027f3c3f3ae49996fc3ce326124bf8b788a4ac1b457
+    name: eventstreams
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventstreams-0.1.2/eventstreams-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-24T09:21:22.532102409Z"
     description: Eventstreams chart (stream mediawiki events)
     digest: 76773970371351563582320c444e3de02f89f4d2a09f0c711211c104ef48c51b
@@ -2809,4 +2819,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-25T14:03:33.925009909Z"
+generated: "2026-02-25T14:08:33.076719438Z"
