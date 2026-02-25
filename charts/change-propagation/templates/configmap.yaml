@@ -25,7 +25,7 @@ data:
                         user-agent: true
                         x-request-id: true
             paths:
-              /{api:sys}:
+              /sys/queue:
                 x-modules:
                   - path: sys/kafka.js
                     options:
