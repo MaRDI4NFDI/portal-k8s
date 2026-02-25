@@ -190,6 +190,16 @@ entries:
   eventgate:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-25T14:03:33.92456018Z"
+    description: Eventgate chart to push events into kafka
+    digest: 3752b70fd49f83658e90404fdfb2340a9bf6d654faa7da2eeb0340b2984bbef5
+    name: eventgate
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventgate-0.1.2/eventgate-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-24T09:21:22.400365836Z"
     description: Eventgate chart to push events into kafka
     digest: abbe198ffdb5e5a2fda6f60ed2ab926b299b3961d10b61920abd1a2aca596f64
@@ -2799,4 +2809,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-02-25T12:31:36.427013833Z"
+generated: "2026-02-25T14:03:33.925009909Z"
