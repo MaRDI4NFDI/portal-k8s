@@ -28,6 +28,7 @@ resources:
   - eventstreams
   - kafka
   - rdf-streaming-updater
+  - change-propagation
 
 patches:
   - target:
