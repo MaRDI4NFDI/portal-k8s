@@ -1,6 +1,6 @@
 image:
-  repository: docker-registry.wikimedia.org/wikimedia/eventgate-wikimedia
-  tag: ffd68c0de41e3395e2f8ba9422fbe8824c2a49ff
+  repository: docker-registry.wikimedia.org/repos/data-engineering/eventgate-wikimedia
+  tag: v1.27.0
 numWorkers: 1
 loggingLevel: "info"
 testMode: false
