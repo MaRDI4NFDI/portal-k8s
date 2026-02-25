@@ -32,14 +32,12 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /_info
+            tcpSocket:
               port: {{ .Values.service.port }}
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: /_info
+            tcpSocket:
               port: {{ .Values.service.port }}
             initialDelaySeconds: 30
             periodSeconds: 15
