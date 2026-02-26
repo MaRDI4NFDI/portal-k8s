@@ -21,13 +21,7 @@ spec:
       containers:
         - name: eventgate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          env:
-            - name: CONFIG_FILE
-              value: "/srv/service/config.yaml"
-            - name: NODE_PATH
-              value: "/srv/service/node_modules/@wikimedia"
-            - name: NODE_TLS_REJECT_UNAUTHORIZED
-              value: "0"
+          command: ["node", "/srv/service/eventgate-wikimedia.js", "-c", "/srv/service/config.yaml"]
           ports:
             - containerPort: 8192
           volumeMounts:
