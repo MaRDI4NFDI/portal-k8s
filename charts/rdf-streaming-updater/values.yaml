@@ -16,7 +16,7 @@ config:
   eventStreamConfigUrl: "http://eventstreams"
   schemaBaseUrl: "http://schema-registry"
   inputPageChangeStream: "mediawiki.page_change.v1"
-  outputTopicPrefix: ""
+  outputTopicPrefix: "mardi."
 
 resources:
   requests:
