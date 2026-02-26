@@ -43,20 +43,20 @@ data:
       rdf-streaming-updater.mutation.v2:
         description: "RDF Streaming Updater Mutations"
         topics:
-          - rdf-streaming-updater.mutation.v2
+          - mardi.rdf-streaming-updater.mutation.v2
       rdf-streaming-updater.lapsed-action:
         description: "RDF Streaming Updater Lapsed Actions"
         topics:
-          - rdf-streaming-updater.lapsed-action
+          - mardi.rdf-streaming-updater.lapsed-action
       rdf-streaming-updater.state-inconsistency:
         description: "RDF Streaming Updater State Inconsistency"
         topics:
-          - rdf-streaming-updater.state-inconsistency
+          - mardi.rdf-streaming-updater.state-inconsistency
       rdf-streaming-updater.fetch-failure:
         description: "RDF Streaming Updater Fetch Failures"
         topics:
-          - rdf-streaming-updater.fetch-failure
+          - mardi.rdf-streaming-updater.fetch-failure
       rdf-streaming-updater.reconcile:
         description: "RDF Streaming Updater Reconcile"
         topics:
-          - rdf-streaming-updater.reconcile
+          - mardi.rdf-streaming-updater.reconcile
