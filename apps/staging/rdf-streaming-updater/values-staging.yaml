@@ -6,11 +6,9 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.20"
+      version: "0.1.21"
   values:
     config:
       wikiInternalUrl: "http://staging-wikibase-apache"
-      inputPageChangeStream: "mediawiki.page_change.v1"
-      outputTopicPrefix: "mardi."
     flink:
       logLevel: "DEBUG"
