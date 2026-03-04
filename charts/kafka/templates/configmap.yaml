@@ -34,7 +34,7 @@ data:
     controller.listener.names=CONTROLLER
     listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
     inter.broker.listener.name=PLAINTEXT
-    log.dirs=/var/lib/kafka/data
+    log.dirs=/var/lib/kafka/data/kraft-logs
     auto.create.topics.enable=true
     offsets.topic.replication.factor={{ .Values.replicationFactor }}
     transaction.state.log.replication.factor={{ .Values.replicationFactor }}
@@ -42,11 +42,12 @@ data:
     EOF
 
     # Format storage if not already formatted
-    if [ ! -f /var/lib/kafka/data/meta.properties ]; then
-      echo "Formatting storage with cluster ID: ${CLUSTER_ID}"
+    if [ ! -f /var/lib/kafka/data/kraft-logs/meta.properties ]; then
+      mkdir -p /var/lib/kafka/data/kraft-logs
       /opt/kafka/bin/kafka-storage.sh format \
-        --cluster-id "${CLUSTER_ID}" \
-        --config /tmp/server.properties
+        --config /tmp/server.properties \
+        --cluster-id "$CLUSTER_ID" \
+        --ignore-formatted
     fi
 
     exec /opt/kafka/bin/kafka-server-start.sh /tmp/server.properties
