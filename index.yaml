@@ -24,6 +24,16 @@ entries:
   change-propagation:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-04T13:23:50.627353043Z"
+    description: A Helm chart for the Mediawiki service change propagation
+    digest: 2c7bdea85df0e56572a353b8fe7b9fed01375f87c6dc1ea83e58b7d723566521
+    name: change-propagation
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/change-propagation-0.1.3/change-propagation-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-25T12:31:36.426332276Z"
     description: A Helm chart for the Mediawiki service change propagation
     digest: 4d7ef4b7b8758460e1e1f0400cae2b377ad36b4ef78ff0b9d604d2a63bac2762
@@ -190,6 +200,16 @@ entries:
   eventgate:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-04T13:23:50.888482557Z"
+    description: Eventgate chart to push events into kafka
+    digest: e57f3a79accaa353c0e004e7d98bba2a300199d7e4c46b77a0e30b21d7e0c9b1
+    name: eventgate
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventgate-0.1.4/eventgate-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-26T08:45:37.88370744Z"
     description: Eventgate chart to push events into kafka
     digest: 1353827eb37a590d579704a594f2dda9d65d898738162fc5dd696ca11e217cd1
@@ -229,6 +249,16 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventgate-0.1.0/eventgate-0.1.0.tgz
     version: 0.1.0
   eventstreams:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-03-04T13:23:51.113567534Z"
+    description: Eventstreams chart (stream mediawiki events)
+    digest: b4029823b71bbd28636f53aff370f7f884261b8bed4dbfa058a300f94a37fafd
+    name: eventstreams
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/eventstreams-0.1.4/eventstreams-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2026-02-26T13:49:40.90421978Z"
@@ -1689,6 +1719,15 @@ entries:
   rdf-streaming-updater:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-04T13:23:51.338078313Z"
+    description: A Helm chart for the Flink-based RDF streaming updater
+    digest: a13e97b9f02031a145ddccbbc5e6f15cd4eecc31116e4ee4b2e33455bf0debeb
+    name: rdf-streaming-updater
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/rdf-streaming-updater-0.1.22/rdf-streaming-updater-0.1.22.tgz
+    version: 0.1.22
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-26T12:19:01.865298457Z"
     description: A Helm chart for the Flink-based RDF streaming updater
     digest: 0d31e09b96cf5277ad7ceaee6b17cbe8cb5c00b39593388d1198609f903cba24
@@ -2907,4 +2946,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-04T10:48:42.610072093Z"
+generated: "2026-03-04T13:23:51.338623019Z"
