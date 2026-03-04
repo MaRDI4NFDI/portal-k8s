@@ -748,6 +748,16 @@ entries:
   kafka:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-04T10:27:48.446229671Z"
+    description: Kafka chart
+    digest: 4f2e4feeba129c738a732d06916cc6c70d7c8ac25a80ba7dcaea55775855505b
+    name: kafka
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/kafka-0.1.5/kafka-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-03-04T10:09:40.320290294Z"
     description: Kafka chart
     digest: c9420e1af609d584c050f64c0e38c03aa718123382b532b05da3f9e20b1de2b6
@@ -2887,4 +2897,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-04T10:09:40.320861084Z"
+generated: "2026-03-04T10:27:48.446901416Z"
