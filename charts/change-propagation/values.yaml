@@ -10,6 +10,7 @@ service:
 
 kafka:
   dcName: mardi
+  replicas: 3
 
 mediawiki:
   host: http://wikibase-apache

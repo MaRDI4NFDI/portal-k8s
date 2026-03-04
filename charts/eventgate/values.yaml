@@ -1,7 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/repos/data-engineering/eventgate-wikimedia
   tag: v1.27.0
-numWorkers: 1
 loggingLevel: "info"
 testMode: false
 resources:
@@ -11,3 +10,5 @@ resources:
   limits:
     cpu: "500m"
     memory: "512Mi"
+kafka:
+  replicas: 3

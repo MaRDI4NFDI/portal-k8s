@@ -22,7 +22,7 @@ data:
           test_mode: {{ .Values.testMode | default false }}
           kafka:
             conf:
-              metadata.broker.list: 'kafka-0.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092'
+              metadata.broker.list: '{{- $ns := .Release.Namespace -}}{{- $replicas := .Values.kafka.replicas | int -}}{{- range $i, $e := until $replicas -}}{{- if $i }},{{ end -}}kafka-{{ $i }}.kafka.{{ $ns }}.svc.cluster.local:9092{{- end -}}'
               topic.metadata.refresh.interval.ms: 30000
               compression.codec: snappy
               api.version.request: true

@@ -10,3 +10,5 @@ resources:
   limits:
     cpu: "500m"
     memory: "512Mi"
+kafka:
+  replicas: 3

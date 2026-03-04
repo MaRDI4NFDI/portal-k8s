@@ -11,7 +11,7 @@ flink:
   logLevel: "INFO"
 
 config:
-  kafkaBootstrap: "kafka-0.kafka"
+  kafkaBootstrap: "kafka"
   wikiInternalUrl: "http://wikibase-apache"
   eventStreamConfigUrl: "http://eventstreams"
   schemaBaseUrl: "http://schema-registry"
