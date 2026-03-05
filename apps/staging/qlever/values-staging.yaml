@@ -6,12 +6,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.5"
+      version: "0.1.6"
   values:
     qlever:
       image:
         repository: adfreiburg/qlever
-        tag: commit-7ec91f8
+        tag: commit-c21e686
       port: 7019
       cmdString: "qlever start --run-in-foreground"
     ingress:
