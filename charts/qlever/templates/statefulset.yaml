@@ -13,17 +13,17 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
           workingDir: /data
-          command: ["/bin/sh", "-c"]
           args: 
           - {{ .Values.qlever.cmdString | quote }}
+          env:
+            - name: UID
+              value: "1000"
+            - name: GID
+              value: "1000"
           volumeMounts:
             - name: qlever-data
               mountPath: /data
