@@ -1523,6 +1523,15 @@ entries:
   qlever:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-05T14:53:14.620577178Z"
+    description: A Helm chart for the MaRDI Qlever instance
+    digest: 63c68076bc7608c41c895fa0c1a260d2228a929723086e0bdaf1ede3a154bf06
+    name: qlever
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/qlever-0.1.9/qlever-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-03-05T14:39:44.19940011Z"
     description: A Helm chart for the MaRDI Qlever instance
     digest: be1db342e5e1b3fea59007178a2765ab6cac7df3ba0737b32840829dcaf2b707
@@ -2973,4 +2982,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-05T14:39:44.200203213Z"
+generated: "2026-03-05T14:53:14.621148489Z"
