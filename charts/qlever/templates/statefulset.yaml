@@ -17,8 +17,9 @@ spec:
         - name: {{ .Release.Name }}
           image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
           workingDir: /data
-          args: 
-          - {{ .Values.qlever.cmdString | quote }}
+          command: ["/bin/bash", "-c"]
+          args:
+            - "sudo userdel ubuntu 2>/dev/null || true; exec /qlever/docker-entrypoint.sh {{ .Values.qlever.cmdString | quote }}"
           env:
             - name: UID
               value: "1000"
