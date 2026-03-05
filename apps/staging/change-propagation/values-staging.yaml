@@ -10,5 +10,7 @@ spec:
   values:
     mediawiki:
       host: http://staging-wikibase-apache
+    kafka:
+      replicas: 1
 
 
