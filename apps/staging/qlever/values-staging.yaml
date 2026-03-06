@@ -13,7 +13,7 @@ spec:
         repository: adfreiburg/qlever
         tag: commit-c21e686
       port: 7019
-      cmdString: "sleep infinity"
+      cmdString: "qlever start --run-in-foreground"
     ingress:
       enabled: true
     
