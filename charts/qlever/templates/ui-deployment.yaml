@@ -19,6 +19,9 @@ spec:
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
         ports:
         - containerPort: {{ .Values.frontend.port }}
+        env:
+        - name: QLEVERUI_CSRF_TRUSTED_ORIGINS
+          value: "https://{{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}"
         volumeMounts:
         - name: db-volume
           mountPath: /app/db
