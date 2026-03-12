@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.25"
+      version: "0.1.26"
   values:
     database:
       host: "staging-mariadb-primary"
@@ -14,6 +14,7 @@ spec:
       wikibase: "http://staging-wikibase-apache"
       sparql: "http://staging-wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://staging-importer-api"
-      prefect: "http://prefect-server.production.svc.cluster.local:4200/api"
+    prefect:
+      endpoint: "http://prefect-server.production.svc.cluster.local:4200/api"
 
 
