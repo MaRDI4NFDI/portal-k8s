@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  labels:
+    app: {{ .Release.Name }}
+data:
+  DB_HOST: {{ .Values.database.host | quote }}
+  DB_NAME: {{ .Values.database.name | quote }}
+  IMPORTER_DB_USER: {{ .Values.database.user | quote }}
+  SPARQL_ENDPOINT_URL: {{ .Values.endpoints.sparql | quote }}
+  MEDIAWIKI_API_URL: {{ .Values.endpoints.mediawiki | quote }}
+  WIKIBASE_URL: {{ .Values.endpoints.wikibase | quote }}
+  WIKIBASE_SCHEME: {{ .Values.endpoints.wikibase_scheme | quote }}
+  WIKIBASE_HOST: {{ .Values.global.baseDomain | quote }}
+  IMPORTER_API_URL: {{ .Values.endpoints.importerApi | quote }}
+  PREFECT_API_URL: {{ .Values.prefect.endpoint | quote }}
+  DEPLOYMENT_NAME: {{ .Values.prefect.deployment | quote }}
