@@ -44,13 +44,15 @@ spec:
       enabled: false
       bucket: "mardi"
       prefix: "staging/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
       schedule: "0 4 * * *"
     physicalbackup:
       enabled: true
       bucket: "mardi"
       prefix: "staging/physicalbackup/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
       schedule: "0 5 * * *"
     resources:
       requests:
