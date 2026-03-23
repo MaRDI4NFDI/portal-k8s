@@ -27,9 +27,9 @@ data:
  
     # Log retention
     log.retention.hours={{ .Values.logRetentionHours }}
-    log.retention.bytes={{ .Values.logRetentionBytes }}
-    log.segment.bytes={{ .Values.logSegmentBytes }}
-    log.retention.check.interval.ms={{ .Values.logRetentionCheckIntervalMs }}
+    log.retention.bytes={{ .Values.logRetentionBytes | int }}
+    log.segment.bytes={{ .Values.logSegmentBytes | int }}
+    log.retention.check.interval.ms={{ .Values.logRetentionCheckIntervalMs | int }}
 
   start-kafka.sh: |
     #!/bin/bash
