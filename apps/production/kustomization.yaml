@@ -29,6 +29,7 @@ resources:
   - doip
   - qdrant
   - askmardi
+  - kafka
 
 patches:
   - target:

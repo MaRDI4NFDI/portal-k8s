@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kafka
+spec:
+  chart:
+    spec:
+      version: "0.1.9"
+  values:
+    replicaCount: 3
+    replicationFactor: 3
+    minIsr: 2
+
+    # Resources per broker
+    storage: 20Gi
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "4Gi"
+      limits:
+        cpu: "2000m"
+        memory: "4Gi"
+    heapOpts: "-Xmx2G -Xms2G"
+
+    # Log retention
+    logRetentionHours: 24
+    logRetentionBytes: 5368709120   # 5Gi
+    logSegmentBytes: 536870912      # 512Mi
+    logRetentionCheckIntervalMs: 300000
+
