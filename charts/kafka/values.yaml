@@ -4,7 +4,7 @@ image:
   tag: 3.9.0
 
 # Cluster sizing
-replicas: 3
+replicaCount: 3
 replicationFactor: 3
 minIsr: 2
 
@@ -20,3 +20,15 @@ resources:
 heapOpts: "-Xmx512M -Xms512M"
 
 secrets: "kafka-secrets"
+ 
+# Topic settings
+autoCreateTopics: true
+numPartitions: 3
+ 
+# Log retention
+logRetentionHours: 4
+logRetentionBytes: 1073741824   # 1Gi
+logSegmentBytes: 134217728      # 128Mi
+logRetentionCheckIntervalMs: 300000
+
+antiAffinity: "hard"

@@ -4,7 +4,7 @@ metadata:
   name: kafka
 spec:
   serviceName: "kafka"
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicaCount }}
   podManagementPolicy: Parallel
   selector:
     matchLabels:
@@ -17,6 +17,31 @@ spec:
       terminationGracePeriodSeconds: 120
       securityContext:
         fsGroup: 1000
+      {{- if eq .Values.antiAffinity "hard" }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - kafka
+            topologyKey: "kubernetes.io/hostname"
+      {{- else if eq .Values.antiAffinity "soft" }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - kafka
+              topologyKey: "kubernetes.io/hostname"
+      {{- end }}
       containers:
       - name: kafka
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

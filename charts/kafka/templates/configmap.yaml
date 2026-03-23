@@ -3,29 +3,7 @@ kind: ConfigMap
 metadata:
   name: kafka-config
 data:
-  start-kafka.sh: |
-    #!/bin/bash
-    set -e
-
-    # Derive node ID from pod hostname
-    NODE_ID="${HOSTNAME##*-}"
-
-    # Build quorum voters list for all replicas
-    VOTERS=""
-    for i in $(seq 0 $(( {{ .Values.replicas }} - 1 ))); do
-      [ -n "$VOTERS" ] && VOTERS="${VOTERS},"
-      VOTERS="${VOTERS}${i}@kafka-${i}.kafka:9093"
-    done
-
-    ADVERTISED="PLAINTEXT://${HOSTNAME}.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092"
-
-    echo "Starting Kafka with:"
-    echo "  NODE_ID=${NODE_ID}"
-    echo "  ADVERTISED_LISTENERS=${ADVERTISED}"
-    echo "  CONTROLLER_QUORUM_VOTERS=${VOTERS}"
-
-    # Generate server.properties
-    cat > /tmp/server.properties <<EOF
+  server.properties.template: |
     node.id=${NODE_ID}
     process.roles=controller,broker
     listeners=PLAINTEXT://:9092,CONTROLLER://:9093
@@ -35,12 +13,51 @@ data:
     listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
     inter.broker.listener.name=PLAINTEXT
     log.dirs=/var/lib/kafka/data/kraft-logs
-    auto.create.topics.enable=true
+ 
+    # Topic defaults
+    auto.create.topics.enable={{ .Values.autoCreateTopics }}
+    num.partitions={{ .Values.numPartitions }}
+    default.replication.factor={{ .Values.replicationFactor }}
+    min.insync.replicas={{ .Values.minIsr }}
+ 
+    # Internal topic replication
     offsets.topic.replication.factor={{ .Values.replicationFactor }}
     transaction.state.log.replication.factor={{ .Values.replicationFactor }}
     transaction.state.log.min.isr={{ .Values.minIsr }}
-    EOF
+ 
+    # Log retention
+    log.retention.hours={{ .Values.logRetentionHours }}
+    log.retention.bytes={{ .Values.logRetentionBytes }}
+    log.segment.bytes={{ .Values.logSegmentBytes }}
+    log.retention.check.interval.ms={{ .Values.logRetentionCheckIntervalMs }}
 
+  start-kafka.sh: |
+    #!/bin/bash
+    set -e
+ 
+    # Derive node ID from pod hostname (e.g. kafka-0 -> 0)
+    export NODE_ID="${HOSTNAME##*-}"
+ 
+    # Build quorum voters list for all replicas
+    VOTERS=""
+    for i in $(seq 0 $(( {{ .Values.replicaCount }} - 1 ))); do
+      [ -n "$VOTERS" ] && VOTERS="${VOTERS},"
+      VOTERS="${VOTERS}${i}@kafka-${i}.kafka:9093"
+    done
+    export VOTERS
+ 
+    export ADVERTISED="PLAINTEXT://${HOSTNAME}.kafka.{{ .Release.Namespace }}.svc.cluster.local:9092"
+ 
+    echo "Starting Kafka with:"
+    echo "  NODE_ID=${NODE_ID}"
+    echo "  ADVERTISED_LISTENERS=${ADVERTISED}"
+    echo "  CONTROLLER_QUORUM_VOTERS=${VOTERS}"
+ 
+    # Substitute runtime values into the static template
+    envsubst '${NODE_ID} ${ADVERTISED} ${VOTERS}' \
+      < /opt/kafka-config/server.properties.template \
+      > /tmp/server.properties
+ 
     # Format storage if not already formatted
     if [ ! -f /var/lib/kafka/data/kraft-logs/meta.properties ]; then
       mkdir -p /var/lib/kafka/data/kraft-logs
@@ -49,5 +66,5 @@ data:
         --cluster-id "$CLUSTER_ID" \
         --ignore-formatted
     fi
-
+ 
     exec /opt/kafka/bin/kafka-server-start.sh /tmp/server.properties
