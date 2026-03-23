@@ -52,10 +52,12 @@ data:
     echo "  NODE_ID=${NODE_ID}"
     echo "  ADVERTISED_LISTENERS=${ADVERTISED}"
     echo "  CONTROLLER_QUORUM_VOTERS=${VOTERS}"
- 
-    # Substitute runtime values into the static template
-    envsubst '${NODE_ID} ${ADVERTISED} ${VOTERS}' \
-      < /opt/kafka-config/server.properties.template \
+
+    sed \
+      -e "s|\${NODE_ID}|${NODE_ID}|g" \
+      -e "s|\${ADVERTISED}|${ADVERTISED}|g" \
+      -e "s|\${VOTERS}|${VOTERS}|g" \
+      /opt/kafka-config/server.properties.template \
       > /tmp/server.properties
  
     # Format storage if not already formatted
