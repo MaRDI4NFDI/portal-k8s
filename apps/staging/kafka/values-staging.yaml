@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.8"
+      version: "0.1.9"
   values:
     replicaCount: 1
     replicationFactor: 1
