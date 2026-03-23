@@ -6,8 +6,10 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.6"
+      version: "0.1.7"
   values:
-    replicas: 1
+    replicaCount: 1
     replicationFactor: 1
     minIsr: 1
+    numPartitions: 1
+    antiAffinity: "soft"
