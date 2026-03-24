@@ -30,6 +30,7 @@ resources:
   - qdrant
   - askmardi
   - kafka
+  - schema-registry
 
 patches:
   - target:
