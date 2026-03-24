@@ -18,7 +18,7 @@ resources:
   - s3-proxy
   - wdqs
   - mariadb-matomo
-  # - matomo
+  - matomo
   - external-services
   # - maintenance
   - memcached
