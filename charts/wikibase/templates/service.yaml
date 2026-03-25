@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-apache
+  name: {{ .Release.Name }}
 spec:
   type: ClusterIP
   ports:
     - port: {{ .Values.apache.port }}
       targetPort: 80
   selector:
-    app: {{ .Release.Name }}-apache
+    app: {{ .Release.Name }}

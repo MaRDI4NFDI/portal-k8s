@@ -1,19 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-apache
+  name: {{ .Release.Name }}
   labels:
-    app: {{ .Release.Name }}-apache
+    app: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.apache.replicas }}
+  replicas: {{ .Values.mediawiki.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-apache
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-apache
+        app: {{ .Release.Name }}
     spec:
+      securityContext:
+        fsGroup: 33 # www-data
       initContainers:
         - name: copy-static-files
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
@@ -44,7 +46,7 @@ spec:
             - containerPort: 80
           env:
             - name: WIKIBASE_HOST
-              value: "{{ .Release.Name }}-fpm"
+              value: "127.0.0.1"
           volumeMounts:
             - name: static-files
               mountPath: /var/www/html/w/skins
@@ -73,6 +75,25 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
+        - name: mediawiki
+          image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
+          imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.mediawiki.resources.requests.cpu }}
+              memory: {{ .Values.mediawiki.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.mediawiki.resources.limits.cpu }}
+              memory: {{ .Values.mediawiki.resources.limits.memory }}
+          ports:
+            - containerPort: {{ .Values.mediawiki.port }}
+          volumeMounts:
+            {{- include "mediawiki.volumeMounts" . | nindent 12 }}
+          env:
+            {{- include "mediawiki.env" . | nindent 12 }}
+          envFrom:
+            {{- include "mediawiki.envFrom" . | nindent 12 }}
       volumes:
         - name: static-files
           emptyDir: {}
+        {{- include "mediawiki.volumes" . | nindent 8 }}

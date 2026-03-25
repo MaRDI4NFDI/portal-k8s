@@ -1,7 +1,7 @@
 mediawiki:
   image:
     repository: ghcr.io/mardi4nfdi/wikibase-staging
-    latest: kubernetes
+    tag: latest
     pullPolicy: Always
   replicas: 1
   port: 9000
@@ -34,7 +34,6 @@ apache:
     repository: ghcr.io/mardi4nfdi/apache
     tag: latest
     pullPolicy: Always
-  replicas: 1
   port: 80
   resources:
     requests:
@@ -43,6 +42,25 @@ apache:
     limits:
       cpu: 1
       memory: 1Gi
+
+jobrunner:
+  replicas: 1
+  apache:
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  mediawiki:
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 2
+        memory: 2Gi
 
 varnish:
   enabled: false

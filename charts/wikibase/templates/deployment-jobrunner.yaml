@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-jobrunner
+  labels:
+    app: {{ .Release.Name }}-jobrunner
+spec:
+  replicas: {{ .Values.jobrunner.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-jobrunner
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-jobrunner
+    spec:
+      securityContext:
+        fsGroup: 33 # www-data
+      containers:
+        - name: apache
+          image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
+          imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.jobrunner.apache.resources.requests.cpu }}
+              memory: {{ .Values.jobrunner.apache.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.jobrunner.apache.resources.limits.cpu }}
+              memory: {{ .Values.jobrunner.apache.resources.limits.memory }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: WIKIBASE_HOST
+              value: "127.0.0.1"
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+        - name: mediawiki
+          image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
+          imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.jobrunner.mediawiki.resources.requests.cpu }}
+              memory: {{ .Values.jobrunner.mediawiki.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.jobrunner.mediawiki.resources.limits.cpu }}
+              memory: {{ .Values.jobrunner.mediawiki.resources.limits.memory }}
+          ports:
+            - containerPort: {{ .Values.mediawiki.port }}
+          volumeMounts:
+            {{- include "mediawiki.volumeMounts" . | nindent 12 }}
+          env:
+            {{- include "mediawiki.env" . | nindent 12 }}
+          envFrom:
+            {{- include "mediawiki.envFrom" . | nindent 12 }}
+      volumes:
+        {{- include "mediawiki.volumes" . | nindent 8 }}

@@ -19,7 +19,7 @@ spec:
 
         # Backend definition pointing to MediaWiki service
         backend default {
-            .host = "{{ .Release.Name }}-apache";
+            .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
             .first_byte_timeout = {{ .Values.varnish.backendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};

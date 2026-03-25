@@ -25,7 +25,7 @@ spec:
           namespace: {{ .Release.Namespace }}
           port: 80
         {{- else }}
-        - name: {{ .Release.Name }}-apache
+        - name: {{ .Release.Name }}
           namespace: {{ .Release.Namespace }}
           port: {{ .Values.apache.port }}
         {{- end }}
