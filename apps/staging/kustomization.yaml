@@ -8,8 +8,8 @@ resources:
   - opensearch
   - mariadb
   - wikibase
-  - redis
-  - jobrunner
+  #- redis
+  #- jobrunner
   - traefik
   - wdqs
   - quickstatements
