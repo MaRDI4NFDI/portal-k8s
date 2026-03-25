@@ -65,17 +65,20 @@ spec:
             - name: static-files
               mountPath: /var/www/html/w/robots.txt
               subPath: robots.txt
-          livenessProbe:
+          startupProbe:
             httpGet:
               path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
-            initialDelaySeconds: 10
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 80
             periodSeconds: 30
           readinessProbe:
             httpGet:
               path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
-            initialDelaySeconds: 5
             periodSeconds: 10
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"

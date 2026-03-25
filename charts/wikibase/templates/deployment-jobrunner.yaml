@@ -34,16 +34,21 @@ spec:
           env:
             - name: WIKIBASE_HOST
               value: "127.0.0.1"
+          startupProbe:
+            httpGet:
+              path: /w/api.php?action=query&meta=siteinfo&format=json
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 30
+            periodSeconds: 60
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 30
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
