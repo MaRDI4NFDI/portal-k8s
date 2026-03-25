@@ -9,6 +9,6 @@ spec:
       version: "0.1.22"
   values:
     config:
-      wikiInternalUrl: "http://staging-wikibase-apache"
+      wikiInternalUrl: "http://staging-wikibase"
     flink:
       logLevel: "DEBUG"

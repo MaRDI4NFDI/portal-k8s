@@ -9,7 +9,7 @@ spec:
       version: "0.1.3"
   values:
     mediawiki:
-      host: http://staging-wikibase-apache
+      host: http://staging-wikibase-jobrunner
     kafka:
       replicas: 1
 
