@@ -36,12 +36,13 @@ spec:
             cpu: 500m
             memory: 512Mi
       mediawiki:
-        requests:
-          cpu: 4000m
-          memory: 8Gi
-        limits:
-          cpu: 8000m
-          memory: 16Gi
+        resources:
+          requests:
+            cpu: 4000m
+            memory: 8Gi
+          limits:
+            cpu: 8000m
+            memory: 16Gi
     varnish:
       enabled: true
     blockHeaders:
