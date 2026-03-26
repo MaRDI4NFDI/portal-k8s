@@ -33,6 +33,7 @@ resources:
   - schema-registry
   - eventgate
   - eventstreams
+  - change-propagation
 
 patches:
   - target:
