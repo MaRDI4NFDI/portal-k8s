@@ -24,6 +24,16 @@ entries:
   change-propagation:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-03-27T09:46:54.454119187Z"
+    description: A Helm chart for the Mediawiki service change propagation
+    digest: 9d197ad9c28d725ee339860089bb784c100496d7ce146e0fc942f63bce7ed58b
+    name: change-propagation
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/change-propagation-0.1.4/change-propagation-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-03-04T13:23:50.627353043Z"
     description: A Helm chart for the Mediawiki service change propagation
     digest: 2c7bdea85df0e56572a353b8fe7b9fed01375f87c6dc1ea83e58b7d723566521
@@ -3118,4 +3128,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-27T09:28:05.978183505Z"
+generated: "2026-03-27T09:46:54.454704768Z"
