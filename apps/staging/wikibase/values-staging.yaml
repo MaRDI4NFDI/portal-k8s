@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.75"
+      version: "0.1.77"
   values:
     mediawiki:
       image:
@@ -20,6 +20,12 @@ spec:
       memcached_host: staging-memcached
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
+      phpfpm:
+        maxChildren: 15
+        startServers: 2
+        minSpareServers: 2
+        maxSpareServers: 6
+        maxRequests: 500
       resources:
         requests:
           cpu: 500m
