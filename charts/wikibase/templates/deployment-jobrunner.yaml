@@ -45,10 +45,11 @@ spec:
               port: 80
             periodSeconds: 60
           readinessProbe:
-            httpGet:
-              path: /w/api.php?action=query&meta=siteinfo&format=json
+            tcpSocket:
               port: 80
             periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
