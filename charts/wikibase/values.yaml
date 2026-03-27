@@ -22,6 +22,7 @@ mediawiki:
   formulasearch_host: formulasearch
   formulasearch_port: 1985
   phpfpm:
+    pm: dynamic
     maxChildren: 75
     startServers: 25
     minSpareServers: 10
@@ -68,6 +69,14 @@ jobrunner:
       limits:
         cpu: 2
         memory: 2Gi
+  phpfpm:
+    pm: static
+    maxChildren: 5
+    maxRequests: 500
+    requestTimeout: 300s
+    startServers: 0
+    minSpareServers: 0
+    maxSpareServers: 0
 
 varnish:
   enabled: false

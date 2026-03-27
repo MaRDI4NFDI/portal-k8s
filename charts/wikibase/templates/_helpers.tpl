@@ -44,23 +44,31 @@ Common environment variables shared between web and jobrunner MediaWiki containe
   value: "{{ .Values.varnish.backendHost }}"
 - name: CDN_SERVER
   value: "{{ .Values.varnish.fullnameOverride }}"
-- name: PHP_FPM_MAX_CHILDREN
-  value: "{{ .Values.mediawiki.phpfpm.maxChildren | default 75 }}"
-- name: PHP_FPM_START_SERVERS
-  value: "{{ .Values.mediawiki.phpfpm.startServers | default 25 }}"
-- name: PHP_FPM_MIN_SPARE_SERVERS
-  value: "{{ .Values.mediawiki.phpfpm.minSpareServers | default 10 }}"
-- name: PHP_FPM_MAX_SPARE_SERVERS
-  value: "{{ .Values.mediawiki.phpfpm.maxSpareServers | default 40 }}"
-- name: PHP_FPM_MAX_REQUESTS
-  value: "{{ .Values.mediawiki.phpfpm.maxRequests | default 1000 }}"
-- name: PHP_FPM_REQUEST_TIMEOUT
-  value: "{{ .Values.mediawiki.phpfpm.requestTimeout | default "60s" }}"
 - name: DB_PASS
   valueFrom:
     secretKeyRef:
       name: {{ .Values.secrets.mariadb }}
       key: MARIADB_PASSWORD
+{{- end -}}
+
+{{/*
+PHP-FPM environment variables.
+*/}}
+{{- define "mediawiki.phpfpmEnv" -}}
+- name: PHP_FPM_PM
+  value: "{{ .pm | default "dynamic" }}"
+- name: PHP_FPM_MAX_CHILDREN
+  value: "{{ .maxChildren | default 75 }}"
+- name: PHP_FPM_START_SERVERS
+  value: "{{ .startServers | default 25 }}"
+- name: PHP_FPM_MIN_SPARE_SERVERS
+  value: "{{ .minSpareServers | default 10 }}"
+- name: PHP_FPM_MAX_SPARE_SERVERS
+  value: "{{ .maxSpareServers | default 40 }}"
+- name: PHP_FPM_MAX_REQUESTS
+  value: "{{ .maxRequests | default 1000 }}"
+- name: PHP_FPM_REQUEST_TIMEOUT
+  value: "{{ .requestTimeout | default "60s" }}"
 {{- end -}}
 
 {{/*
