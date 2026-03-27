@@ -27,6 +27,8 @@ spec:
           cpu: "6"
           memory: "10Gi"
     jobrunner:
+      phpfpm:
+        maxChildren: 20
       apache:
         resources:
           requests:
@@ -39,10 +41,10 @@ spec:
         resources:
           requests:
             cpu: 4000m
-            memory: 8Gi
+            memory: 4Gi
           limits:
             cpu: 8000m
-            memory: 16Gi
+            memory: 8Gi
     varnish:
       enabled: true
     blockHeaders:
