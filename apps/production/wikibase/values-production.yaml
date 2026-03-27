@@ -5,12 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.75"
+      version: "0.1.79"
   values:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase-production
-        tag: 1.46.10
+        tag: 1.46.11
       replicas: 1
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
