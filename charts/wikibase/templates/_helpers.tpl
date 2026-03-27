@@ -60,11 +60,11 @@ PHP-FPM environment variables.
 - name: PHP_FPM_MAX_CHILDREN
   value: "{{ .maxChildren | default 75 }}"
 - name: PHP_FPM_START_SERVERS
-  value: "{{ .startServers | default 25 }}"
+  value: "{{ .startServers | toString | default "25" }}"
 - name: PHP_FPM_MIN_SPARE_SERVERS
-  value: "{{ .minSpareServers | default 10 }}"
+  value: "{{ .minSpareServers | toString | default "10" }}"
 - name: PHP_FPM_MAX_SPARE_SERVERS
-  value: "{{ .maxSpareServers | default 40 }}"
+  value: "{{ .maxSpareServers | toString | default "40" }}"
 - name: PHP_FPM_MAX_REQUESTS
   value: "{{ .maxRequests | default 1000 }}"
 - name: PHP_FPM_REQUEST_TIMEOUT
