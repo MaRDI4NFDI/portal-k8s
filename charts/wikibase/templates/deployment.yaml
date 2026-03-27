@@ -96,6 +96,7 @@ spec:
             {{- include "mediawiki.volumeMounts" . | nindent 12 }}
           env:
             {{- include "mediawiki.env" . | nindent 12 }}
+            {{- include "mediawiki.phpfpmEnv" .Values.mediawiki.phpfpm | nindent 12 }}
           envFrom:
             {{- include "mediawiki.envFrom" . | nindent 12 }}
       volumes:
