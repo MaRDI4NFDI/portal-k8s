@@ -13,17 +13,18 @@ kafka:
   replicas: 3
 
 mediawiki:
-  host: http://wikibase-apache
+  host: http://wikibase
 
 jobqueue:
-  # ------------------------------------------------------------------
-  # Concurrency
-  # ------------------------------------------------------------------
   # Max concurrent job executions across ALL rules combined.
+  # Must be set below pm.max_children of the jobrunner FPM pool.
   concurrency: 50
 
   # Seconds before a failed job is re-enqueued for retry.
   reenqueueDelay: 120
+
+  # Milliseconds before retrying a failed job execution.
+  retryDelay: 30000
 
   # Delay (seconds) after startup before consuming begins.
   # Gives Kafka consumers time to settle.
@@ -39,7 +40,7 @@ jobqueue:
 
 resources:
   requests:
-    cpu: 100m
+    cpu: 250m
     memory: 256Mi
   limits:
     cpu: "1"

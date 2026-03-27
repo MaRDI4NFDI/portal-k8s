@@ -63,7 +63,7 @@ data:
                           topic: '/^mediawiki\.job\..*/'
                           # Retry up to 3 times with back-off on 5xx
                           retry_limit: 3
-                          retry_delay: 500
+                          retry_delay: {{ .Values.jobqueue.retryDelay }}
                           retry_on:
                             status:
                               - '5xx'
