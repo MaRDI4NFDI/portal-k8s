@@ -21,6 +21,13 @@ mediawiki:
   latexml_port: 80
   formulasearch_host: formulasearch
   formulasearch_port: 1985
+  phpfpm:
+    maxChildren: 75
+    startServers: 25
+    minSpareServers: 10
+    maxSpareServers: 40
+    maxRequests: 1000
+    requestTimeout: "60s"
   resources:
     requests:
       cpu: 500m
