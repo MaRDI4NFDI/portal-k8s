@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.80"
+      version: "0.1.81"
   values:
     mediawiki:
       image:
@@ -20,6 +20,7 @@ spec:
       memcached_host: staging-memcached
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
+      importer_endpoint: staging-importer
       phpfpm:
         maxChildren: 15
         startServers: 2
