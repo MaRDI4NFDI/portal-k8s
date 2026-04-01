@@ -30,6 +30,9 @@ jobqueue:
   # Gives Kafka consumers time to settle.
   startupDelay: 5
 
+  numWorkers: 1
+  workerHeapLimitMb: 256
+
   consumer:
     fetchWaitMaxMs: "100"
     fetchMinBytes: "1"

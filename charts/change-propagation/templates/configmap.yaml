@@ -4,8 +4,8 @@ metadata:
   name: change-propagation-config
 data:
   config.yaml: |
-    num_workers: 1
-    worker_heap_limit_mb: 256
+    num_workers: {{ .Values.jobqueue.numWorkers }}
+    worker_heap_limit_mb: {{ .Values.jobqueue.workerHeapLimitMb }}
     logging:
       level: info
     services:
