@@ -40,10 +40,10 @@ spec:
       mediawiki:
         resources:
           requests:
-            cpu: 4000m
+            cpu: 6000m
             memory: 4Gi
           limits:
-            cpu: 8000m
+            cpu: 12000m
             memory: 8Gi
     varnish:
       enabled: true
