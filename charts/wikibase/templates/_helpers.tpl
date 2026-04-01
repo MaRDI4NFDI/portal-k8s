@@ -38,6 +38,8 @@ Common environment variables shared between web and jobrunner MediaWiki containe
   value: "{{ .Values.mediawiki.formulasearch_host }}"
 - name: MW_FORMULASEARCH_PORT
   value: "{{ .Values.mediawiki.formulasearch_port }}"
+- name: IMPORTER_ENDPOINT
+  value: "{{ .Values.mediawiki.importerEndpoint }}"
 - name: USE_CDN
   value: "{{ .Values.varnish.enabled }}"
 - name: CDN_BACKEND_HOST
