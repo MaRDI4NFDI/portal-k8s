@@ -5,17 +5,17 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.80"
+      version: "0.1.81"
   values:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase-production
-        tag: 1.46.11
+        tag: 1.46.12
       replicas: 1
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
       db_secondary: mariadb-secondary
-      elasticsearch_host: elasticsearch
+      elasticsearch_host: opensearch
       redis_host: redis-master
       formulasearch_host: formulasearch
       latexml_host: latexml
