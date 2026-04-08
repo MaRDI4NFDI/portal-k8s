@@ -60,7 +60,7 @@ data:
                         #   {dc_name}.change-prop.retry.mediawiki.job.{jobType}
                         # ==============================================
                         job_execute:
-                          topic: '/^mediawiki\.job\..*/'
+                          topic: '{{ .Values.jobqueue.topicPattern }}'
                           # Retry up to 3 times with back-off on 5xx
                           retry_limit: 3
                           retry_delay: {{ .Values.jobqueue.retryDelay }}

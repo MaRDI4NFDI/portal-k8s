@@ -41,6 +41,8 @@ jobqueue:
     queueBufferingMaxMessages: "10"
     compressionCodec: snappy
 
+  topicPattern: '/^mediawiki\.job\..*/'
+
 resources:
   requests:
     cpu: 250m
