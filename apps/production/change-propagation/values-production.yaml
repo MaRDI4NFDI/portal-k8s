@@ -5,13 +5,14 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.5"
+      version: "0.1.6"
   values:
     mediawiki:
       host: http://wikibase-jobrunner
     jobqueue:
       concurrency: 18
       workerHeapLimitMb: 750
+      topicPattern: '/^mediawiki\.job\.(?!htmlCacheUpdate).*/'
     resources:
       requests:
         cpu: 250m
