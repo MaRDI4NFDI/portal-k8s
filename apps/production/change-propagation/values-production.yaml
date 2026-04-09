@@ -12,7 +12,6 @@ spec:
     jobqueue:
       concurrency: 18
       workerHeapLimitMb: 750
-      topicPattern: '/^mediawiki\.job\.(?!htmlCacheUpdate).*/'
     resources:
       requests:
         cpu: 250m
