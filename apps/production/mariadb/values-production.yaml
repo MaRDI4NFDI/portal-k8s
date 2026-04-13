@@ -51,7 +51,8 @@ spec:
       enabled: false # Use physicalbackups
       bucket: "mardi"
       prefix: "production/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
       schedule: "0 0 * * *"
       storage: 600Gi
       resources:
@@ -65,7 +66,8 @@ spec:
       enabled: true
       bucket: "mardi"
       prefix: "production/physicalbackup/mariadb"
-      endpoint: "hsm-test-09.zib.de:9001"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
       schedule: "0 2 * * *"
       immediate: true
       timeout: "30h"
