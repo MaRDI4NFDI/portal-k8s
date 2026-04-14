@@ -5,3 +5,9 @@ namespace: production
 
 resources:
   - ../../base/kafka-exporter
+
+patches:
+  - path: deployment-production-args.yaml
+    target:
+      kind: Deployment
+      name: kafka-exporter
