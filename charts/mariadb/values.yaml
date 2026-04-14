@@ -30,6 +30,7 @@ mariadb:
 
 storage:
   size: 1Ti
+  className: csi-rbd-sc
 
 backup:
   enabled: false

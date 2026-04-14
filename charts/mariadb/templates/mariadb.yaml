@@ -75,14 +75,14 @@ spec:
 
   storage:
     size: {{ .Values.storage.size }}
-    storageClassName: csi-rbd-sc
+    storageClassName: {{ .Values.storage.className }}
     volumeClaimTemplate:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
           storage: {{ .Values.storage.size }}
-      storageClassName: csi-rbd-sc
+      storageClassName: {{ .Values.storage.className }}
 
   resources:
     requests:
