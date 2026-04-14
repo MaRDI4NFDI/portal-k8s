@@ -12,8 +12,8 @@ spec:
       schedule: "0 6 * * *"
       bucket: "mardi"
       prefix: "production/matomo"
-      endpoint: "hsm-test-09.zib.de:9001"
-      region: "us-east-1"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
     storage:
       size: 10Gi
     metrics:
