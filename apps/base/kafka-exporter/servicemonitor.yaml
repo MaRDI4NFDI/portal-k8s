@@ -2,7 +2,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: kafka-exporter
-  namespace: production
   labels:
     # Match the label selector used by the kube-prometheus Prometheus instance
     release: kube-prometheus
