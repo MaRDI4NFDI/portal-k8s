@@ -12,7 +12,7 @@ spec:
     jobqueue:
       concurrency: 18
       workerHeapLimitMb: 750
-      topicPattern: '/^mediawiki\.job\.CreateProfilePages$/'
+      topicPattern: '/^mediawiki\.job\.(?!CreateProfilePages).*/'
     resources:
       requests:
         cpu: 250m
