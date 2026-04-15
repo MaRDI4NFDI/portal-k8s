@@ -131,7 +131,7 @@ data:
         },
         {
           "id": 5,
-          "title": "MySQL Up",
+          "title": "All MySQL Nodes Up",
           "type": "stat",
           "gridPos": { "x": 16, "y": 0, "w": 4, "h": 4 },
           "fieldConfig": {
