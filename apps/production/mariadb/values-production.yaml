@@ -47,6 +47,7 @@ spec:
     user: sqluser
     storage:
       size: 600Gi
+      className: csi-rbd-sc-ssd
     backup:
       enabled: false # Use physicalbackups
       bucket: "mardi"
