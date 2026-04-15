@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - kafka-mardi-dashboard.yaml
+  - mariadb-galera-dashboard.yaml
