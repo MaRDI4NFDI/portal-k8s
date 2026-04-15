@@ -40,7 +40,7 @@ spec:
         maxAllowedPacket: "64M"
     storage:
       size: 5Gi
-      className: csi-rbd-sc-ssd
+      className: csi-rbd-sc
     backup:
       enabled: false
       bucket: "mardi"
