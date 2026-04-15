@@ -73,7 +73,7 @@ data:
         },
         {
           "id": 3,
-          "title": "Node Ready",
+          "title": "All Nodes Ready",
           "type": "stat",
           "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
           "fieldConfig": {
