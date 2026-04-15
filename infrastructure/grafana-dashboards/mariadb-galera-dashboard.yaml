@@ -1,0 +1,469 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-galera-dashboard
+  namespace: kube-prometheus
+  labels:
+    grafana_dashboard: "1"
+data:
+  mariadb-galera-dashboard.json: |
+    {
+      "title": "MaRDI MariaDB Galera Cluster",
+      "uid": "mardi-mariadb-galera",
+      "tags": ["mariadb", "galera", "mardi"],
+      "timezone": "browser",
+      "refresh": "30s",
+      "time": { "from": "now-3h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Cluster Size",
+          "type": "stat",
+          "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "yellow", "value": 2 },
+                  { "color": "green", "value": 3 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(mysql_global_status_wsrep_cluster_size{job=\"mariadb-metrics\"})",
+              "legendFormat": "Cluster size",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "textMode": "value_and_name" }
+        },
+        {
+          "id": 2,
+          "title": "Cluster Status",
+          "type": "stat",
+          "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [
+                { "type": "value", "options": { "1": { "text": "Primary", "color": "green" }, "0": { "text": "Non-Primary", "color": "red" } } }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "green", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(mysql_global_status_wsrep_cluster_status{job=\"mariadb-metrics\"})",
+              "legendFormat": "Status",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 3,
+          "title": "Node Ready",
+          "type": "stat",
+          "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [
+                { "type": "value", "options": { "1": { "text": "Ready", "color": "green" }, "0": { "text": "Not Ready", "color": "red" } } }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "green", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(mysql_global_status_wsrep_ready{job=\"mariadb-metrics\"})",
+              "legendFormat": "Ready",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 4,
+          "title": "Node Connected",
+          "type": "stat",
+          "gridPos": { "x": 12, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [
+                { "type": "value", "options": { "1": { "text": "Connected", "color": "green" }, "0": { "text": "Disconnected", "color": "red" } } }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "green", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(mysql_global_status_wsrep_connected{job=\"mariadb-metrics\"})",
+              "legendFormat": "Connected",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 5,
+          "title": "MySQL Up",
+          "type": "stat",
+          "gridPos": { "x": 16, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [
+                { "type": "value", "options": { "1": { "text": "Up", "color": "green" }, "0": { "text": "Down", "color": "red" } } }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "green", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(mysql_up{job=\"mariadb-metrics\"})",
+              "legendFormat": "MySQL",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 6,
+          "title": "Uptime",
+          "type": "stat",
+          "gridPos": { "x": 20, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "dtdurations",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [ { "color": "blue", "value": null } ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(mysql_global_status_uptime{job=\"mariadb-metrics\"})",
+              "legendFormat": "Uptime",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value" }
+        },
+        {
+          "id": 7,
+          "title": "Flow Control Paused — per node",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 4, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1,
+              "custom": { "lineWidth": 2, "fillOpacity": 10 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_wsrep_flow_control_paused{job=\"mariadb-metrics\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 8,
+          "title": "Send / Receive Queue — max across nodes",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 4, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "max(mysql_global_status_wsrep_local_send_queue{job=\"mariadb-metrics\"})",
+              "legendFormat": "Send queue (max)",
+              "refId": "A"
+            },
+            {
+              "expr": "max(mysql_global_status_wsrep_local_recv_queue{job=\"mariadb-metrics\"})",
+              "legendFormat": "Receive queue (max)",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 9,
+          "title": "Replication — Cluster throughput",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 11, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(mysql_global_status_wsrep_local_commits{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Local commits/s",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(rate(mysql_global_status_wsrep_replicated{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Replicated/s",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(rate(mysql_global_status_wsrep_received{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Received/s",
+              "refId": "C"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 10,
+          "title": "Apply / Commit Window — per node",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 11, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_wsrep_apply_window{job=\"mariadb-metrics\"}",
+              "legendFormat": "Apply — {{target}}",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_global_status_wsrep_commit_window{job=\"mariadb-metrics\"}",
+              "legendFormat": "Commit — {{target}}",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 11,
+          "title": "Threads Connected / Running — per node",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_threads_connected{job=\"mariadb-metrics\"}",
+              "legendFormat": "Connected — {{target}}",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_global_status_threads_running{job=\"mariadb-metrics\"}",
+              "legendFormat": "Running — {{target}}",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 12,
+          "title": "Queries per Second — total cluster",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(mysql_global_status_queries{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Queries/s",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(rate(mysql_global_status_slow_queries{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Slow queries/s",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 13,
+          "title": "InnoDB Buffer Pool",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_innodb_buffer_pool_bytes_data{job=\"mariadb-metrics\", target=\"mariadb-0\"}",
+              "legendFormat": "Data",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_global_status_innodb_buffer_pool_bytes_dirty{job=\"mariadb-metrics\", target=\"mariadb-0\"}",
+              "legendFormat": "Dirty",
+              "refId": "B"
+            },
+            {
+              "expr": "mysql_global_variables_innodb_buffer_pool_size{job=\"mariadb-metrics\", target=\"mariadb-0\"}",
+              "legendFormat": "Total size",
+              "refId": "C"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 14,
+          "title": "InnoDB Deadlocks — per node",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_innodb_deadlocks{job=\"mariadb-metrics\"}[2m])",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 15,
+          "title": "InnoDB Row Lock Waits — total cluster",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(mysql_global_status_innodb_row_lock_waits{job=\"mariadb-metrics\"}[2m]))",
+              "legendFormat": "Row lock waits/s",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(mysql_global_status_innodb_row_lock_current_waits{job=\"mariadb-metrics\"})",
+              "legendFormat": "Current waits",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 16,
+          "title": "Galera EVS Replication Latency — per node",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_galera_evs_repl_latency_avg_seconds{job=\"mariadb-metrics\"}",
+              "legendFormat": "Avg — {{target}}",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_galera_evs_repl_latency_max_seconds{job=\"mariadb-metrics\"}",
+              "legendFormat": "Max — {{target}}",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        }
+      ],
+      "schemaVersion": 36,
+      "version": 4
+    }
