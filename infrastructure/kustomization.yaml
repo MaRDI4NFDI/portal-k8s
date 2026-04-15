@@ -5,4 +5,5 @@ resources:
   - mariadb
   - portainer
   - cert-manager
+  - grafana-dashboards
   #- crowdsec

@@ -34,6 +34,7 @@ resources:
   - eventgate
   - eventstreams
   - change-propagation
+  - kafka-exporter
 
 patches:
   - target:

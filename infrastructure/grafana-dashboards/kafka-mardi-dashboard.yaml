@@ -1,0 +1,234 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-mardi-dashboard
+  namespace: kube-prometheus
+  labels:
+    grafana_dashboard: "1"
+data:
+  kafka-mardi-dashboard.json: |
+    {
+      "title": "MaRDI Kafka Job Queue Lag",
+      "uid": "mardi-kafka-lag",
+      "tags": ["kafka", "mardi", "jobqueue"],
+      "timezone": "browser",
+      "refresh": "30s",
+      "time": { "from": "now-3h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Total consumer group lag",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 0, "w": 24, "h": 8 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0,
+              "custom": { "lineWidth": 2, "fillOpacity": 10 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"}) by (topic)",
+              "legendFormat": "{{topic}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "table", "placement": "right", "calcs": ["lastNotNull"] },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 2,
+          "title": "Total lag (all topics summed)",
+          "type": "stat",
+          "gridPos": { "x": 0, "y": 8, "w": 6, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 10000 },
+                  { "color": "red", "value": 500000 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"})",
+              "legendFormat": "Total lag",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto", "colorMode": "background" }
+        },
+        {
+          "id": 3,
+          "title": "Topics with lag > 0",
+          "type": "stat",
+          "gridPos": { "x": 6, "y": 8, "w": 6, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 3 },
+                  { "color": "red", "value": 6 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "count(sum by (topic) (kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"}) > 0)",
+              "legendFormat": "Topics with lag",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 4,
+          "title": "wikibase-addUsagesForPage lag",
+          "type": "stat",
+          "gridPos": { "x": 12, "y": 8, "w": 6, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 50000 },
+                  { "color": "red", "value": 500000 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\", topic=~\".*wikibase-addUsagesForPage.*\"})",
+              "legendFormat": "addUsagesForPage",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 5,
+          "title": "CreateProfilePages lag",
+          "type": "stat",
+          "gridPos": { "x": 18, "y": 8, "w": 6, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "red", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\", topic=~\".*CreateProfilePages.*\"})",
+              "legendFormat": "CreateProfilePages",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 6,
+          "title": "Lag per topic — current snapshot",
+          "type": "bargauge",
+          "gridPos": { "x": 0, "y": 12, "w": 24, "h": 10 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 1000 },
+                  { "color": "orange", "value": 50000 },
+                  { "color": "red", "value": 500000 }
+                ]
+              },
+              "custom": { "orientation": "horizontal" }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sort_desc(sum by (topic) (kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"} > 0))",
+              "legendFormat": "{{topic}}",
+              "refId": "A",
+              "instant": true
+            }
+          ],
+          "options": {
+            "reduceOptions": { "calcs": ["lastNotNull"] },
+            "orientation": "horizontal",
+            "displayMode": "gradient",
+            "showUnfilled": true
+          }
+        },
+        {
+          "id": 7,
+          "title": "Retry queue lag per topic",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 22, "w": 24, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\", topic=~\".*retry.*\"}) by (topic)",
+              "legendFormat": "{{topic}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "table", "placement": "right", "calcs": ["lastNotNull"] },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 8,
+          "title": "Log end offset growth (message production rate)",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 29, "w": 24, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "custom": { "lineWidth": 1, "fillOpacity": 5 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(kafka_topic_partition_current_offset{topic=~\"mardi.mediawiki.job.*\"}[5m])) by (topic)",
+              "legendFormat": "{{topic}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean"] },
+            "tooltip": { "mode": "multi" }
+          }
+        }
+      ],
+      "schemaVersion": 36,
+      "version": 1
+    }
