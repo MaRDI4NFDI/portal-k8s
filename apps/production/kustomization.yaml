@@ -5,7 +5,7 @@ namespace: production
 resources:
   - namespace.yaml
   - mariadb
-  - elasticsearch
+  #- elasticsearch
   - opensearch
   - wikibase
   - ffmpeg
