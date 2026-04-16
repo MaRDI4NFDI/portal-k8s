@@ -10,7 +10,8 @@ spec:
     mediawiki:
       host: http://wikibase-jobrunner
     jobqueue:
-      concurrency: 18
+      concurrency: 35
+      numWorkers: 2
       workerHeapLimitMb: 750
     resources:
       requests:
