@@ -5,7 +5,6 @@ resources:
   - mariadb.yaml
   - traefik.yaml
   - portainer.yaml
-  - bitnami-redis.yaml
   - bitnami-memcached.yaml
   - jetstack.yaml
   - varnish.yaml
