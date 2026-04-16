@@ -27,6 +27,7 @@ spec:
           cpu: "6"
           memory: "10Gi"
     jobrunner:
+      replicas: 2
       phpfpm:
         maxChildren: 20
       apache:
