@@ -23,7 +23,7 @@ spec:
     heapOpts: "-Xmx2G -Xms2G"
 
     # Log retention
-    logRetentionHours: 24
+    logRetentionHours: 72
     logRetentionBytes: 5368709120   # 5Gi
     logSegmentBytes: 536870912      # 512Mi
     logRetentionCheckIntervalMs: 300000
