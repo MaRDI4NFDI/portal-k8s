@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/traefik
   - crowdsec-middleware.yaml
+  - traefik-servicemonitor.yaml
 patches:
   - path: traefik-values-production.yaml
     target:
