@@ -32,7 +32,7 @@ spec:
         expose:
           default: false
         port: 9100
-        protocol: TCP    
+        protocol: TCP
     metrics:
       prometheus:
         serviceMonitor:
