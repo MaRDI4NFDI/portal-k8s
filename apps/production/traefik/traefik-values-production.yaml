@@ -33,7 +33,6 @@ spec:
         serviceMonitor:
           enabled: true
           interval: 30s
-          honorLabels: true
     #additionalArguments:
     #  - "--entrypoints.websecure.http.middlewares=production-crowdsec-bouncer@kubernetescrd"
     logs:
