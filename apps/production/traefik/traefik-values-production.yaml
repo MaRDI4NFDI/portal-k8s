@@ -18,16 +18,22 @@ spec:
     ports:
       doip-tls1:
         port: 3567
-        expose: 
+        expose:
           default: true
         exposedPort: 3567
         protocol: TCP
       doip-tls2:
         port: 3568
-        expose: 
+        expose:
           default: true
         exposedPort: 3568
         protocol: TCP
+    metrics:
+      prometheus:
+        serviceMonitor:
+          enabled: true
+          interval: 30s
+          honorLabels: true
     #additionalArguments:
     #  - "--entrypoints.websecure.http.middlewares=production-crowdsec-bouncer@kubernetescrd"
     logs:

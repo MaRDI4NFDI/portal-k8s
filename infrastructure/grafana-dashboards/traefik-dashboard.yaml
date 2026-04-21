@@ -1,0 +1,373 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-dashboard
+  namespace: kube-prometheus
+  labels:
+    grafana_dashboard: "1"
+data:
+  traefik-dashboard.json: |
+    {
+      "title": "MaRDI Traefik Overview",
+      "uid": "mardi-traefik",
+      "tags": ["traefik", "mardi"],
+      "timezone": "browser",
+      "refresh": "30s",
+      "time": { "from": "now-3h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Open Connections — websecure",
+          "type": "stat",
+          "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 500 },
+                  { "color": "red", "value": 1000 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "traefik_open_connections{job=\"traefik\", entrypoint=\"websecure\"}",
+              "legendFormat": "websecure",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 2,
+          "title": "Open Connections — web",
+          "type": "stat",
+          "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 100 },
+                  { "color": "red", "value": 500 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "traefik_open_connections{job=\"traefik\", entrypoint=\"web\"}",
+              "legendFormat": "web",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 3,
+          "title": "Request Rate — total",
+          "type": "stat",
+          "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [ { "color": "blue", "value": null } ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\"}[2m]))",
+              "legendFormat": "req/s",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value" }
+        },
+        {
+          "id": 4,
+          "title": "Error Rate (5xx)",
+          "type": "stat",
+          "gridPos": { "x": 12, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 0.1 },
+                  { "color": "red", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=~\"5..\"}[2m]))",
+              "legendFormat": "5xx/s",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 5,
+          "title": "P99 Request Latency",
+          "type": "stat",
+          "gridPos": { "x": 16, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 1 },
+                  { "color": "red", "value": 5 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(traefik_entrypoint_request_duration_seconds_bucket{job=\"traefik\", entrypoint=\"websecure\"}[2m])) by (le))",
+              "legendFormat": "p99",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 6,
+          "title": "TLS Cert Expiry (soonest)",
+          "type": "stat",
+          "gridPos": { "x": 20, "y": 0, "w": 4, "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "dtdurations",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "yellow", "value": 604800 },
+                  { "color": "green", "value": 1209600 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "min(traefik_tls_certs_not_after{job=\"traefik\"}) - time()",
+              "legendFormat": "Soonest expiry",
+              "refId": "A"
+            }
+          ],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background" }
+        },
+        {
+          "id": 7,
+          "title": "Open Connections — by entrypoint",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 4, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "traefik_open_connections{job=\"traefik\"}",
+              "legendFormat": "{{entrypoint}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 8,
+          "title": "Request Rate — by status class",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 4, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=~\"2..\"}[2m]))",
+              "legendFormat": "2xx",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=~\"3..\"}[2m]))",
+              "legendFormat": "3xx",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=~\"4..\"}[2m]))",
+              "legendFormat": "4xx",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=~\"5..\"}[2m]))",
+              "legendFormat": "5xx",
+              "refId": "D"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 9,
+          "title": "Request Latency — percentiles",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 11, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.50, sum(rate(traefik_entrypoint_request_duration_seconds_bucket{job=\"traefik\", entrypoint=\"websecure\"}[2m])) by (le))",
+              "legendFormat": "p50",
+              "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.95, sum(rate(traefik_entrypoint_request_duration_seconds_bucket{job=\"traefik\", entrypoint=\"websecure\"}[2m])) by (le))",
+              "legendFormat": "p95",
+              "refId": "B"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(traefik_entrypoint_request_duration_seconds_bucket{job=\"traefik\", entrypoint=\"websecure\"}[2m])) by (le))",
+              "legendFormat": "p99",
+              "refId": "C"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 10,
+          "title": "Requests/s — top services",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 11, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "label_replace(sum by (exported_service) (rate(traefik_service_requests_total{job=\"traefik\", code=\"200\"}[2m])), \"exported_service\", \"$1\", \"exported_service\", \"production-(.+)-[a-f0-9]{16,}@.*\")",
+              "legendFormat": "{{exported_service}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 11,
+          "title": "4xx Rate — by service",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 18, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "label_replace(sum by (exported_service) (rate(traefik_service_requests_total{job=\"traefik\", code=~\"4..\"}[2m])), \"exported_service\", \"$1\", \"exported_service\", \"production-(.+)-[a-f0-9]{16,}@.*\")",
+              "legendFormat": "{{exported_service}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 12,
+          "title": "5xx Rate — by service",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 18, "w": 12, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "reqps",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "label_replace(sum by (exported_service) (rate(traefik_service_requests_total{job=\"traefik\", code=~\"5..\"}[2m])), \"exported_service\", \"$1\", \"exported_service\", \"production-(.+)-[a-f0-9]{16,}@.*\")",
+              "legendFormat": "{{exported_service}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        },
+        {
+          "id": 13,
+          "title": "TLS Certificate Expiry",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 25, "w": 24, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "dtdurations",
+              "custom": { "lineWidth": 2, "fillOpacity": 0 },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "yellow", "value": 604800 },
+                  { "color": "green", "value": 1209600 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "traefik_tls_certs_not_after{job=\"traefik\"} - time()",
+              "legendFormat": "{{cn}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "multi" }
+          }
+        }
+      ],
+      "schemaVersion": 36,
+      "version": 1
+    }
