@@ -166,7 +166,7 @@ data:
           },
           "targets": [
             {
-              "expr": "min(traefik_tls_certs_not_after{job=\"traefik\"}) - time()",
+              "expr": "min(traefik_tls_certs_not_after{job=\"traefik\"} * 1000) - time()",
               "legendFormat": "Soonest expiry",
               "refId": "A"
             }
@@ -337,36 +337,131 @@ data:
           }
         },
         {
-          "id": 13,
-          "title": "TLS Certificate Expiry",
+          "id": 14,
+          "title": "4xx Rate — by status code",
           "type": "timeseries",
           "gridPos": { "x": 0, "y": 25, "w": 24, "h": 7 },
           "fieldConfig": {
             "defaults": {
-              "unit": "dtdurations",
-              "custom": { "lineWidth": 2, "fillOpacity": 0 },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "yellow", "value": 604800 },
-                  { "color": "green", "value": 1209600 }
-                ]
-              }
+              "unit": "reqps",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
             }
           },
           "targets": [
             {
-              "expr": "traefik_tls_certs_not_after{job=\"traefik\"} - time()",
-              "legendFormat": "{{cn}}",
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"400\"}[2m]))",
+              "legendFormat": "400 Bad Request",
               "refId": "A"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"401\"}[2m]))",
+              "legendFormat": "401 Unauthorized",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"403\"}[2m]))",
+              "legendFormat": "403 Forbidden (CrowdSec block)",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"404\"}[2m]))",
+              "legendFormat": "404 Not Found",
+              "refId": "D"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"405\"}[2m]))",
+              "legendFormat": "405 Method Not Allowed",
+              "refId": "E"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"429\"}[2m]))",
+              "legendFormat": "429 Too Many Requests",
+              "refId": "F"
+            },
+            {
+              "expr": "sum(rate(traefik_entrypoint_requests_total{job=\"traefik\", entrypoint=\"websecure\", code=\"499\"}[2m]))",
+              "legendFormat": "499 Client Closed Request",
+              "refId": "G"
             }
           ],
           "options": {
             "legend": { "displayMode": "list", "placement": "bottom" },
             "tooltip": { "mode": "multi" }
           }
+        },
+        {
+          "id": 13,
+          "title": "TLS Certificate Expiry",
+          "type": "table",
+          "gridPos": { "x": 0, "y": 32, "w": 24, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "custom": { "align": "left", "displayMode": "auto" }
+            },
+            "overrides": [
+              {
+                "matcher": { "id": "byName", "options": "Value" },
+                "properties": [
+                  { "id": "displayName", "value": "Expires" },
+                  { "id": "unit", "value": "dateTimeAsLocal" },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        { "color": "red", "value": null },
+                        { "color": "yellow", "value": 1748000000000 },
+                        { "color": "green", "value": 1780000000000 }
+                      ]
+                    }
+                  },
+                  { "id": "custom.displayMode", "value": "color-background" }
+                ]
+              },
+              {
+                "matcher": { "id": "byName", "options": "cn" },
+                "properties": [
+                  { "id": "displayName", "value": "Domain" },
+                  { "id": "custom.width", "value": 400 }
+                ]
+              }
+            ]
+          },
+          "targets": [
+            {
+              "expr": "traefik_tls_certs_not_after{job=\"traefik\"} * 1000",
+              "legendFormat": "{{cn}}",
+              "refId": "A",
+              "instant": true,
+              "format": "table"
+            }
+          ],
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "container": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "pod": true,
+                  "sans": true,
+                  "serial": true,
+                  "service": true
+                }
+              }
+            }
+          ],
+          "options": {
+            "sortBy": [{ "displayName": "Expires", "desc": false }],
+            "footer": { "show": false }
+          }
         }
+      
       ],
       "schemaVersion": 36,
       "version": 1
