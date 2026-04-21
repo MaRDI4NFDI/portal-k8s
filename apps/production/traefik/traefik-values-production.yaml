@@ -28,6 +28,11 @@ spec:
           default: true
         exposedPort: 3568
         protocol: TCP
+      metrics:
+        expose:
+          default: false
+        port: 9100
+        protocol: TCP    
     metrics:
       prometheus:
         serviceMonitor:
