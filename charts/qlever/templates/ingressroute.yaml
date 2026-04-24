@@ -1,5 +1,14 @@
 {{- if .Values.ingress.enabled }}
 apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-strip-api
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+---
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ .Release.Name }}
@@ -7,11 +16,20 @@ spec:
   entryPoints:
     - websecure
   routes:
+    # API path — routes to readonly-proxy, which strips the token and forwards to QLever.
+    - match: Host(`{{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}`) && PathPrefix(`/api`)
+      kind: Rule
+      priority: 10
+      services:
+        - name: {{ .Release.Name }}-readonly-proxy
+          port: 8080
+      middlewares:
+        - name: {{ .Release.Name }}-strip-api
     - match: Host(`{{ .Values.ingress.subdomain }}.{{ .Values.global.baseDomain }}`)
       kind: Rule
+      priority: 1
       services:
         - name: {{ .Release.Name }}-ui
-          namespace: {{ .Release.Namespace }}
           port: {{ .Values.frontend.port }}
   tls:
     secretName: {{ .Release.Name }}-tls
