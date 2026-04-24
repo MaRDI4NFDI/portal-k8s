@@ -57,11 +57,11 @@ spec:
           args:
           - |
             set -euo pipefail
-            if [ -f /data/{{ .Values.qlever.data.name }}.index.meta ]; then
+            if [ -f /data/{{ .Values.qlever.data.name }}.meta-data.json ]; then
               echo "Index found, starting qlever server"
               exec qlever start --run-in-foreground
             else
-              echo "No index found at /data/{{ .Values.qlever.data.name }}.index.meta"
+              echo "No index found at /data/{{ .Values.qlever.data.name }}.meta-data.json"
               echo "Exec into this pod and run 'qlever index' to bootstrap"
               exec sleep infinity
             fi
