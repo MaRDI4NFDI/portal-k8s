@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-qleverfile
+data:
+  Qleverfile.tpl: |
+    # Qleverfile for {{ .Values.qlever.data.description }}
+    #
+    # qlever get-data
+    # qlever index
+    # qlever start
+
+    [data]
+    NAME              = {{ .Values.qlever.data.name }}
+    BASE_URL          = https://{{ .Values.global.baseDomain }}
+    DESCRIPTION       = {{ .Values.qlever.data.description }}
+    TEXT_DESCRIPTION  = {{ .Values.qlever.data.textDescription }}
+
+    [index]
+    INPUT_FILES     = {{ .Values.qlever.index.inputFiles }}
+    CAT_INPUT_FILES = cat ${INPUT_FILES}
+    SETTINGS_JSON   = { "ascii-prefixes-only": false, "num-triples-per-batch": 100000 }
+
+    [server]
+    PORT               = {{ .Values.qlever.port }}
+    ACCESS_TOKEN       = __ACCESS_TOKEN__
+    MEMORY_FOR_QUERIES = {{ .Values.qlever.server.memoryForQueries }}
+    CACHE_MAX_SIZE     = {{ .Values.qlever.server.cacheMaxSize }}
+    TIMEOUT            = {{ .Values.qlever.server.timeout }}
+
+    [runtime]
+    SYSTEM = native
+    IMAGE  = {{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}
+
+    [ui]
+    UI_CONFIG = {{ .Values.qlever.ui.config }}

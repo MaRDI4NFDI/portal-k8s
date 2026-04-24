@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      annotations:
+        checksum/qleverfile: {{ include (print $.Template.BasePath "/qleverfile-config.yaml") . | sha256sum }}
     spec:
       initContainers:
         - name: fix-permissions
@@ -23,23 +25,60 @@ spec:
           volumeMounts:
             - name: qlever-data
               mountPath: /data
+        - name: render-qleverfile
+          image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              set -euo pipefail
+              sed "s|__ACCESS_TOKEN__|${ACCESS_TOKEN}|" \
+                /config/Qleverfile.tpl > /data/Qleverfile
+              chown $(id -u qlever):$(id -g qlever) /data/Qleverfile
+              chmod 600 /data/Qleverfile
+          env:
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secrets
+                  key: TOKEN
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: qlever-data
+              mountPath: /data
+            - name: qleverfile-template
+              mountPath: /config
+              readOnly: true
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
           workingDir: /data
           command: ["/bin/bash", "--login", "-c"]
           args:
-            - {{ .Values.qlever.cmdString | quote }}
+          - |
+            set -euo pipefail
+            if [ -f /data/{{ .Values.qlever.data.name }}.index.meta ]; then
+              echo "Index found, starting qlever server"
+              exec qlever start
+            else
+              echo "No index found at /data/{{ .Values.qlever.data.name }}.index.meta"
+              echo "Exec into this pod and run 'qlever index' to bootstrap"
+              exec sleep infinity
+            fi
           volumeMounts:
             - name: qlever-data
               mountPath: /data
+      volumes:
+        - name: qleverfile-template
+          configMap:
+            name: {{ .Release.Name }}-qleverfile
   volumeClaimTemplates:
     - metadata:
         name: qlever-data
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: "csi-rbd-sc"
+        storageClassName: {{ .Values.qlever.storage.className }}
         resources:
           requests:
-            storage: {{ .Values.qlever.storage }}
+            storage: {{ .Values.qlever.storage.size }}
