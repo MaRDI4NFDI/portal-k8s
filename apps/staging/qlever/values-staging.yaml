@@ -6,14 +6,9 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.12"
+      version: "0.1.14"
   values:
     qlever:
-      image:
-        repository: adfreiburg/qlever
-        tag: commit-c21e686
-      port: 7019
-      cmdString: "qlever start --run-in-foreground"
-    ingress:
-      enabled: true
-    
+      data:
+        name: mardi-staging
+        description: MaRDI Knowledge Graph in Staging    
