@@ -1,0 +1,89 @@
+{{- if .Values.updater.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-updater
+  labels:
+    app: {{ .Release.Name }}-updater
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-updater
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-updater
+    spec:
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: install-cli
+          image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
+          command: ["/bin/bash", "--login", "/scripts/install-cli.sh"]
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+            - name: pipx-home
+              mountPath: /qlever/.local
+      containers:
+        - name: updater
+          image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
+          workingDir: /work
+          command: ["/qlever/.local/bin/qlever"]
+          args:
+            - "update-wikidata"
+            - "$(SSE_STREAM_URL)"
+            - "--topic=$(TOPIC)"
+            - "--host-name=$(QLEVER_HOST)"
+            - "--port=$(QLEVER_PORT)"
+            - "--access-token=$(QLEVER_ACCESS_TOKEN)"
+            - "--keep-update-requests=last"
+          env:
+            - name: SSE_STREAM_URL
+              value: {{ .Values.updater.sseStreamUrl | quote }}
+            - name: TOPIC
+              value: {{ .Values.updater.topic | quote }}
+            - name: QLEVER_HOST
+              value: {{ .Release.Name | quote }}
+            - name: QLEVER_PORT
+              value: {{ .Values.qlever.port | quote }}
+            - name: QLEVER_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secrets
+                  key: TOKEN
+          volumeMounts:
+            - name: work
+              mountPath: /work
+            - name: pipx-home
+              mountPath: /qlever/.local
+              readOnly: true
+          resources:
+            requests:
+              cpu: {{ .Values.updater.resources.requests.cpu | quote }}
+              memory: {{ .Values.updater.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.updater.resources.limits.cpu | quote }}
+              memory: {{ .Values.updater.resources.limits.memory | quote }}
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - "pkill -INT -f 'qlever update-wikidata' || true; sleep 30"
+      volumes:
+      - name: work
+        emptyDir:
+          sizeLimit: 500Mi
+      - name: scripts
+        configMap:
+          name: {{ .Release.Name }}-updater-scripts
+          defaultMode: 0555
+      - name: pipx-home
+        emptyDir:
+          sizeLimit: 500Mi
+{{- end }}

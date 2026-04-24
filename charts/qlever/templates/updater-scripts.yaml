@@ -1,0 +1,12 @@
+{{- if .Values.updater.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-updater-scripts
+data:
+  install-cli.sh: |
+    #!/usr/bin/env bash
+    # Installs the latest qlever CLI from git.
+    set -euo pipefail
+    pipx install --force git+https://github.com/qlever-dev/qlever-control.git
+{{- end }}
