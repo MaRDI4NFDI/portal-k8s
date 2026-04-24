@@ -10,8 +10,21 @@ qlever:
     limits:
       memory: "1Gi"
       cpu: "1000m"
-  storage: "5Gi"
-  cmdString: "qlever start"
+  storage: 
+    size: "5Gi"
+    className: "csi-rbd-sc"
+  data:
+    name: mardi
+    description: MaRDI Knowledge Graph
+    textDescription: All literals, search with FILTER CONTAINS(?var, "...")
+  index:
+    inputFiles: mardi.ttl
+  server:
+    memoryForQueries: 5G
+    cacheMaxSize: 2G
+    timeout: 30s
+  ui:
+    config: mardi
 
 frontend:
   image:
@@ -26,6 +39,18 @@ frontend:
       memory: "512Mi"
       cpu: "400m"
   storage: "300Mi"
+
+updater:
+  enabled: false
+  sseStreamUrl: "http://eventstreams/v2/stream/rdf-streaming-updater.mutation.v2"
+  topic: "mardi.rdf-streaming-updater.mutation.v2"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 2Gi
 
 ingress:
   enabled: false
