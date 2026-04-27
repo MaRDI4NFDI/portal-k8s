@@ -11,4 +11,6 @@ spec:
     qlever:
       data:
         name: mardi-staging
-        description: MaRDI Knowledge Graph in Staging    
+        description: MaRDI Knowledge Graph in Staging
+    ingress:
+      enabled: true
