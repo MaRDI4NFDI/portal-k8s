@@ -34,13 +34,13 @@ data:
 
         location / {
           # Rewrite the query string to the token-stripped version.
-          set $query_string $clean_args;
+          set $new_args $clean_args;
 
           # Also strip Authorization header
           proxy_set_header Authorization "";
 
           # Pass through to the internal QLever service.
-          proxy_pass http://{{ .Release.Name }}:{{ .Values.qlever.port }}$uri?$query_string;
+          proxy_pass http://{{ .Release.Name }}:{{ .Values.qlever.port }}$uri?$new_args;
           proxy_http_version 1.1;
           proxy_set_header Host              $host;
           proxy_set_header X-Real-IP         $remote_addr;
