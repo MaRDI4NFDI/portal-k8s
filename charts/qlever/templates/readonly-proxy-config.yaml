@@ -38,7 +38,7 @@ data:
         location / {
           set $new_args $clean_args;
           # Hostname in a variable forces request-time DNS resolution.
-          set $upstream "{{ .Release.Name }}:{{ .Values.qlever.port }}";
+          set $upstream "{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.qlever.port }}";
 
           proxy_set_header Authorization "";
           proxy_pass http://$upstream$uri?$new_args;
