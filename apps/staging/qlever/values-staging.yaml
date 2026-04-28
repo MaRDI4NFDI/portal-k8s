@@ -14,3 +14,5 @@ spec:
         description: MaRDI Knowledge Graph in Staging
     ingress:
       enabled: true
+    updater:
+      enabled: true
