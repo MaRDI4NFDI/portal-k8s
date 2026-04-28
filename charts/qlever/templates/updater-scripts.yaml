@@ -8,5 +8,11 @@ data:
     #!/usr/bin/env bash
     # Installs the latest qlever CLI from git.
     set -euo pipefail
+
+    if ! command -v git >/dev/null 2>&1; then
+      sudo apt-get update -qq
+      sudo apt-get install -y -qq --no-install-recommends git
+    fi
+
     pipx install --force git+https://github.com/qlever-dev/qlever-control.git
 {{- end }}
