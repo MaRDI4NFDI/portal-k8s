@@ -75,11 +75,11 @@ spec:
             tcpSocket:
               port: 80
             periodSeconds: 30
-          readinessProbe:
-            httpGet:
-              path: /w/api.php?action=query&meta=siteinfo&format=json
-              port: 80
-            periodSeconds: 10
+          #readinessProbe:
+          #  httpGet:
+          #    path: /w/api.php?action=query&meta=siteinfo&format=json
+          #    port: 80
+          #  periodSeconds: 10
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
