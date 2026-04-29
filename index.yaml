@@ -3,6 +3,16 @@ entries:
   anubis:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-04-29T15:27:37.312640346Z"
+    description: A Helm chart for anubis connected to Varnish/Mediawiki
+    digest: 57cbb9b2a7d256980279024d218ab625d937ca10ed9f33652ee8e1f107c2fd9b
+    name: anubis
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/anubis-0.1.4/anubis-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-04-29T14:44:14.687823083Z"
     description: A Helm chart for anubis connected to Varnish/Mediawiki
     digest: 3b28f04272231bd1ffa7bf38b400b5ccbaa66be206bc7b9a31c0fe50a966edb0
@@ -3328,4 +3338,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-29T15:11:00.861072678Z"
+generated: "2026-04-29T15:27:37.313197385Z"
