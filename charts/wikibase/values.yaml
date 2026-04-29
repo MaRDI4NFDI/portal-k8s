@@ -100,3 +100,6 @@ fail2ban:
   denylist: []
 secrets:
   mariadb: mariadb-secrets
+
+ingress:
+  enabled: true
