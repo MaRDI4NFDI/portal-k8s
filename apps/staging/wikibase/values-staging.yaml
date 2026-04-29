@@ -60,3 +60,5 @@ spec:
       enabled: false
     secrets:
       mariadb: staging-mariadb-secrets
+    ingress:
+      enabled: false
