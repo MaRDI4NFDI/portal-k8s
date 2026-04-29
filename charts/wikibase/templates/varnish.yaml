@@ -111,6 +111,26 @@ spec:
         sub vcl_pipe {
             set req.http.connection = "close";
         }
+
+        sub vcl_backend_error {
+            set beresp.http.Content-Type = "text/html; charset=utf-8";
+            set beresp.http.Retry-After = "30";
+            set beresp.ttl = 30s;
+            set beresp.grace = 15s;
+            synthetic({"<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>MaRDI Portal - Temporarily Unavailable</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a5f7a;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 2rem 10rem}.sorry{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1rem}h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1.1}.banner{background:#e8601c;width:100vw;padding:1.4rem 2rem;font-size:1.35rem;font-weight:600;line-height:1.5;position:fixed;bottom:0;left:0}.debug{font-size:.65rem;opacity:.45;margin-top:.6rem;font-family:monospace;font-weight:400;line-height:1.6}</style></head><body><svg width='80' height='74' viewBox='0 0 90 83' fill='none' xmlns='http://www.w3.org/2000/svg' style='margin-bottom:1.4rem'><polygon points='45,4 87,80 3,80' fill='#e8601c' stroke='white' stroke-width='3.5' stroke-linejoin='round'/><rect x='42' y='28' width='6' height='24' rx='3' fill='white'/><rect x='42' y='59' width='6' height='7' rx='3' fill='white'/></svg><p class='sorry'>Sorry for any inconvenience</p><h1>The MaRDI Portal<br>is down</h1><div class='banner'>Our IT team is working hard to have it running again as soon as possible!<div class='debug'>Error "} + beresp.status + {" "} + beresp.reason + {"&nbsp;&nbsp;|&nbsp;&nbsp;Backend fetch failed&nbsp;&nbsp;|&nbsp;&nbsp;XID: "} + bereq.xid + {"&nbsp;&nbsp;|&nbsp;&nbsp;Varnish cache server</div></div></body></html>"});
+            return (deliver);
+        }
+
+        sub vcl_synth {
+            if (resp.status == 405) {
+                set resp.http.Content-Type = "text/plain; charset=utf-8";
+                synthetic("Not allowed.");
+                return (deliver);
+            }
+            set resp.http.Content-Type = "text/html; charset=utf-8";
+            synthetic({"<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>MaRDI Portal - Temporarily Unavailable</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a5f7a;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 2rem 10rem}.sorry{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1rem}h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1.1}.banner{background:#e8601c;width:100vw;padding:1.4rem 2rem;font-size:1.35rem;font-weight:600;line-height:1.5;position:fixed;bottom:0;left:0}.debug{font-size:.65rem;opacity:.45;margin-top:.6rem;font-family:monospace;font-weight:400;line-height:1.6}</style></head><body><svg width='80' height='74' viewBox='0 0 90 83' fill='none' xmlns='http://www.w3.org/2000/svg' style='margin-bottom:1.4rem'><polygon points='45,4 87,80 3,80' fill='#e8601c' stroke='white' stroke-width='3.5' stroke-linejoin='round'/><rect x='42' y='28' width='6' height='24' rx='3' fill='white'/><rect x='42' y='59' width='6' height='7' rx='3' fill='white'/></svg><p class='sorry'>Sorry for any inconvenience</p><h1>The MaRDI Portal<br>is down</h1><div class='banner'>Our IT team is working hard to have it running again as soon as possible!<div class='debug'>Error "} + resp.status + {" "} + resp.reason + {"&nbsp;&nbsp;|&nbsp;&nbsp;XID: "} + req.xid + {"&nbsp;&nbsp;|&nbsp;&nbsp;Varnish cache server</div></div></body></html>"});
+            return (deliver);
+        }
       
       resources:
         requests:
