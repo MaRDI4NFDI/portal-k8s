@@ -372,6 +372,15 @@ entries:
   importer:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-04-29T08:12:10.477906482Z"
+    description: A Helm chart for the MaRDI importer utilities
+    digest: 9f953716ba521c218bfe51934f6a87b1cb962d1356751169c9efec43617881bc
+    name: importer
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/importer-0.1.27/importer-0.1.27.tgz
+    version: 0.1.27
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-03-12T10:37:58.372414481Z"
     description: A Helm chart for the MaRDI importer utilities
     digest: 7a12393a8822146b7351dcc5a512755316d2d0a9c6c6a19c07772cc7b26811c2
@@ -3258,4 +3267,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-28T14:02:55.196816065Z"
+generated: "2026-04-29T08:12:10.47848327Z"
