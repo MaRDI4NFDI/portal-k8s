@@ -15,9 +15,17 @@ data:
         action: CHALLENGE
         path_regex: "^/(wiki/Special:EntityData|wiki/(Item|Property|Lexeme):|w/api\\.php)"
 
+      - name: search-endpoints
+        action: CHALLENGE
+        path_regex: "^/(wiki/Special:Search|w/index\\.php\\?.*[?&]search=)"
+
+      - name: expensive-special-pages
+        action: CHALLENGE
+        path_regex: "^/wiki/Special:(RecentChanges|RecentChangesLinked|Contributions|WhatLinksHere|Export|AllPages|PrefixIndex|LongPages|ShortPages|DeadendPages|UncategorizedPages|UnusedFiles|UnusedTemplates|WantedPages|WantedFiles|WantedTemplates|WantedCategories|MostLinked|MostCategories|MostImages|MostRevisions|FewestRevisions|UnwatchedPages|LinkSearch)"
+
       - name: generic-browser
         action: ALLOW
-        user_agent_regex: "Mozilla|Opera"
+        user_agent_regex: "Mozilla/5\\.0 \\(.*\\).*(Gecko|AppleWebKit|Chrome|Firefox|Safari|Edg)"
 
     dnsbl: false
     status_codes:
