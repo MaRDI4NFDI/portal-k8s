@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: anubis
+          image: "{{ .Values.anubis.image.repository }}:{{ .Values.anubis.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-env
+          env:
+            - name: ED25519_PRIVATE_KEY_HEX
+              valueFrom:
+                secretKeyRef:
+                  name: anubis-key
+                  key: ED25519_PRIVATE_KEY_HEX
+          ports:
+            - name: http
+              containerPort: {{ .Values.anubis.containerPort }}
+            - name: metrics
+              containerPort: 9090
+          volumeMounts:
+            - name: policies
+              mountPath: /data/cfg
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics    # 9090
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: {{ .Values.anubis.resources.requests.cpu }}
+              memory: {{ .Values.anubis.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.anubis.resources.limits.cpu }}
+              memory: {{ .Values.anubis.resources.limits.memory }}
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      volumes:
+        - name: policies
+          configMap:
+            name: {{ .Release.Name }}-policies

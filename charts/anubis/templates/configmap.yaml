@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-policies
+data:
+  botPolicies.yaml: |
+    bots:
+      - import: "(data)/bots/_deny-pathological.yaml"
+      - import: "(data)/meta/ai-block-aggressive.yaml"
+      - import: "(data)/crawlers/_allow-good.yaml"
+      - import: "(data)/common/keep-internet-working.yaml"
+
+      - name: wikibase-data-endpoints
+        action: CHALLENGE
+        path_regex: "^/(wiki/Special:EntityData|wiki/(Item|Property|Lexeme):|w/api\\.php)"
+
+      - name: generic-browser
+        action: ALLOW
+        user_agent_regex: "Mozilla|Opera"
+
+    dnsbl: false
+    status_codes:
+      CHALLENGE: 200
+      DENY: 403
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-env
+data:
+  BIND: ":{{ .Values.anubis.containerPort }}"
+  METRICS_BIND: ":9090"
+  POLICY_FNAME: "/data/cfg/botPolicies.yaml"
+  SERVE_ROBOTS_TXT: "true"
+  OG_PASSTHROUGH: "true"
+  OG_EXPIRY_TIME: "24h"
+  DIFFICULTY: "4"
+  TARGET: "http://{{ .Values.anubis.target }}.{{ .Release.Namespace }}.svc.cluster.local:80"
+  COOKIE_DOMAIN: {{ .Values.global.baseDomain }}
+  REDIRECT_DOMAINS: {{ .Values.global.baseDomain }}
