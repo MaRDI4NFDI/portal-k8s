@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/anubis
   - secrets.yaml
+namePrefix: staging-
 patches:
   - path: values-staging.yaml
     target:
