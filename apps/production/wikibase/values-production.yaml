@@ -60,4 +60,4 @@ spec:
     fail2ban:
       enabled: true
     ingress:
-      enabled: false
+      enabled: true

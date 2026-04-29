@@ -32,7 +32,7 @@ resources:
   - eventstreams
   - change-propagation
   - kafka-exporter
-  - anubis
+  #- anubis
 
 patches:
   - target:
