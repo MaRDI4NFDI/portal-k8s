@@ -41,7 +41,7 @@ data:
   METRICS_BIND: ":9090"
   POLICY_FNAME: "/data/cfg/botPolicies.yaml"
   SERVE_ROBOTS_TXT: "true"
-  OG_PASSTHROUGH: "true"
+  OG_PASSTHROUGH: "false"
   OG_EXPIRY_TIME: "24h"
   DIFFICULTY: "4"
   TARGET: "http://{{ .Values.anubis.target }}.{{ .Release.Namespace }}.svc.cluster.local:80"
