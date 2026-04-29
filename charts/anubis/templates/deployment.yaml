@@ -23,7 +23,7 @@ spec:
             - name: ED25519_PRIVATE_KEY_HEX
               valueFrom:
                 secretKeyRef:
-                  name: anubis-key
+                  name: {{ .Release.Name }}-key
                   key: ED25519_PRIVATE_KEY_HEX
           ports:
             - name: http

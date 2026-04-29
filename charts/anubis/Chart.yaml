@@ -2,5 +2,5 @@ apiVersion: v2
 name: anubis
 description: A Helm chart for anubis connected to Varnish/Mediawiki
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "1.0.0"
