@@ -5,7 +5,6 @@ namespace: production
 resources:
   - namespace.yaml
   - mariadb
-  #- elasticsearch
   - opensearch
   - wikibase
   - ffmpeg
@@ -33,6 +32,7 @@ resources:
   - eventstreams
   - change-propagation
   - kafka-exporter
+  - anubis
 
 patches:
   - target:
