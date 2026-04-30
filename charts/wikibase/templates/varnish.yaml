@@ -75,8 +75,8 @@ spec:
             if (req.http.Cookie ~ "(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)") {
                 # logged in user - allow through
             } else {
-                if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|Special:UserLogin|action=history|action=info|action=edit)") {
-                    return (synth(403, "You must be logged in to view this page"));
+                if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
+                    return (synth(753, "You must be logged in to view this page"));
                 }
             }
             
@@ -131,6 +131,13 @@ spec:
         }
 
         sub vcl_synth {
+            if (resp.status == 753) {
+                set resp.status = 403;
+                set resp.reason = "Forbidden";
+                set resp.http.Content-Type = "text/plain; charset=utf-8";
+                synthetic("You must be logged in to view this page.");
+                return (deliver);
+            }
             if (resp.status == 405) {
                 set resp.http.Content-Type = "text/plain; charset=utf-8";
                 synthetic("Not allowed.");
