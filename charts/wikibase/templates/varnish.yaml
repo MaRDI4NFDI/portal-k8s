@@ -70,6 +70,15 @@ spec:
                     unset req.http.Accept-Encoding;
                 }
             }
+
+            # Block expensive uncacheable pages for anonymous users
+            if (req.http.Cookie ~ "(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)") {
+                # logged in user - allow through
+            } else {
+                if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|Special:UserLogin|action=history|action=info|action=edit)") {
+                    return (synth(403, "You must be logged in to view this page"));
+                }
+            }
             
             return (hash);
         }
