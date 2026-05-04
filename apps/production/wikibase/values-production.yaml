@@ -28,7 +28,7 @@ spec:
         jitBufferSize: "128M"
       resources:
         requests:
-          cpu: "2"
+          cpu: "5"
           memory: "4Gi"
         limits:
           cpu: "10"
