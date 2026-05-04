@@ -26,7 +26,7 @@ resources:
   - kafka
   - rdf-streaming-updater
   - change-propagation
-  #- anubis
+  - anubis
 
 patches:
   - target:
