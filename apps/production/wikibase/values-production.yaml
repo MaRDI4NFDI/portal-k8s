@@ -11,7 +11,7 @@ spec:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase-production
         tag: 1.46.21
-      replicas: 1
+      replicas: 2
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
       db_secondary: mariadb-secondary
