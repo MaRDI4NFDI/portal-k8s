@@ -26,6 +26,14 @@ spec:
         limits:
           cpu: "10"
           memory: "10Gi"
+    apache:
+      resources:
+        requests:
+          cpu: 500m
+          memory: 1Gi
+        limits:
+          cpu: 1
+          memory: 3Gi
     jobrunner:
       replicas: 2
       phpfpm:
