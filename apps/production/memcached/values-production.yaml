@@ -7,11 +7,11 @@ spec:
     extraEnvVars:
     # -- MEMCACHED_CACHE_SIZE is the amount of memory allocated to memcached for object storage
     - name: MEMCACHED_CACHE_SIZE
-      value: "10240"
+      value: "20480"
     resources:
       requests:
-        memory: 4Gi
+        memory: 22Gi
         cpu: 1000m
       limits:
-        memory: 12Gi
+        memory: 24Gi
         cpu: 4000m
