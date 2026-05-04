@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.86"
+      version: "0.1.87"
   values:
     mediawiki:
       image:
@@ -27,6 +27,13 @@ spec:
         minSpareServers: 2
         maxSpareServers: 6
         maxRequests: 500
+      opcache:
+        memoryConsumption: 384
+        maxAcceleratedFiles: 50000
+        internedStringsBuffer: 16
+        validateTimestamps: 1
+        revalidateFreq: 60
+        jitBufferSize: "64M"
       resources:
         requests:
           cpu: 500m
