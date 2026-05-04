@@ -67,6 +67,7 @@ spec:
           env:
             {{- include "mediawiki.env" . | nindent 12 }}
             {{- include "mediawiki.phpfpmEnv" .Values.jobrunner.phpfpm | nindent 12 }}
+            {{- include "mediawiki.opcacheEnv" .Values.mediawiki.opcache | nindent 12 }}
           envFrom:
             {{- include "mediawiki.envFrom" . | nindent 12 }}
       volumes:

@@ -30,6 +30,13 @@ mediawiki:
     maxSpareServers: 40
     maxRequests: 1000
     requestTimeout: "60s"
+  opcache:
+    memoryConsumption: 256
+    maxAcceleratedFiles: 20000
+    internedStringsBuffer: 16
+    validateTimestamps: 1
+    revalidateFreq: 60
+    jitBufferSize: "64M"
   resources:
     requests:
       cpu: 500m

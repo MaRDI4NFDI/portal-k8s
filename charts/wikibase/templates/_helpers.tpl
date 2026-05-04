@@ -74,6 +74,25 @@ PHP-FPM environment variables.
 {{- end -}}
 
 {{/*
+PHP OPcache environment variables. Consumed by docker-wikibase entrypoint
+which renders /usr/local/etc/php/conf.d/zz-opcache.ini from these.
+*/}}
+{{- define "mediawiki.opcacheEnv" -}}
+- name: OPCACHE_MEMORY_CONSUMPTION
+  value: "{{ .memoryConsumption | default 256 }}"
+- name: OPCACHE_MAX_ACCELERATED_FILES
+  value: "{{ .maxAcceleratedFiles | default 20000 }}"
+- name: OPCACHE_INTERNED_STRINGS_BUFFER
+  value: "{{ .internedStringsBuffer | default 16 }}"
+- name: OPCACHE_VALIDATE_TIMESTAMPS
+  value: "{{ .validateTimestamps | default 1 }}"
+- name: OPCACHE_REVALIDATE_FREQ
+  value: "{{ .revalidateFreq | default 60 }}"
+- name: OPCACHE_JIT_BUFFER_SIZE
+  value: "{{ .jitBufferSize | default "64M" }}"
+{{- end -}}
+
+{{/*
 Common envFrom shared between web and jobrunner MediaWiki containers.
 */}}
 {{- define "mediawiki.envFrom" -}}
