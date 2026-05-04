@@ -5,12 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.86"
+      version: "0.1.87"
   values:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase-production
-        tag: 1.46.19
+        tag: 1.46.20
       replicas: 1
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
@@ -19,6 +19,13 @@ spec:
       redis_host: redis-master
       formulasearch_host: formulasearch
       latexml_host: latexml
+      opcache:
+        memoryConsumption: 512
+        maxAcceleratedFiles: 50000
+        internedStringsBuffer: 32
+        validateTimestamps: 0
+        revalidateFreq: 0
+        jitBufferSize: "128M"
       resources:
         requests:
           cpu: "2"
