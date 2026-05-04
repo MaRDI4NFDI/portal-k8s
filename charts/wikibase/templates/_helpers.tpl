@@ -79,17 +79,17 @@ which renders /usr/local/etc/php/conf.d/zz-opcache.ini from these.
 */}}
 {{- define "mediawiki.opcacheEnv" -}}
 - name: OPCACHE_MEMORY_CONSUMPTION
-  value: "{{ .memoryConsumption | default 256 }}"
+  value: "{{ .memoryConsumption }}"
 - name: OPCACHE_MAX_ACCELERATED_FILES
-  value: "{{ .maxAcceleratedFiles | default 20000 }}"
+  value: "{{ .maxAcceleratedFiles }}"
 - name: OPCACHE_INTERNED_STRINGS_BUFFER
-  value: "{{ .internedStringsBuffer | default 16 }}"
+  value: "{{ .internedStringsBuffer }}"
 - name: OPCACHE_VALIDATE_TIMESTAMPS
-  value: "{{ .validateTimestamps | default 1 }}"
+  value: "{{ .validateTimestamps }}"
 - name: OPCACHE_REVALIDATE_FREQ
-  value: "{{ .revalidateFreq | default 60 }}"
+  value: "{{ .revalidateFreq }}"
 - name: OPCACHE_JIT_BUFFER_SIZE
-  value: "{{ .jitBufferSize | default "64M" }}"
+  value: "{{ .jitBufferSize }}"
 {{- end -}}
 
 {{/*
