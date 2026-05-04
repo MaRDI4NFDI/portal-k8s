@@ -34,6 +34,9 @@ spec:
             - name: policies
               mountPath: /data/cfg
               readOnly: true
+            - name: templates
+              mountPath: /data/overlay/templates
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /healthz
@@ -66,3 +69,6 @@ spec:
         - name: policies
           configMap:
             name: {{ .Release.Name }}-policies
+        - name: templates
+          configMap:
+            name: {{ .Release.Name }}-templates

@@ -45,5 +45,7 @@ data:
   OG_EXPIRY_TIME: "24h"
   DIFFICULTY: "4"
   TARGET: "http://{{ .Values.anubis.target }}.{{ .Release.Namespace }}.svc.cluster.local:80"
+  USE_TEMPLATES: "true"
+  OVERLAY_FOLDER: "/data/overlay"
   COOKIE_DOMAIN: {{ .Values.global.baseDomain }}
   REDIRECT_DOMAINS: {{ .Values.global.baseDomain }}

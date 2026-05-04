@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-templates
+data:
+  challenge.tmpl: |
+    <!DOCTYPE html>
+    <html lang="{{ "{{" }} .Lang {{ "}}" }}">
+      <head>
+        {{ "{{" }} .Head {{ "}}" }}
+        <style>
+          *{box-sizing:border-box;margin:0;padding:0}
+          body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a5f7a;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+          .label{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1rem}
+          h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1.1;margin-bottom:1.5rem}
+          p{line-height:1.6;color:rgba(255,255,255,.85);margin-bottom:.6rem;font-size:1rem}
+          noscript p{color:#e8601c;font-weight:700}
+          .banner{background:#e8601c;width:100vw;padding:1.4rem 2rem;font-size:1.35rem;font-weight:600;line-height:1.5;position:fixed;bottom:0;left:0;text-align:center}
+          .footer{font-size:.65rem;opacity:.45;margin-top:.6rem;font-family:monospace;font-weight:400}
+        </style>
+      </head>
+      <body>
+        <svg width="80" height="74" viewBox="0 0 90 83" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1.4rem"><polygon points="45,4 87,80 3,80" fill="#e8601c" stroke="white" stroke-width="3.5" stroke-linejoin="round"/><rect x="42" y="28" width="6" height="24" rx="3" fill="white"/><rect x="42" y="59" width="6" height="7" rx="3" fill="white"/></svg>
+        <p class="label">Please wait</p>
+        <h1>Checking<br>your browser</h1>
+        {{ "{{" }} .Body {{ "}}" }}
+        <noscript><p>JavaScript is required to pass this check.</p></noscript>
+        <div class="banner">This may take a few seconds. You will be redirected automatically.<div class="footer">Powered by Anubis</div></div>
+      </body>
+    </html>
+  error.tmpl: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MaRDI Portal - Access Denied</title>
+        <style>
+          *{box-sizing:border-box;margin:0;padding:0}
+          body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a5f7a;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 2rem 10rem}
+          .label{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1rem}
+          h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1.1}
+          .banner{background:#e8601c;width:100vw;padding:1.4rem 2rem;font-size:1.35rem;font-weight:600;line-height:1.5;position:fixed;bottom:0;left:0;text-align:center}
+          .debug{font-size:.65rem;opacity:.45;margin-top:.6rem;font-family:monospace;font-weight:400;line-height:1.6}
+        </style>
+      </head>
+      <body>
+        <svg width="80" height="74" viewBox="0 0 90 83" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1.4rem"><polygon points="45,4 87,80 3,80" fill="#e8601c" stroke="white" stroke-width="3.5" stroke-linejoin="round"/><rect x="42" y="28" width="6" height="24" rx="3" fill="white"/><rect x="42" y="59" width="6" height="7" rx="3" fill="white"/></svg>
+        <p class="label">Sorry for any inconvenience</p>
+        <h1>Access<br>Denied</h1>
+        <div class="banner">{{ "{{" }} .Body {{ "}}" }}<div class="debug">Anubis bot protection</div></div>
+      </body>
+    </html>
+  impressum.tmpl: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MaRDI Portal - Impressum</title>
+        <style>
+          *{box-sizing:border-box;margin:0;padding:0}
+          body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a5f7a;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+          h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1.1;margin-bottom:1.5rem}
+          .content{max-width:600px;line-height:1.6;font-size:1rem;color:rgba(255,255,255,.85)}
+          .content a{color:#e8601c;text-decoration:underline}
+        </style>
+      </head>
+      <body>
+        <h1>Impressum</h1>
+        <div class="content">{{ "{{" }} .Body {{ "}}" }}</div>
+      </body>
+    </html>
