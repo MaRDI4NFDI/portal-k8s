@@ -51,7 +51,7 @@ spec:
             # to avoid false positives from unrelated cookies containing similar substrings.
             # Explicitly unset in the else branch to prevent stale values on reused request objects.
             if (req.http.Authorization ||
-                req.http.Cookie ~ "(^|;\s*)(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)="
+                req.http.Cookie ~ "(^|;\s*)(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)=") {
                 set req.http.X-Is-Authenticated = "1";
             } else {
                 unset req.http.X-Is-Authenticated;
