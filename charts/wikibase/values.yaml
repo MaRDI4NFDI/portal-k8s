@@ -90,6 +90,7 @@ varnish:
   enabled: false
   fullnameOverride: "varnish"
   backendFirstByteTimeout: "600s"
+  anonBackendFirstByteTimeout: "10s"
   backendBetweenBytesTimeout: "600s"
   purgeAcl: "10.0.0.0/8"
   resources:

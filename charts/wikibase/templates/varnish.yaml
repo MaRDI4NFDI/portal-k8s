@@ -17,11 +17,18 @@ spec:
       vclConfig: |
         vcl 4.0;
 
-        # Backend definition pointing to MediaWiki service
+        # Backend definition pointing to MediaWiki service - FOR AUTHENTICATED USERS
         backend default {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
             .first_byte_timeout = {{ .Values.varnish.backendFirstByteTimeout }};
+            .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
+        }
+        # Backend definition pointing to MediaWiki service - FOR ANONYMOUS USERS
+        backend anon {
+            .host = "{{ .Release.Name }}";
+            .port = "{{ .Values.apache.port }}";
+            .first_byte_timeout = {{ .Values.varnish.anonBackendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
 
@@ -39,6 +46,13 @@ spec:
                 set req.http.X-Forwarded-For = client.ip;
             }
             
+            # Route anonymous users to the short-timeout backend
+            if (req.http.Authorization || req.http.Cookie ~ "([sS]ession|Token)=") {
+                set req.backend_hint = default;
+            } else {
+                set req.backend_hint = anon;
+            }
+
             # Handle PURGE requests
             if (req.method == "PURGE") {
                 if (!client.ip ~ purge) {
