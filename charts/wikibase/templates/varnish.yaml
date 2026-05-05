@@ -17,11 +17,18 @@ spec:
       vclConfig: |
         vcl 4.0;
 
-        # Backend definition pointing to MediaWiki service
+        # Backend definition pointing to MediaWiki service - FOR AUTHENTICATED USERS
         backend default {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
             .first_byte_timeout = {{ .Values.varnish.backendFirstByteTimeout }};
+            .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
+        }
+        # Backend definition pointing to MediaWiki service - FOR ANONYMOUS USERS
+        backend anon {
+            .host = "{{ .Release.Name }}";
+            .port = "{{ .Values.apache.port }}";
+            .first_byte_timeout = {{ .Values.varnish.anonBackendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
 
@@ -38,7 +45,26 @@ spec:
             } else {
                 set req.http.X-Forwarded-For = client.ip;
             }
-            
+
+            # Detect authenticated users once: Authorization header or MediaWiki login cookies.
+            # Cookie names are anchored per RFC 6265 ("; " separator, "=" directly after name)
+            # to avoid false positives from unrelated cookies containing similar substrings.
+            # Explicitly unset in the else branch to prevent stale values on reused request objects.
+            if (req.http.Authorization ||
+                req.http.Cookie ~ "(^|;\s*)(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)="
+                set req.http.X-Is-Authenticated = "1";
+            } else {
+                unset req.http.X-Is-Authenticated;
+            }
+
+            # Route to backend: authenticated users use the default (600 s first_byte_timeout),
+            # anonymous users use anon (short first_byte_timeout defined by anonBackendFirstByteTimeout).
+            if (req.http.X-Is-Authenticated) {
+                set req.backend_hint = default;
+            } else {
+                set req.backend_hint = anon;
+            }
+
             # Handle PURGE requests
             if (req.method == "PURGE") {
                 if (!client.ip ~ purge) {
@@ -52,12 +78,12 @@ spec:
             if (req.method == "POST") {
                 return (pass);
             }
-            
+
             # Pass requests from logged-in users
-            if (req.http.Authorization || req.http.Cookie ~ "([sS]ession|Token)=") {
+            if (req.http.X-Is-Authenticated) {
                 return (pass);
             }
-            
+
             # Normalize Accept-Encoding
             if (req.http.Accept-Encoding) {
                 if (req.http.User-Agent ~ "MSIE 6") {
@@ -72,15 +98,19 @@ spec:
             }
 
             # Block expensive uncacheable pages for anonymous users
-            if (req.http.Cookie ~ "(my_wiki_session|my_wikiToken|my_wikiUserID|my_wikiUserName)") {
-                # logged in user - allow through
-            } else {
-                if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
-                    return (synth(753, "You must be logged in to view this page"));
-                }
+            # (authenticated users have already been passed above)
+            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
+                return (synth(753, "You must be logged in to view this page"));
             }
-            
+
             return (hash);
+        }
+
+        sub vcl_backend_fetch {
+            # X-Is-Authenticated is an internal Varnish routing flag used only for backend
+            # selection and pass decisions. Unset it here so it is never forwarded to the
+            # backend application, which has no use for it and should not rely on it.
+            unset bereq.http.X-Is-Authenticated;
         }
 
         sub vcl_backend_response {
