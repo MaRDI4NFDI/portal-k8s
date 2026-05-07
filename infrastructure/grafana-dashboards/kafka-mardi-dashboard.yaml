@@ -227,6 +227,29 @@ data:
             "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean"] },
             "tooltip": { "mode": "multi" }
           }
+        },
+        {
+          "id": 9,
+          "title": "Job burndown rate",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 36, "w": 24, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": { "lineWidth": 2, "fillOpacity": 8 }
+            }
+          },
+          "targets": [
+            {
+              "expr": "clamp_min(-sum(deriv(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"}[5m])), 0)",
+              "legendFormat": "jobs completed/s",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": { "displayMode": "list", "placement": "bottom" },
+            "tooltip": { "mode": "single" }
+          }
         }
       ],
       "schemaVersion": 36,
