@@ -241,7 +241,7 @@ data:
           },
           "targets": [
             {
-              "expr": "clamp_min(-deriv(sum(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"})[5m]), 0)",
+              "expr": "clamp_min(-sum(deriv(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"}[5m])), 0)",
               "legendFormat": "jobs completed/s",
               "refId": "A"
             }
