@@ -6,24 +6,24 @@ data:
   prefixes.conf: |
     {{- $domain := .Values.global.baseDomain }}
     {{- $scheme := .Values.prefix.scheme | default "https" }}
-    PREFIX wd: <https://{{ $domain }}/entity/>
-    PREFIX wdt: <https://{{ $domain }}/prop/direct/>
-    PREFIX p: <https://{{ $domain }}/prop/>
-    PREFIX ps: <https://{{ $domain }}/prop/statement/>
-    PREFIX pq: <https://{{ $domain }}/prop/qualifier/>
-    PREFIX wdata: <https://{{ $domain }}/wiki/Special:EntityData/>
-    PREFIX wdno: <https://{{ $domain }}/prop/novalue/>
-    PREFIX prn: <https://{{ $domain }}/prop/reference/value-normalized/>
-    PREFIX prv: <https://{{ $domain }}/prop/reference/value/>
-    PREFIX pr: <https://{{ $domain }}/prop/reference/>
-    PREFIX pqn: <https://{{ $domain }}/prop/qualifier/value-normalized/>
-    PREFIX pqv: <https://{{ $domain }}/prop/qualifier/value/>
-    PREFIX psn: <https://{{ $domain }}/prop/statement/value-normalized/>
-    PREFIX psv: <https://{{ $domain }}/prop/statement/value/>
-    PREFIX wdv: <https://{{ $domain }}/value/>
-    PREFIX wdref: <https://{{ $domain }}/reference/>
-    PREFIX wds: <https://{{ $domain }}/entity/statement/>
-    PREFIX wdtn: <https://{{ $domain }}/prop/direct-normalized/>
+    PREFIX wd: <{{ $scheme }}://{{ $domain }}/entity/>
+    PREFIX wdt: <{{ $scheme }}://{{ $domain }}/prop/direct/>
+    PREFIX p: <{{ $scheme }}://{{ $domain }}/prop/>
+    PREFIX ps: <{{ $scheme }}://{{ $domain }}/prop/statement/>
+    PREFIX pq: <{{ $scheme }}://{{ $domain }}/prop/qualifier/>
+    PREFIX wdata: <{{ $scheme }}://{{ $domain }}/wiki/Special:EntityData/>
+    PREFIX wdno: <{{ $scheme }}://{{ $domain }}/prop/novalue/>
+    PREFIX prn: <{{ $scheme }}://{{ $domain }}/prop/reference/value-normalized/>
+    PREFIX prv: <{{ $scheme }}://{{ $domain }}/prop/reference/value/>
+    PREFIX pr: <{{ $scheme }}://{{ $domain }}/prop/reference/>
+    PREFIX pqn: <{{ $scheme }}://{{ $domain }}/prop/qualifier/value-normalized/>
+    PREFIX pqv: <{{ $scheme }}://{{ $domain }}/prop/qualifier/value/>
+    PREFIX psn: <{{ $scheme }}://{{ $domain }}/prop/statement/value-normalized/>
+    PREFIX psv: <{{ $scheme }}://{{ $domain }}/prop/statement/value/>
+    PREFIX wdv: <{{ $scheme }}://{{ $domain }}/value/>
+    PREFIX wdref: <{{ $scheme }}://{{ $domain }}/reference/>
+    PREFIX wds: <{{ $scheme }}://{{ $domain }}/entity/statement/>
+    PREFIX wdtn: <{{ $scheme }}://{{ $domain }}/prop/direct-normalized/>
     PREFIX wikidata_wd: <http://www.wikidata.org/entity/>
     PREFIX wikidata_wdt: <http://www.wikidata.org/prop/direct/>
     PREFIX wikidata_p: <http://www.wikidata.org/prop/>
