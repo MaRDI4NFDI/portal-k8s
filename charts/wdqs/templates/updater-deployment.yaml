@@ -21,7 +21,7 @@ spec:
         command: ["/runUpdate.sh"]
         env:
         - name: WIKIBASE_CONCEPT_URI
-          value: "{{ .Values.updater.wikibaseScheme | default .Values.wikibase.scheme }}://{{ .Values.global.baseDomain }}"
+          value: "{{ .Values.prefix.scheme }}://{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_HOST
           value: "{{ .Values.updater.wikibaseHost | default .Values.global.baseDomain }}"
         - name: WIKIBASE_SCHEME
