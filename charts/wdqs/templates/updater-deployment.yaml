@@ -23,9 +23,9 @@ spec:
         - name: WIKIBASE_CONCEPT_URI
           value: "https://{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_HOST
-          value: "{{ .Values.global.baseDomain }}"
+          value: "{{ .Values.updater.wikibaseHost | default .Values.global.baseDomain }}"
         - name: WIKIBASE_SCHEME
-          value: "{{ .Values.wikibase.scheme }}"
+          value: "{{ .Values.updater.wikibaseScheme | default .Values.wikibase.scheme }}"  
         - name: WDQS_HOST
           value: "{{ .Values.wdqs.host }}"
         - name: WDQS_PORT
