@@ -43,7 +43,7 @@ frontend:
 
 wikibase:
   host: wikibase
-  scheme: https
+  scheme: http
 
 ingress:
   enabled: true
