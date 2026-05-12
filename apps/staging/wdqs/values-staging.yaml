@@ -10,5 +10,7 @@ spec:
     wdqs:
       host: staging-wdqs
       opts: "-Dorg.wikidata.query.rdf.tool.rdf.RdfRepository.timeout=3600 -Dcom.bigdata.rdf.sparql.ast.eval.AST2BOpUtility.timeout=60000"
+    updater:
+      wikibaseHost: "staging-wikibase"      
     frontend:
       replicas: 1
