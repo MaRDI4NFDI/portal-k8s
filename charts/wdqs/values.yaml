@@ -47,6 +47,9 @@ wikibase:
   host: wikibase
   scheme: https
 
+prefix:
+  scheme: https
+
 ingress:
   enabled: true
   subdomain: "query"

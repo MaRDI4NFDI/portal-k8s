@@ -5,6 +5,7 @@ metadata:
 data:
   prefixes.conf: |
     {{- $domain := .Values.global.baseDomain }}
+    {{- $scheme := .Values.prefix.scheme | default "https" }}
     PREFIX wd: <https://{{ $domain }}/entity/>
     PREFIX wdt: <https://{{ $domain }}/prop/direct/>
     PREFIX p: <https://{{ $domain }}/prop/>
