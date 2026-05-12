@@ -23,7 +23,7 @@ spec:
         - name: WIKIBASE_CONCEPT_URI
           value: "https://{{ .Values.global.baseDomain }}"
         - name: WIKIBASE_HOST
-          value: "{{ .Values.global.baseDomain }}"
+          value: "{{ .Values.wikibase.host }}"
         - name: WIKIBASE_SCHEME
           value: "{{ .Values.wikibase.scheme }}"
         - name: WDQS_HOST
