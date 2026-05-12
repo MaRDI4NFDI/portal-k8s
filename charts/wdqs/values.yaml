@@ -18,6 +18,8 @@ wdqs:
 
 updater:
   enabled: true
+  wikibaseHost: "wikibase"
+  wikibaseScheme: "http"
   resources:
     requests:
       cpu: 100m
