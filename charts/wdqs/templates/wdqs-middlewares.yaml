@@ -34,6 +34,7 @@ spec:
       - "https://www.mardi4nfdi.de"
       - "https://mardi4nfdi.de"
       - "https://portal.mardi4nfdi.de"
+      - "https://shex-simple.toolforge.org"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
