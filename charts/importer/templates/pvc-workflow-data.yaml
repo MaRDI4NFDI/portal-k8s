@@ -7,8 +7,7 @@
 #   - checkpoint.json  (tracks which steps have completed)
 #   - any data the tasks want to share across runs
 #
-# All runs see the same volume, one after another (ReadWriteOnce is fine
-# because concurrency is capped at 1 via the Prefect concurrency limit).
+# All runs see the same volume, one after another
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -22,5 +21,3 @@ spec:
   resources:
     requests:
       storage: 100Gi
-  # Must match your cluster's storage class (same as mariadb uses).
-  storageClassName: csi-rbd-sc
