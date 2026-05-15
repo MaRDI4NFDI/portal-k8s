@@ -1,0 +1,23 @@
+# PersistentVolumeClaim for the full-import Prefect workflow.
+#
+# This volume is mounted into every Prefect job pod via the deployment's
+# job_variables.customizations .
+#
+# It stores:
+#   - checkpoint.json  (tracks which steps have completed)
+#   - any data the tasks want to share across runs
+#
+# All runs see the same volume, one after another
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-workflow-data
+  labels:
+    app: {{ .Release.Name }}
+    component: workflow
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
