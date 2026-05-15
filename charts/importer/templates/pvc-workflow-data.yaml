@@ -11,9 +11,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: importer-workflow-data
+  name: {{ .Release.Name }}-workflow-data
   labels:
-    app: importer
+    app: {{ .Release.Name }}
     component: workflow
 spec:
   accessModes:
