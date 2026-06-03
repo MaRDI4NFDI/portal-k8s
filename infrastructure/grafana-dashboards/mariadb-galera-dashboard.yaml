@@ -203,7 +203,7 @@ data:
           },
           "targets": [
             {
-              "expr": "1 - (rate(mysql_global_status_innodb_buffer_pool_reads{job=\"mariadb-metrics\"}[5m]) / rate(mysql_global_status_innodb_buffer_pool_read_requests{job=\"mariadb-metrics\"}[5m]))",
+              "expr": "clamp_min(clamp_max(1 - (rate(mysql_global_status_innodb_buffer_pool_reads{job=\"mariadb-metrics\"}[5m]) / clamp_min(rate(mysql_global_status_innodb_buffer_pool_read_requests{job=\"mariadb-metrics\"}[5m]), 1e-9)), 1), 0)",
               "legendFormat": "{{target}}",
               "refId": "A"
             }
