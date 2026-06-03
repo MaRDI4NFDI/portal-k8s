@@ -19,7 +19,7 @@ data:
           "id": 1,
           "title": "Cluster Size",
           "type": "stat",
-          "gridPos": { "x": 0, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 0, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -46,7 +46,7 @@ data:
           "id": 2,
           "title": "Cluster Status",
           "type": "stat",
-          "gridPos": { "x": 4, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 3, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -75,7 +75,7 @@ data:
           "id": 3,
           "title": "All Nodes Ready",
           "type": "stat",
-          "gridPos": { "x": 8, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 6, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -104,7 +104,7 @@ data:
           "id": 4,
           "title": "Node Connected",
           "type": "stat",
-          "gridPos": { "x": 12, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 9, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -133,7 +133,7 @@ data:
           "id": 5,
           "title": "MySQL Up",
           "type": "stat",
-          "gridPos": { "x": 16, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 12, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -162,7 +162,7 @@ data:
           "id": 6,
           "title": "Uptime",
           "type": "stat",
-          "gridPos": { "x": 20, "y": 0, "w": 4, "h": 4 },
+          "gridPos": { "x": 15, "y": 0, "w": 3, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "dtdurations",
@@ -180,6 +180,40 @@ data:
             }
           ],
           "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value" }
+        },
+        {
+          "id": 61,
+          "title": "InnoDB Buffer Pool Hit Rate",
+          "type": "stat",
+          "gridPos": { "x": 18, "y": 0, "w": 3 , "h": 4 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": null },
+                  { "color": "yellow", "value": 0.95 },
+                  { "color": "green", "value": 0.99 }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "clamp_min(clamp_max(1 - (rate(mysql_global_status_innodb_buffer_pool_reads{job=\"mariadb-metrics\"}[5m]) / clamp_min(rate(mysql_global_status_innodb_buffer_pool_read_requests{job=\"mariadb-metrics\"}[5m]), 1e-9)), 1), 0)",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": { "calcs": ["lastNotNull"] },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
         },
         {
           "id": 7,
