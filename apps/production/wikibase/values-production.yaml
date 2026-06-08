@@ -10,7 +10,7 @@ spec:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase-production
-        tag: 1.47.2
+        tag: 1.47.3
       replicas: 3
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
