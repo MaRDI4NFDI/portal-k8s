@@ -205,9 +205,9 @@ data:
             "tooltip": { "mode": "multi" }
           }
         },
-        {
+       {
           "id": 8,
-          "title": "Log end offset growth (message production rate)",
+          "title": "Net queue movement (positive = growth, negative = burn-down)",
           "type": "timeseries",
           "gridPos": { "x": 0, "y": 29, "w": 24, "h": 7 },
           "fieldConfig": {
@@ -218,7 +218,7 @@ data:
           },
           "targets": [
             {
-              "expr": "sum(rate(kafka_topic_partition_current_offset{topic=~\"mardi.mediawiki.job.*\"}[5m])) by (topic)",
+              "expr": "sum(deriv(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\", topic=~\"mardi.mediawiki.job.*\"}[5m])) by (topic)",
               "legendFormat": "{{topic}}",
               "refId": "A"
             }
