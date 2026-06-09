@@ -205,9 +205,9 @@ data:
             "tooltip": { "mode": "multi" }
           }
         },
-        {
+       {
           "id": 8,
-          "title": "Log end offset growth (message production rate)",
+          "title": "Net queue movement (positive = growth, negative = burn-down)",
           "type": "timeseries",
           "gridPos": { "x": 0, "y": 29, "w": 24, "h": 7 },
           "fieldConfig": {
@@ -218,7 +218,7 @@ data:
           },
           "targets": [
             {
-              "expr": "sum(rate(kafka_topic_partition_current_offset{topic=~\"mardi.mediawiki.job.*\"}[5m])) by (topic)",
+              "expr": "sum(deriv(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\", topic=~\"mardi.mediawiki.job.*\"}[5m])) by (topic)",
               "legendFormat": "{{topic}}",
               "refId": "A"
             }
@@ -226,29 +226,6 @@ data:
           "options": {
             "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean"] },
             "tooltip": { "mode": "multi" }
-          }
-        },
-        {
-          "id": 9,
-          "title": "Job burndown rate",
-          "type": "timeseries",
-          "gridPos": { "x": 0, "y": 36, "w": 24, "h": 7 },
-          "fieldConfig": {
-            "defaults": {
-              "unit": "ops",
-              "custom": { "lineWidth": 2, "fillOpacity": 8 }
-            }
-          },
-          "targets": [
-            {
-              "expr": "clamp_min(-sum(deriv(kafka_consumergroup_lag{consumergroup=\"cpjobqueue-job_execute\"}[5m])), 0)",
-              "legendFormat": "jobs completed/s",
-              "refId": "A"
-            }
-          ],
-          "options": {
-            "legend": { "displayMode": "list", "placement": "bottom" },
-            "tooltip": { "mode": "single" }
           }
         }
       ],
