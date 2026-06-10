@@ -18,24 +18,9 @@ spec:
     spec:
       securityContext:
         fsGroup: 33 # www-data
-      initContainers:
-        - name: copy-static-files
-          image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
-          command:
-            - sh
-            - -c
-            - |
-              cp -r /var/www/html/w/skins /static/skins
-              cp -r /var/www/html/w/resources /static/resources
-              cp -r /var/www/html/w/extensions /static/extensions
-              cp -r /var/www/html/w/images_repo /static/images_repo
-              cp /var/www/html/w/robots.txt /static/robots.txt
-          volumeMounts:
-            - name: static-files
-              mountPath: /static
       containers:
         - name: apache
-          image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
+          image: "{{ .Values.apache.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
           resources:
             requests:
@@ -49,22 +34,6 @@ spec:
           env:
             - name: WIKIBASE_HOST
               value: "127.0.0.1"
-          volumeMounts:
-            - name: static-files
-              mountPath: /var/www/html/w/skins
-              subPath: skins
-            - name: static-files
-              mountPath: /var/www/html/w/resources
-              subPath: resources
-            - name: static-files
-              mountPath: /var/www/html/w/extensions
-              subPath: extensions
-            - name: static-files
-              mountPath: /var/www/html/w/images_repo
-              subPath: images_repo
-            - name: static-files
-              mountPath: /var/www/html/w/robots.txt
-              subPath: robots.txt
           startupProbe:
             httpGet:
               path: /w/api.php?action=query&meta=siteinfo&format=json
@@ -101,6 +70,4 @@ spec:
           envFrom:
             {{- include "mediawiki.envFrom" . | nindent 12 }}
       volumes:
-        - name: static-files
-          emptyDir: {}
         {{- include "mediawiki.volumes" . | nindent 8 }}
