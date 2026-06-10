@@ -48,7 +48,7 @@ mediawiki:
 apache:
   image:
     repository: ghcr.io/mardi4nfdi/apache
-    tag: latest
+    # uses tag from mediawiki to ensure compatibility
     pullPolicy: Always
   port: 80
   resources:
