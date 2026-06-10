@@ -1,6 +1,3 @@
-global:
-  baseDomain: example.com
-
 mediawiki:
   image:
     repository: ghcr.io/mardi4nfdi/wikibase-staging
