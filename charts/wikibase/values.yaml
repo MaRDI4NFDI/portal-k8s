@@ -1,3 +1,6 @@
+global:
+  baseDomain: example.com
+
 mediawiki:
   image:
     repository: ghcr.io/mardi4nfdi/wikibase-staging
@@ -49,7 +52,7 @@ apache:
   image:
     repository: ghcr.io/mardi4nfdi/apache
     # uses tag from mediawiki to ensure compatibility
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   port: 80
   resources:
     requests:

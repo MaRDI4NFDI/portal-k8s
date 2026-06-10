@@ -20,7 +20,7 @@ spec:
         fsGroup: 33 # www-data
       containers:
         - name: apache
-          image: "{{ .Values.apache.image.repository }}:{{ .Values.apache.image.tag }}"
+          image: "{{ .Values.apache.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.apache.image.pullPolicy }}
           resources:
             requests:
