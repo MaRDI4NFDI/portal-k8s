@@ -47,7 +47,7 @@ mediawiki:
 
 apache:
   image:
-    repository: ghcr.io/mardi4nfdi/apache
+    repository: ghcr.io/mardi4nfdi/apache-assets-production
     # uses tag from mediawiki to ensure compatibility
     pullPolicy: Always
   port: 80
