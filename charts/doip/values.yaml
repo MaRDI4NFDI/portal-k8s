@@ -21,6 +21,9 @@ lakefs:
   url: ""
   repo: ""
 
+importer:
+  url: ""
+
 ingress:
   subdomain: "doip"
 
