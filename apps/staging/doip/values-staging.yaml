@@ -6,9 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.3"
+      version: "0.1.4"
   values:
     lakefs:
       url: "lake-bioinfmed.zib.de"
       repo: "sandbox"
+    importer:
+      url: "http://importer.production.svc.cluster.local"
 
