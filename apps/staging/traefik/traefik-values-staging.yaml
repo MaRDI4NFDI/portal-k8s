@@ -16,17 +16,17 @@ spec:
       spec:
         loadBalancerIP: "130.73.131.227"
     ports:
-      doip-tls1:
-        port: 3567
-        expose: 
+      staging-doip-tls1:
+        port: 4567
+        expose:
           default: true
-        exposedPort: 3567
+        exposedPort: 4567
         protocol: TCP
-      doip-tls2:
-        port: 3568
-        expose: 
+      staging-doip-tls2:
+        port: 4568
+        expose:
           default: true
-        exposedPort: 3568
+        exposedPort: 4568
         protocol: TCP
     #additionalArguments:
     #  - "--entrypoints.websecure.http.middlewares=staging-staging-crowdsec-bouncer@kubernetescrd"
