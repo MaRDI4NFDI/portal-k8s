@@ -18,6 +18,10 @@ Common environment variables shared between web and jobrunner MediaWiki containe
   value: "{{ .Values.mediawiki.db_primary }}"
 - name: DB_SECONDARY_IP
   value: "{{ .Values.mediawiki.db_secondary }}"
+- name: DB_SECONDARY_IP
+  value: "{{ .Values.mediawiki.db_secondary }}"
+- name: DEPLOYMENT_ENV
+  value: "{{ .Values.mediawiki.deployment_env }}"
 - name: MW_ELASTIC_HOST
   value: "{{ .Values.mediawiki.elasticsearch_host }}"
 - name: MW_ELASTIC_PORT
