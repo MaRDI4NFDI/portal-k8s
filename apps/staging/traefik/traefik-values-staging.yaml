@@ -16,13 +16,13 @@ spec:
       spec:
         loadBalancerIP: "130.73.131.227"
     ports:
-      staging-doip-tls1:
+      stg-doip-tls1:
         port: 4567
         expose:
           default: true
         exposedPort: 4567
         protocol: TCP
-      staging-doip-tls2:
+      stg-doip-tls2:
         port: 4568
         expose:
           default: true
