@@ -12,6 +12,7 @@ spec:
         repository: ghcr.io/mardi4nfdi/wikibase-staging
         tag: latest
       replicas: 1
+      deployment_env: staging
       db_server: staging-mariadb-primary:3306
       db_primary: staging-mariadb-primary
       db_secondary: staging-mariadb-secondary
