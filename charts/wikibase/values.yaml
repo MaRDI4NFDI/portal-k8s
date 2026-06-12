@@ -1,6 +1,6 @@
 mediawiki:
   image:
-    repository: ghcr.io/mardi4nfdi/wikibase-staging
+    repository: ghcr.io/mardi4nfdi/wikibase
     tag: latest
     pullPolicy: Always
   replicas: 1
@@ -47,7 +47,7 @@ mediawiki:
 
 apache:
   image:
-    repository: ghcr.io/mardi4nfdi/apache-assets-production
+    repository: ghcr.io/mardi4nfdi/apache-assets
     # uses tag from mediawiki to ensure compatibility
     pullPolicy: Always
   port: 80
