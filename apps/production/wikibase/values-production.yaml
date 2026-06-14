@@ -12,6 +12,7 @@ spec:
         repository: ghcr.io/mardi4nfdi/wikibase
         tag: 1.47
       replicas: 3
+      deployment_env: prod
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
       db_secondary: mariadb-secondary
