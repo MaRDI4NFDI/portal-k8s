@@ -10,7 +10,7 @@ spec:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase
-        tag: latest@sha256:73ad7260a2980c6b96dec567291d24c0e6dbaf68148dfc2bcad27d31058ca3d1
+        tag: sha-16767ac
       replicas: 1
       deployment_env: staging
       db_server: staging-mariadb-primary:3306
