@@ -1,4 +1,6 @@
 {{- if .Values.ingress.enabled }}
+{{- $root := . }}
+{{- $routeHosts := .Values.ingress.routeHosts | default (list .Values.global.baseDomain) }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -9,7 +11,31 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - {{ .Values.global.baseDomain }}
+{{- $routeHosts | toYaml | nindent 4 }}
   duration: 2160h # 90d
   renewBefore: 360h # 15d
+{{- range $group := .Values.ingress.extraHostGroups }}
+{{- $hosts := $group.hosts | default (list) }}
+{{- if and (not $hosts) $group.domain $group.prefixes }}
+{{- range $prefix := $group.prefixes }}
+{{- $hosts = append $hosts (printf "%s.%s" $prefix $group.domain) }}
+{{- end }}
+{{- end }}
+{{- if $hosts }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+spec:
+  secretName: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+{{- $hosts | toYaml | nindent 4 }}
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+{{- end }}
+{{- end }}
 {{- end }}
