@@ -111,3 +111,6 @@ secrets:
 
 ingress:
   enabled: true
+  # Optional hostnames for the Traefik IngressRoute Host() rule.
+  # Defaults to global.baseDomain when empty.
+  routeHosts: []
