@@ -42,11 +42,13 @@ spec:
 {{- end }}
 {{- end }}
 {{- if $hosts }}
+{{- $nameContext := dict "releaseName" $root.Release.Name "groupName" $group.name }}
+{{- $tlsNameContext := dict "releaseName" $root.Release.Name "groupName" $group.name "suffix" "tls" }}
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ printf "%s-%s" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+  name: {{ include "wikibase.extraHostGroupName" $nameContext }}
 spec:
   entryPoints:
     - websecure
@@ -75,7 +77,7 @@ spec:
           port: {{ $root.Values.apache.port }}
         {{- end }}
   tls:
-    secretName: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+    secretName: {{ include "wikibase.extraHostGroupName" $tlsNameContext }}
 {{- end }}
 {{- end }}
 {{- end }}
