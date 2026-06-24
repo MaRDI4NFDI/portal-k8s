@@ -1,4 +1,5 @@
 {{- if .Values.ingress.enabled }}
+{{- $routeHosts := .Values.ingress.routeHosts | default (list .Values.global.baseDomain) }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -7,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ .Values.global.baseDomain }}`)
+    - match: Host(`{{ join "`,`" $routeHosts }}`)
       kind: Rule
       {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled }}
       middlewares:
