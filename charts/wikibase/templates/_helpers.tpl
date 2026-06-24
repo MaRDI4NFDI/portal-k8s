@@ -12,6 +12,21 @@ Host(`{{ $host }}`)
 {{- end -}}
 
 {{/*
+Build a stable, unique Kubernetes name for a Wikibase extra host group.
+*/}}
+{{- define "wikibase.extraHostGroupName" -}}
+{{- $releaseName := .releaseName -}}
+{{- $groupName := .groupName -}}
+{{- $suffix := .suffix | default "" -}}
+{{- $hash := printf "%s-%s" $releaseName $groupName | sha256sum | trunc 8 -}}
+{{- if $suffix -}}
+{{- printf "%s-%s-%s-%s" ($releaseName | trunc 32 | trimSuffix "-") ($groupName | trunc 16 | trimSuffix "-") $hash $suffix | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s-%s" ($releaseName | trunc 36 | trimSuffix "-") ($groupName | trunc 16 | trimSuffix "-") $hash | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common environment variables shared between web and jobrunner MediaWiki containers.
 */}}
 {{- define "mediawiki.env" -}}
