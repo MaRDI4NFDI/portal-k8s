@@ -1,4 +1,17 @@
 {{/*
+Build a Traefik Host() rule from a list of host names.
+*/}}
+{{- define "wikibase.hostRule" -}}
+{{- $first := true -}}
+{{- range $host := . -}}
+{{- if $first -}}
+{{- $first = false -}}
+{{- else }} || {{ end -}}
+Host(`{{ $host }}`)
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common environment variables shared between web and jobrunner MediaWiki containers.
 */}}
 {{- define "mediawiki.env" -}}
