@@ -1,4 +1,5 @@
 {{- if .Values.ingress.enabled }}
+{{- $root := . }}
 {{- $routeHosts := .Values.ingress.routeHosts | default (list .Values.global.baseDomain) }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -8,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ join "`,`" $routeHosts }}`)
+    - match: {{ include "wikibase.hostRule" $routeHosts | quote }}
       kind: Rule
       {{- if or .Values.blockHeaders.enabled .Values.fail2ban.enabled }}
       middlewares:
@@ -33,4 +34,48 @@ spec:
         {{- end }}
   tls:
     secretName: {{ .Release.Name }}-tls
+{{- range $group := .Values.ingress.extraHostGroups }}
+{{- $hosts := $group.hosts | default (list) }}
+{{- if and (not $hosts) $group.domain $group.prefixes }}
+{{- range $prefix := $group.prefixes }}
+{{- $hosts = append $hosts (printf "%s.%s" $prefix $group.domain) }}
+{{- end }}
+{{- end }}
+{{- if $hosts }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ printf "%s-%s" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: {{ include "wikibase.hostRule" $hosts | quote }}
+      kind: Rule
+      {{- if or $root.Values.blockHeaders.enabled $root.Values.fail2ban.enabled }}
+      middlewares:
+        {{- if $root.Values.fail2ban.enabled }}
+        - name: {{ $root.Release.Name }}-fail2ban
+          namespace: {{ $root.Release.Namespace }}
+        {{- end }}
+        {{- if $root.Values.blockHeaders.enabled }}
+        - name: {{ $root.Release.Name }}-block-fake-agents
+          namespace: {{ $root.Release.Namespace }}
+        {{- end }}
+      {{- end }}
+      services:
+        {{- if $root.Values.varnish.enabled }}
+        - name: {{ $root.Values.varnish.fullnameOverride }}
+          namespace: {{ $root.Release.Namespace }}
+          port: 80
+        {{- else }}
+        - name: {{ $root.Release.Name }}
+          namespace: {{ $root.Release.Namespace }}
+          port: {{ $root.Values.apache.port }}
+        {{- end }}
+  tls:
+    secretName: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
 {{- end }}
