@@ -16,8 +16,6 @@ mediawiki:
   redis_host: redis-master
   redis_port: 6379
   memcached_host: memcached
-  redis_port: 6379
-  memcached_host: memcached
   memcached_port: 11211
   latexml_host: latexml
   latexml_port: 80
