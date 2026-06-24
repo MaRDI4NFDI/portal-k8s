@@ -72,7 +72,7 @@ spec:
       enabled: true
       routeHosts:
         - staging.mardi4nfdi.org
-        - staging2.mardi4nfdi.org
+        - p2.staging.mardi4nfdi.org
       extraHostGroups:
         - name: wikim-wmf-grp1
           domain: wiki.staging.mardi4nfdi.org
