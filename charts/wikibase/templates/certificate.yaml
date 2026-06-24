@@ -22,13 +22,14 @@ spec:
 {{- end }}
 {{- end }}
 {{- if $hosts }}
+{{- $tlsNameContext := dict "releaseName" $root.Release.Name "groupName" $group.name "suffix" "tls" }}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+  name: {{ include "wikibase.extraHostGroupName" $tlsNameContext }}
 spec:
-  secretName: {{ printf "%s-%s-tls" $root.Release.Name $group.name | trunc 63 | trimSuffix "-" }}
+  secretName: {{ include "wikibase.extraHostGroupName" $tlsNameContext }}
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
