@@ -16,6 +16,8 @@ mediawiki:
   redis_host: redis-master
   redis_port: 6379
   memcached_host: memcached
+  redis_port: 6379
+  memcached_host: memcached
   memcached_port: 11211
   latexml_host: latexml
   latexml_port: 80
@@ -111,6 +113,10 @@ secrets:
 
 ingress:
   enabled: true
-  # Optional hostnames for the Traefik IngressRoute Host() rule.
+  # Optional hostnames for the main Traefik IngressRoute Host() rule.
   # Defaults to global.baseDomain when empty.
   routeHosts: []
+  # Additional host groups. Each group gets its own IngressRoute and TLS
+  # certificate so large host sets can stay below Let's Encrypt limits.
+  # Use either hosts: [...] or domain + prefixes.
+  extraHostGroups: []
