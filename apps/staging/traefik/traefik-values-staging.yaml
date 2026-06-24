@@ -16,6 +16,10 @@ spec:
       spec:
         loadBalancerIP: "130.73.131.227"
     ports:
+      web:
+        redirections:
+          entryPoint:
+            priority: 1
       stg-doip-tls1:
         port: 4567
         expose:
