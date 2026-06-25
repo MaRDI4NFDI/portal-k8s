@@ -69,5 +69,16 @@ spec:
             {{- include "mediawiki.opcacheEnv" .Values.mediawiki.opcache | nindent 12 }}
           envFrom:
             {{- include "mediawiki.envFrom" . | nindent 12 }}
+          livenessProbe:
+            exec:
+              command:
+                - php
+                - /var/www/html/w/maintenance/run.php
+                - view
+                - Portal
+            initialDelaySeconds: 120
+            periodSeconds: 300
+            timeoutSeconds: 30
+            failureThreshold: 2
       volumes:
         {{- include "mediawiki.volumes" . | nindent 8 }}
