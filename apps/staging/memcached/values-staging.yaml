@@ -4,6 +4,7 @@ metadata:
   name: memcached
 spec:
   values:
+    priorityClassName: staging-low
     resources:
       requests:
         memory: "128Mi"

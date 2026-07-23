@@ -3,3 +3,11 @@ kind: Kustomization
 resources:
   - ../../base/ffmpeg
 namespace: staging
+patches:
+  - target:
+      kind: Deployment
+      name: ffmpeg
+    patch: |
+      - op: add
+        path: /spec/template/spec/priorityClassName
+        value: staging-low
