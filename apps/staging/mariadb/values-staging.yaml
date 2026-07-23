@@ -4,6 +4,15 @@ metadata:
   name: staging-mariadb
   namespace: staging
 spec:
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: MariaDB
+            patch: |
+              - op: add
+                path: /spec/priorityClassName
+                value: staging-low
   chart:
     spec:
       version: "0.1.43"
