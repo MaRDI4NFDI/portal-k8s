@@ -3,6 +3,15 @@ kind: HelmRelease
 metadata:
   name: staging-wikibase
 spec:
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+            patch: |
+              - op: add
+                path: /spec/template/spec/priorityClassName
+                value: staging-low
   chart:
     spec:
       version: "0.1.95"
