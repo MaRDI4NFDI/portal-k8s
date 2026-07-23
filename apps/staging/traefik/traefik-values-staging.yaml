@@ -9,6 +9,7 @@ spec:
     spec:
       version: "37.3.0"
   values:
+    priorityClassName: staging-low
     ingressRoute:
       dashboard:
         enabled: true
