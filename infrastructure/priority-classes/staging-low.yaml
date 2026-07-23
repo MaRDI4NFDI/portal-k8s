@@ -1,0 +1,11 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: staging-low
+value: -1000
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority
+description: >-
+  Staging workloads. Negative priority so that any pod with the default
+  priority (0), e.g. production pods or backup jobs, can preempt staging
+  pods when a node runs out of resources.
