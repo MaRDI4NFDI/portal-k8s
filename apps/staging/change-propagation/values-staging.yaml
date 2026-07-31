@@ -21,7 +21,7 @@ spec:
       host: http://staging-wikibase-jobrunner
     kafka:
       replicas: 1
-    joqueue:
+    jobqueue:
       concurrency: 4
 
 
