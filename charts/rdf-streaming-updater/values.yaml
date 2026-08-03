@@ -12,7 +12,7 @@ flink:
 
 config:
   kafkaBootstrap: "kafka"
-  wikiInternalUrl: "http://wikibase-apache"
+  wikiInternalUrl: "http://wikibase"
   eventStreamConfigUrl: "http://eventstreams"
   schemaBaseUrl: "http://schema-registry"
   inputPageChangeStream: "mediawiki.page_change.v1"
