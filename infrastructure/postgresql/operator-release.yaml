@@ -13,3 +13,9 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
         namespace: flux-system
+  values:
+    monitoring:
+      podMonitorEnabled: true
+      grafanaDashboard:
+        create: true
+        namespace: kube-prometheus
