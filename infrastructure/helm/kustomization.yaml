@@ -11,3 +11,4 @@ resources:
   - prefect.yaml
   - crowdsec.yaml
   - qdrant.yaml
+  - cloudnative-pg.yaml
