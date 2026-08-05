@@ -7,5 +7,6 @@ resources:
   - mariadb
   - portainer
   - postgresql
+  - prefect
   - priority-classes
   #- crowdsec
