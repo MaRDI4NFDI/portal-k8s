@@ -4,6 +4,7 @@ metadata:
   name: schema-registry
 spec:
   interval: 5m
+  timeout: 15m
   chart:
     spec:
       chart: schema-registry

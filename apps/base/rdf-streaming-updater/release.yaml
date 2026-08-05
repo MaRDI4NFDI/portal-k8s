@@ -4,6 +4,7 @@ metadata:
   name: rdf-streaming-updater
 spec:
   interval: 5m
+  timeout: 15m
   chart:
     spec:
       chart: rdf-streaming-updater
