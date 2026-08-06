@@ -1,0 +1,74 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prefect-server
+  namespace: prefect
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: prefect-server
+      version: "2026.7.31163938"
+      sourceRef:
+        kind: HelmRepository
+        name: prefect
+        namespace: flux-system
+      interval: 24h
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    server:
+      basicAuth:
+        enabled: true
+        existingSecret: "prefect-server-auth"
+
+      loggingLevel: DEBUG
+
+      #uiConfig:
+      #  prefectUiApiUrl: "http://prefect-mardi.zib.de/api"
+      #  prefectUiStaticDirectory: "/ui_build"
+            
+      resources:
+        requests:
+          cpu: 500m
+          memory: 512Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi
+      
+      livenessProbe:
+        enabled: true
+      
+      readinessProbe:
+        enabled: true
+          
+    serviceAccount:
+      create: true
+      annotations: {}
+    
+    service:
+      type: ClusterIP
+      port: 4200
+      targetPort: 4200
+    
+    ingress:
+      enabled: false
+      #className: "nginx"
+      #host:
+      #  hostname: prefect-mardi.zib.de
+      #  path: /
+      #  pathType: Prefix
+      #annotations:
+      #  nginx.ingress.kubernetes.io/whitelist-source-range: 130.73.0.0/16
+      #servicePort: server-svc-port
+
+    secret:
+      create: false
+      name: prefect-server-postgresql
+    
+    postgresql:
+      enabled: false

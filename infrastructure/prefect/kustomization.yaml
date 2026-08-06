@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - postgresql.yaml
-#  - release.yaml
+  - release.yaml
   - secret-auth.yaml
   - secret-postgresql.yaml
