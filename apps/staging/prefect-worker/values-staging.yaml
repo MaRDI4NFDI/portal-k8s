@@ -14,105 +14,137 @@ spec:
         workPool: staging-k8s-pool
         type: kubernetes
         baseJobTemplate:
-          configuration:
-            "job_configuration": {
-              "command": "{{ command }}",
-              "env": "{{ env }}",
-              "labels": "{{ labels }}",
-              "name": "{{ name }}",
-              "annotations": "{{ annotations }}",
-              "namespace": "{{ namespace }}",
-              "job_manifest": {
-                "apiVersion": "batch/v1",
-                "kind": "Job",
-                "metadata": {
-                  "annotations": "{{ annotations }}",
-                  "generateName": "prefect-{{ name }}-",
-                  "labels": "{{ labels }}",
-                  "namespace": "{{ namespace }}"
-                },
-                "spec": {
-                  "backoffLimit": "{{ backoff_limit }}",
-                  "template": {
-                    "spec": {
-                      "completions": 1,
-                      "containers": [
-                        {
-                          "args": "{{ command }}",
-                          "env": "{{ env }}",
-                          "envFrom": [
-                            {"secretRef": {"name": "staging-importer-accounts"}},
-                            {"secretRef": {"name": "staging-importer-secrets"}},
-                            {"configMapRef": {"name": "staging-importer-config"}}
-                          ],
-                          "image": "{{ image }}",
-                          "imagePullPolicy": "{{ image_pull_policy }}",
-                          "name": "prefect-job",
-                          "resources": {
-                            "limits": {
-                              "cpu": "{{ cpu_limit }}",
-                              "memory": "{{ memory_limit }}"
-                            },
-                            "requests": {
-                              "cpu": "{{ cpu_request }}",
-                              "memory": "{{ memory_request }}"
+          configuration: |
+            {
+              "job_configuration": {
+                "command": "{{ command }}",
+                "env": "{{ env }}",
+                "labels": "{{ labels }}",
+                "name": "{{ name }}",
+                "annotations": "{{ annotations }}",
+                "namespace": "{{ namespace }}",
+                "cluster_config": "{{ cluster_config }}",
+                "job_watch_timeout_seconds": "{{ job_watch_timeout_seconds }}",
+                "pod_watch_timeout_seconds": "{{ pod_watch_timeout_seconds }}",
+                "stream_output": "{{ stream_output }}",
+                "job_manifest": {
+                  "apiVersion": "batch/v1",
+                  "kind": "Job",
+                  "metadata": {
+                    "annotations": "{{ annotations }}",
+                    "labels": "{{ labels }}",
+                    "namespace": "{{ namespace }}",
+                    "generateName": "prefect-{{ name }}-"
+                  },
+                  "spec": {
+                    "backoffLimit": "{{ backoff_limit }}",
+                    "ttlSecondsAfterFinished": "{{ finished_job_ttl }}",
+                    "template": {
+                      "spec": {
+                        "parallelism": 1,
+                        "completions": 1,
+                        "restartPolicy": "Never",
+                        "serviceAccountName": "{{ service_account_name }}",
+                        "priorityClassName": "staging-low",
+                        "containers": [
+                          {
+                            "name": "prefect-job",
+                            "image": "{{ image }}",
+                            "imagePullPolicy": "{{ image_pull_policy }}",
+                            "args": "{{ command }}",
+                            "env": "{{ env }}",
+                            "envFrom": [
+                              {
+                                "secretRef": {
+                                  "name": "staging-importer-accounts"
+                                }
+                              },
+                              {
+                                "secretRef": {
+                                  "name": "staging-importer-secrets"
+                                }
+                              },
+                              {
+                                "configMapRef": {
+                                  "name": "staging-importer-config"
+                                }
+                              }
+                            ],
+                            "resources": {
+                              "requests": {
+                                "cpu": "{{ cpu_request }}",
+                                "memory": "{{ memory_request }}"
+                              },
+                              "limits": {
+                                "cpu": "{{ cpu_limit }}",
+                                "memory": "{{ memory_limit }}"
+                              }
                             }
                           }
-                        }
-                      ],
-                      "parallelism": 1,
-                      "restartPolicy": "Never",
-                      "serviceAccountName": "{{ service_account_name }}",
-                      "priorityClassName": "staging-low"
+                        ]
+                      }
                     }
-                  },
-                  "ttlSecondsAfterFinished": "{{ finished_job_ttl }}"
+                  }
                 }
               },
-              "cluster_config": "{{ cluster_config }}",
-              "job_watch_timeout_seconds": "{{ job_watch_timeout_seconds }}",
-              "pod_watch_timeout_seconds": "{{ pod_watch_timeout_seconds }}",
-              "stream_output": "{{ stream_output }}"
+              "variables": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "default": "ghcr.io/mardi4nfdi/docker-importer:main"
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "default": "staging"
+                  },
+                  "image_pull_policy": {
+                    "type": "string",
+                    "enum": [
+                      "IfNotPresent",
+                      "Always",
+                      "Never"
+                    ],
+                    "default": "Always"
+                  },
+                  "finished_job_ttl": {
+                    "type": "integer",
+                    "default": 600
+                  },
+                  "backoff_limit": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 0
+                  },
+                  "service_account_name": {
+                    "type": "string",
+                    "default": "default"
+                  },
+                  "cpu_request": {
+                    "type": "string",
+                    "default": "250m"
+                  },
+                  "cpu_limit": {
+                    "type": "string",
+                    "default": "1"
+                  },
+                  "memory_request": {
+                    "type": "string",
+                    "default": "256Mi"
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "default": "1Gi"
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
-            variables:
-              type: object
-              properties:
-                image:
-                  type: string
-                  default: ghcr.io/mardi4nfdi/docker-importer:main
-                namespace:
-                  type: string
-                  default: staging
-                image_pull_policy:
-                  type: string
-                  enum: ["IfNotPresent", "Always", "Never"]
-                  default: Always
-                finished_job_ttl:
-                  type: integer
-                  default: 600
-                backoff_limit:
-                  type: integer
-                  minimum: 0
-                  default: 0
-                service_account_name:
-                  type: string
-                  default: default
-                cpu_request:
-                  type: string
-                  default: 250m
-                cpu_limit:
-                  type: string
-                  default: "1"
-                memory_request:
-                  type: string
-                  default: 256Mi
-                memory_limit:
-                  type: string
-                  default: 1Gi
-                env:
-                  type: object
-                  additionalProperties:
-                    type: string
       selfHostedServerApiConfig:
         apiUrl: http://prefect-server.prefect.svc.cluster.local:4200/api
         basicAuth:
