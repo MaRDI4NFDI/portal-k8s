@@ -34,7 +34,7 @@ spec:
                     "annotations": "{{ annotations }}",
                     "labels": "{{ labels }}",
                     "namespace": "{{ namespace }}",
-                    "generateName": "prefect-{{ name }}-"
+                    "generateName": "prefect-run-"
                   },
                   "spec": {
                     "backoffLimit": "{{ backoff_limit }}",
