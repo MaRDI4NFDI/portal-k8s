@@ -14,7 +14,7 @@ spec:
                 value: staging-low
   chart:
     spec:
-      version: "0.1.28"
+      version: "0.1.29"
   values:
     importer:
       image:
@@ -28,5 +28,6 @@ spec:
       importerApi: "http://staging-importer-api"
     prefect:
       endpoint: "http://prefect-server.prefect.svc.cluster.local:4200/api"
+      deployment: "mardi-importer/staging"
 
 
