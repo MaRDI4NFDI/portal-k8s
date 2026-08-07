@@ -24,6 +24,6 @@ spec:
       sparql: "http://staging-wdqs:9999/bigdata/namespace/wdq/sparql"
       importerApi: "http://staging-importer-api"
     prefect:
-      endpoint: "http://prefect-server.production.svc.cluster.local:4200/api"
+      endpoint: "http://prefect-server.prefect.svc.cluster.local:4200/api"
 
 
