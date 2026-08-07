@@ -17,5 +17,7 @@ spec:
     api:
       logging:
         level: "debug"
+    prefect:
+      deployment: "mardi-importer/prefect-mardi-importer"
 
 
