@@ -62,4 +62,4 @@ ingress:
 
 prefect:
   endpoint: "http://prefect-server:4200/api"
-  deployment: "mardi-importer/prefect-mardi-importer"
+  deployment: "mardi-importer/<deployment_environment>"

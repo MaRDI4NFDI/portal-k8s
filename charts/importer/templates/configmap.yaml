@@ -15,4 +15,4 @@ data:
   WIKIBASE_HOST: {{ .Values.global.baseDomain | quote }}
   IMPORTER_API_URL: {{ .Values.endpoints.importerApi | quote }}
   PREFECT_API_URL: {{ .Values.prefect.endpoint | quote }}
-  DEPLOYMENT_NAME: {{ .Values.prefect.deployment | quote }}
+  PREFECT_DEPLOYMENT_NAME: {{ .Values.prefect.deployment | quote }}
