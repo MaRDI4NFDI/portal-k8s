@@ -430,6 +430,17 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/fdo-0.1.0/fdo-0.1.0.tgz
     version: 0.1.0
+  go-away:
+  - apiVersion: v2
+    appVersion: 0.7.0
+    created: "2026-08-10T11:11:37.856668484Z"
+    description: A Helm chart for go-away bot protection connected to Varnish/Mediawiki
+    digest: 669928bf9dd6371ca0eeeb6b56f58fb267d1ba81cdea415d2b7c7cc8102211eb
+    name: go-away
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/go-away-0.1.0/go-away-0.1.0.tgz
+    version: 0.1.0
   importer:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -3576,4 +3587,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-07T10:18:59.471132405Z"
+generated: "2026-08-10T11:11:37.856976539Z"
