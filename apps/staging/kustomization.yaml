@@ -28,6 +28,7 @@ resources:
   - change-propagation
   #- anubis
   - prefect-worker
+  - go-away
 
 patches:
   - target:
