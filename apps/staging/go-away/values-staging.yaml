@@ -17,5 +17,5 @@ spec:
     spec:
       version: "0.1.0"
   values:
-    go-away:
+    goaway:
       target: "staging-varnish"
