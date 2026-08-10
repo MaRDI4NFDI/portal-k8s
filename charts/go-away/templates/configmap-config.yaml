@@ -1,0 +1,39 @@
+{{- $host := .Values.ingress.host | default .Values.global.baseDomain }}
+{{- $backend := printf "http://%s.%s.svc.cluster.local:%v" .Values.goaway.target .Release.Namespace .Values.goaway.targetPort }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  config.yml: |
+    backends:
+      {{ $host | quote }}:
+        url: {{ $backend | quote }}
+        ip-header: {{ .Values.goaway.clientIpHeader | quote }}
+    {{- range .Values.goaway.extraHosts }}
+      {{ . | quote }}:
+        url: {{ $backend | quote }}
+        ip-header: {{ $.Values.goaway.clientIpHeader | quote }}
+    {{- end }}
+    {{- if .Values.goaway.wildcardFallback }}
+      "*":
+        url: {{ $backend | quote }}
+        ip-header: {{ .Values.goaway.clientIpHeader | quote }}
+    {{- end }}
+
+    {{- with .Values.branding.links }}
+
+    links:
+      {{- range . }}
+      - name: {{ .name | quote }}
+        url: {{ .url | quote }}
+      {{- end }}
+    {{- end }}
+
+    {{- with .Values.branding.strings }}
+
+    strings:
+      {{- range $key, $value := . }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
+    {{- end }}

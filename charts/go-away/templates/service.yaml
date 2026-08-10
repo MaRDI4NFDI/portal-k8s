@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  selector:
+    app: {{ .Release.Name }}
+  ports:
+    - name: http
+      port: {{ .Values.goaway.servicePort }}
+      targetPort: {{ .Values.goaway.containerPort }}
+    - name: metrics
+      port: {{ .Values.goaway.metricsPort }}
+      targetPort: {{ .Values.goaway.metricsPort }}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-env
+data:
+  GOAWAY_BIND: ":{{ .Values.goaway.containerPort }}"
+  GOAWAY_METRICS_BIND: ":{{ .Values.goaway.metricsPort }}"
+  GOAWAY_POLICY: "/etc/go-away/policy/policy.yml"
+  GOAWAY_CONFIG: "/etc/go-away/config/config.yml"
+  GOAWAY_CACHE: "/cache"
+  GOAWAY_SLOG_LEVEL: {{ .Values.goaway.logLevel | quote }}
+  GOAWAY_CLIENT_IP_HEADER: {{ .Values.goaway.clientIpHeader | quote }}
+  # Backends are declared in config.yml so more than one Host can be served
+  GOAWAY_BACKEND: ""
+  GOAWAY_CHALLENGE_TEMPLATE_THEME: {{ .Values.branding.theme | quote }}
+{{- if eq .Values.branding.template "mardi" }}
+  GOAWAY_CHALLENGE_TEMPLATE: "/etc/go-away/template/challenge-mardi.gohtml"
+  GOAWAY_CHALLENGE_TEMPLATE_LOGO: {{ .Values.branding.logo | quote }}
+{{- else }}
+  GOAWAY_CHALLENGE_TEMPLATE: {{ .Values.branding.template | quote }}
+  GOAWAY_CHALLENGE_TEMPLATE_LOGO: {{ .Values.branding.logo | default (printf "https://images.%s%s" .Values.global.baseDomain .Values.branding.logoPath) | quote }}
+{{- end }}

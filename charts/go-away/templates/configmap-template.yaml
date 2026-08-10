@@ -1,0 +1,11 @@
+{{- if eq .Values.branding.template "mardi" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-template
+data:
+  # .Files.Get does not run the file through Helm, so the Go template actions
+  # inside it reach go-away unmodified
+  challenge-mardi.gohtml: |
+{{ .Files.Get "files/challenge-mardi.gohtml" | indent 4 }}
+{{- end }}

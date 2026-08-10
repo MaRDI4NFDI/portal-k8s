@@ -1,0 +1,159 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-policy
+data:
+  # Rules are evaluated top to bottom, first match wins; falling off the end is
+  # a PASS. Networks, challenges and the is-bot-* / is-well-known-asset
+  # conditions come from the snippets baked into the image at /snippets.
+  policy.yml: |
+    networks:
+      # Overrides the snippet, whose URL 301s and loads zero prefixes
+      googlebot:
+        - url: https://developers.google.com/static/crawling/ipranges/common-crawlers.json
+          jq-path: '(.prefixes[] | select(has("ipv4Prefix")) | .ipv4Prefix), (.prefixes[] | select(has("ipv6Prefix")) | .ipv6Prefix)'
+
+    conditions:
+      is-static-asset:
+        - 'path == "/apple-touch-icon.png"'
+        - 'path == "/apple-touch-icon-precomposed.png"'
+        - 'path.matches("\\.(manifest|ttf|woff|woff2|jpg|jpeg|gif|png|webp|avif|svg|mp4|webm|css|js|mjs|wasm)$")'
+        - 'path.startsWith("/w/load.php")'
+        - 'path.startsWith("/w/resources/")'
+        - 'path.startsWith("/w/skins/")'
+        - 'path.startsWith("/w/extensions/")'
+        - 'path.startsWith("/w/images/")'
+
+      is-mediawiki-api:
+        - 'path == "/w/api.php"'
+        - 'path.startsWith("/w/rest.php")'
+
+      is-private-network:
+        - 'remoteAddress.network("127.0.0.0/8") || remoteAddress.network("::1/128")'
+        - 'remoteAddress.network("10.0.0.0/8")'
+        - 'remoteAddress.network("172.16.0.0/12")'
+        - 'remoteAddress.network("192.168.0.0/16")'
+        - 'remoteAddress.network("fc00::/7")'
+
+      is-wikibase-entity-endpoint:
+        - 'path.startsWith("/wiki/Special:EntityData")'
+        - 'path.matches("^/wiki/(Item|Property|Lexeme):")'
+
+      is-mediawiki-search:
+        - 'path.startsWith("/wiki/Special:Search")'
+        - 'path == "/w/index.php" && "search" in query'
+
+      is-expensive-special-page:
+        - 'path.matches("^/wiki/Special:(RecentChanges|RecentChangesLinked|Contributions|WhatLinksHere|Export|AllPages|PrefixIndex|LongPages|ShortPages|DeadendPages|UncategorizedPages|UnusedFiles|UnusedTemplates|WantedPages|WantedFiles|WantedTemplates|WantedCategories|MostLinked|MostCategories|MostImages|MostRevisions|FewestRevisions|UnwatchedPages|LinkSearch)")'
+        #- 'path == "/w/index.php" && "action" in query && query["action"] == "history"'
+        #- 'path == "/w/index.php" && "diff" in query'
+
+      is-suspicious-crawler:
+        - 'userAgent.contains("Presto/") || userAgent.contains("Trident/")'
+        - 'userAgent.matches("MSIE ([2-9]|10|11)\\.")'
+        - 'userAgent.contains("Linux i[63]86") || userAgent.contains("FreeBSD i[63]86")'
+        - 'userAgent.matches("Windows (3|95|98|CE)") || userAgent.matches("Windows NT [1-5]\\.")'
+        - 'userAgent.matches("Android [1-5]\\.") || userAgent.matches("(iPad|iPhone) OS [1-9]_")'
+        - 'userAgent.startsWith("Opera/")'
+        - 'userAgent.matches("^Mozilla/[1-4]")'
+
+    rules:
+      - name: allow-well-known-resources
+        conditions:
+          - '($is-well-known-asset)'
+        action: pass
+
+      - name: allow-static-resources
+        conditions:
+          - '($is-static-asset)'
+        action: pass
+
+      - name: allow-mediawiki-api
+        conditions:
+          - '($is-mediawiki-api)'
+        action: pass
+
+      - name: allow-private-networks
+        conditions:
+          - '($is-private-network)'
+        action: pass
+
+      # is-bot-qwantbot is omitted: its published range list is 404, so the
+      # condition can never match and only costs a failed fetch per reload.
+      - name: desired-crawlers
+        conditions:
+          - '($is-bot-googlebot)'
+          - '($is-bot-bingbot)'
+          - '($is-bot-duckduckbot)'
+          - '($is-bot-kagibot)'
+          - '($is-bot-yandexbot)'
+          - '($is-bot-uptimerobot)'
+          - '($is-bot-betterstack)'
+        action: pass
+
+      - name: undesired-crawlers
+        conditions:
+          - '($is-headless-chromium)'
+          - 'userAgent.startsWith("Lightpanda/")'
+          - 'userAgent.startsWith("masscan/")'
+          - 'userAgent.matches("^Opera/[0-9.]+\\.\\(")'
+          - 'userAgent.contains("Bytedance") || userAgent.contains("Bytespider") || userAgent.contains("TikTokSpider")'
+          - 'userAgent.contains("meta-externalagent/") || userAgent.contains("meta-externalfetcher/") || userAgent.contains("FacebookBot")'
+          - 'userAgent.contains("ClaudeBot") || userAgent.contains("Claude-User") || userAgent.contains("Claude-SearchBot")'
+          - 'userAgent.contains("CCBot")'
+          - 'userAgent.contains("GPTBot") || userAgent.contains("OAI-SearchBot") || userAgent.contains("ChatGPT-User")'
+          - 'userAgent.contains("Amazonbot") || userAgent.contains("Google-Extended") || userAgent.contains("PanguBot") || userAgent.contains("AI2Bot") || userAgent.contains("Diffbot") || userAgent.contains("cohere-training-data-crawler") || userAgent.contains("Applebot-Extended")'
+          - 'userAgent.contains("BLEXBot")'
+        action: deny
+
+      - name: unknown-crawlers
+        conditions:
+          - 'userAgent == ""'
+        action: deny
+
+      - name: non-get-request
+        action: pass
+        conditions:
+          - '!(method == "HEAD" || method == "GET")'
+
+      # Non-JS checks first, proof of work only for clients that fail them
+      - name: wikibase-entity-endpoints
+        action: challenge
+        settings:
+          challenges: [preload-link, meta-refresh, resource-load, js-pow-sha256]
+        conditions:
+          - '($is-wikibase-entity-endpoint)'
+
+      - name: mediawiki-search
+        action: challenge
+        settings:
+          challenges: [preload-link, meta-refresh, resource-load, js-pow-sha256]
+        conditions:
+          - '($is-mediawiki-search)'
+
+      # Proof of work first
+      - name: expensive-special-pages
+        action: challenge
+        settings:
+          challenges: [js-pow-sha256, preload-link, meta-refresh, resource-load]
+        conditions:
+          - '($is-expensive-special-page)'
+
+      # Silent escalation, none of these display a page on their own
+      - name: suspicious-crawlers
+        conditions:
+          - '($is-suspicious-crawler)'
+        action: none
+        children:
+          - name: 0
+            action: check
+            settings:
+              challenges: [js-refresh]
+          - name: 1
+            action: check
+            settings:
+              challenges: [preload-link, resource-load]
+          - name: 2
+            action: check
+            settings:
+              challenges: [header-refresh]

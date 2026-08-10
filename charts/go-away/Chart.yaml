@@ -1,0 +1,6 @@
+apiVersion: v2
+name: go-away
+description: A Helm chart for go-away bot protection connected to Varnish/Mediawiki
+type: application
+version: 0.1.0
+appVersion: "0.7.0"

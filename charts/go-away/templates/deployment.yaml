@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.goaway.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        # config.yml and the template are only read at startup
+        checksum/config: {{ include (print $.Template.BasePath "/configmap-config.yaml") . | sha256sum }}
+        checksum/policy: {{ include (print $.Template.BasePath "/configmap-policy.yaml") . | sha256sum }}
+        checksum/env: {{ include (print $.Template.BasePath "/configmap-env.yaml") . | sha256sum }}
+    spec:
+      securityContext:
+        # fsGroup makes the /cache emptyDir writable for the non-root user
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: go-away
+          image: "{{ .Values.goaway.image.repository }}:{{ .Values.goaway.image.tag }}"
+          imagePullPolicy: {{ .Values.goaway.image.pullPolicy }}
+          args:
+            - --path
+            - {{ .Values.goaway.basePath | quote }}
+            {{- if .Values.goaway.passthrough }}
+            - --passthrough
+            {{- end }}
+            {{- range .Values.goaway.extraArgs }}
+            - {{ . | quote }}
+            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-env
+          env:
+            - name: GOAWAY_JWT_PRIVATE_KEY_SEED
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-key
+                  key: GOAWAY_JWT_PRIVATE_KEY_SEED
+          ports:
+            - name: http
+              containerPort: {{ .Values.goaway.containerPort }}
+            - name: metrics
+              containerPort: {{ .Values.goaway.metricsPort }}
+          volumeMounts:
+            - name: policy
+              mountPath: /etc/go-away/policy
+              readOnly: true
+            - name: config
+              mountPath: /etc/go-away/config
+              readOnly: true
+            {{- if eq .Values.branding.template "mardi" }}
+            - name: template
+              mountPath: /etc/go-away/template
+              readOnly: true
+            {{- end }}
+            - name: cache
+              mountPath: /cache
+          # go-away exposes no /healthz
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: {{ .Values.goaway.resources.requests.cpu }}
+              memory: {{ .Values.goaway.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.goaway.resources.limits.cpu }}
+              memory: {{ .Values.goaway.resources.limits.memory }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: policy
+          configMap:
+            name: {{ .Release.Name }}-policy
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-config
+        {{- if eq .Values.branding.template "mardi" }}
+        - name: template
+          configMap:
+            name: {{ .Release.Name }}-template
+        {{- end }}
+        - name: cache
+          emptyDir: {}

@@ -1,0 +1,96 @@
+goaway:
+  image:
+    # Pinned to latest: external templates are broken in the v0.7.0 release and
+    # only fixed on upstream master. Move to a version tag once that ships.
+    repository: ghcr.io/weebdatahoarder/go-away
+    tag: latest
+    pullPolicy: Always
+
+  replicas: 1
+
+  target: varnish
+  targetPort: 80
+
+  servicePort: 8080
+  containerPort: 8080
+  metricsPort: 9090
+
+  # go-away reads the first entry of this header. Traefik appends to
+  # X-Forwarded-For, so its first entry is client-supplied and spoofable.
+  clientIpHeader: "X-Real-Ip"
+
+  extraHosts: []
+  wildcardFallback: true
+
+  # Serve traffic while rules and network ranges are still loading
+  passthrough: true
+
+  logLevel: "WARN"
+
+  basePath: "/.well-known/.go-away"
+
+  extraArgs: []
+
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 750m
+      memory: 256Mi
+
+branding:
+  # mardi -> files/challenge-mardi.gohtml; anubis and forgejo are bundled
+  template: "mardi"
+
+  # Must be an http(s) or root-relative URL: Go's html/template rewrites a
+  # data: URI in src to "#ZgotmplZ". Empty resolves to
+  # https://images.<global.baseDomain><logoPath>, which is not behind go-away.
+  # Unused by the mardi template, which carries the logo inline.
+  logo: ""
+  logoPath: "/images/e/e9/Mardi-logo-transparent-opt.gif"
+  theme: ""
+
+  links:
+    - name: "MaRDI"
+      url: "https://www.mardi4nfdi.de/"
+
+  # go-away replaces its whole string map with this one, so every key has to be
+  # listed: anything missing renders as a literal "string:<key>" placeholder,
+  # including the status_* strings the challenge JS writes while it runs.
+  # Raw HTML is allowed.
+  strings:
+    title_challenge: "Checking your browser"
+    title_error: "Access denied"
+    noscript_warning: >
+      <p>JavaScript is required to pass this check. It is only needed for this
+      page, not for the MaRDI Portal itself.</p>
+    details_title: "Why am I seeing this?"
+    details_text: >
+      <p>
+      The MaRDI Portal is being checked for automated traffic. Large-scale
+      scrapers make the portal slow or unavailable for everyone, so requests to
+      the more expensive pages are verified before they are served.
+      </p>
+      <p>
+      This check normally completes on its own within a few seconds and you
+      will be redirected automatically. Browser extensions that block scripts
+      (for example JShelter) can prevent it from completing.
+      </p>
+    details_contact_admin_with_request_id: >
+      If this does not resolve, contact the portal administrators and quote this request id
+    button_refresh_page: "Refresh page"
+    status_loading: "Loading..."
+    status_loading_challenge: "Loading challenge"
+    status_starting_challenge: "Starting challenge"
+    status_calculating: "Calculating..."
+    status_challenge_success: "Check passed"
+    status_challenge_done_took: "Done, took"
+    status_error: "Error:"
+
+ingress:
+  # Defaults to global.baseDomain
+  host: ""
+
+global:
+  baseDomain: ""
