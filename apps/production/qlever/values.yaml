@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qlever
+spec:
+  chart:
+    spec:
+      version: "0.1.21"
+  values:
+    qlever:
+      resources:
+        requests:
+          memory: "8Gi"
+          cpu: "2000m"
+        limits:
+          memory: "32Gi"
+          cpu: "8000m"
+      storage:
+        size: "190Gi"
+        className: "csi-rbd-sc"
+      server:
+        memoryForQueries: 20G
+        cacheMaxSize: 6G
+        timeout: 300s
+    ingress:
+      enabled: false
+    updater:
+      enabled: false
