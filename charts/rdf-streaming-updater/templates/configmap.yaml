@@ -38,6 +38,7 @@ data:
     # --- Wikibase URI & Namespace ---
     uris_scheme=wikidata
     wikibase_repo_url=https://{{ .Values.global.baseDomain }}
+    wikidata_concept_uri=https://{{ .Values.global.baseDomain }}
     concept_uri_prefix=https://{{ .Values.global.baseDomain }}/entity/
     entity_namespaces=120,122
     entity_data_url={{ .Values.config.wikiInternalUrl }}.{{ .Release.Namespace }}.svc.cluster.local/wiki/Special:EntityData/
