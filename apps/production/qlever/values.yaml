@@ -23,6 +23,6 @@ spec:
         cacheMaxSize: 6G
         timeout: 300s
     ingress:
-      enabled: false
+      enabled: true
     updater:
       enabled: false
