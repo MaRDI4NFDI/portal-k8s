@@ -33,6 +33,7 @@ resources:
   - change-propagation
   - kafka-exporter
   - qlever
+  - rdf-streaming-updater
 
 patches:
   - target:
