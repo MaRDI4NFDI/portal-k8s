@@ -53,23 +53,7 @@ spec:
                             "imagePullPolicy": "{{ image_pull_policy }}",
                             "args": "{{ command }}",
                             "env": "{{ env }}",
-                            "envFrom": [
-                              {
-                                "secretRef": {
-                                  "name": "staging-importer-accounts"
-                                }
-                              },
-                              {
-                                "secretRef": {
-                                  "name": "staging-importer-secrets"
-                                }
-                              },
-                              {
-                                "configMapRef": {
-                                  "name": "staging-importer-config"
-                                }
-                              }
-                            ],
+                            "envFrom": "{{ env_from }}",
                             "resources": {
                               "requests": {
                                 "cpu": "{{ cpu_request }}",
@@ -118,6 +102,31 @@ spec:
                     "additionalProperties": {
                       "type": "string"
                     }
+                  },
+                  "env_from": {
+                    "type": "array",
+                    "title": "Env From",
+                    "description": "Sources mounted into the container as environment variables. A deployment override replaces this list wholesale rather than adding to it, so a job that still needs the importer credentials has to restate them.",
+                    "items": {
+                      "type": "object"
+                    },
+                    "default": [
+                      {
+                        "secretRef": {
+                          "name": "staging-importer-accounts"
+                        }
+                      },
+                      {
+                        "secretRef": {
+                          "name": "staging-importer-secrets"
+                        }
+                      },
+                      {
+                        "configMapRef": {
+                          "name": "staging-importer-config"
+                        }
+                      }
+                    ]
                   },
                   "namespace": {
                     "type": "string",
