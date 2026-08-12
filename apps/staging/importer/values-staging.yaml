@@ -16,9 +16,6 @@ spec:
     spec:
       version: "0.1.29"
   values:
-    importer:
-      image:
-        tag: "staging"
     database:
       host: "staging-mariadb-primary"
     endpoints:
