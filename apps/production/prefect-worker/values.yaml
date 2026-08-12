@@ -5,34 +5,237 @@ metadata:
 spec:
   chart:
     spec:
-      version: "2026.1.30002458"
+      version: "2026.7.31163938"
   values:
     worker:
       apiConfig: selfHostedServer
-      
       config:
-        workPool: "K8WorkerPool"
+        workPool: prod-k8s-pool
         type: kubernetes
         jobNamespace: production
         queryInterval: 5
         prefetchSeconds: 10
-      
+        baseJobTemplate:
+          configuration: |
+            {
+              "job_configuration": {
+                "command": "{{ command }}",
+                "env": "{{ env }}",
+                "labels": "{{ labels }}",
+                "name": "{{ name }}",
+                "annotations": "{{ annotations }}",
+                "namespace": "{{ namespace }}",
+                "cluster_config": "{{ cluster_config }}",
+                "job_watch_timeout_seconds": "{{ job_watch_timeout_seconds }}",
+                "pod_watch_timeout_seconds": "{{ pod_watch_timeout_seconds }}",
+                "stream_output": "{{ stream_output }}",
+                "job_manifest": {
+                  "apiVersion": "batch/v1",
+                  "kind": "Job",
+                  "metadata": {
+                    "annotations": "{{ annotations }}",
+                    "labels": "{{ labels }}",
+                    "namespace": "{{ namespace }}",
+                    "generateName": "prefect-run-"
+                  },
+                  "spec": {
+                    "backoffLimit": "{{ backoff_limit }}",
+                    "ttlSecondsAfterFinished": "{{ finished_job_ttl }}",
+                    "template": {
+                      "spec": {
+                        "parallelism": 1,
+                        "completions": 1,
+                        "restartPolicy": "Never",
+                        "serviceAccountName": "{{ service_account_name }}",
+                        "containers": [
+                          {
+                            "name": "prefect-job",
+                            "image": "{{ image }}",
+                            "imagePullPolicy": "{{ image_pull_policy }}",
+                            "args": "{{ command }}",
+                            "env": "{{ env }}",
+                            "envFrom": "{{ env_from }}",
+                            "volumeMounts": "{{ volume_mounts }}",
+                            "resources": {
+                              "requests": {
+                                "cpu": "{{ cpu_request }}",
+                                "memory": "{{ memory_request }}"
+                              },
+                              "limits": {
+                                "cpu": "{{ cpu_limit }}",
+                                "memory": "{{ memory_limit }}"
+                              }
+                            }
+                          }
+                        ],
+                        "volumes": "{{ volumes }}"
+                      }
+                    }
+                  }
+                }
+              },
+              "variables": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name"
+                  },
+                  "command": {
+                    "type": "string",
+                    "title": "Command"
+                  },
+                  "labels": {
+                    "type": "object",
+                    "title": "Labels",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "annotations": {
+                    "type": "object",
+                    "title": "Annotations",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "env": {
+                    "type": "object",
+                    "title": "Environment Variables",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "env_from": {
+                    "type": "array",
+                    "title": "Env From",
+                    "description": "Sources mounted into the container as environment variables. A deployment override replaces this list wholesale rather than adding to it, so a job that still needs the importer credentials has to restate them.",
+                    "items": {
+                      "type": "object"
+                    },
+                    "default": [
+                      {
+                        "secretRef": {
+                          "name": "importer-accounts"
+                        }
+                      },
+                      {
+                        "secretRef": {
+                          "name": "importer-secrets"
+                        }
+                      },
+                      {
+                        "configMapRef": {
+                          "name": "importer-config"
+                        }
+                      }
+                    ]
+                  },
+                  "volumes": {
+                    "type": "array",
+                    "title": "Volumes",
+                    "description": "Pod-level volumes. Deliberately has no default: an unset placeholder is dropped from the manifest, so only deployments that ask for storage carry the key.",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "volume_mounts": {
+                    "type": "array",
+                    "title": "Volume Mounts",
+                    "description": "Container mount points for the volumes above. Named with an underscore rather than matching the camelCase Kubernetes field, because that is the key the existing full-import deployment already passes as a job variable.",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "title": "Namespace",
+                    "default": "production"
+                  },
+                  "image": {
+                    "type": "string",
+                    "title": "Image",
+                    "default": "ghcr.io/mardi4nfdi/docker-importer:main"
+                  },
+                  "image_pull_policy": {
+                    "type": "string",
+                    "title": "Image Pull Policy",
+                    "enum": [
+                      "IfNotPresent",
+                      "Always",
+                      "Never"
+                    ],
+                    "default": "Always"
+                  },
+                  "service_account_name": {
+                    "type": "string",
+                    "title": "Service Account Name",
+                    "default": "default"
+                  },
+                  "finished_job_ttl": {
+                    "type": "integer",
+                    "title": "Finished Job TTL",
+                    "default": 600
+                  },
+                  "backoff_limit": {
+                    "type": "integer",
+                    "title": "Backoff Limit",
+                    "minimum": 0,
+                    "default": 0
+                  },
+                  "job_watch_timeout_seconds": {
+                    "type": "integer",
+                    "title": "Job Watch Timeout Seconds"
+                  },
+                  "pod_watch_timeout_seconds": {
+                    "type": "integer",
+                    "title": "Pod Watch Timeout Seconds",
+                    "default": 60
+                  },
+                  "stream_output": {
+                    "type": "boolean",
+                    "title": "Stream Output",
+                    "default": true
+                  },
+                  "cluster_config": {
+                    "type": "object",
+                    "title": "Cluster Config"
+                  },
+                  "cpu_request": {
+                    "type": "string",
+                    "title": "CPU Request",
+                    "default": "250m"
+                  },
+                  "cpu_limit": {
+                    "type": "string",
+                    "title": "CPU Limit",
+                    "default": "2"
+                  },
+                  "memory_request": {
+                    "type": "string",
+                    "title": "Memory Request",
+                    "default": "512Mi"
+                  },
+                  "memory_limit": {
+                    "type": "string",
+                    "title": "Memory Limit",
+                    "default": "4Gi"
+                  }
+                }
+              }
+            }
       selfHostedServerApiConfig:
-        apiUrl: "http://prefect-server:4200/api"
-        
+        apiUrl: http://prefect-server.prefect.svc.cluster.local:4200/api
         basicAuth:
           enabled: true
-          existingSecret: "prefect-server-auth"
-      
+          existingSecret: prefect-server-auth
       resources:
         requests:
-          cpu: 100m
           memory: 256Mi
+          cpu: 100m
         limits:
-          cpu: 1000m
           memory: 1Gi
-      
+          cpu: 1000m
       replicaCount: 1
-      
       livenessProbe:
         enabled: true
