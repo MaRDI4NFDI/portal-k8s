@@ -54,6 +54,7 @@ spec:
                             "args": "{{ command }}",
                             "env": "{{ env }}",
                             "envFrom": "{{ env_from }}",
+                            "volumeMounts": "{{ volume_mounts }}",
                             "resources": {
                               "requests": {
                                 "cpu": "{{ cpu_request }}",
@@ -65,7 +66,8 @@ spec:
                               }
                             }
                           }
-                        ]
+                        ],
+                        "volumes": "{{ volumes }}"
                       }
                     }
                   }
@@ -127,6 +129,22 @@ spec:
                         }
                       }
                     ]
+                  },
+                  "volumes": {
+                    "type": "array",
+                    "title": "Volumes",
+                    "description": "Pod-level volumes. Deliberately has no default: an unset placeholder is dropped from the manifest, so only deployments that ask for storage carry the key.",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "volume_mounts": {
+                    "type": "array",
+                    "title": "Volume Mounts",
+                    "description": "Container mount points for the volumes above. Named with an underscore rather than matching the camelCase Kubernetes field, because that is the key the existing full-import deployment already passes as a job variable.",
+                    "items": {
+                      "type": "object"
+                    }
                   },
                   "namespace": {
                     "type": "string",
