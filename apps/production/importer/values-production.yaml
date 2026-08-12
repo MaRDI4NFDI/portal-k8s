@@ -18,6 +18,7 @@ spec:
       logging:
         level: "debug"
     prefect:
-      deployment: "mardi-importer/prefect-mardi-importer"
+      endpoint: "http://prefect-server.prefect.svc.cluster.local:4200/api"
+      deployment: "mardi-importer/production"
 
 
