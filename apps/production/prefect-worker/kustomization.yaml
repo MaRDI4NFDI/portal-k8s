@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/prefect-worker
+  - secret-auth.yaml
 patches:
   - path: values.yaml
     target:

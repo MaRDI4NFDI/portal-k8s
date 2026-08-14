@@ -19,7 +19,6 @@ resources:
   - external-services
   # - maintenance
   - memcached
-  - prefect-server
   - prefect-worker
   - deepchat
   - fdo
