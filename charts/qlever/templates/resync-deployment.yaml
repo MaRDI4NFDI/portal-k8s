@@ -1,0 +1,49 @@
+{{- if .Values.resync.enabled }}
+# A long-lived pod that holds the resync tool and the credentials it needs, so
+# that reconciling an entity is a one-liner with no local setup:
+#
+#   kubectl exec -it deploy/{{ .Release.Name }}-resync -- resync Q42
+#   kubectl exec -it deploy/{{ .Release.Name }}-resync -- resync --check Q42
+#   kubectl exec -it deploy/{{ .Release.Name }}-resync -- resync --changed-since 36h
+#
+# It deliberately runs nothing on its own: reconciliation is a manual operation.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-resync
+  labels:
+    app: {{ .Release.Name }}-resync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-resync
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-resync
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: toolbox
+          image: "{{ .Values.qlever.image.repository }}:{{ .Values.qlever.image.tag }}"
+          command: ["/bin/sh", "-c", "exec sleep infinity"]
+          env:
+{{ include "qlever.resyncEnv" . | indent 12 }}
+          volumeMounts:
+            - name: resync-scripts
+              mountPath: /opt/resync
+              readOnly: true
+          resources:
+            requests:
+              cpu: {{ .Values.resync.resources.requests.cpu | quote }}
+              memory: {{ .Values.resync.resources.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.resync.resources.limits.cpu | quote }}
+              memory: {{ .Values.resync.resources.limits.memory | quote }}
+      volumes:
+        - name: resync-scripts
+          configMap:
+            name: {{ .Release.Name }}-resync-scripts
+            defaultMode: 0555
+{{- end }}

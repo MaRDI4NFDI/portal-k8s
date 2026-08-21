@@ -1,0 +1,5 @@
+# Development-only files under files/ — only resync.py is inlined into a
+# ConfigMap, so nothing else needs to travel in the packaged chart.
+__pycache__/
+*.py[cod]
+files/test_*.py

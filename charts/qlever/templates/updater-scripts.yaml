@@ -14,5 +14,8 @@ data:
       sudo apt-get install -y -qq --no-install-recommends git
     fi
 
-    pipx install --force git+https://github.com/qlever-dev/qlever-control.git
+    # Pinned: an unpinned main would silently change the updater's behaviour on
+    # every pod restart.
+    pipx install --force \
+      git+https://github.com/qlever-dev/qlever-control.git@{{ .Values.updater.qleverControlRef }}
 {{- end }}

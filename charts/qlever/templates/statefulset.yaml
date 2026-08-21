@@ -65,9 +65,27 @@ spec:
               echo "Exec into this pod and run 'qlever index' to bootstrap"
               exec sleep infinity
             fi
+          # Readiness only, deliberately: when there is no index the container
+          # falls through to `sleep infinity` and nothing listens on the port,
+          # so this keeps the Service from routing to a pod that cannot answer.
+          # A liveness probe would restart-loop that same bootstrap state and
+          # kill a long-running `qlever index` with it.
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.qlever.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
           volumeMounts:
             - name: qlever-data
               mountPath: /data
+          resources:
+            requests:
+              memory: {{ .Values.qlever.resources.requests.memory | quote }}
+              cpu: {{ .Values.qlever.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.qlever.resources.limits.memory | quote }}
+              cpu: {{ .Values.qlever.resources.limits.cpu | quote }}
       volumes:
         - name: qleverfile-template
           configMap:

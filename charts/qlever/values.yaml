@@ -18,7 +18,9 @@ qlever:
     description: MaRDI Knowledge Graph
     textDescription: All literals, search with FILTER CONTAINS(?var, "...")
   index:
-    inputFiles: mardi.ttl
+    # Chunks produced by the WDQS munger (munge.sh), relative to /data.
+    inputFiles: "wikidump-*.ttl.gz"
+    catInputFiles: "zcat ${INPUT_FILES}"
   server:
     memoryForQueries: 5G
     cacheMaxSize: 2G
@@ -42,6 +44,8 @@ frontend:
 
 updater:
   enabled: false
+  # Tag or commit of qlever-dev/qlever-control installed at pod start.
+  qleverControlRef: "v0.6.0"
   sseStreamUrl: "http://eventstreams/v2/stream/rdf-streaming-updater.mutation.v2"
   topic: "mardi.rdf-streaming-updater.mutation.v2"
   resources:
@@ -51,6 +55,20 @@ updater:
     limits:
       cpu: 1
       memory: 2Gi
+
+resync:
+  enabled: false
+  entityDataUrl: "http://wikibase/wiki/Special:EntityData/"
+  apiUrl: "http://wikibase/w/api.php"
+  namespaces: "120,122"
+  conceptUri: ""
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "1"
+      memory: "1Gi"
 
 ingress:
   enabled: false
