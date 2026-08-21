@@ -25,4 +25,4 @@ spec:
     ingress:
       enabled: true
     updater:
-      enabled: false
+      enabled: true
