@@ -1,0 +1,12 @@
+{{- if .Values.resync.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-resync-scripts
+data:
+  # Mounted at /opt/resync (mode 0555) and on PATH, so the executable is simply
+  # `resync`. Keeping the source in files/resync.py means it stays lintable and
+  # testable; Helm inlines it here.
+  resync: |-
+{{ .Files.Get "files/resync.py" | indent 4 }}
+{{- end }}

@@ -37,7 +37,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "csi-rbd-sc"
+  storageClassName: {{ .Values.qlever.storage.className | quote }}
   resources:
     requests:
       storage: {{ .Values.frontend.storage }}

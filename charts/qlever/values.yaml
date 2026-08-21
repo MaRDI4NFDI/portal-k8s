@@ -18,7 +18,8 @@ qlever:
     description: MaRDI Knowledge Graph
     textDescription: All literals, search with FILTER CONTAINS(?var, "...")
   index:
-    inputFiles: mardi.ttl
+    inputFiles: "wikidump-*.ttl.gz"
+    catInputFiles: "zcat ${INPUT_FILES}"
   server:
     memoryForQueries: 5G
     cacheMaxSize: 2G
@@ -42,6 +43,7 @@ frontend:
 
 updater:
   enabled: false
+  qleverControlRef: "v0.6.0"
   sseStreamUrl: "http://eventstreams/v2/stream/rdf-streaming-updater.mutation.v2"
   topic: "mardi.rdf-streaming-updater.mutation.v2"
   resources:
@@ -51,6 +53,20 @@ updater:
     limits:
       cpu: 1
       memory: 2Gi
+
+resync:
+  enabled: false
+  entityDataUrl: "http://wikibase/wiki/Special:EntityData/"
+  apiUrl: "http://wikibase/w/api.php"
+  namespaces: "120,122"
+  conceptUri: ""
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "1"
+      memory: "1Gi"
 
 ingress:
   enabled: false

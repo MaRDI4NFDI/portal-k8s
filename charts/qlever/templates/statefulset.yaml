@@ -65,9 +65,22 @@ spec:
               echo "Exec into this pod and run 'qlever index' to bootstrap"
               exec sleep infinity
             fi
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.qlever.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
           volumeMounts:
             - name: qlever-data
               mountPath: /data
+          resources:
+            requests:
+              memory: {{ .Values.qlever.resources.requests.memory | quote }}
+              cpu: {{ .Values.qlever.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.qlever.resources.limits.memory | quote }}
+              cpu: {{ .Values.qlever.resources.limits.cpu | quote }}
       volumes:
         - name: qleverfile-template
           configMap:
