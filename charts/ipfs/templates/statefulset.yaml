@@ -11,10 +11,13 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      annotations:
+        checksum/init-config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: kubo
-          image: ipfs/kubo
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: IPFS_PROFILE
               value: server
@@ -22,8 +25,8 @@ spec:
             - name: data
               mountPath: /data/ipfs
             - name: init
-              mountPath: /container-init.d/10-announce-addresses.sh
-              subPath: 10-announce-addresses.sh
+              mountPath: /container-init.d/10-configure.sh
+              subPath: 10-configure.sh
               readOnly: true
       volumes:
         - name: init

@@ -1,3 +1,8 @@
+image:
+  repository: ipfs/kubo
+  tag: v0.43.0
+  pullPolicy: IfNotPresent
+
 storage:
   className: csi-rbd-sc
   size: 20Gi
