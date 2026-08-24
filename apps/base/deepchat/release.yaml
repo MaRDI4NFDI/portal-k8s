@@ -6,8 +6,27 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: deepchat
+      chart: stateless-service
       sourceRef:
         kind: HelmRepository
         name: portal-k8s
         namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/mardi4nfdi/mardi_llm_bottest
+      tag: latest
+      pullPolicy: Always
+    containerPort: 8080
+    envFrom:
+      - secretRef:
+          name: deepchat-secrets
+    ingress:
+      enabled: true
+      subdomain: deepchat
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        memory: 1Gi
+        cpu: 1000m

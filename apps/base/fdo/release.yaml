@@ -6,8 +6,24 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: fdo
+      chart: stateless-service
       sourceRef:
         kind: HelmRepository
         name: portal-k8s
         namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/mardi4nfdi/mardi_fdo_server
+      tag: latest
+      pullPolicy: Always
+    containerPort: 8000
+    ingress:
+      enabled: true
+      subdomain: fdo
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 200m
+      limits:
+        memory: 512Mi
+        cpu: 500m
