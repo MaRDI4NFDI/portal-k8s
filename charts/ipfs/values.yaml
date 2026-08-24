@@ -1,0 +1,3 @@
+storage:
+  className: csi-rbd-sc
+  size: 20Gi

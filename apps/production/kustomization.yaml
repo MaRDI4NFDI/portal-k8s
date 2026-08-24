@@ -33,6 +33,7 @@ resources:
   - kafka-exporter
   - qlever
   - rdf-streaming-updater
+  - ipfs
 
 patches:
   - target:

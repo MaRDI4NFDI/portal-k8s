@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ .Release.Name }}-swarm-tcp
+spec:
+  entryPoints:
+    - ipfs-swarm-tcp
+  routes:
+    - match: HostSNI(`*`)
+      services:
+        - name: {{ .Release.Name }}
+          port: swarm-tcp
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  name: {{ .Release.Name }}-swarm-udp
+spec:
+  entryPoints:
+    - ipfs-swarm-udp
+  routes:
+    - services:
+        - name: {{ .Release.Name }}
+          port: swarm-udp

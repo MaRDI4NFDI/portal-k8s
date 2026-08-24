@@ -14,8 +14,6 @@ spec:
         subdomain: oai-input
       - name: uptime
         subdomain: uptime
-      - name: ipfs
-        subdomain: ipfs
       - name: ipfs-admin
         subdomain: ipfs-admin
       - name: mscexplainer

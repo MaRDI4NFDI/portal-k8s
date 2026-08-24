@@ -138,6 +138,11 @@ The platform uses a single cluster with two environments deployed in different n
     </tr>
 </table>
 
+### TLS certificates
+
+Public services obtain certificates from the `letsencrypt-prod` ClusterIssuer.
+Certificate lifetime and renewal use cert-manager defaults.
+
 ## Documentation
 
 - [Helm package manager](https://helm.sh/)
