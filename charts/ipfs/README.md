@@ -9,6 +9,9 @@ Only settings that differ from the Kubo or Kubernetes defaults are specified:
 
 - `IPFS_PROFILE=server` keeps the server profile used by the Compose deployment;
   this is the [recommended profile for a public server](https://docs.ipfs.tech/how-to/command-line-quick-start/#initialize-the-repository).
+- The [`unixfs-v1-2025` CID profile](https://specs.ipfs.tech/ipips/ipip-0499/)
+  makes new UnixFS imports use the deterministic CIDv1 settings defined by
+  IPIP-0499. Existing CIDv0 content and pins remain valid.
 - `/data/ipfs` is stored on a 20 GiB `csi-rbd-sc` volume. The old data is at
   most 10 GB, so this leaves room for the initial import.
 - [`Addresses.AppendAnnounce`](https://docs.ipfs.tech/how-to/nat-configuration/#update-the-kubo-configuration)
@@ -34,3 +37,11 @@ ipfs --api=/ip4/127.0.0.1/tcp/5001 pin ls --type=recursive
 ```
 
 Record the returned root CIDs before ending the port-forward session.
+
+The `unixfs-v1-2025` profile requires Kubo 0.40 or newer. Confirm the running
+version and active import configuration with:
+
+```console
+ipfs --api=/ip4/127.0.0.1/tcp/5001 version
+ipfs --api=/ip4/127.0.0.1/tcp/5001 config Import
+```

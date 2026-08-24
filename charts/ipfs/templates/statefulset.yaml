@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      annotations:
+        checksum/init-config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: kubo
@@ -22,8 +24,8 @@ spec:
             - name: data
               mountPath: /data/ipfs
             - name: init
-              mountPath: /container-init.d/10-announce-addresses.sh
-              subPath: 10-announce-addresses.sh
+              mountPath: /container-init.d/10-configure.sh
+              subPath: 10-configure.sh
               readOnly: true
       volumes:
         - name: init
