@@ -1,0 +1,18 @@
+{{- range .Values.services }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .name }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .name }}.{{ $.Values.global.baseDomain }}`)
+      kind: Rule
+      services:
+        - name: {{ .name }}
+          port: {{ .port }}
+  tls:
+    secretName: {{ .name }}-tls
+{{- end }}

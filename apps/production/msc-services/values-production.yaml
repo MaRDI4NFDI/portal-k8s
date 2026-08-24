@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: msc-services
+spec:
+  chart:
+    spec:
+      version: "0.1.0"
+  values:
+    services:
+      - name: mscexplainer
+        image: ghcr.io/gipplab/automscexplainer:latest
+        port: 8501
+      - name: mscbackend
+        image: aggipp/automscbackend
+        port: 8000
+      - name: msceval
+        image: aggipp/automsceval
+        port: 8000
