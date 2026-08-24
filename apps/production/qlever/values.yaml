@@ -26,3 +26,5 @@ spec:
       enabled: true
     updater:
       enabled: true
+    resync:
+      enabled: true
