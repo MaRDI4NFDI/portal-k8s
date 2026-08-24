@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mscbackend
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: stateless-service
+      sourceRef:
+        kind: HelmRepository
+        name: portal-k8s
+        namespace: flux-system
+  values:
+    image:
+      repository: aggipp/automscbackend
+      tag: latest
+      pullPolicy: Always
+    containerPort: 8000
+    ingress:
+      enabled: true
+      subdomain: mscbackend

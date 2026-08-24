@@ -16,12 +16,6 @@ spec:
         subdomain: uptime
       - name: ipfs-admin
         subdomain: ipfs-admin
-      - name: mscexplainer
-        subdomain: mscexplainer
-      - name: mscbackend
-        subdomain: mscbackend
-      - name: msceval
-        subdomain: msceval
       - name: flask
         subdomain: flask
       - name: portainer

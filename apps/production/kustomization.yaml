@@ -25,6 +25,9 @@ resources:
   - doip
   - qdrant
   - askmardi
+  - mscexplainer
+  - mscbackend
+  - msceval
   - kafka
   - schema-registry
   - eventgate

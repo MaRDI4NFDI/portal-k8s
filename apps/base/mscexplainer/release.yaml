@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mscexplainer
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: stateless-service
+      sourceRef:
+        kind: HelmRepository
+        name: portal-k8s
+        namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/gipplab/automscexplainer
+      tag: latest
+      pullPolicy: Always
+    containerPort: 8501
+    ingress:
+      enabled: true
+      subdomain: mscexplainer
