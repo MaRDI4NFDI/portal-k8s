@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: kubo
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: ipfs/kubo
           env:
             - name: IPFS_PROFILE
               value: server

@@ -1,8 +1,8 @@
 # IPFS
 
-This chart runs one Kubo node using the standard `ipfs/kubo` image, pinned to
-Kubo v0.43.0 by default. See the
-[Kubo container documentation](https://docs.ipfs.tech/install/run-ipfs-inside-docker/)
+This chart runs one Kubo node using the standard `ipfs/kubo` image. The image
+tag is intentionally omitted, matching the previous Compose deployment. See
+the [Kubo container documentation](https://docs.ipfs.tech/install/run-ipfs-inside-docker/)
 for the image paths and ports used below.
 
 Only settings that differ from the Kubo or Kubernetes defaults are specified:
