@@ -16,6 +16,18 @@ spec:
       spec:
         loadBalancerIP: "130.73.131.224"
     ports:
+      ipfs-swarm-tcp:
+        port: 4001
+        expose:
+          default: true
+        exposedPort: 4001
+        protocol: TCP
+      ipfs-swarm-udp:
+        port: 4001
+        expose:
+          default: true
+        exposedPort: 4001
+        protocol: UDP
       doip-tls1:
         port: 3567
         expose:

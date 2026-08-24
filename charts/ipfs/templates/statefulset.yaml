@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  serviceName: {{ .Release.Name }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: kubo
+          image: ipfs/kubo
+          env:
+            - name: IPFS_PROFILE
+              value: server
+          volumeMounts:
+            - name: data
+              mountPath: /data/ipfs
+            - name: init
+              mountPath: /container-init.d/10-announce-addresses.sh
+              subPath: 10-announce-addresses.sh
+              readOnly: true
+      volumes:
+        - name: init
+          configMap:
+            name: {{ .Release.Name }}-init
+            defaultMode: 0555
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: {{ .Values.storage.className }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.size }}

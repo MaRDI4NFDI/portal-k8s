@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ipfs.{{ .Values.global.baseDomain }}`)
+      kind: Rule
+      services:
+        - name: {{ .Release.Name }}
+          port: gateway
+  tls:
+    secretName: {{ .Release.Name }}-tls

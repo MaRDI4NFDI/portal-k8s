@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-init
+data:
+  10-announce-addresses.sh: |-
+    #!/bin/sh
+    set -eu
+    ipfs config --json Addresses.AppendAnnounce '["/dns4/ipfs.{{ .Values.global.baseDomain }}/tcp/4001","/dns4/ipfs.{{ .Values.global.baseDomain }}/udp/4001/quic-v1"]'
