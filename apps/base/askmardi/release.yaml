@@ -6,8 +6,29 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: askmardi
+      chart: stateless-service
       sourceRef:
         kind: HelmRepository
         name: portal-k8s
         namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/mardi4nfdi/askmardi_chatbot
+      tag: latest
+      pullPolicy: Always
+    env:
+      - name: QDRANT_URL
+        value: http://qdrant:6333
+    envFrom:
+      - secretRef:
+          name: askmardi-secrets
+    ingress:
+      enabled: true
+      subdomain: ask
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        memory: 1Gi
+        cpu: 1000m

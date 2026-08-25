@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: deepchat
+  name: msceval
 spec:
   interval: 5m
   chart:
@@ -13,20 +13,10 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: ghcr.io/mardi4nfdi/mardi_llm_bottest
+      repository: aggipp/automsceval
       tag: latest
       pullPolicy: Always
-    containerPort: 8080
-    envFrom:
-      - secretRef:
-          name: deepchat-secrets
+    containerPort: 8000
     ingress:
       enabled: true
-      subdomain: deepchat
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 500m
-      limits:
-        memory: 1Gi
-        cpu: 1000m
+      subdomain: msceval
