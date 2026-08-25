@@ -2399,6 +2399,16 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/standalone-mariadb-0.1.0/standalone-mariadb-0.1.0.tgz
     version: 0.1.0
+  stateless-service:
+  - apiVersion: v2
+    created: "2026-08-25T07:31:33.14844613Z"
+    description: A single-container stateless service
+    digest: 9f9be9e9ece123ee508c9f90516309f0987e71671bd875a6c617c96f00393b96
+    name: stateless-service
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/stateless-service-0.1.0/stateless-service-0.1.0.tgz
+    version: 0.1.0
   wdqs:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -3642,4 +3652,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-24T15:01:21.282982988Z"
+generated: "2026-08-25T07:31:33.148949128Z"
