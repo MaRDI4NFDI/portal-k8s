@@ -9,3 +9,6 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - ipfs.{{ .Values.global.baseDomain }}
+    {{- if .Values.admin.enabled }}
+    - {{ default (printf "ipfs-admin.%s" .Values.global.baseDomain) .Values.admin.hostname }}
+    {{- end }}

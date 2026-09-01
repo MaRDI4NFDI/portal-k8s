@@ -20,8 +20,55 @@ Only settings that differ from the Kubo or Kubernetes defaults are specified:
 - Traefik sends HTTPS gateway requests to port 8080. It sends IPFS TCP and QUIC
   traffic from its port 4001 entrypoints to the corresponding Service ports.
 
-The RPC API on port 5001 is not included in the Service and therefore has no
-public route.
+The RPC API listens only on the pod's loopback interface and is not included
+directly in the Service, so it has no public route.
+
+## Authenticated WebUI
+
+The optional admin endpoint places an OAuth2 Proxy sidecar in front of the
+complete Kubo RPC/WebUI origin. This lets an allow-listed Google account use
+`https://ipfs-admin.portal.mardi4nfdi.de/webui` while keeping port 5001 private.
+Every allow-listed account receives full Kubo administrative access; there are
+no per-user permissions.
+
+In the [Google Auth Platform Clients](https://support.google.com/cloud/answer/15549257),
+create a **Web application** OAuth client. Keep the app in testing mode, add the
+administrators as test users, and configure this exact authorized redirect URI:
+
+```text
+https://ipfs-admin.portal.mardi4nfdi.de/oauth2/callback
+```
+
+Google displays the client ID and client secret when the client is created. Save
+the downloaded JSON then because Google does not display new client secrets
+again.
+
+Install `sops`, `gnupg`, and `jq`, then run the helper from the repository root:
+
+```console
+brew install sops gnupg jq
+charts/ipfs/create-production-secret.sh ~/Downloads/client_secret_....json
+```
+
+The helper verifies the redirect URI, asks for the allowed Google email address,
+generates the cookie secret, imports `.sops.pub.asc`, and writes the encrypted
+Secret to `apps/production/ipfs/secrets.yaml`. It never prints the Google client
+secret. Add the encrypted Secret to `apps/production/ipfs/kustomization.yaml`:
+
+```yaml
+resources:
+  - ../../base/ipfs
+  - secrets.yaml
+```
+
+Commit the encrypted Secret and Kustomization change together. Flux decrypts
+the Secret when reconciling production. See the MaRDI
+[Secrets-K8s documentation](https://portal.mardi4nfdi.de/wiki/Project:Secrets-K8s)
+for the repository-wide secret-management workflow.
+
+Do not set a wildcard email domain: access is granted exclusively through the
+Secret's `allowed-emails` file. Changing that file or the OAuth credentials
+requires restarting the StatefulSet so OAuth2 Proxy reloads the Secret.
 
 To add the initial data, forward the RPC port to an administrator's machine:
 

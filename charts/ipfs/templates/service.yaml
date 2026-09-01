@@ -8,6 +8,11 @@ spec:
   ports:
     - name: gateway
       port: 8080
+    {{- if .Values.admin.enabled }}
+    - name: admin
+      port: 4180
+      targetPort: admin
+    {{- end }}
     - name: swarm-tcp
       port: 4001
     - name: swarm-udp
