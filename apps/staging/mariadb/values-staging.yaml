@@ -57,6 +57,7 @@ spec:
       endpoint: "dasi03.zib.de:9000"
       region: "zib-1"
       schedule: "0 4 * * *"
+      storage: 5Gi
     physicalbackup:
       enabled: true
       bucket: "mardi"
