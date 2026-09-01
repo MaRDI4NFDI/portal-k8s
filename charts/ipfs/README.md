@@ -67,8 +67,30 @@ the Secret when reconciling production. See the MaRDI
 for the repository-wide secret-management workflow.
 
 Do not set a wildcard email domain: access is granted exclusively through the
-Secret's `allowed-emails` file. Changing that file or the OAuth credentials
-requires restarting the StatefulSet so OAuth2 Proxy reloads the Secret.
+Secret's `allowed-emails` file. OAuth2 Proxy loads that file at startup; use the
+helper below so Flux rolls the StatefulSet after an allow-list change.
+
+### Add an administrator
+
+After the initial deployment, add one administrator from the repository root:
+
+```console
+charts/ipfs/add-production-email.sh
+```
+
+The helper asks for the address without placing it in shell history and creates
+a randomly named, one-address Secret under `apps/production/ipfs/admins/`. It
+encrypts the address with the repository's public SOPS key, adds the Secret to
+the production Kustomization and Helm values, and updates
+`admin.secretRevision`. It requires neither the SOPS private key nor Kubernetes
+access. Commit the three files printed by the script. Flux applies the new
+Secret and rolls the StatefulSet; an init container combines all one-address
+Secrets for OAuth2 Proxy. The chart version does not need another bump for an
+allow-list-only change.
+
+Google Workspace and other company-managed Google accounts can be allow-listed.
+While the Google OAuth consent screen is in testing mode, add each address there
+as a test user as well.
 
 To add the initial data, forward the RPC port to an administrator's machine:
 

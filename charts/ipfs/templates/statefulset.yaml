@@ -1,3 +1,6 @@
+{{- if and .Values.admin.enabled (empty .Values.admin.allowedEmailSecrets) }}
+{{- fail "admin.allowedEmailSecrets must contain at least one Secret when admin access is enabled" }}
+{{- end }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -13,7 +16,32 @@ spec:
         app: {{ .Release.Name }}
       annotations:
         checksum/init-config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.admin.enabled }}
+        ipfs-admin-secret-revision: {{ .Values.admin.secretRevision | quote }}
+        {{- end }}
     spec:
+      {{- if .Values.admin.enabled }}
+      initContainers:
+        - name: assemble-oauth2-allowlist
+          image: busybox:1.37
+          command:
+            - /bin/sh
+            - -ec
+          args:
+            - cat /input/* > /output/allowed-emails
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: oauth2-proxy-email-inputs
+              mountPath: /input
+              readOnly: true
+            - name: oauth2-proxy
+              mountPath: /output
+      {{- end }}
       containers:
         - name: kubo
           image: ipfs/kubo
@@ -94,12 +122,18 @@ spec:
             name: {{ .Release.Name }}-init
             defaultMode: 0555
         {{- if .Values.admin.enabled }}
+        - name: oauth2-proxy-email-inputs
+          projected:
+            sources:
+              {{- range $index, $secretName := .Values.admin.allowedEmailSecrets }}
+              - secret:
+                  name: {{ $secretName }}
+                  items:
+                    - key: email
+                      path: {{ printf "admin-%04d" $index }}
+              {{- end }}
         - name: oauth2-proxy
-          secret:
-            secretName: {{ .Values.admin.existingSecret }}
-            items:
-              - key: {{ .Values.admin.allowedEmailsKey }}
-                path: allowed-emails
+          emptyDir: {}
         {{- end }}
   volumeClaimTemplates:
     - metadata:

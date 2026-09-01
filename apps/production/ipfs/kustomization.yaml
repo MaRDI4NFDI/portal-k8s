@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - ../../base/ipfs
   - secrets.yaml
+  - admins/ff1bbde59436c6bd.yaml
+  - admins/1bd79c9e9959c189.yaml
 
 patches:
   - path: values-production.yaml

@@ -5,8 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.2.0"
+      version: "0.2.1"
   values:
     admin:
       enabled: true
       existingSecret: ipfs-oauth2-proxy
+      allowedEmailSecrets:
+        - ipfs-oauth2-email-ff1bbde59436c6bd
+        - ipfs-oauth2-email-1bd79c9e9959c189
+      secretRevision: "20260901113746"
