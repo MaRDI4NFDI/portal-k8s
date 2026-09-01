@@ -5,4 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.1"
+      version: "0.2.0"
+  values:
+    admin:
+      enabled: true
+      existingSecret: ipfs-oauth2-proxy

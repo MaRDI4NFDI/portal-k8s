@@ -7,4 +7,5 @@ data:
     #!/bin/sh
     set -eu
     ipfs config profile apply unixfs-v1-2025
+    ipfs config Addresses.API /ip4/127.0.0.1/tcp/5001
     ipfs config --json Addresses.AppendAnnounce '["/dns4/ipfs.{{ .Values.global.baseDomain }}/tcp/4001","/dns4/ipfs.{{ .Values.global.baseDomain }}/udp/4001/quic-v1"]'

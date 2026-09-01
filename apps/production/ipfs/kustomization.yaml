@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base/ipfs
+  - secrets.yaml
 
 patches:
   - path: values-production.yaml

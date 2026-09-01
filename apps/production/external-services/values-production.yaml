@@ -14,8 +14,6 @@ spec:
         subdomain: oai-input
       - name: uptime
         subdomain: uptime
-      - name: ipfs-admin
-        subdomain: ipfs-admin
       - name: flask
         subdomain: flask
       - name: portainer

@@ -1,0 +1,17 @@
+{{- if .Values.admin.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-admin
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ default (printf "ipfs-admin.%s" .Values.global.baseDomain) .Values.admin.hostname }}`)
+      kind: Rule
+      services:
+        - name: {{ .Release.Name }}
+          port: admin
+  tls:
+    secretName: {{ .Release.Name }}-tls
+{{- end }}
