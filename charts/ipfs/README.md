@@ -31,6 +31,19 @@ complete Kubo RPC/WebUI origin. This lets an allow-listed Google account use
 Every allow-listed account receives full Kubo administrative access; there are
 no per-user permissions.
 
+The first time the WebUI is opened in a browser, it may report that it cannot
+connect to `/ip4/127.0.0.1/tcp/5001`. Enter the following value in the Kubo RPC
+API endpoint field and submit it:
+
+```text
+https://ipfs-admin.portal.mardi4nfdi.de
+```
+
+The WebUI stores the endpoint in the browser, so this is a one-time step for
+each browser profile. This is the endpoint-selection workflow described in the
+official IPFS guide for
+[using the WebUI with a remote Kubo RPC API](https://docs.ipfs.tech/how-to/kubo-rpc-tls-auth/#using-the-ipfs-web-ui-with-the-kubo-rpc-api-endpoint-you-configured).
+
 In the [Google Auth Platform Clients](https://support.google.com/cloud/answer/15549257),
 create a **Web application** OAuth client. Keep the app in testing mode, add the
 administrators as test users, and configure this exact authorized redirect URI:
