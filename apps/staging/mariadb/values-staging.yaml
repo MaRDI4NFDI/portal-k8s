@@ -15,7 +15,7 @@ spec:
                 value: staging-low
   chart:
     spec:
-      version: "0.1.43"
+      version: "0.1.44"
   values:
     replicas: 3
     galera:
