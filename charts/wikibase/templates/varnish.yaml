@@ -114,6 +114,11 @@ spec:
         }
 
         sub vcl_backend_response {
+            # Preserve stale content when a background refresh returns an error.
+            if (bereq.is_bgfetch && beresp.status >= 500) {
+                return (abandon);
+            }
+
             # Don't cache error responses
             if (beresp.status >= 500) {
                 set beresp.uncacheable = true;
@@ -138,13 +143,13 @@ spec:
                 return (deliver);
             }
             
-            return (deliver);
-        }
-
-        sub vcl_hit {
-            if (!obj.ttl > 0s) {
-                return (pass);
+            # Retain successful cacheable responses for outage fallback.
+            if (beresp.status == 200) {
+                set beresp.grace = 24h;
             }
+
+            # Fall through to built-in VCL for remaining cacheability checks,
+            # including Cache-Control: private, no-cache and no-store.
         }
 
         sub vcl_pipe {
@@ -152,6 +157,11 @@ spec:
         }
 
         sub vcl_backend_error {
+            # Connection failures must not replace stale content.
+            if (bereq.is_bgfetch) {
+                return (abandon);
+            }
+
             set beresp.http.Content-Type = "text/html; charset=utf-8";
             set beresp.http.Retry-After = "30";
             set beresp.ttl = 30s;
