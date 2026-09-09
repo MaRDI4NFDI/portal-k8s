@@ -132,9 +132,11 @@ cases['entity-redirect-cached'] = scenario(
 
 # Expensive uncacheable URLs are refused for anonymous users before MediaWiki is
 # reached at all; the scripted backend expects no request.
-for _name, _url in [('block-oldid', '/w/index.php?oldid=12345&title=Item:Q1'),
-                    ('block-diff', '/w/index.php?diff=prev&oldid=12345'),
-                    ('block-random', '/wiki/Special:Random')]:
+for _name, _url in [('block-history', '/w/index.php?action=history&title=Item:Q1'),
+                    ('block-whatlinkshere', '/wiki/Special:WhatLinksHere/Item:Q1'),
+                    ('block-exportrdf', '/wiki/Special:ExportRDF/Item:Q1')]:
+    # Pages already blocked for anonymous users must stay unreachable: the new
+    # cacheability rule below must never let one through to the backend.
     # No "server s1 -wait" here: the backend is deliberately never contacted, so
     # waiting for it to finish a request would hang. s1 exists only to supply the
     # ${s1_addr}/${s1_port} macros the backend definitions need.

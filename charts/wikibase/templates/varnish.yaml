@@ -99,7 +99,7 @@ spec:
 
             # Block expensive uncacheable pages for anonymous users
             # (authenticated users have already been passed above)
-            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|Special:Random|Special:Contributions|action=history|action=info|action=edit|action=raw|[?&]oldid=|[?&]diff=|[?&]direction=prev)") {
+            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
                 return (synth(753, "You must be logged in to view this page"));
             }
 
@@ -220,7 +220,13 @@ spec:
           cpu: {{ .Values.varnish.resources.limits.cpu }}
           memory: {{ .Values.varnish.resources.limits.memory }}
 
-      # The image's entrypoint turns VARNISH_SIZE into "-s malloc,<size>".
+      # Size of the in-memory object store. The Varnish image's entrypoint turns
+      # VARNISH_SIZE into the daemon's "-s malloc,<size>" argument; the chart has
+      # no dedicated value for it, so it is passed as an environment variable.
+      # It had been left at the image default of 1g. That was never the limiting
+      # factor while almost nothing was cacheable (270 MB used, zero evictions),
+      # but with anonymous views now cacheable the store does fill, so production
+      # raises it to 3g - still inside the existing 4Gi memory limit.
       extraEnvs:
         VARNISH_SIZE: {{ .Values.varnish.cacheSize | quote }}
       
