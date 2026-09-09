@@ -125,6 +125,30 @@ spec:
                 return (deliver);
             }
             
+            # MediaWiki emits "s-maxage" for anonymous views but attaches a
+            # Set-Cookie to the very same response, which the Set-Cookie rule below
+            # then treats as uncacheable. In production this left the cache almost
+            # empty - 6328 objects stored in 14 days against 17.1M misses - so a
+            # distributed crawl reached MediaWiki almost unfiltered. Drop the cookie
+            # for anonymous, side-effect-free entity and article views so they cache
+            # as MediaWiki intended. Responses marked private, no-cache or no-store
+            # are never touched, and no TTL is invented here: the backend's own
+            # s-maxage still decides how long the object lives.
+            if (bereq.method == "GET" &&
+                !bereq.http.Authorization &&
+                beresp.http.Cache-Control !~ "(private|no-cache|no-store)" &&
+                bereq.url !~ "(Special:UserLogin|Special:UserLogout|Special:CreateAccount|Special:Preferences|action=|title=Special:)" &&
+                (bereq.url ~ "^/wiki/" || bereq.url ~ "^/entity/")) {
+                unset beresp.http.Set-Cookie;
+
+                # Special:EntityPage/* and /entity/* reply with a redirect that
+                # depends only on the entity id. They were 23% of all requests during
+                # the crawl, each one waking PHP just to emit a Location header.
+                if (beresp.status == 301 || beresp.status == 302 || beresp.status == 303) {
+                    set beresp.ttl = {{ .Values.varnish.entityRedirectTtl }};
+                }
+            }
+
             # Don't cache if no TTL
             if (!beresp.ttl > 0s) {
                 set beresp.uncacheable = true;
@@ -195,6 +219,16 @@ spec:
         limits:
           cpu: {{ .Values.varnish.resources.limits.cpu }}
           memory: {{ .Values.varnish.resources.limits.memory }}
+
+      # Size of the in-memory object store. The Varnish image's entrypoint turns
+      # VARNISH_SIZE into the daemon's "-s malloc,<size>" argument; the chart has
+      # no dedicated value for it, so it is passed as an environment variable.
+      # It had been left at the image default of 1g. That was never the limiting
+      # factor while almost nothing was cacheable (270 MB used, zero evictions),
+      # but with anonymous views now cacheable the store does fill, so production
+      # raises it to 3g - still inside the existing 4Gi memory limit.
+      extraEnvs:
+        VARNISH_SIZE: {{ .Values.varnish.cacheSize | quote }}
       
       service:
         enabled: true

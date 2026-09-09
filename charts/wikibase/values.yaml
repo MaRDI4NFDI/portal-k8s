@@ -93,6 +93,10 @@ varnish:
   anonBackendFirstByteTimeout: "10s"
   backendBetweenBytesTimeout: "600s"
   purgeAcl: "10.0.0.0/8"
+  # How long entity redirects (Special:EntityPage/*, /entity/*) may be cached.
+  entityRedirectTtl: "24h"
+  # Size of the in-memory cache ("-s malloc,<size>" via the image entrypoint).
+  cacheSize: "1g"
   resources:
     requests:
       cpu: 250m
