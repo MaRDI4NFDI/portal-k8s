@@ -99,7 +99,7 @@ spec:
 
             # Block expensive uncacheable pages for anonymous users
             # (authenticated users have already been passed above)
-            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
+            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|Special:Random|Special:Contributions|action=history|action=info|action=edit|action=raw|[?&]oldid=|[?&]diff=|[?&]direction=prev)") {
                 return (synth(753, "You must be logged in to view this page"));
             }
 
@@ -125,6 +125,30 @@ spec:
                 return (deliver);
             }
             
+            # MediaWiki emits "s-maxage" for anonymous views but attaches a
+            # Set-Cookie to the very same response, which the Set-Cookie rule below
+            # then treats as uncacheable. In production this left the cache almost
+            # empty - 6328 objects stored in 14 days against 17.1M misses - so a
+            # distributed crawl reached MediaWiki almost unfiltered. Drop the cookie
+            # for anonymous, side-effect-free entity and article views so they cache
+            # as MediaWiki intended. Responses marked private, no-cache or no-store
+            # are never touched, and no TTL is invented here: the backend's own
+            # s-maxage still decides how long the object lives.
+            if (bereq.method == "GET" &&
+                !bereq.http.Authorization &&
+                beresp.http.Cache-Control !~ "(private|no-cache|no-store)" &&
+                bereq.url !~ "(Special:UserLogin|Special:UserLogout|Special:CreateAccount|Special:Preferences|action=|title=Special:)" &&
+                (bereq.url ~ "^/wiki/" || bereq.url ~ "^/entity/")) {
+                unset beresp.http.Set-Cookie;
+
+                # Special:EntityPage/* and /entity/* reply with a redirect that
+                # depends only on the entity id. They were 23% of all requests during
+                # the crawl, each one waking PHP just to emit a Location header.
+                if (beresp.status == 301 || beresp.status == 302 || beresp.status == 303) {
+                    set beresp.ttl = {{ .Values.varnish.entityRedirectTtl }};
+                }
+            }
+
             # Don't cache if no TTL
             if (!beresp.ttl > 0s) {
                 set beresp.uncacheable = true;
@@ -195,6 +219,10 @@ spec:
         limits:
           cpu: {{ .Values.varnish.resources.limits.cpu }}
           memory: {{ .Values.varnish.resources.limits.memory }}
+
+      # The image's entrypoint turns VARNISH_SIZE into "-s malloc,<size>".
+      extraEnvs:
+        VARNISH_SIZE: {{ .Values.varnish.cacheSize | quote }}
       
       service:
         enabled: true
