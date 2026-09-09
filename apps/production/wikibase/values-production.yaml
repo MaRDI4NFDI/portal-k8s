@@ -64,10 +64,13 @@ spec:
             memory: 8Gi
     varnish:
       enabled: true
-      # Only ~270 MB of the previous 1g store was ever used because almost nothing
-      # was cacheable; with the Set-Cookie fix the store fills, so give it room
-      # inside the existing 4Gi memory limit.
-      cacheSize: "3g"
+      # "-s malloc,<size>" bounds object storage only, not the container's total
+      # footprint: worker thread stacks, the VSM and per-request workspaces add
+      # roughly 350-400 MB on top. Measured on this deployment, a ~100 MB store
+      # was using 456 MB of container memory. 2g therefore lands near 2.4 GB of
+      # the 4Gi limit, leaving headroom for transient storage under load.
+      # Raise the memory limit before raising this.
+      cacheSize: "2g"
       resources:
         requests:
           cpu: 250m
