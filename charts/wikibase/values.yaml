@@ -95,7 +95,8 @@ varnish:
   purgeAcl: "10.0.0.0/8"
   # How long entity redirects (Special:EntityPage/*, /entity/*) may be cached.
   entityRedirectTtl: "24h"
-  # Size of the in-memory cache ("-s malloc,<size>" via the image entrypoint).
+  # Size of the in-memory object store, appended to varnishd as
+  # "-s malloc,<size>". Varnish defaults to roughly 100 MB without it.
   cacheSize: "1g"
   resources:
     requests:

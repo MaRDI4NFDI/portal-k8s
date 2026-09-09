@@ -146,6 +146,34 @@ for _name, _url in [('block-history', '/w/index.php?action=history&title=Item:Q1
                       '    expect resp.status == 403\n} -run\n' % _url)
 
 
+# The VCL tests above exercise cache behaviour, but nothing checked how varnishd
+# itself is launched. The storage flag was once passed as a VARNISH_SIZE
+# environment variable, which the chart's explicit command silently ignores, and
+# varnishd quietly fell back to its ~100 MB default. Assert the rendered
+# manifest really carries the size we asked for.
+def check_rendered_manifest():
+    manifest = subprocess.check_output([
+        'helm', 'template', 'test', str(ROOT / 'charts/wikibase'),
+        '--set', 'global.baseDomain=example.test', '--set', 'varnish.enabled=true',
+        '--set', 'apache.port=8080', '--set', 'varnish.cacheSize=7g',
+        '--show-only', 'templates/varnish.yaml',
+    ], text=True)
+    # Comments legitimately mention VARNISH_SIZE, so only look at real YAML.
+    body = '\n'.join(l for l in manifest.splitlines() if not l.lstrip().startswith('#'))
+    failures = []
+    if 'malloc,7g' not in body:
+        failures.append('varnish.cacheSize is not passed to varnishd as "-s malloc,<size>"')
+    if 'VARNISH_SIZE' in body:
+        failures.append('VARNISH_SIZE is set but the explicit varnishd command ignores it')
+    if failures:
+        for f in failures:
+            print('MANIFEST CHECK FAILED: ' + f)
+        raise SystemExit(1)
+    print('#    top  TEST rendered-manifest-storage passed')
+
+
+check_rendered_manifest()
+
 with tempfile.TemporaryDirectory(prefix='varnish-grace-') as tmp:
     for name, test in cases.items():
         Path(tmp, name + '.vtc').write_text(test)
