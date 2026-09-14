@@ -5,8 +5,9 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.99"
+      version: "0.1.100"
   values:
+    antiAffinity: "hard"
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase

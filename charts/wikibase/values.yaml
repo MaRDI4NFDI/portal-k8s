@@ -1,3 +1,5 @@
+antiAffinity: "soft" # "hard", "soft", or anything else to disable
+
 mediawiki:
   image:
     repository: ghcr.io/mardi4nfdi/wikibase
