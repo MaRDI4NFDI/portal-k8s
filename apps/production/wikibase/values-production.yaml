@@ -7,12 +7,12 @@ spec:
     spec:
       version: "0.1.100"
   values:
-    antiAffinity: "hard"
+    antiAffinity: "disabled"
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase
         tag: 1.47.25
-      replicas: 3
+      replicas: 2
       deployment_env: prod
       db_server: mariadb-primary:3306
       db_primary: mariadb-primary
