@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.100"
+      version: "0.1.101"
   values:
     mediawiki:
       image:
@@ -20,6 +20,9 @@ spec:
       redis_host: redis-master
       formulasearch_host: formulasearch
       latexml_host: latexml
+      # Page-render SPARQL queries go through the limiting, caching proxy in
+      # the qlever chart instead of straight to QLever.
+      sparqlEndpoint: "http://qlever-wiki-proxy:8080"
       opcache:
         memoryConsumption: 512
         maxAcceleratedFiles: 50000
@@ -64,20 +67,24 @@ spec:
             memory: 8Gi
     varnish:
       enabled: true
-      # "-s malloc,<size>" bounds object storage only, not the container's total
-      # footprint: worker thread stacks, the VSM and per-request workspaces add
-      # roughly 350-400 MB on top. Measured on this deployment, a ~100 MB store
-      # was using 456 MB of container memory. 2g therefore lands near 2.4 GB of
-      # the 4Gi limit, leaving headroom for transient storage under load.
-      # Raise the memory limit before raising this.
+      # "-s malloc,<size>" bounds object bodies only, not the container's total
+      # footprint. Per-object bookkeeping, allocator fragmentation, thread
+      # stacks and workspaces come on top, and they scale with the number of
+      # objects: measured on 2026-09-17 with the 2g store full (141k objects),
+      # the container used about 4.0 GiB, roughly the store size again. The
+      # previous 4Gi limit left no room, and Varnish was OOM-killed during the
+      # 2026-09-16 bot storm, dropping the whole cache mid-incident.
+      # Budget: 2g store + ~2 GiB overhead + 256m Transient, within 6Gi.
+      # Raise the memory limit by about twice the increase before raising this.
       cacheSize: "2g"
+      transientSize: "256m"
       resources:
         requests:
           cpu: 250m
-          memory: 1Gi
+          memory: 4Gi
         limits:
           cpu: 2000m
-          memory: 4Gi
+          memory: 6Gi
     blockHeaders:
       enabled: true
     fail2ban:
