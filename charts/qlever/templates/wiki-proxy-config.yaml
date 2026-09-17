@@ -1,0 +1,96 @@
+{{- if .Values.wikiProxy.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-wiki-proxy-config
+data:
+  nginx.conf: |
+    # Internal proxy between MediaWiki (SPARQL extension) and QLever.
+    #
+    # Page renders call QLever synchronously. During bot storms every uncached
+    # page view starts new queries, QLever saturates its CPU limit, and PHP
+    # workers pile up waiting for answers until Varnish gives up and serves 503.
+    # This proxy bounds how many wiki queries reach QLever at once and answers
+    # everything else from its cache - fresh, or stale when QLever is busy or
+    # failing - so a render never waits on a query that has no slot.
+    worker_processes 1;
+    events { worker_connections 4096; }
+    http {
+      log_format sparql '$time_iso8601 $status cache=$upstream_cache_status '
+                        'upstream=$upstream_status rt=$request_time '
+                        'urt=$upstream_response_time len=$request_length';
+      access_log /dev/stdout sparql;
+      error_log  /dev/stderr warn;
+
+      # The request body (the query) is part of the cache key, and nginx only
+      # exposes it as $request_body while it sits in a single memory buffer.
+      # Bodies above the buffer size are rejected rather than cached under an
+      # empty key.
+      client_max_body_size        {{ .Values.wikiProxy.maxBodySize }};
+      client_body_buffer_size     {{ .Values.wikiProxy.maxBodySize }};
+      client_body_in_single_buffer on;
+
+      proxy_cache_path /var/cache/nginx/sparql levels=1:2 keys_zone=sparql:32m
+                       max_size={{ .Values.wikiProxy.cache.maxSize }}
+                       inactive={{ .Values.wikiProxy.cache.inactive }}
+                       use_temp_path=off;
+
+      upstream qlever_wiki {
+        zone qlever_wiki 64k;
+        # max_conns is the concurrency limit. Open-source nginx has no queue:
+        # once all slots are busy a request that cannot be served from cache
+        # fails at once (502), instead of holding a PHP worker.
+        server {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.qlever.port }} max_conns={{ .Values.wikiProxy.maxConns }};
+        keepalive {{ .Values.wikiProxy.maxConns }};
+      }
+
+      # A POST whose body did not make it into $request_body must not be
+      # cached or answered from cache, or unrelated queries would share a key.
+      map "$request_method:$request_body" $sparql_skip_cache {
+        "POST:"  1;
+        default  0;
+      }
+
+      server {
+        listen 8080;
+
+        location = /healthz {
+          access_log off;
+          return 200 "ok\n";
+        }
+
+        location / {
+          limit_except GET POST { deny all; }
+
+          proxy_pass http://qlever_wiki;
+          proxy_http_version 1.1;
+          proxy_set_header Connection "";
+          proxy_set_header Authorization "";
+          proxy_next_upstream off;
+
+          proxy_connect_timeout 1s;
+          proxy_send_timeout    5s;
+          proxy_read_timeout    {{ .Values.wikiProxy.readTimeout }};
+
+          proxy_cache sparql;
+          proxy_cache_methods GET HEAD POST;
+          proxy_cache_key "$request_method|$request_uri|$http_accept|$request_body";
+          proxy_no_cache     $sparql_skip_cache;
+          proxy_cache_bypass $sparql_skip_cache;
+          # QLever's own headers must not decide what is cacheable here.
+          proxy_ignore_headers Cache-Control Expires Set-Cookie Vary X-Accel-Expires;
+          # Only successful results are cached. QLever answers a cancelled
+          # query (per-query timeout) with 429, which falls back to stale.
+          proxy_cache_valid 200 {{ .Values.wikiProxy.cache.ttl }};
+          proxy_cache_use_stale error timeout updating http_429 http_500 http_502 http_503 http_504;
+          # Identical concurrent misses wait for the first one instead of all
+          # taking a QLever slot.
+          proxy_cache_lock on;
+          proxy_cache_lock_timeout {{ .Values.wikiProxy.cache.lockTimeout }};
+          proxy_cache_lock_age     {{ .Values.wikiProxy.readTimeout }};
+
+          add_header X-Cache-Status $upstream_cache_status always;
+        }
+      }
+    }
+{{- end }}

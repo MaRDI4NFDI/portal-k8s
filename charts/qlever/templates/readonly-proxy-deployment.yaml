@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}-readonly-proxy
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/readonly-proxy-config.yaml") . | sha256sum }}
     spec:
       containers:
         - name: nginx

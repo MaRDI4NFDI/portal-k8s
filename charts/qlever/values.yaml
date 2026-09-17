@@ -72,3 +72,47 @@ ingress:
   enabled: false
   subdomain: "qlever"
 
+# Limits for the public endpoint (qlever.<baseDomain>/sparql), which shares
+# QLever with the wiki.
+readonlyProxy:
+  # Queries running at once across all public clients. More are answered
+  # with 503 and Retry-After.
+  maxConns: 3
+  # Concurrent queries per client address. More are answered with 429.
+  maxConnsPerClient: 2
+  # Keep slightly above qlever.server.timeout.
+  readTimeout: 330s
+
+# Internal proxy the wiki's SPARQL extension talks to instead of QLever itself.
+# It caps concurrent wiki queries and serves results from cache, including
+# stale results while QLever is saturated. Point MediaWiki at
+# http://<release>-wiki-proxy:8080 once it is enabled.
+wikiProxy:
+  enabled: false
+  image: nginx:1.27-alpine
+  # Wiki queries running on QLever at once. Anything beyond is served from
+  # cache or fails immediately; it never waits for a slot.
+  maxConns: 8
+  # Upper bound for one query. The SPARQL extension also asks QLever to cancel
+  # queries earlier (timeout parameter), so this only catches a hung backend.
+  readTimeout: 10s
+  # Largest query accepted. The body is part of the cache key and has to fit
+  # into a single memory buffer.
+  maxBodySize: 256k
+  cache:
+    # How long a result is served without asking QLever again.
+    ttl: 1h
+    # How long an unused result is kept for stale fallback.
+    inactive: 24h
+    maxSize: 512m
+    volumeSize: 1Gi
+    # How long identical concurrent misses wait for the first request.
+    lockTimeout: 3s
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
