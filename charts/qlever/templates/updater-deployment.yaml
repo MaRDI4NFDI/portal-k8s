@@ -41,6 +41,7 @@ spec:
             - "--port=$(QLEVER_PORT)"
             - "--access-token=$(QLEVER_ACCESS_TOKEN)"
             - "--keep-update-requests=last"
+            - "--batch-size={{ .Values.updater.batchSize }}"
           env:
             - name: SSE_STREAM_URL
               value: {{ .Values.updater.sseStreamUrl | quote }}
@@ -78,7 +79,7 @@ spec:
       volumes:
       - name: work
         emptyDir:
-          sizeLimit: 500Mi
+          sizeLimit: {{ .Values.updater.workSizeLimit }}
       - name: scripts
         configMap:
           name: {{ .Release.Name }}-updater-scripts

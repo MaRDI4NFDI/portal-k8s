@@ -46,13 +46,25 @@ updater:
   qleverControlRef: "v0.6.0"
   sseStreamUrl: "http://eventstreams/v2/stream/rdf-streaming-updater.mutation.v2"
   topic: "mardi.rdf-streaming-updater.mutation.v2"
+  # Messages per update batch (qlever-control's default is 100,000). After any
+  # backlog the updater fills whole batches: measured on production, a
+  # 10,000-message catch-up batch produced ~1.17M triples, a ~200 MB update
+  # file and a 1.47 GiB memory peak, so a 100,000-message batch exceeds both
+  # the memory limit and the work volume. Real-time batches are only a few
+  # messages, so this bound costs nothing in normal operation.
+  batchSize: 10000
+  # Holds the update file being written plus the previous one
+  # (--keep-update-requests=last): ~400 MB at batchSize 10000.
+  workSizeLimit: 1Gi
   resources:
     requests:
       cpu: 100m
       memory: 512Mi
     limits:
       cpu: 1
-      memory: 2Gi
+      # Peak for a 10,000-message batch was 1.47 GiB; leave room for batches of
+      # larger items.
+      memory: 3Gi
 
 resync:
   enabled: false
