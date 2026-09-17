@@ -88,10 +88,11 @@ ingress:
 # QLever with the wiki.
 readonlyProxy:
   # Queries running at once across all public clients. More are answered
-  # with 503 and Retry-After.
-  maxConns: 3
+  # with 503 and Retry-After. Together with wikiProxy.maxConns this is the
+  # query budget for QLever (6 + 2 = 8, matching its 8 CPUs in production).
+  maxConns: 2
   # Concurrent queries per client address. More are answered with 429.
-  maxConnsPerClient: 2
+  maxConnsPerClient: 1
   # Keep slightly above qlever.server.timeout.
   readTimeout: 330s
 
@@ -103,18 +104,22 @@ wikiProxy:
   enabled: false
   image: nginx:1.27-alpine
   # Wiki queries running on QLever at once. Anything beyond is served from
-  # cache or fails immediately; it never waits for a slot.
-  maxConns: 8
+  # cache or fails immediately; it never waits for a slot. See
+  # readonlyProxy.maxConns for the shared budget.
+  maxConns: 6
   # Upper bound for one query. The SPARQL extension also asks QLever to cancel
   # queries earlier (timeout parameter), so this only catches a hung backend.
   readTimeout: 10s
   # Largest query accepted. The body is part of the cache key and has to fit
-  # into a single memory buffer.
-  maxBodySize: 256k
+  # into a single memory buffer. The largest query in the wiki's modules and
+  # templates is ~3 KB (~5 KB URL-encoded).
+  maxBodySize: 64k
   cache:
     # How long a result is served without asking QLever again.
     ttl: 1h
-    # How long an unused result is kept for stale fallback.
+    # An expired result is evicted after this long without any request. It is
+    # not a maximum stale age: a result that keeps being requested is served
+    # stale for as long as QLever fails.
     inactive: 24h
     maxSize: 512m
     volumeSize: 1Gi

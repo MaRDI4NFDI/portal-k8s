@@ -14,7 +14,8 @@ data:
     # everything else from its cache - fresh, or stale when QLever is busy or
     # failing - so a render never waits on a query that has no slot.
     worker_processes 1;
-    events { worker_connections 4096; }
+    # The only clients are MediaWiki's PHP workers (a few hundred at most).
+    events { worker_connections 1024; }
     http {
       log_format sparql '$time_iso8601 $status cache=$upstream_cache_status '
                         'upstream=$upstream_status rt=$request_time '
@@ -82,9 +83,14 @@ data:
           # Only successful results are cached. QLever answers a cancelled
           # query (per-query timeout) with 429, which falls back to stale.
           proxy_cache_valid 200 {{ .Values.wikiProxy.cache.ttl }};
+          # nginx has no maximum stale age: an expired result is kept as long as
+          # it is requested at least once per cache.inactive, and served stale
+          # for as long as QLever keeps failing. Old data beats an empty page.
           proxy_cache_use_stale error timeout updating http_429 http_500 http_502 http_503 http_504;
-          # Identical concurrent misses wait for the first one instead of all
-          # taking a QLever slot.
+          # Identical concurrent misses wait up to lockTimeout for the first
+          # one to fill the cache. Waiters still unanswered after that go to
+          # QLever themselves (and are not cached), within the same max_conns
+          # limit. A longer wait would hold PHP workers longer instead.
           proxy_cache_lock on;
           proxy_cache_lock_timeout {{ .Values.wikiProxy.cache.lockTimeout }};
           proxy_cache_lock_age     {{ .Values.wikiProxy.readTimeout }};
