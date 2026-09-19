@@ -101,13 +101,20 @@ varnish:
   # workspaces add several hundred MB on top, so keep it well below the
   # container's memory limit rather than close to it.
   cacheSize: "1g"
+  # Upper bound for Varnish's Transient store (short-lived objects and bodies
+  # of passed responses), appended as "-s Transient=malloc,<size>". Without
+  # it Transient storage is unbounded.
+  transientSize: "256m"
+  # Size memory with the store: measured on production, per-object
+  # bookkeeping and allocator overhead added about the store size again on
+  # top of cacheSize. 1g store + ~1 GiB overhead + 256m Transient.
   resources:
     requests:
       cpu: 250m
-      memory: 256Mi
+      memory: 1536Mi
     limits:
       cpu: 1000m
-      memory: 1Gi
+      memory: 2560Mi
 
 blockHeaders:
   enabled: false

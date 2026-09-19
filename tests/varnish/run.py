@@ -156,6 +156,7 @@ def check_rendered_manifest():
         'helm', 'template', 'test', str(ROOT / 'charts/wikibase'),
         '--set', 'global.baseDomain=example.test', '--set', 'varnish.enabled=true',
         '--set', 'apache.port=8080', '--set', 'varnish.cacheSize=7g',
+        '--set', 'varnish.transientSize=123m',
         '--show-only', 'templates/varnish.yaml',
     ], text=True)
     # Comments legitimately mention VARNISH_SIZE, so only look at real YAML.
@@ -163,6 +164,8 @@ def check_rendered_manifest():
     failures = []
     if 'malloc,7g' not in body:
         failures.append('varnish.cacheSize is not passed to varnishd as "-s malloc,<size>"')
+    if 'Transient=malloc,123m' not in body:
+        failures.append('varnish.transientSize is not passed to varnishd as "-s Transient=malloc,<size>"')
     if 'VARNISH_SIZE' in body:
         failures.append('VARNISH_SIZE is set but the explicit varnishd command ignores it')
     if failures:

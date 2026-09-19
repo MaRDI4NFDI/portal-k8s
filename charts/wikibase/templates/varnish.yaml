@@ -224,9 +224,17 @@ spec:
       # explicit command, so the image entrypoint never runs and VARNISH_SIZE is
       # ignored; the size has to be appended to the daemon's own arguments.
       # Without it varnishd falls back to its ~100 MB built-in default.
+      #
+      # Transient storage is a second store that holds short-lived objects,
+      # hit-for-miss markers and the bodies of passed or uncacheable responses
+      # while they are delivered. It is unbounded unless sized explicitly, so
+      # under a flood of uncacheable requests it grows until the container is
+      # OOM-killed and the whole cache is lost.
       extraArgs:
         - "-s"
         - "malloc,{{ .Values.varnish.cacheSize }}"
+        - "-s"
+        - "Transient=malloc,{{ .Values.varnish.transientSize }}"
       
       service:
         enabled: true
