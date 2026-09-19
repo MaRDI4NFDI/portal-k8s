@@ -20,6 +20,9 @@ spec:
       redis_host: redis-master
       formulasearch_host: formulasearch
       latexml_host: latexml
+      # Page-render SPARQL queries go through the limiting, caching proxy in
+      # the qlever chart instead of straight to QLever.
+      sparqlEndpoint: "http://qlever-wiki-proxy:8080"
       opcache:
         memoryConsumption: 512
         maxAcceleratedFiles: 50000

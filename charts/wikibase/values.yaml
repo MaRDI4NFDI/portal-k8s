@@ -22,6 +22,9 @@ mediawiki:
   formulasearch_host: formulasearch
   formulasearch_port: 1985
   importerEndpoint: importer
+  # Endpoint the SPARQL extension sends page-render queries to, exported as
+  # SPARQL_ENDPOINT. Empty keeps the image's built-in default (QLever itself).
+  sparqlEndpoint: ""
   phpfpm:
     pm: dynamic
     maxChildren: 75

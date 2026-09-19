@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.24"
+      version: "0.1.25"
   values:
     qlever:
       resources:
@@ -23,6 +23,8 @@ spec:
         cacheMaxSize: 6G
         timeout: 300s
     ingress:
+      enabled: true
+    wikiProxy:
       enabled: true
     updater:
       enabled: true

@@ -15,7 +15,15 @@ data:
       client_body_buffer_size 1M;
       large_client_header_buffers 8 64k;
 
-      log_format sanitized '$remote_addr - $request_method $uri '
+      # Traefik is the direct peer; take the client address from the
+      # X-Real-Ip header Traefik sets, so per-client limits see real clients.
+      # X-Forwarded-For is not used: its leading entries are client-supplied
+      # (same convention as the go-away chart). The log keeps the peer
+      # address, as before.
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header   X-Real-IP;
+
+      log_format sanitized '$realip_remote_addr - $request_method $uri '
                            '$status $body_bytes_sent "$http_user_agent"';
       access_log /dev/stdout sanitized;
       error_log  /dev/stderr warn;
@@ -28,9 +36,37 @@ data:
 
       # WebSocket support
       map $http_upgrade $connection_upgrade {
-        default upgrade;
-        ''      close;
+        default         close;
+        ~*^websocket$   upgrade;
       }
+
+      # Public queries share QLever with the wiki's page renders. Cap them so
+      # outside clients cannot take the capacity the wiki needs: at most
+      # maxConns queries at once in total and maxConnsPerClient per client.
+      # WebSocket connections (live query progress in the UI) stay open for
+      # the whole query and are kept out of both limits. Only a real
+      # "Upgrade: websocket" counts; any other Upgrade value is an ordinary
+      # request, so the header cannot be used to bypass the limits.
+      upstream qlever_public {
+        zone qlever_public 64k;
+        server {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.qlever.port }} max_conns={{ .Values.readonlyProxy.maxConns }};
+      }
+      upstream qlever_public_ws {
+        server {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.qlever.port }};
+      }
+      map $http_upgrade $qlever_upstream {
+        default         qlever_public;
+        ~*^websocket$   qlever_public_ws;
+      }
+
+      # Requests with an empty key are not counted by limit_conn.
+      map $http_upgrade $sparql_client_key {
+        default         $binary_remote_addr;
+        ~*^websocket$   "";
+      }
+
+      limit_conn_zone $sparql_client_key zone=sparql_per_client:10m;
+      limit_conn_status 429;
 
       server {
         listen 8080;
@@ -40,9 +76,21 @@ data:
           access_log off;
         }
 
+        location @busy {
+          add_header Retry-After 30 always;
+          default_type text/plain;
+          return 503 "The query service is busy. Please retry later.\n";
+        }
+
         location / {
           set $new_args $clean_args;
-          set $upstream "{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.qlever.port }}";
+
+          limit_conn sparql_per_client {{ .Values.readonlyProxy.maxConnsPerClient }};
+          # All query slots taken (max_conns): nginx itself answers 502 because
+          # no upstream is available. Tell the client it is load, not a fault.
+          # A 502 returned by QLever passes through unchanged.
+          error_page 502 = @busy;
+          proxy_next_upstream off;
 
           proxy_set_header Authorization "";
           proxy_http_version 1.1;
@@ -55,15 +103,16 @@ data:
           proxy_set_header Upgrade    $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
 
-          proxy_read_timeout  3600s;
+          # Slightly above QLever's own query timeout.
+          proxy_read_timeout  {{ .Values.readonlyProxy.readTimeout }};
           proxy_send_timeout  120s;
           proxy_connect_timeout 10s;
 
           if ($new_args = "") {
-            proxy_pass http://$upstream$uri;
+            proxy_pass http://$qlever_upstream$uri;
             break;
           }
-          proxy_pass http://$upstream$uri?$new_args;
+          proxy_pass http://$qlever_upstream$uri?$new_args;
         }
       }
     }
