@@ -1,0 +1,14 @@
+{{- if .Values.apache.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Release.Name }}-apache
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  podMetricsEndpoints:
+    - port: apache-metrics
+{{- end }}

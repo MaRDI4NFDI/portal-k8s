@@ -34,6 +34,10 @@ spec:
           env:
             - name: WIKIBASE_HOST
               value: "127.0.0.1"
+            - name: APACHE_MAX_REQUEST_WORKERS
+              value: {{ .Values.mediawiki.phpfpm.maxChildren | quote }}
+            - name: APACHE_LISTEN_BACKLOG
+              value: {{ .Values.mediawiki.phpfpm.maxChildren | quote }}
           startupProbe:
             httpGet:
               path: /w/api.php?action=query&meta=siteinfo&format=json
@@ -49,6 +53,31 @@ spec:
           #    path: /w/api.php?action=query&meta=siteinfo&format=json
           #    port: 80
           #  periodSeconds: 10
+        {{- if .Values.apache.metrics.enabled }}
+        - name: apache-exporter
+          image: "{{ .Values.apache.metrics.image.repository }}:{{ .Values.apache.metrics.image.tag }}"
+          ports:
+            - name: apache-metrics
+              containerPort: 9117
+          resources:
+            {{- toYaml .Values.apache.metrics.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: apache-metrics
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: apache-metrics
+            periodSeconds: 30
+        {{- end }}
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
           imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
