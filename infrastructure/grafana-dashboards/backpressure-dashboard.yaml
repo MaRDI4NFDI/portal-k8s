@@ -1,0 +1,298 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backpressure-dashboard
+  namespace: kube-prometheus
+  labels:
+    grafana_dashboard: "1"
+data:
+  backpressure-dashboard.json: |
+    {
+      "title": "MaRDI Backpressure",
+      "uid": "mardi-backpressure",
+      "tags": ["backpressure", "mediawiki", "varnish", "traefik", "mardi"],
+      "timezone": "browser",
+      "refresh": "30s",
+      "time": { "from": "now-3h", "to": "now" },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Backpressure path",
+          "description": "Admission pressure propagates outwards. Every occupied PHP-FPM worker counts, independently of what the request is executing or waiting for.",
+          "type": "text",
+          "gridPos": { "x": 0, "y": 0, "w": 24, "h": 3 },
+          "options": {
+            "mode": "markdown",
+            "content": "### PHP-FPM full → Varnish backend limit → Traefik in-flight limit → reject\nExact PHP-FPM worker and Varnish backend-connection metrics are not scraped yet. Socket counts below are context only and are **not** treated as worker occupancy."
+          }
+        },
+        {
+          "id": 2,
+          "title": "Portal request rate",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 3, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum(rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\"}[$__rate_interval]))",
+            "legendFormat": "requests/s"
+          }]
+        },
+        {
+          "id": 3,
+          "title": "Portal responses by status",
+          "description": "429 shows explicit rejection; 502–504 show failed or timed-out requests while pressure propagates through the current stack.",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 3, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum by (code) (rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\",code=~\"2..|3..\"}[$__rate_interval]))",
+              "legendFormat": "{{code}}"
+            },
+            {
+              "refId": "B",
+              "expr": "sum by (code) (rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\",code=~\"429|5..\"}[$__rate_interval]))",
+              "legendFormat": "{{code}}"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Portal request latency",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 3, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "s", "min": 0 } },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "histogram_quantile(0.50, sum(rate(traefik_service_request_duration_seconds_bucket{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\"}[$__rate_interval])) by (le))",
+              "legendFormat": "p50"
+            },
+            {
+              "refId": "B",
+              "expr": "histogram_quantile(0.95, sum(rate(traefik_service_request_duration_seconds_bucket{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\"}[$__rate_interval])) by (le))",
+              "legendFormat": "p95"
+            },
+            {
+              "refId": "C",
+              "expr": "histogram_quantile(0.99, sum(rate(traefik_service_request_duration_seconds_bucket{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\"}[$__rate_interval])) by (le))",
+              "legendFormat": "p99"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "title": "Traefik open connections",
+          "description": "Entrypoint-wide connection count. This includes services other than the portal and becomes the outer backpressure signal once a global in-flight limit is configured.",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 10, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum(traefik_open_connections{job=\"traefik\",entrypoint=\"websecure\"})",
+            "legendFormat": "websecure"
+          }]
+        },
+        {
+          "id": 6,
+          "title": "Explicit rejection rate",
+          "description": "This should become the preferred overload outcome after admission control is enabled. Until then it may stay at zero while 5xx responses rise.",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 10, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum(rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\",code=\"429\"}[$__rate_interval])) or vector(0)",
+            "legendFormat": "429/s"
+          }]
+        },
+        {
+          "id": 7,
+          "title": "Gateway failure rate",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 10, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum by (code) (rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-wikibase-.*@kubernetescrd\",code=~\"502|503|504\"}[$__rate_interval]))",
+              "legendFormat": "{{code}}"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "title": "PHP-FPM layer",
+          "type": "row",
+          "gridPos": { "x": 0, "y": 17, "w": 24, "h": 1 },
+          "collapsed": false,
+          "panels": []
+        },
+        {
+          "id": 9,
+          "title": "MediaWiki CPU",
+          "description": "CPU use is useful context but does not determine whether the PHP-FPM pool is full; workers waiting on dependencies can consume a slot without consuming CPU.",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "cores", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\",container=\"mediawiki\"}[$__rate_interval]))",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 10,
+          "title": "MediaWiki memory limit usage",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "percentunit", "min": 0, "max": 1 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\",container=\"mediawiki\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\",container=\"mediawiki\",resource=\"memory\",unit=\"byte\"})",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 11,
+          "title": "MediaWiki container sockets",
+          "description": "All open sockets in each MediaWiki container. This is diagnostic context, not the number of active PHP-FPM workers.",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 18, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (container_sockets{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\",container=\"mediawiki\"})",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 12,
+          "title": "PHP-FPM instrumentation gap",
+          "type": "text",
+          "gridPos": { "x": 0, "y": 25, "w": 24, "h": 3 },
+          "options": {
+            "mode": "markdown",
+            "content": "**Required before enforcing the inner limit:** scrape PHP-FPM active, idle, total, max-children-reached and listen-queue metrics. The admission model must count all occupied workers equally; it does not distinguish PHP execution from waits on SPARQL or any other dependency."
+          }
+        },
+        {
+          "id": 13,
+          "title": "Varnish layer",
+          "type": "row",
+          "gridPos": { "x": 0, "y": 28, "w": 24, "h": 1 },
+          "collapsed": false,
+          "panels": []
+        },
+        {
+          "id": 14,
+          "title": "Varnish memory limit usage",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 29, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 0.8 },
+                  { "color": "red", "value": 0.9 }
+                ]
+              }
+            }
+          },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\",resource=\"memory\",unit=\"byte\"})",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 15,
+          "title": "Varnish CPU",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 29, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "cores", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}[$__rate_interval]))",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 16,
+          "title": "Varnish container sockets",
+          "description": "All open sockets in Varnish. Add varnishstat exporter metrics with the backend-connection limit so admitted and rejected backend fetches can be measured directly.",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 29, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (container_sockets{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"})",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 17,
+          "title": "Varnish restarts",
+          "type": "stat",
+          "gridPos": { "x": 0, "y": 36, "w": 8, "h": 5 },
+          "fieldConfig": { "defaults": { "unit": "none" } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum(kube_pod_container_status_restarts_total{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"})",
+            "legendFormat": "restarts"
+          }],
+          "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
+        },
+        {
+          "id": 18,
+          "title": "Last Varnish termination was OOM",
+          "description": "1 means the current pod's most recent terminated Varnish process was OOM-killed; 0 means it was not or the pod has not restarted.",
+          "type": "stat",
+          "gridPos": { "x": 8, "y": 36, "w": 8, "h": 5 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [{
+                "type": "value",
+                "options": {
+                  "0": { "text": "No", "color": "green" },
+                  "1": { "text": "Yes", "color": "red" }
+                }
+              }],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "red", "value": 1 }
+                ]
+              }
+            }
+          },
+          "targets": [{
+            "refId": "A",
+            "expr": "max(kube_pod_container_status_last_terminated_reason{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\",reason=\"OOMKilled\"}) or vector(0)",
+            "legendFormat": "OOMKilled"
+          }],
+          "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } }
+        },
+        {
+          "id": 19,
+          "title": "Varnish instrumentation gap",
+          "type": "text",
+          "gridPos": { "x": 16, "y": 36, "w": 8, "h": 5 },
+          "options": {
+            "mode": "markdown",
+            "content": "Before enabling the Varnish admission limit, expose backend connections, backend connection failures, queued fetches and cache hit/miss/pass rates. These distinguish deliberate shedding from backend failure."
+          }
+        }
+      ],
+      "schemaVersion": 39,
+      "version": 1
+    }
