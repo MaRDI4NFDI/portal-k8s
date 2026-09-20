@@ -17,17 +17,20 @@ spec:
       vclConfig: |
         vcl 4.0;
 
-        # Backend definition pointing to MediaWiki service - FOR AUTHENTICATED USERS
+        # Split the fixed PHP-FPM capacity between authenticated and anonymous
+        # traffic. One connection per Apache pod remains reserved for logged-in
+        # users while both backend limits still add up to the total worker count.
         backend default {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
+            .max_connections = {{ .Values.mediawiki.replicas }};
             .first_byte_timeout = {{ .Values.varnish.backendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
-        # Backend definition pointing to MediaWiki service - FOR ANONYMOUS USERS
         backend anon {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
+            .max_connections = {{ mul .Values.mediawiki.replicas (sub .Values.mediawiki.phpfpm.maxChildren 1) }};
             .first_byte_timeout = {{ .Values.varnish.anonBackendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
@@ -57,8 +60,6 @@ spec:
                 unset req.http.X-Is-Authenticated;
             }
 
-            # Route to backend: authenticated users use the default (600 s first_byte_timeout),
-            # anonymous users use anon (short first_byte_timeout defined by anonBackendFirstByteTimeout).
             if (req.http.X-Is-Authenticated) {
                 set req.backend_hint = default;
             } else {
@@ -235,6 +236,34 @@ spec:
         - "malloc,{{ .Values.varnish.cacheSize }}"
         - "-s"
         - "Transient=malloc,{{ .Values.varnish.transientSize }}"
+
+      {{- if .Values.varnish.metrics.enabled }}
+      extraContainers: |
+        - name: varnish-exporter
+          image: "{{ .Values.varnish.metrics.image.repository }}:{{ .Values.varnish.metrics.image.tag }}"
+          ports:
+            - name: varnish-metrics
+              containerPort: 9131
+          volumeMounts:
+            - name: {{ "{{ .Release.Name }}" }}-varnish-vsm
+              mountPath: /var/lib/varnish
+              readOnly: true
+          resources:
+            {{- toYaml .Values.varnish.metrics.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          readinessProbe:
+            tcpSocket:
+              port: varnish-metrics
+          livenessProbe:
+            tcpSocket:
+              port: varnish-metrics
+      {{- end }}
       
       service:
         enabled: true

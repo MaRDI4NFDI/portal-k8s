@@ -1,0 +1,36 @@
+{{- if and .Values.varnish.enabled .Values.varnish.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Release.Name }}-varnish
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}-varnish
+      app.kubernetes.io/name: varnish-cache
+  podMetricsEndpoints:
+    - port: varnish-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Release.Name }}-varnish-backpressure
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+    - name: {{ .Release.Name }}-varnish-backpressure
+      rules:
+        - record: mardi_varnish_backend_max_connections
+          expr: vector({{ .Values.mediawiki.replicas }})
+          labels:
+            backend: default
+            namespace: {{ .Release.Namespace }}
+        - record: mardi_varnish_backend_max_connections
+          expr: vector({{ mul .Values.mediawiki.replicas (sub .Values.mediawiki.phpfpm.maxChildren 1) }})
+          labels:
+            backend: anon
+            namespace: {{ .Release.Namespace }}
+{{- end }}

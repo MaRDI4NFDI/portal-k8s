@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.103"
+      version: "0.1.104"
   values:
     mediawiki:
       image:
@@ -66,6 +66,8 @@ spec:
             memory: 8Gi
     varnish:
       enabled: true
+      metrics:
+        enabled: true
       # "-s malloc,<size>" bounds object bodies only, not the container's total
       # footprint. Per-object bookkeeping, allocator fragmentation, thread
       # stacks and workspaces come on top, and they scale with the number of
