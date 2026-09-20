@@ -69,14 +69,11 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           readinessProbe:
-            httpGet:
-              path: /metrics
+            tcpSocket:
               port: apache-metrics
           livenessProbe:
-            httpGet:
-              path: /metrics
+            tcpSocket:
               port: apache-metrics
-            periodSeconds: 30
         {{- end }}
         - name: mediawiki
           image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"

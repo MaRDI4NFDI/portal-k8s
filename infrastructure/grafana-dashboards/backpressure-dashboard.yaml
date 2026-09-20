@@ -23,7 +23,7 @@ data:
           "gridPos": { "x": 0, "y": 0, "w": 24, "h": 3 },
           "options": {
             "mode": "markdown",
-            "content": "### PHP-FPM full → Varnish backend limit → Traefik in-flight limit → reject\nExact PHP-FPM worker and Varnish backend-connection metrics are not scraped yet. Socket counts below are context only and are **not** treated as worker occupancy."
+            "content": "### PHP-FPM full → Apache worker limit → Varnish backend limit → Traefik in-flight limit → reject\nApache worker utilization is the current PHP-FPM capacity proxy because both limits are identical per pod. Exact PHP-FPM worker and Varnish backend-connection metrics are not scraped yet."
           }
         },
         {
@@ -157,32 +157,86 @@ data:
         },
         {
           "id": 11,
-          "title": "MediaWiki container sockets",
-          "description": "All open sockets in each MediaWiki container. This is diagnostic context, not the number of active PHP-FPM workers.",
+          "title": "Wikibase container restarts",
+          "description": "Unexpected restarts by container. PHP-FPM and Apache should remain at zero when the admission limit is reached.",
           "type": "timeseries",
           "gridPos": { "x": 16, "y": 18, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
           "targets": [{
             "refId": "A",
-            "expr": "sum by (pod) (container_sockets{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\",container=\"mediawiki\"})",
-            "legendFormat": "{{pod}}"
+            "expr": "sum by (pod, container) (kube_pod_container_status_restarts_total{namespace=\"production\",pod=~\"wikibase-[^-]+-[^-]+\"})",
+            "legendFormat": "{{pod}} {{container}}"
           }]
         },
         {
           "id": 12,
-          "title": "PHP-FPM instrumentation gap",
-          "type": "text",
-          "gridPos": { "x": 0, "y": 25, "w": 24, "h": 3 },
-          "options": {
-            "mode": "markdown",
-            "content": "**Required before enforcing the inner limit:** scrape PHP-FPM active, idle, total, max-children-reached and listen-queue metrics. The admission model must count all occupied workers equally; it does not distinguish PHP execution from waits on SPARQL or any other dependency."
-          }
+          "title": "PHP-FPM capacity proxy",
+          "description": "Busy Apache workers divided by the 75 configured slots. Apache MaxRequestWorkers and PHP-FPM pm.max_children are both 75, so 100% means no new request can be handed to PHP-FPM. This counts workers equally whether executing PHP or waiting on a dependency.",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 0.8 },
+                  { "color": "red", "value": 0.95 }
+                ]
+              }
+            }
+          },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod) (apache_workers{namespace=\"production\",state=\"busy\"}) / sum by (pod) (apache_scoreboard{namespace=\"production\"})",
+            "legendFormat": "{{pod}}"
+          }]
+        },
+        {
+          "id": 20,
+          "title": "Apache workers",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "targets": [{
+            "refId": "A",
+            "expr": "sum by (pod, state) (apache_workers{namespace=\"production\"})",
+            "legendFormat": "{{pod}} {{state}}"
+          }]
+        },
+        {
+          "id": 21,
+          "title": "Apache metrics scrape available",
+          "description": "Prometheus target health. Unlike apache_up, this remains visible as 0 when scraping the exporter times out.",
+          "type": "stat",
+          "gridPos": { "x": 16, "y": 25, "w": 8, "h": 7 },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "mappings": [{
+                "type": "value",
+                "options": {
+                  "0": { "text": "Down", "color": "red" },
+                  "1": { "text": "Up", "color": "green" }
+                }
+              }]
+            }
+          },
+          "targets": [{
+            "refId": "A",
+            "expr": "up{job=\"production/wikibase-apache\"}",
+            "legendFormat": "{{pod}}"
+          }],
+          "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } }
         },
         {
           "id": 13,
           "title": "Varnish layer",
           "type": "row",
-          "gridPos": { "x": 0, "y": 28, "w": 24, "h": 1 },
+          "gridPos": { "x": 0, "y": 32, "w": 24, "h": 1 },
           "collapsed": false,
           "panels": []
         },
@@ -190,7 +244,7 @@ data:
           "id": 14,
           "title": "Varnish memory limit usage",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 29, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 33, "w": 8, "h": 7 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -216,7 +270,7 @@ data:
           "id": 15,
           "title": "Varnish CPU",
           "type": "timeseries",
-          "gridPos": { "x": 8, "y": 29, "w": 8, "h": 7 },
+          "gridPos": { "x": 8, "y": 33, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "cores", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -229,7 +283,7 @@ data:
           "title": "Varnish container sockets",
           "description": "All open sockets in Varnish. Add varnishstat exporter metrics with the backend-connection limit so admitted and rejected backend fetches can be measured directly.",
           "type": "timeseries",
-          "gridPos": { "x": 16, "y": 29, "w": 8, "h": 7 },
+          "gridPos": { "x": 16, "y": 33, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -241,7 +295,7 @@ data:
           "id": 17,
           "title": "Varnish restarts",
           "type": "stat",
-          "gridPos": { "x": 0, "y": 36, "w": 8, "h": 5 },
+          "gridPos": { "x": 0, "y": 40, "w": 8, "h": 5 },
           "fieldConfig": { "defaults": { "unit": "none" } },
           "targets": [{
             "refId": "A",
@@ -255,7 +309,7 @@ data:
           "title": "Last Varnish termination was OOM",
           "description": "1 means the current pod's most recent terminated Varnish process was OOM-killed; 0 means it was not or the pod has not restarted.",
           "type": "stat",
-          "gridPos": { "x": 8, "y": 36, "w": 8, "h": 5 },
+          "gridPos": { "x": 8, "y": 40, "w": 8, "h": 5 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -286,7 +340,7 @@ data:
           "id": 19,
           "title": "Varnish instrumentation gap",
           "type": "text",
-          "gridPos": { "x": 16, "y": 36, "w": 8, "h": 5 },
+          "gridPos": { "x": 16, "y": 40, "w": 8, "h": 5 },
           "options": {
             "mode": "markdown",
             "content": "Before enabling the Varnish admission limit, expose backend connections, backend connection failures, queued fetches and cache hit/miss/pass rates. These distinguish deliberate shedding from backend failure."
