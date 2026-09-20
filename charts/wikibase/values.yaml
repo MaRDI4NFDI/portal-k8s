@@ -51,6 +51,18 @@ apache:
     # uses tag from mediawiki to ensure compatibility
     pullPolicy: Always
   port: 80
+  metrics:
+    enabled: false
+    image:
+      repository: docker-registry.wikimedia.org/prometheus-apache-exporter
+      tag: "0.0.4-20260916@sha256:3581cdfa07eedbb51e526b65389bd95ec62afe87618112df4bb3836aae4058e6"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 16Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
   resources:
     requests:
       cpu: 500m
