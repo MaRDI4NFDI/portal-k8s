@@ -44,10 +44,6 @@ spec:
               port: 80
             failureThreshold: 30
             periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 80
-            periodSeconds: 30
           #readinessProbe:
           #  httpGet:
           #    path: /w/api.php?action=query&meta=siteinfo&format=json
