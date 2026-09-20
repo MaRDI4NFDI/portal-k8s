@@ -47,6 +47,7 @@ spec:
         protocol: TCP
     metrics:
       prometheus:
+        addRoutersLabels: true
         serviceMonitor:
           enabled: true
           interval: 30s
