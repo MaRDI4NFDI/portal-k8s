@@ -23,7 +23,7 @@ data:
           "gridPos": { "x": 0, "y": 0, "w": 24, "h": 3 },
           "options": {
             "mode": "markdown",
-            "content": "### PHP-FPM full → Apache worker limit → Varnish backend limit → Traefik in-flight limit → reject\nApache worker utilization is the current PHP-FPM capacity proxy because both limits are identical per pod. Exact PHP-FPM worker and Varnish backend-connection metrics are not scraped yet."
+            "content": "### PHP-FPM full → Apache worker limit → Varnish backend limit → Traefik in-flight limit → reject\nApache worker utilization is the PHP-FPM capacity proxy because both limits are identical per pod. Varnish admits at most the aggregate PHP-FPM capacity, reserving one connection per Apache pod for authenticated users, and exposes its pressure and shedding directly."
           }
         },
         {
@@ -280,15 +280,29 @@ data:
         },
         {
           "id": 16,
-          "title": "Varnish container sockets",
-          "description": "All open sockets in Varnish. Add varnishstat exporter metrics with the backend-connection limit so admitted and rejected backend fetches can be measured directly.",
+          "title": "Varnish backend saturation",
+          "description": "Current connections divided by each pool's limit. Anonymous capacity stops one worker short per Apache pod; those reserved connections form the authenticated pool.",
           "type": "timeseries",
           "gridPos": { "x": 16, "y": 33, "w": 8, "h": 7 },
-          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "min": 0,
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "green", "value": null },
+                  { "color": "yellow", "value": 0.8 },
+                  { "color": "red", "value": 0.95 }
+                ]
+              }
+            }
+          },
           "targets": [{
             "refId": "A",
-            "expr": "sum by (pod) (container_sockets{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"})",
-            "legendFormat": "{{pod}}"
+            "expr": "sum by (backend) (varnish_backend_conn{namespace=\"production\",backend=~\"anon|default\"}) / on (backend) mardi_varnish_backend_max_connections{namespace=\"production\"}",
+            "legendFormat": "{{backend}}"
           }]
         },
         {
@@ -338,13 +352,33 @@ data:
         },
         {
           "id": 19,
-          "title": "Varnish instrumentation gap",
-          "type": "text",
+          "title": "Varnish shedding and queueing",
+          "description": "Rates of deliberate backend rejection and pressure inside Varnish. Backend busy is the expected signal when the split connection caps protect Apache/PHP-FPM.",
+          "type": "timeseries",
           "gridPos": { "x": 16, "y": 40, "w": 8, "h": 5 },
-          "options": {
-            "mode": "markdown",
-            "content": "Before enabling the Varnish admission limit, expose backend connections, backend connection failures, queued fetches and cache hit/miss/pass rates. These distinguish deliberate shedding from backend failure."
-          }
+          "fieldConfig": { "defaults": { "unit": "ops", "min": 0 } },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum(rate(varnish_main_backend_busy{namespace=\"production\"}[$__rate_interval]))",
+              "legendFormat": "backend busy/s"
+            },
+            {
+              "refId": "B",
+              "expr": "sum(rate(varnish_main_sess_queued{namespace=\"production\"}[$__rate_interval]))",
+              "legendFormat": "sessions queued/s"
+            },
+            {
+              "refId": "C",
+              "expr": "sum(rate(varnish_main_sess_dropped{namespace=\"production\"}[$__rate_interval]))",
+              "legendFormat": "sessions dropped/s"
+            },
+            {
+              "refId": "D",
+              "expr": "sum(rate(varnish_main_threads_limited{namespace=\"production\"}[$__rate_interval]))",
+              "legendFormat": "threads limited/s"
+            }
+          ]
         }
       ],
       "schemaVersion": 39,

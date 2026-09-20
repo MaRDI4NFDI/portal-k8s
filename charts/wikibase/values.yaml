@@ -117,6 +117,18 @@ varnish:
   # of passed responses), appended as "-s Transient=malloc,<size>". Without
   # it Transient storage is unbounded.
   transientSize: "256m"
+  metrics:
+    enabled: false
+    image:
+      repository: ghcr.io/mardi4nfdi/varnish-exporter
+      tag: "0.1.0@sha256:c0cd8303a3641be68d0423efbde4005a3a3d47b4d8a9e7ce494e7b7764d936bb"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 16Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
   # Size memory with the store: measured on production, per-object
   # bookkeeping and allocator overhead added about the store size again on
   # top of cacheSize. 1g store + ~1 GiB overhead + 256m Transient.
