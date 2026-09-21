@@ -57,6 +57,10 @@ spec:
           args:
           - |
             set -euo pipefail
+            {{- if .Values.qlever.maintenance }}
+            echo "Maintenance mode enabled, not starting qlever server"
+            exec sleep infinity
+            {{- end }}
             if [ -f /data/{{ .Values.qlever.data.name }}.meta-data.json ]; then
               echo "Index found, starting qlever server"
               exec qlever start --run-in-foreground
