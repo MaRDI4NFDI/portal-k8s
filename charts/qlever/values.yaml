@@ -2,6 +2,7 @@ qlever:
   image:
     repository: adfreiburg/qlever
     tag: latest
+  maintenance: false
   port: 7001
   resources:
     requests:
