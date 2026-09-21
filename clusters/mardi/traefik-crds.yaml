@@ -1,0 +1,38 @@
+# Traefik CRDs for the production and staging Traefik releases, applied straight
+# from the upstream chart repository. The traefik-crds Helm chart is not used
+# because its release secret exceeds the 1 MiB Secret size limit.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: traefik-helm-chart
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://github.com/traefik/traefik-helm-chart
+  ref:
+    # Keep in sync with the traefik chart version in apps/*/traefik/traefik-values-*.yaml
+    tag: v40.0.0
+  ignore: |
+    /*
+    !/traefik-crds/
+    /traefik-crds/*
+    !/traefik-crds/crds-files/
+    /traefik-crds/crds-files/*
+    !/traefik-crds/crds-files/traefik/
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tenant-mardi-traefik-crds
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: traefik-helm-chart
+  path: ./traefik-crds/crds-files/traefik
+  # Deleting a CRD deletes every IngressRoute and Middleware, so never prune.
+  prune: false
+  wait: true

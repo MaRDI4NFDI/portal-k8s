@@ -10,7 +10,3 @@ patches:
     target:
       kind: HelmRelease
       name: traefik
-  - path: traefik-crds-values-staging.yaml
-    target:
-      kind: HelmRelease
-      name: traefik-crds
