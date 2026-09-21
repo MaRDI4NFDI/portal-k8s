@@ -63,7 +63,7 @@ spec:
             {{- end }}
             if [ -f /data/{{ .Values.qlever.data.name }}.meta-data.json ]; then
               echo "Index found, starting qlever server"
-              exec qlever start --run-in-foreground
+              exec qlever start --run-in-foreground{{ if .Values.qlever.server.persistUpdates }} --persist-updates{{ end }}
             else
               echo "No index found at /data/{{ .Values.qlever.data.name }}.meta-data.json"
               echo "Exec into this pod and run 'qlever index' to bootstrap"
