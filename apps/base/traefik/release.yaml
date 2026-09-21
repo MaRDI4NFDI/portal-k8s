@@ -4,13 +4,12 @@ metadata:
   name: traefik
 spec:
   interval: 5m
-  # Staging and production share the same cluster-wide CRDs, managed by traefik-crds.
+  # Staging and production share the same cluster-wide CRDs, applied by the
+  # tenant-mardi-traefik-crds Flux Kustomization (clusters/mardi/traefik-crds.yaml).
   install:
     crds: Skip
   upgrade:
     crds: Skip
-  # dependsOn:
-  #  - name: traefik-crds
   chart:
     spec:
       chart: traefik
