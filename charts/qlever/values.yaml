@@ -25,6 +25,8 @@ qlever:
     memoryForQueries: 5G
     cacheMaxSize: 2G
     timeout: 30s
+    persistUpdates: true
+    metricsLog: false
   ui:
     config: mardi
 
