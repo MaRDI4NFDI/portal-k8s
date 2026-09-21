@@ -14,7 +14,7 @@ spec:
           cpu: "2000m"
         limits:
           memory: "32Gi"
-          cpu: "8000m"
+          cpu: "12000m"
       storage:
         size: "190Gi"
         className: "csi-rbd-sc"
