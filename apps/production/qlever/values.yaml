@@ -8,7 +8,7 @@ spec:
       version: "0.1.26"
   values:
     qlever:
-      maintenance: true
+      maintenance: false
       image:
         tag: "latest@sha256:826807a37cb369d491ad3bfcb9f6b17ee208352e620e8c146259b8142d791db7"
       resources:
