@@ -5,11 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.25"
+      version: "0.1.26"
   values:
     qlever:
+      maintenance: true
       image:
-        tag: "latest@sha256:119355a81be22d3fb5d61d2236986bd2c6351c5c3fc82c0b2b293a7e08c83724"
+        tag: "latest@sha256:826807a37cb369d491ad3bfcb9f6b17ee208352e620e8c146259b8142d791db7"
       resources:
         requests:
           memory: "8Gi"
