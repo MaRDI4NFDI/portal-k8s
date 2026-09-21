@@ -21,9 +21,11 @@ spec:
                 value: staging-low
   chart:
     spec:
-      version: "0.1.21"
+      version: "0.1.25"
   values:
     qlever:
+      image:
+        tag: "latest@sha256:119355a81be22d3fb5d61d2236986bd2c6351c5c3fc82c0b2b293a7e08c83724"
       data:
         name: mardi-staging
         description: MaRDI Knowledge Graph in Staging
@@ -31,3 +33,4 @@ spec:
       enabled: true
     updater:
       enabled: true
+
