@@ -49,13 +49,15 @@ updater:
   qleverControlRef: "v0.6.0"
   sseStreamUrl: "http://eventstreams/v2/stream/rdf-streaming-updater.mutation.v2"
   topic: "mardi.rdf-streaming-updater.mutation.v2"
+  batchSize: 10000
+  workSizeLimit: 1Gi
   resources:
     requests:
       cpu: 100m
       memory: 512Mi
     limits:
       cpu: 1
-      memory: 2Gi
+      memory: 3Gi
 
 resync:
   enabled: false
