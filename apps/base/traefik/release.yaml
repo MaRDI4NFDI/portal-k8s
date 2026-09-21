@@ -4,6 +4,11 @@ metadata:
   name: traefik
 spec:
   interval: 5m
+  # Staging and production share the same cluster-wide CRDs, managed by traefik-crds.
+  install:
+    crds: Skip
+  upgrade:
+    crds: Skip
   # dependsOn:
   #  - name: traefik-crds
   chart:
@@ -22,9 +27,10 @@ spec:
         maxBackups: 3
     ports:
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
     # Configure TLS
