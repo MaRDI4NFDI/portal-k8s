@@ -46,6 +46,9 @@ mediawiki:
       memory: 1Gi
 
 apache:
+  # Keep Apache able to serve status and health checks while every PHP-FPM
+  # child is occupied. Varnish admission remains capped at PHP-FPM capacity.
+  monitoringWorkers: 1
   image:
     repository: ghcr.io/mardi4nfdi/apache-assets
     # uses tag from mediawiki to ensure compatibility

@@ -35,15 +35,19 @@ spec:
             - name: WIKIBASE_HOST
               value: "127.0.0.1"
             - name: APACHE_MAX_REQUEST_WORKERS
-              value: {{ .Values.mediawiki.phpfpm.maxChildren | quote }}
+              value: {{ add .Values.mediawiki.phpfpm.maxChildren .Values.apache.monitoringWorkers | quote }}
             - name: APACHE_LISTEN_BACKLOG
-              value: {{ .Values.mediawiki.phpfpm.maxChildren | quote }}
+              value: {{ add .Values.mediawiki.phpfpm.maxChildren .Values.apache.monitoringWorkers | quote }}
           startupProbe:
             httpGet:
               path: /w/api.php?action=query&meta=siteinfo&format=json
               port: 80
             failureThreshold: 30
             periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            periodSeconds: 30
           #readinessProbe:
           #  httpGet:
           #    path: /w/api.php?action=query&meta=siteinfo&format=json
