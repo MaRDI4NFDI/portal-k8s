@@ -37,7 +37,11 @@ spec:
         }
         # Crawlers submitting the search form produced searches that outlived
         # the anonymous timeout and filled the whole anonymous pool, so every
-        # anonymous page view got a 503. Searches now saturate only this pool.
+        # anonymous page view got a 503. Anonymous searches now saturate only
+        # this pool. Its first-byte timeout is longer than the anonymous one
+        # because PHP keeps running a search after Varnish gives up: a short
+        # timeout would free slots while workers are still busy and let more
+        # searches reach PHP than the pool allows.
         backend search {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
@@ -71,6 +75,8 @@ spec:
                 unset req.http.X-Is-Authenticated;
             }
 
+            # Logged-in users' searches stay in the default pool; only
+            # anonymous searches use the search pool.
             if (req.http.X-Is-Authenticated) {
                 set req.backend_hint = default;
             } elsif (req.url ~ "Special(:|%3[Aa])Search" || req.url ~ "^/w/index\.php\?(.*&)?search=") {
