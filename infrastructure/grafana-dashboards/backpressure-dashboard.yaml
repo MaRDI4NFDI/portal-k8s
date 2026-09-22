@@ -421,7 +421,7 @@ data:
         {
           "id": 16,
           "title": "Varnish backend saturation",
-          "description": "Current connections divided by each pool's limit. Anonymous capacity stops one worker short per Apache pod; those reserved connections form the authenticated pool.",
+          "description": "Current connections divided by each pool's limit. Anonymous capacity stops one worker short per Apache pod, minus the anonymous search pool; the reserved connections form the authenticated pool. A full search pool only rejects searches, so the Varnish overview ignores it.",
           "type": "timeseries",
           "gridPos": { "x": 16, "y": 28, "w": 8, "h": 7 },
           "fieldConfig": {
@@ -441,7 +441,7 @@ data:
           },
           "targets": [{
             "refId": "A",
-            "expr": "sum by (backend) (varnish_backend_conn{namespace=\"production\",backend=~\"anon|default\"}) / on (backend) mardi_varnish_backend_max_connections{namespace=\"production\"}",
+            "expr": "sum by (backend) (varnish_backend_conn{namespace=\"production\",backend=~\"anon|default|search\"}) / on (backend) mardi_varnish_backend_max_connections{namespace=\"production\"}",
             "legendFormat": "{{backend}}"
           }]
         },
