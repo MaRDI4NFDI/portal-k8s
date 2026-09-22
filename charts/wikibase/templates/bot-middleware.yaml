@@ -33,6 +33,9 @@ spec:
         - "Windows; U; Windows NT 10\\.0"  # Fake Win10 user agents
         - "CriOS/[1-4][0-9]\\."            # Very old Chrome on iOS
         - "FxiOS/1[0-4]\\."                # Old Firefox on iOS
+        - "Mac OS X 10_15_7\\).*Chrome/(131|136|142|145|146)\\.0\\.0\\.0 Safari"
+        - "Firefox/151\\."                 # Same crawler's Firefox variant
+        - "Bytespider"                     # ByteDance crawler, ignores robots.txt
       regexAllow:
         - "Googlebot"                      # Allow Googlebot
         - "SemrushBot"                     # Allow SemrushBot  
