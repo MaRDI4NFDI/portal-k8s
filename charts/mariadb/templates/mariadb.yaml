@@ -22,16 +22,16 @@ spec:
   port: {{ .Values.port }}
 
   replicas: {{ .Values.replicas }}
+
+  updateStrategy:
+    autoUpdateDataPlane: true
   {{- if .Values.galera.enabled }}
   galera:
     enabled: true
     availableWhenDonor: {{ .Values.galera.availableWhenDonor }}
     agent:
-      image: {{ .Values.galera.operatorImage.repository }}:{{ .Values.galera.operatorImage.tag }}
       basicAuth:
         enabled: true
-    initContainer:
-      image: {{ .Values.galera.operatorImage.repository }}:{{ .Values.galera.operatorImage.tag }}
     replicaThreads: {{ .Values.galera.replicaThreads }}
     providerOptions:
       gcache.size: {{ .Values.galera.cacheSize | quote }}
