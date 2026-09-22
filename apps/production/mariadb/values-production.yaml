@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.46"
+      version: "0.1.47"
   values:
     replicas: 3
     galera:
@@ -81,4 +81,3 @@ spec:
         memory: 28Gi
     secrets:
       wikibase: wikibase-env-secrets
-    
