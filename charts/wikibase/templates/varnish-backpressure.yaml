@@ -29,8 +29,13 @@ spec:
             backend: default
             namespace: {{ .Release.Namespace }}
         - record: mardi_varnish_backend_max_connections
-          expr: vector({{ mul .Values.mediawiki.replicas (sub .Values.mediawiki.phpfpm.maxChildren 1) }})
+          expr: vector({{ mul .Values.mediawiki.replicas (sub (sub .Values.mediawiki.phpfpm.maxChildren 1) .Values.varnish.searchConnectionsPerReplica) }})
           labels:
             backend: anon
+            namespace: {{ .Release.Namespace }}
+        - record: mardi_varnish_backend_max_connections
+          expr: vector({{ mul .Values.mediawiki.replicas .Values.varnish.searchConnectionsPerReplica }})
+          labels:
+            backend: search
             namespace: {{ .Release.Namespace }}
 {{- end }}

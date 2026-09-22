@@ -17,9 +17,10 @@ spec:
       vclConfig: |
         vcl 4.0;
 
-        # Split the fixed PHP-FPM capacity between authenticated and anonymous
-        # traffic. One connection per Apache pod remains reserved for logged-in
-        # users while both backend limits still add up to the total worker count.
+        # Split the fixed PHP-FPM capacity between authenticated, anonymous and
+        # anonymous search traffic. One connection per Apache pod remains
+        # reserved for logged-in users and a few more for anonymous searches,
+        # while all backend limits still add up to the total worker count.
         backend default {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
@@ -30,8 +31,22 @@ spec:
         backend anon {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
-            .max_connections = {{ mul .Values.mediawiki.replicas (sub .Values.mediawiki.phpfpm.maxChildren 1) }};
+            .max_connections = {{ mul .Values.mediawiki.replicas (sub (sub .Values.mediawiki.phpfpm.maxChildren 1) .Values.varnish.searchConnectionsPerReplica) }};
             .first_byte_timeout = {{ .Values.varnish.anonBackendFirstByteTimeout }};
+            .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
+        }
+        # Crawlers submitting the search form produced searches that outlived
+        # the anonymous timeout and filled the whole anonymous pool, so every
+        # anonymous page view got a 503. Anonymous searches now saturate only
+        # this pool. Its first-byte timeout is longer than the anonymous one
+        # because PHP keeps running a search after Varnish gives up: a short
+        # timeout would free slots while workers are still busy and let more
+        # searches reach PHP than the pool allows.
+        backend search {
+            .host = "{{ .Release.Name }}";
+            .port = "{{ .Values.apache.port }}";
+            .max_connections = {{ mul .Values.mediawiki.replicas .Values.varnish.searchConnectionsPerReplica }};
+            .first_byte_timeout = {{ .Values.varnish.searchBackendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
 
@@ -60,8 +75,12 @@ spec:
                 unset req.http.X-Is-Authenticated;
             }
 
+            # Logged-in users' searches stay in the default pool; only
+            # anonymous searches use the search pool.
             if (req.http.X-Is-Authenticated) {
                 set req.backend_hint = default;
+            } elsif (req.url ~ "Special(:|%3[Aa])Search" || req.url ~ "^/w/index\.php\?(.*&)?search=") {
+                set req.backend_hint = search;
             } else {
                 set req.backend_hint = anon;
             }
@@ -99,8 +118,10 @@ spec:
             }
 
             # Block expensive uncacheable pages for anonymous users
-            # (authenticated users have already been passed above)
-            if (req.url ~ "(Special:RecentChangesLinked|Special:WhatLinksHere|Special:ExportRDF|Special:Log|action=history|action=info|action=edit)") {
+            # (authenticated users have already been passed above).
+            # req.url is not decoded, so also match the %3A form that
+            # /w/index.php?title=Special%3AWhatLinksHere&target=... uses.
+            if (req.url ~ "(Special(:|%3[Aa])(RecentChangesLinked|WhatLinksHere|ExportRDF|Log)|action=history|action=info|action=edit)") {
                 return (synth(753, "You must be logged in to view this page"));
             }
 

@@ -104,6 +104,8 @@ varnish:
   backendFirstByteTimeout: "600s"
   anonBackendFirstByteTimeout: "10s"
   backendBetweenBytesTimeout: "600s"
+  searchConnectionsPerReplica: 10
+  searchBackendFirstByteTimeout: "30s"
   purgeAcl: "10.0.0.0/8"
   # How long entity redirects (Special:EntityPage/*, /entity/*) may be cached.
   entityRedirectTtl: "24h"
