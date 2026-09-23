@@ -1798,6 +1798,16 @@ entries:
   opensearch:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-09-23T13:08:31.595018232Z"
+    description: A Helm chart for OpenSearch
+    digest: 25309d82c28050f2a332da2cf79ba2a69a275a26a5b16b2844a654f74534be22
+    name: opensearch
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/opensearch-0.1.1/opensearch-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-01-12T10:13:18.241270374Z"
     description: A Helm chart for OpenSearch
     digest: c3eb5e4e99cf6cd973a4c18db5fd2375b90c2cc29684e96282b6becc06025076
@@ -3889,4 +3899,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-23T11:45:09.262853677Z"
+generated: "2026-09-23T13:08:31.595526764Z"
