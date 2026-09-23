@@ -1,0 +1,13 @@
+{{- if and .Values.dlockss.enabled .Values.dlockss.trustedPeers }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-dlockss-trust
+data:
+  trusted_peers.json: |
+    {"peers":[
+    {{- range $i, $id := .Values.dlockss.trustedPeers }}
+    {{ if $i }},{{ end }}{{ $id | quote }}
+    {{- end }}
+    ]}
+{{- end }}

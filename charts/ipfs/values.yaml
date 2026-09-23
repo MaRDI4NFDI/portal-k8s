@@ -5,6 +5,7 @@ storage:
 dlockss:
   enabled: false
   nodeName: mardi
+  trustedPeers: []
   storage:
     size: 5Gi
   image:
