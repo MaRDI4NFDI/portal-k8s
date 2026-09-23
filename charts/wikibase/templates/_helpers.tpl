@@ -103,6 +103,10 @@ PHP-FPM environment variables.
   value: "{{ .maxRequests | default 1000 }}"
 - name: PHP_FPM_REQUEST_TIMEOUT
   value: "{{ .requestTimeout | default "60s" }}"
+- name: PHP_FPM_SLOWLOG_TIMEOUT
+  value: "{{ .slowlogTimeout | default "0" }}"
+- name: PHP_FPM_SLOWLOG_TRACE_DEPTH
+  value: "{{ .slowlogTraceDepth | default 20 }}"
 {{- end -}}
 
 {{/*
