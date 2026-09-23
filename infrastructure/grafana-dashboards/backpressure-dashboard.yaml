@@ -31,7 +31,7 @@ data:
           "title": "Apache saturation",
           "description": "Aggregate busy Apache workers divided by all configured worker slots. One additional worker per pod is reserved beyond PHP-FPM capacity for monitoring and health checks, so a full PHP-FPM pool appears just below 100%.",
           "type": "stat",
-          "gridPos": { "x": 0, "y": 3, "w": 8, "h": 5 },
+          "gridPos": { "x": 16, "y": 3, "w": 8, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -59,7 +59,7 @@ data:
           "title": "Varnish saturation",
           "description": "Highest utilization of the anonymous or authenticated backend connection pool.",
           "type": "stat",
-          "gridPos": { "x": 8, "y": 3, "w": 8, "h": 5 },
+          "gridPos": { "x": 16, "y": 7, "w": 8, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -87,7 +87,7 @@ data:
           "title": "Traefik saturation",
           "description": "Current portal request rate divided by an assumed Traefik capacity of 5,000 requests/s.",
           "type": "stat",
-          "gridPos": { "x": 16, "y": 3, "w": 8, "h": 5 },
+          "gridPos": { "x": 16, "y": 11, "w": 8, "h": 4 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -115,7 +115,7 @@ data:
           "title": "Current portal request handling",
           "description": "Current request rates by handling outcome. Varnish backend requests, retries, and background refreshes make this an operational approximation rather than an exact partition of incoming requests.",
           "type": "piechart",
-          "gridPos": { "x": 0, "y": 8, "w": 24, "h": 5 },
+          "gridPos": { "x": 0, "y": 3, "w": 16, "h": 12 },
           "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
           "targets": [
             {
@@ -155,7 +155,7 @@ data:
           "id": 2,
           "title": "Portal request rate",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 13, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 15, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
           "targets": [
             {
@@ -180,7 +180,7 @@ data:
           "title": "Portal responses by status",
           "description": "429 shows explicit rejection; 502–504 show failed or timed-out requests while pressure propagates through the current stack.",
           "type": "timeseries",
-          "gridPos": { "x": 8, "y": 13, "w": 8, "h": 7 },
+          "gridPos": { "x": 8, "y": 15, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
           "targets": [
             {
@@ -199,7 +199,7 @@ data:
           "id": 4,
           "title": "Portal request latency",
           "type": "timeseries",
-          "gridPos": { "x": 16, "y": 13, "w": 8, "h": 7 },
+          "gridPos": { "x": 16, "y": 15, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "s", "min": 0, "max": 10 } },
           "targets": [
             {
@@ -224,7 +224,7 @@ data:
           "title": "Traefik open connections",
           "description": "Entrypoint-wide connection count. This includes services other than the portal and becomes the outer backpressure signal once a global in-flight limit is configured.",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 20, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 22, "w": 12, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -233,23 +233,10 @@ data:
           }]
         },
         {
-          "id": 6,
-          "title": "Explicit rejection rate",
-          "description": "This should become the preferred overload outcome after admission control is enabled. Until then it may stay at zero while 5xx responses rise.",
-          "type": "timeseries",
-          "gridPos": { "x": 8, "y": 20, "w": 8, "h": 7 },
-          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
-          "targets": [{
-            "refId": "A",
-            "expr": "sum(rate(traefik_router_requests_total{job=\"traefik\",router=~\"production-wikibase-.*@kubernetescrd\",code=\"429\"}[$__rate_interval])) or vector(0)",
-            "legendFormat": "429/s"
-          }]
-        },
-        {
           "id": 7,
           "title": "Gateway failure rate",
           "type": "timeseries",
-          "gridPos": { "x": 16, "y": 20, "w": 8, "h": 7 },
+          "gridPos": { "x": 12, "y": 22, "w": 12, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
           "targets": [
             {
@@ -263,7 +250,7 @@ data:
           "id": 8,
           "title": "PHP-FPM layer",
           "type": "row",
-          "gridPos": { "x": 0, "y": 40, "w": 24, "h": 1 },
+          "gridPos": { "x": 0, "y": 37, "w": 24, "h": 1 },
           "collapsed": false,
           "panels": []
         },
@@ -272,7 +259,7 @@ data:
           "title": "MediaWiki CPU",
           "description": "CPU use is useful context but does not determine whether the PHP-FPM pool is full; workers waiting on dependencies can consume a slot without consuming CPU.",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 41, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 38, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "cores", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -284,7 +271,7 @@ data:
           "id": 10,
           "title": "MediaWiki memory limit usage",
           "type": "timeseries",
-          "gridPos": { "x": 8, "y": 41, "w": 8, "h": 7 },
+          "gridPos": { "x": 8, "y": 38, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "percentunit", "min": 0, "max": 1 } },
           "targets": [{
             "refId": "A",
@@ -297,7 +284,7 @@ data:
           "title": "Wikibase container restarts",
           "description": "Unexpected restarts by container. PHP-FPM and Apache should remain at zero when the admission limit is reached.",
           "type": "timeseries",
-          "gridPos": { "x": 16, "y": 41, "w": 8, "h": 7 },
+          "gridPos": { "x": 16, "y": 38, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -310,7 +297,7 @@ data:
           "title": "Apache worker utilization",
           "description": "Aggregate busy Apache workers divided by all configured slots. Apache keeps one additional worker per pod beyond PHP-FPM capacity for monitoring and health checks, so PHP-FPM can be full slightly before this reaches 100%.",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 48, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 45, "w": 8, "h": 7 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -337,7 +324,7 @@ data:
           "title": "Busy Apache workers",
           "description": "Aggregate busy workers. Busy and idle workers add up to the configured worker capacity, so the idle series is omitted.",
           "type": "timeseries",
-          "gridPos": { "x": 8, "y": 48, "w": 8, "h": 7 },
+          "gridPos": { "x": 8, "y": 45, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
           "targets": [{
             "refId": "A",
@@ -350,7 +337,7 @@ data:
           "title": "All Apache metrics targets available",
           "description": "1 only when every Apache exporter target is being scraped successfully.",
           "type": "stat",
-          "gridPos": { "x": 16, "y": 48, "w": 8, "h": 7 },
+          "gridPos": { "x": 16, "y": 45, "w": 8, "h": 7 },
           "fieldConfig": {
             "defaults": {
               "unit": "none",
@@ -374,7 +361,7 @@ data:
           "id": 13,
           "title": "Varnish layer",
           "type": "row",
-          "gridPos": { "x": 0, "y": 27, "w": 24, "h": 1 },
+          "gridPos": { "x": 0, "y": 29, "w": 24, "h": 1 },
           "collapsed": false,
           "panels": []
         },
@@ -382,7 +369,7 @@ data:
           "id": 14,
           "title": "Varnish memory limit usage",
           "type": "timeseries",
-          "gridPos": { "x": 0, "y": 28, "w": 8, "h": 7 },
+          "gridPos": { "x": 0, "y": 30, "w": 8, "h": 7 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -400,20 +387,20 @@ data:
           },
           "targets": [{
             "refId": "A",
-            "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}) / sum by (pod) (kube_pod_container_resource_limits{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\",resource=\"memory\",unit=\"byte\"})",
-            "legendFormat": "{{pod}}"
+            "expr": "sum(container_memory_working_set_bytes{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}) / sum(kube_pod_container_resource_limits{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\",resource=\"memory\",unit=\"byte\"})",
+            "legendFormat": "aggregate"
           }]
         },
         {
           "id": 15,
           "title": "Varnish CPU",
           "type": "timeseries",
-          "gridPos": { "x": 8, "y": 28, "w": 8, "h": 7 },
+          "gridPos": { "x": 8, "y": 30, "w": 8, "h": 7 },
           "fieldConfig": { "defaults": { "unit": "cores", "min": 0 } },
           "targets": [{
             "refId": "A",
-            "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}[$__rate_interval]))",
-            "legendFormat": "{{pod}}"
+            "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"}[$__rate_interval]))",
+            "legendFormat": "aggregate"
           }]
         },
         {
@@ -421,7 +408,7 @@ data:
           "title": "Varnish backend saturation",
           "description": "Current connections divided by each pool's limit. Anonymous capacity stops one worker short per Apache pod, minus the anonymous search pool; the reserved connections form the authenticated pool. A full search pool only rejects searches, so the Varnish overview ignores it.",
           "type": "timeseries",
-          "gridPos": { "x": 16, "y": 28, "w": 8, "h": 7 },
+          "gridPos": { "x": 16, "y": 30, "w": 8, "h": 7 },
           "fieldConfig": {
             "defaults": {
               "unit": "percentunit",
@@ -442,83 +429,8 @@ data:
             "expr": "sum by (backend) (varnish_backend_conn{namespace=\"production\",backend=~\"anon|default|search\"}) / on (backend) mardi_varnish_backend_max_connections{namespace=\"production\"}",
             "legendFormat": "{{backend}}"
           }]
-        },
-        {
-          "id": 17,
-          "title": "Varnish restarts",
-          "type": "stat",
-          "gridPos": { "x": 0, "y": 35, "w": 8, "h": 5 },
-          "fieldConfig": { "defaults": { "unit": "none" } },
-          "targets": [{
-            "refId": "A",
-            "expr": "sum(kube_pod_container_status_restarts_total{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\"})",
-            "legendFormat": "restarts"
-          }],
-          "options": { "reduceOptions": { "calcs": ["lastNotNull"] } }
-        },
-        {
-          "id": 18,
-          "title": "Last Varnish termination was OOM",
-          "description": "1 means the current pod's most recent terminated Varnish process was OOM-killed; 0 means it was not or the pod has not restarted.",
-          "type": "stat",
-          "gridPos": { "x": 8, "y": 35, "w": 8, "h": 5 },
-          "fieldConfig": {
-            "defaults": {
-              "unit": "none",
-              "mappings": [{
-                "type": "value",
-                "options": {
-                  "0": { "text": "No", "color": "green" },
-                  "1": { "text": "Yes", "color": "red" }
-                }
-              }],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "red", "value": 1 }
-                ]
-              }
-            }
-          },
-          "targets": [{
-            "refId": "A",
-            "expr": "max(kube_pod_container_status_last_terminated_reason{namespace=\"production\",pod=~\"varnish-.*\",container=\"varnish-cache\",reason=\"OOMKilled\"}) or vector(0)",
-            "legendFormat": "OOMKilled"
-          }],
-          "options": { "colorMode": "background", "reduceOptions": { "calcs": ["lastNotNull"] } }
-        },
-        {
-          "id": 19,
-          "title": "Varnish shedding and queueing",
-          "description": "Rates of deliberate backend rejection and pressure inside Varnish. Backend busy is the expected signal when the split connection caps protect Apache/PHP-FPM.",
-          "type": "timeseries",
-          "gridPos": { "x": 16, "y": 35, "w": 8, "h": 5 },
-          "fieldConfig": { "defaults": { "unit": "ops", "min": 0 } },
-          "targets": [
-            {
-              "refId": "A",
-              "expr": "sum(rate(varnish_main_backend_busy{namespace=\"production\"}[$__rate_interval]))",
-              "legendFormat": "backend busy/s"
-            },
-            {
-              "refId": "B",
-              "expr": "sum(rate(varnish_main_sess_queued{namespace=\"production\"}[$__rate_interval]))",
-              "legendFormat": "sessions queued/s"
-            },
-            {
-              "refId": "C",
-              "expr": "sum(rate(varnish_main_sess_dropped{namespace=\"production\"}[$__rate_interval]))",
-              "legendFormat": "sessions dropped/s"
-            },
-            {
-              "refId": "D",
-              "expr": "sum(rate(varnish_main_threads_limited{namespace=\"production\"}[$__rate_interval]))",
-              "legendFormat": "threads limited/s"
-            }
-          ]
         }
       ],
       "schemaVersion": 39,
-      "version": 3
+      "version": 5
     }
