@@ -43,13 +43,20 @@ spec:
         volumeMounts:
         - name: opensearch-data
           mountPath: /usr/share/opensearch/data
+{{- if .Values.storage.existingClaim }}
+      volumes:
+      - name: opensearch-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.storage.existingClaim }}
+{{- else }}
   volumeClaimTemplates:
   - metadata:
       name: opensearch-data
     spec:
       accessModes:
         - "ReadWriteOnce"
-      storageClassName: "csi-rbd-sc"
+      storageClassName: "{{ .Values.storage.className }}"
       resources:
         requests:
           storage: {{ .Values.storage.size }}
+{{- end }}
