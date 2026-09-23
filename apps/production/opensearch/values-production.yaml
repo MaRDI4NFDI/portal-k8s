@@ -5,11 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.0"
+      version: "0.1.1"
   values:
     replicas: 1
     storage:
       size: 200Gi
+      existingClaim: opensearch-data-ssd
     resources:
       requests:
         memory: "20Gi"

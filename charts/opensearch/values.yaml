@@ -4,6 +4,8 @@ image:
 replicas: 1
 storage:
   size: 5Gi
+  className: "csi-rbd-sc"
+  existingClaim: ""
 resources:
   requests:
     memory: "512Mi"
