@@ -5,8 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.2.3"
+      version: "0.2.4"
   values:
+    dlockss:
+      enabled: true
+      nodeName: mardi
     admin:
       enabled: true
       existingSecret: ipfs-oauth2-proxy

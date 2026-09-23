@@ -127,3 +127,9 @@ version and active import configuration with:
 ipfs --api=/ip4/127.0.0.1/tcp/5001 version
 ipfs --api=/ip4/127.0.0.1/tcp/5001 config Import
 ```
+
+## D-LOCKSS
+
+Set `dlockss.enabled` to run [D-LOCKSS](https://github.com/gipplab/D-LOCKSS) in this Pod. Production does this. The container reads `Identity.PrivKey` from the Kubo repo and talks to `127.0.0.1:5001`. Pins go into the Kubo volume. Cluster state and `/data/ingest` are on the separate `dlockss` claim.
+
+`dlockss.nodeName` is the name shown in the monitor. Copy files to ingest into `/data/ingest` in the `dlockss` container.

@@ -55,6 +55,38 @@ spec:
               mountPath: /container-init.d/10-configure.sh
               subPath: 10-configure.sh
               readOnly: true
+        {{- if .Values.dlockss.enabled }}
+        - name: dlockss
+          image: "{{ .Values.dlockss.image.repository }}:{{ .Values.dlockss.image.tag }}"
+          imagePullPolicy: {{ .Values.dlockss.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              until wget -q -O /dev/null --post-data='' "http://127.0.0.1:5001/api/v0/version"; do
+                echo "waiting for kubo API"
+                sleep 2
+              done
+              exec /usr/local/bin/dlockss
+          env:
+            - name: DLOCKSS_IPFS_NODE
+              value: /ip4/127.0.0.1/tcp/5001
+            - name: DLOCKSS_IPFS_CONFIG
+              value: /ipfs-repo/config
+            - name: DLOCKSS_DATA_DIR
+              value: /data/ingest
+            - name: DLOCKSS_NODE_NAME
+              value: {{ .Values.dlockss.nodeName | quote }}
+          volumeMounts:
+            - name: data
+              mountPath: /ipfs-repo
+              readOnly: true
+            - name: dlockss
+              mountPath: /data
+          {{- with .Values.dlockss.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- end }}
         {{- if .Values.admin.enabled }}
         - name: oauth2-proxy
           image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
@@ -134,6 +166,11 @@ spec:
               {{- end }}
         - name: oauth2-proxy
           emptyDir: {}
+        {{- end }}
+        {{- if .Values.dlockss.enabled }}
+        - name: dlockss
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-dlockss
         {{- end }}
   volumeClaimTemplates:
     - metadata:

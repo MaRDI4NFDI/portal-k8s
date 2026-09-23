@@ -2,6 +2,22 @@ storage:
   className: csi-rbd-sc
   size: 20Gi
 
+dlockss:
+  enabled: false
+  nodeName: mardi
+  storage:
+    size: 5Gi
+  image:
+    repository: ghcr.io/gipplab/dlockss-single-node
+    tag: "15716c8"
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 1Gi
+
 admin:
   enabled: false
   hostname: ""
