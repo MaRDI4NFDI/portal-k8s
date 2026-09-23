@@ -30,6 +30,7 @@ mediawiki:
     maxSpareServers: 40
     maxRequests: 1000
     requestTimeout: "60s"
+    slowlogTimeout: "0"
   opcache:
     memoryConsumption: 256
     maxAcceleratedFiles: 20000
