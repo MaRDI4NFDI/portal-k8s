@@ -13,10 +13,10 @@ spec:
       existingClaim: opensearch-data-ssd
     resources:
       requests:
-        memory: "20Gi"
+        memory: "24Gi"
         cpu: "6"
       limits:
-        memory: "30Gi"
+        memory: "40Gi"
         cpu: "8"
-    javaOpts: "-Xms14g -Xmx14g"
+    javaOpts: "-Xms10g -Xmx10g"
     
