@@ -11,13 +11,13 @@ spec:
       enabled: true
       nodeName: mardi
       trustedPeers:
-        - "12D3KooWDBwRXRyuGduu5U6f79hJ2BxEzU2PpZt7AxgHWW8jJSMZ"
-        - "12D3KooWDwZMB2RzFLKMFzTA6DMkZ7L31wRbYE6LHNr4nSx62Y6W"
-        - "12D3KooWE8nFummCiciHmvqDtYWfrxBd2c7Pt6mupJSXnxR5ZBqk"
-        - "12D3KooWLb7WFH45GCF4ZKvxvH1ZbMvWDqBvsGYtMpsCACvuLSiC"
-        - "12D3KooWNUkhmdXA2mMGvwWv5dHQbTAPsfmGuokjeZxJD47Kn5iy"
-        - "12D3KooWPqy94EGLrmhvi4ygYirk8V2UsT9RE5KekRog5xAE2zfo"
-        - "12D3KooWQuTTNMw3RjfDRiwHRgDTwEFAYSVuNnfV2XsmP1w2EGnx"
+        - "12D3KooWNUkhmdXA2mMGvwWv5dHQbTAPsfmGuokjeZxJD47Kn5iy" # gipplab01
+        - "12D3KooWE8nFummCiciHmvqDtYWfrxBd2c7Pt6mupJSXnxR5ZBqk" # mardi
+        - "12D3KooWPqy94EGLrmhvi4ygYirk8V2UsT9RE5KekRog5xAE2zfo" # pi1
+        - "12D3KooWLb7WFH45GCF4ZKvxvH1ZbMvWDqBvsGYtMpsCACvuLSiC" # pi2
+        - "12D3KooWQuTTNMw3RjfDRiwHRgDTwEFAYSVuNnfV2XsmP1w2EGnx" # pi3
+        - "12D3KooWDwZMB2RzFLKMFzTA6DMkZ7L31wRbYE6LHNr4nSx62Y6W" # pi4
+        - "12D3KooWDBwRXRyuGduu5U6f79hJ2BxEzU2PpZt7AxgHWW8jJSMZ" # wmcloud
     admin:
       enabled: true
       existingSecret: ipfs-oauth2-proxy
