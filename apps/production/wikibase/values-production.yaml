@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.108"
+      version: "0.1.109"
   values:
     mediawiki:
       image:
@@ -20,6 +20,7 @@ spec:
       redis_host: redis-master
       formulasearch_host: formulasearch
       latexml_host: latexml
+      ptrace: true
       phpfpm:
         slowlogTimeout: "5s"
       opcache:
