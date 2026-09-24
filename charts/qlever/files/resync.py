@@ -405,9 +405,13 @@ def http(url, data=None, headers=None, timeout=120):
             return resp.read().decode("utf-8", "replace")
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", "replace")[:500]
-        raise HttpError(exc.code, f"HTTP {exc.code} for {url}: {body}") from exc
+        raise HttpError(exc.code, f"HTTP {exc.code} for {_redact(url)}: {body}") from exc
     except urllib.error.URLError as exc:
-        raise HttpError(None, f"cannot reach {url}: {exc.reason}") from exc
+        raise HttpError(None, f"cannot reach {_redact(url)}: {exc.reason}") from exc
+
+
+def _redact(url):
+    return re.sub(r"(access-token=)[^&]*", r"\1***", url)
 
 
 class Store:
@@ -651,11 +655,11 @@ def build_operations(drift, chunk_size=2000):
     for chunk in _chunks(drift.delete_triples, chunk_size):
         body = "\n  ".join(ser_triple(t) for t in chunk)
         operations.append(f"DELETE DATA {{\n  {body}\n}}")
-    for chunk in _chunks(drift.delete_patterns, chunk_size):
-        values = "\n    ".join(f"({ser_term(s)} {ser_term(p)})" for (s, p) in chunk)
-        operations.append(
-            f"DELETE {{ ?s ?p ?o }} WHERE {{\n  VALUES (?s ?p) {{\n    {values}\n  }}\n"
-            f"  ?s ?p ?o\n}}")
+    # One operation per (subject, predicate): binding both through VALUES makes
+    # QLever scan the whole triple table before joining.
+    for (s, p) in drift.delete_patterns:
+        pattern = f"{ser_term(s)} {ser_term(p)} ?o"
+        operations.append(f"DELETE {{ {pattern} }} WHERE {{ {pattern} }}")
     for chunk in _chunks(drift.inserted + drift.shared_missing, chunk_size):
         body = "\n  ".join(ser_triple(t) for t in chunk)
         operations.append(f"INSERT DATA {{\n  {body}\n}}")
@@ -691,8 +695,9 @@ def parse_since(value: str) -> str:
         "'24h' (s/m/h/d/w), a date '2026-08-17', or '2026-08-17T12:00:00Z'")
 
 
-def changed_since(api_url, since, namespaces, limit, timeout, log):
-    """Entity ids edited, created or logged against since `since`, newest first."""
+def changed_since(api_url, since, namespaces, limit, timeout, log, until=None):
+    """Entity ids edited, created or logged against since `since` (and before
+    `until`), newest first."""
     ids, seen = [], set()
     params = {
         "action": "query",
@@ -703,6 +708,7 @@ def changed_since(api_url, since, namespaces, limit, timeout, log):
         "rclimit": "500",
         "rcdir": "older",
         "rcend": since,
+        **({"rcstart": until} if until else {}),
         "format": "json",
         "formatversion": "2",
     }
@@ -760,6 +766,9 @@ def build_parser():
     parser.add_argument("--changed-since", metavar="WHEN",
                         help="reconcile everything edited since WHEN: a duration "
                              "like 24h, a date, or an ISO timestamp")
+    parser.add_argument("--changed-until", metavar="WHEN",
+                        help="with --changed-since, ignore edits after WHEN "
+                             "(same formats); for resuming an interrupted run")
     parser.add_argument("-n", "--check", action="store_true",
                         help="report drift without changing anything "
                              "(exit 1 if any entity is out of sync)")
@@ -802,6 +811,9 @@ def main(argv=None):
     if sum(sources) != 1:
         log("resync: give entity ids, --from-file, or --changed-since (exactly one)")
         return 2
+    if args.changed_until and not args.changed_since:
+        log("resync: --changed-until needs --changed-since")
+        return 2
     if not args.entity_data_url:
         log("resync: --entity-data-url / ENTITY_DATA_URL is required")
         return 2
@@ -823,10 +835,12 @@ def main(argv=None):
         if args.changed_since:
             api_url = args.api_url or _guess_api_url(entity_data_url)
             since = parse_since(args.changed_since)
-            log(f"looking for entities changed since {since}")
+            until = parse_since(args.changed_until) if args.changed_until else None
+            log(f"looking for entities changed since {since}"
+                + (f" until {until}" if until else ""))
             ids = changed_since(api_url, since,
                                 [n.strip() for n in args.namespaces.split(",")],
-                                args.limit, args.timeout, log)
+                                args.limit, args.timeout, log, until=until)
         elif args.from_file:
             ids = read_ids(args.from_file)
         else:
