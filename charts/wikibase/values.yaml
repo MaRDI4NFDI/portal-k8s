@@ -22,6 +22,7 @@ mediawiki:
   formulasearch_host: formulasearch
   formulasearch_port: 1985
   importerEndpoint: importer
+  ptrace: false
   phpfpm:
     pm: dynamic
     maxChildren: 75

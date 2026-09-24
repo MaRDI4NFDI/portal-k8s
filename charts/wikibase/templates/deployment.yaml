@@ -87,6 +87,12 @@ spec:
               memory: {{ .Values.mediawiki.resources.limits.memory }}
           ports:
             - containerPort: {{ .Values.mediawiki.port }}
+{{- if .Values.mediawiki.ptrace }}
+          securityContext:
+            capabilities:
+              add:
+                - SYS_PTRACE
+{{- end }}
           volumeMounts:
             {{- include "mediawiki.volumeMounts" . | nindent 12 }}
           env:
