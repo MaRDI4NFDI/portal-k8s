@@ -84,6 +84,68 @@ data:
             "expr": "sum(rate(traefik_service_requests_total{job=\"traefik\",exported_service=~\"production-qlever-.*@kubernetescrd\"}[2m]))",
             "legendFormat": "external requests/s"
           }]
+        },
+        {
+          "id": 7,
+          "title": "SPARQL operations per second",
+          "description": "All queries and updates handled by QLever, including internal traffic that bypasses Traefik.",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 24, "w": 12, "h": 8 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [
+            { "refId": "A", "expr": "sum(rate(qlever_sparql_operation_finished_total{namespace=\"production\",job=\"qlever\",operation=\"query\"}[$__rate_interval]))", "legendFormat": "queries/s" },
+            { "refId": "B", "expr": "sum(rate(qlever_sparql_operation_finished_total{namespace=\"production\",job=\"qlever\",operation=\"update\"}[$__rate_interval]))", "legendFormat": "updates/s" }
+          ]
+        },
+        {
+          "id": 8,
+          "title": "Queries answered in ≤5 ms (cache-hit estimate)",
+          "description": "QLever does not export cache hits. Queries finishing in ≤5 ms are almost always served from the cache, but cheap uncached queries also land here, so this overestimates hits.",
+          "type": "timeseries",
+          "gridPos": { "x": 12, "y": 24, "w": 12, "h": 8 },
+          "fieldConfig": {
+            "defaults": { "unit": "reqps", "min": 0 },
+            "overrides": [{
+              "matcher": { "id": "byName", "options": "share of queries" },
+              "properties": [
+                { "id": "unit", "value": "percentunit" },
+                { "id": "max", "value": 1 },
+                { "id": "custom.axisPlacement", "value": "right" }
+              ]
+            }]
+          },
+          "targets": [
+            { "refId": "A", "expr": "sum(rate(qlever_sparql_operation_duration_milliseconds_bucket{namespace=\"production\",job=\"qlever\",operation=\"query\",le=\"5\"}[$__rate_interval]))", "legendFormat": "≤5 ms queries/s" },
+            { "refId": "B", "expr": "sum(rate(qlever_sparql_operation_duration_milliseconds_bucket{namespace=\"production\",job=\"qlever\",operation=\"query\",le=\"5\"}[$__rate_interval])) / sum(rate(qlever_sparql_operation_duration_milliseconds_count{namespace=\"production\",job=\"qlever\",operation=\"query\"}[$__rate_interval]))", "legendFormat": "share of queries" }
+          ]
+        },
+        {
+          "id": 9,
+          "title": "Query latency",
+          "type": "timeseries",
+          "gridPos": { "x": 0, "y": 32, "w": 8, "h": 8 },
+          "fieldConfig": { "defaults": { "unit": "ms", "min": 0 } },
+          "targets": [
+            { "refId": "A", "expr": "histogram_quantile(0.5, sum by (le) (rate(qlever_sparql_operation_duration_milliseconds_bucket{namespace=\"production\",job=\"qlever\",operation=\"query\"}[$__rate_interval])))", "legendFormat": "p50" },
+            { "refId": "B", "expr": "histogram_quantile(0.95, sum by (le) (rate(qlever_sparql_operation_duration_milliseconds_bucket{namespace=\"production\",job=\"qlever\",operation=\"query\"}[$__rate_interval])))", "legendFormat": "p95" },
+            { "refId": "C", "expr": "histogram_quantile(0.99, sum by (le) (rate(qlever_sparql_operation_duration_milliseconds_bucket{namespace=\"production\",job=\"qlever\",operation=\"query\"}[$__rate_interval])))", "legendFormat": "p99" }
+          ]
+        },
+        {
+          "id": 10,
+          "title": "Queries in flight",
+          "type": "timeseries",
+          "gridPos": { "x": 8, "y": 32, "w": 8, "h": 8 },
+          "fieldConfig": { "defaults": { "unit": "none", "min": 0 } },
+          "targets": [{ "refId": "A", "expr": "sum(qlever_sparql_operation_running{namespace=\"production\",job=\"qlever\",operation=\"query\"})", "legendFormat": "running" }]
+        },
+        {
+          "id": 11,
+          "title": "SPARQL errors per second",
+          "type": "timeseries",
+          "gridPos": { "x": 16, "y": 32, "w": 8, "h": 8 },
+          "fieldConfig": { "defaults": { "unit": "reqps", "min": 0 } },
+          "targets": [{ "refId": "A", "expr": "sum by (type) (rate(qlever_sparql_operation_errors_total{namespace=\"production\",job=\"qlever\"}[$__rate_interval]))", "legendFormat": "{{type}}" }]
         }
       ],
       "schemaVersion": 39,

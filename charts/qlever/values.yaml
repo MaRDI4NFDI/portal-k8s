@@ -27,6 +27,7 @@ qlever:
     timeout: 30s
     persistUpdates: true
     metricsLog: false
+    enableMetrics: false
   ui:
     config: mardi
 
