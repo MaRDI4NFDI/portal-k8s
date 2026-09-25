@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.29"
+      version: "0.1.30"
   values:
     qlever:
       maintenance: false
@@ -19,8 +19,8 @@ spec:
           memory: "32Gi"
           cpu: "12000m"
       storage:
-        size: "190Gi"
-        className: "csi-rbd-sc"
+        size: "200Gi"
+        existingClaim: qlever-data-ssd
       server:
         memoryForQueries: 20G
         cacheMaxSize: 6G
