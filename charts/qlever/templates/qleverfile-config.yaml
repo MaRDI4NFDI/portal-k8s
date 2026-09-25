@@ -28,6 +28,9 @@ data:
     CACHE_MAX_SIZE     = {{ .Values.qlever.server.cacheMaxSize }}
     TIMEOUT            = {{ .Values.qlever.server.timeout }}
     METRICS_LOG        = {{ ternary "yes" "no" .Values.qlever.server.metricsLog }}
+    {{- if .Values.qlever.server.enableMetrics }}
+    ENABLE_METRICS     = true
+    {{- end }}
 
     [runtime]
     SYSTEM = native
