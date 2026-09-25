@@ -14,6 +14,7 @@ qlever:
   storage: 
     size: "5Gi"
     className: "csi-rbd-sc"
+    existingClaim: ""
   data:
     name: mardi
     description: MaRDI Knowledge Graph

@@ -89,6 +89,11 @@ spec:
         - name: qleverfile-template
           configMap:
             name: {{ .Release.Name }}-qleverfile
+{{- if .Values.qlever.storage.existingClaim }}
+        - name: qlever-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.qlever.storage.existingClaim }}
+{{- else }}
   volumeClaimTemplates:
     - metadata:
         name: qlever-data
@@ -99,3 +104,4 @@ spec:
         resources:
           requests:
             storage: {{ .Values.qlever.storage.size }}
+{{- end }}
