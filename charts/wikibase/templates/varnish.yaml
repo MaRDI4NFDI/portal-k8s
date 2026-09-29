@@ -18,20 +18,20 @@ spec:
         vcl 4.0;
 
         # Split the fixed PHP-FPM capacity between authenticated, anonymous and
-        # anonymous search traffic. One connection per Apache pod remains
+        # anonymous search traffic. A few connections per Apache pod remain
         # reserved for logged-in users and a few more for anonymous searches,
         # while all backend limits still add up to the total worker count.
         backend default {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
-            .max_connections = {{ .Values.mediawiki.replicas }};
+            .max_connections = {{ mul .Values.mediawiki.replicas .Values.varnish.authConnectionsPerReplica }};
             .first_byte_timeout = {{ .Values.varnish.backendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
         backend anon {
             .host = "{{ .Release.Name }}";
             .port = "{{ .Values.apache.port }}";
-            .max_connections = {{ mul .Values.mediawiki.replicas (sub (sub .Values.mediawiki.phpfpm.maxChildren 1) .Values.varnish.searchConnectionsPerReplica) }};
+            .max_connections = {{ mul .Values.mediawiki.replicas (sub (sub .Values.mediawiki.phpfpm.maxChildren .Values.varnish.authConnectionsPerReplica) .Values.varnish.searchConnectionsPerReplica) }};
             .first_byte_timeout = {{ .Values.varnish.anonBackendFirstByteTimeout }};
             .between_bytes_timeout = {{ .Values.varnish.backendBetweenBytesTimeout }};
         }
