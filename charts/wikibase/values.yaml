@@ -109,6 +109,7 @@ varnish:
   backendFirstByteTimeout: "600s"
   anonBackendFirstByteTimeout: "10s"
   backendBetweenBytesTimeout: "600s"
+  authConnectionsPerReplica: 10
   searchConnectionsPerReplica: 10
   searchBackendFirstByteTimeout: "30s"
   purgeAcl: "10.0.0.0/8"
