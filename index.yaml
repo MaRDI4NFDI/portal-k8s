@@ -2847,6 +2847,16 @@ entries:
   wikibase:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-09-30T10:10:38.605651102Z"
+    description: A Helm chart for Mediawiki/Wikibase
+    digest: 7c40f45fd803c7c3454742a5cccdaded6796b2e55cc4f230a4edb3ebf1510cc9
+    name: wikibase
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-0.1.110/wikibase-0.1.110.tgz
+    version: 0.1.110
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-09-24T11:18:05.803567604Z"
     description: A Helm chart for Mediawiki/Wikibase
     digest: a08e66576565eee91f2b3d60e6e3868361aeb8ff4c4215960c98d49407163da0
@@ -3936,4 +3946,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-25T13:55:21.695074894Z"
+generated: "2026-09-30T10:10:38.606478763Z"
