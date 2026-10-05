@@ -14,7 +14,7 @@ spec:
                 value: staging-low
   chart:
     spec:
-      version: "0.1.30"
+      version: "0.1.31"
   values:
     database:
       host: "staging-mariadb-primary"
