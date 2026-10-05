@@ -6,7 +6,7 @@ data:
   default.conf: |
     server {
         listen 80;
-        root /usr/share/nginx/html;
+        root /schemas;
 
         location / {
             try_files $uri $uri.yaml $uri.json =404;
