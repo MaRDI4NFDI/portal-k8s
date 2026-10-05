@@ -1,0 +1,9 @@
+gitSync:
+  image:
+    repository: registry.k8s.io/git-sync/git-sync
+    tag: v4.7.1
+  period: 1h
+
+repos:
+  primary: https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-primary.git
+  secondary: https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-secondary.git
