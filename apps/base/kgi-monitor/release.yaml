@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kgi-monitor
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: stateless-service
+      sourceRef:
+        kind: HelmRepository
+        name: portal-k8s
+        namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/kgi4nfdi/kgi-interop-monitor
+      tag: latest
+      pullPolicy: Always
+    containerPort: 9001
+    ingress:
+      enabled: true
+      subdomain: kgi-monitor
