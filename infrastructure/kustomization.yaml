@@ -4,6 +4,7 @@ resources:
   - cert-manager
   - grafana-dashboards
   - helm
+  - keel
   - mariadb
   - portainer
   - postgresql

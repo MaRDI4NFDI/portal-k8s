@@ -2,6 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-ui
+  labels:
+    app: {{ .Release.Name }}-ui
+    {{- if eq (default "latest" .Values.frontend.image.tag) "latest" }}
+    keel.sh/policy: force
+    keel.sh/match-tag: "true"
+    keel.sh/trigger: poll
+    {{- end }}
 spec:
   replicas: 1
   strategy:

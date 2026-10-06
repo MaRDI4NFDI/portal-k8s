@@ -4,6 +4,11 @@ metadata:
   name: {{ .Release.Name }}
   labels:
     app: {{ .Release.Name }}
+    {{- if eq (default "latest" .Values.image.tag) "latest" }}
+    keel.sh/policy: force
+    keel.sh/match-tag: "true"
+    keel.sh/trigger: poll
+    {{- end }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:

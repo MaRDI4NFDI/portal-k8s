@@ -1,5 +1,6 @@
 image:
   repository: physikerwelt/latexml
+  tag: latest
 
 containerPort: 8080
 servicePort: 80
