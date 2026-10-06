@@ -9,6 +9,8 @@ spec:
     name: bitnami-memcached
     namespace: flux-system
   values:
+    image:
+      digest: sha256:41eb97f55a600defee88921a887c533e0d27f67d0ed49dd2638355e5859cde46
     architecture: standalone
     replicaCount: 1
     
