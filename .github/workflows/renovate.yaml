@@ -1,0 +1,30 @@
+name: Renovate
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.PORTAL_K8S_APP_ID }}
+          private-key: ${{ secrets.PORTAL_K8S_APP_PRIVATE_KEY }}
+          owner: MaRDI4NFDI
+          repositories: portal-k8s
+
+      - name: Renovate
+        uses: renovatebot/github-action@v46.3.7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+        env:
+          RENOVATE_REPOSITORIES: '["MaRDI4NFDI/portal-k8s"]'
+          RENOVATE_ALLOWED_COMMANDS: '["^bash \\.github/bump-chart-versions\\.sh$"]'
