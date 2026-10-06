@@ -28,6 +28,7 @@ resources:
   - mscexplainer
   - mscbackend
   - msceval
+  - kgi-monitor
   - kafka
   - schema-registry
   - eventgate
