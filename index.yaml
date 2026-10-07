@@ -209,6 +209,16 @@ entries:
   doip:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-10-07T10:33:37.700505309Z"
+    description: A Helm chart for the MaRDI Digital Object Interface Protocol server
+    digest: 5f96fba28a83745943191e168facb9aaa4904d0e3bb420498063e8ce7733d6ce
+    name: doip
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/doip-0.1.5/doip-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-06-11T19:28:15.022454743Z"
     description: A Helm chart for the MaRDI Digital Object Interface Protocol server
     digest: 6ffae9fb58b8fb77f718438daa2d7f0209caf901d6acd07764867ee301bc3452
@@ -1108,6 +1118,16 @@ entries:
   latexml:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-10-07T10:33:37.835239787Z"
+    description: LaTeXML Helm Chart
+    digest: 08180cd6b1474fac11eb362169b97eca0806150d416140c6a50be0d7df2d3e30
+    name: latexml
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/latexml-0.1.6/latexml-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-09-04T09:41:05.613334257Z"
     description: LaTeXML Helm Chart
     digest: 28415c4d943ae213baaddc412cd633669d1122ee26cfce783fb948fd886fdf1c
@@ -1835,6 +1855,15 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/opensearch-0.1.0/opensearch-0.1.0.tgz
     version: 0.1.0
   qlever:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-10-07T10:33:37.958586303Z"
+    description: A Helm chart for the MaRDI Qlever instance
+    digest: f484bac525b5800e8e76edd16f7603eaf5e58b3a32a01fd55afde8212c9674ae
+    name: qlever
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/qlever-0.1.31/qlever-0.1.31.tgz
+    version: 0.1.31
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2026-09-25T13:55:21.694469368Z"
@@ -2582,6 +2611,15 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/standalone-mariadb-0.1.0/standalone-mariadb-0.1.0.tgz
     version: 0.1.0
   stateless-service:
+  - apiVersion: v2
+    created: "2026-10-07T10:33:38.101935381Z"
+    description: A single-container stateless service
+    digest: f82ea4f60add92fa1af800e8a37be60e6dbfe0cbc25b3554083b0ec610cc813b
+    name: stateless-service
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/stateless-service-0.2.0/stateless-service-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     created: "2026-08-25T07:31:33.14844613Z"
     description: A single-container stateless service
@@ -3974,4 +4012,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-10-05T14:21:26.072069794Z"
+generated: "2026-10-07T10:33:38.103369672Z"
