@@ -7,6 +7,7 @@ resources:
   - portainer.yaml
   - bitnami-memcached.yaml
   - jetstack.yaml
+  - keel.yaml
   - varnish.yaml
   - prefect.yaml
   - crowdsec.yaml

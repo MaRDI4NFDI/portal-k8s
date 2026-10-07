@@ -2,6 +2,13 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+    {{- if eq (default "latest" .Values.image.tag) "latest" }}
+    keel.sh/policy: force
+    keel.sh/match-tag: "true"
+    keel.sh/trigger: poll
+    {{- end }}
 spec:
   serviceName: {{ .Release.Name }}
   replicas: 1
@@ -15,7 +22,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}
-        image: "{{ .Values.image.repository }}"
+        image: "{{ .Values.image.repository }}{{ with .Values.image.tag }}:{{ . }}{{ end }}"
         ports:
         - containerPort: {{ .Values.containerPort }}
         env:
