@@ -1,0 +1,38 @@
+{
+  "extends": ["docker:pinDigests"],
+  "prHourlyLimit": 0,
+  "enabledManagers": ["flux", "helm-values", "kubernetes"],
+  "flux": { "managerFilePatterns": ["/^(apps|infrastructure)/.+\\.ya?ml$/"] },
+  "kubernetes": { "managerFilePatterns": ["/^(apps|infrastructure)/.+\\.ya?ml$/"] },
+  "packageRules": [
+    {
+      "description": "Keel follows latest.",
+      "matchCurrentValue": "latest",
+      "enabled": false
+    },
+    {
+      "description": "Container images only, not Helm charts.",
+      "matchDatasources": ["helm"],
+      "enabled": false
+    },
+    {
+      "description": "Chart sources, not container images.",
+      "matchFileNames": ["infrastructure/helm/**"],
+      "enabled": false
+    },
+    {
+      "description": "A changed chart is only deployed under a new version and new pins.",
+      "matchFileNames": ["charts/**"],
+      "postUpgradeTasks": {
+        "commands": ["bash .github/bump-chart-versions.sh"],
+        "fileFilters": ["charts/*/Chart.yaml", "apps/**/*.yaml"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "description": "One weekly pull request for everything but major updates.",
+      "matchUpdateTypes": ["pin", "pinDigest", "digest", "patch", "minor"],
+      "groupName": "container images"
+    }
+  ]
+}
