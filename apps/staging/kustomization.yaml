@@ -18,6 +18,7 @@ resources:
   - maintenance
   - memcached
   - fdo
+  - kgi-monitor
   - doip
   - qlever
   - schema-registry
