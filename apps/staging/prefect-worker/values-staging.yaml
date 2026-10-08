@@ -8,7 +8,6 @@ spec:
       version: "2026.7.31163938"
   values:
     worker:
-      priorityClassName: staging-low
       apiConfig: selfHostedServer
       config:
         workPool: staging-k8s-pool

@@ -31,6 +31,12 @@ resources:
   - prefect-worker
   #- go-away
 
+# Staging and production share the same nodes. Staging workloads get the
+# staging-low priority class, so a production pod that does not fit (e.g. a
+# Wikibase rollout) preempts staging pods instead of staying Pending.
+# Not covered: the MariaDB metrics pod (created by the operator) and the
+# varnish release that the wikibase chart creates. Prefect jobs get the class
+# from the job template in prefect-worker.
 patches:
   - target:
       kind: HelmRelease
@@ -41,3 +47,26 @@ patches:
           - kind: ConfigMap
             name: staging-vars
             valuesKey: values.yaml
+      - op: add
+        path: /spec/postRenderers
+        value:
+          - kustomize:
+              patches:
+                - target:
+                    kind: Deployment|StatefulSet
+                  patch: |
+                    - op: add
+                      path: /spec/template/spec/priorityClassName
+                      value: staging-low
+                - target:
+                    kind: MariaDB
+                  patch: |
+                    - op: add
+                      path: /spec/priorityClassName
+                      value: staging-low
+  - target:
+      kind: Deployment|StatefulSet
+    patch: |-
+      - op: add
+        path: /spec/template/spec/priorityClassName
+        value: staging-low
