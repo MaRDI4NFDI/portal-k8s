@@ -5,4 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
+  values:
+    image:
+      repository: ghcr.io/kgi4nfdi/kgi-interop-monitor
+      tag: "latest@sha256:8454cac4f400c4d8783929cd85206d9696823f49ba76f7039ddf544436bfa6bf"

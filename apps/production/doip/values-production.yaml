@@ -6,8 +6,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.4"
+      version: "0.1.5"
   values:
+    image:
+      repository: ghcr.io/mardi4nfdi/mardi_doip_server
+      tag: "latest@sha256:d17fd0c42c8d427f7cd76b9f613642841c124f41c4521cc0dbf8e8585c184e81"
     lakefs:
       url: "lake-bioinfmed.zib.de"
       repo: "mardi-fdo-data"

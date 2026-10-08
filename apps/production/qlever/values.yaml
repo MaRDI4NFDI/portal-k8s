@@ -5,11 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.30"
+      version: "0.1.31"
   values:
     qlever:
       maintenance: false
       image:
+        repository: adfreiburg/qlever
         tag: "latest@sha256:826807a37cb369d491ad3bfcb9f6b17ee208352e620e8c146259b8142d791db7"
       resources:
         requests:
@@ -26,6 +27,10 @@ spec:
         cacheMaxSize: 6G
         timeout: 300s
         enableMetrics: true
+    frontend:
+      image:
+        repository: adfreiburg/qlever-ui
+        tag: "latest@sha256:2bdbfac438c8d43ae5337bb547993b1880e5c43b63871c74ca180aa123644851"
     ingress:
       enabled: true
     updater:

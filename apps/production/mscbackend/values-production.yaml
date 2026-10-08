@@ -5,4 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
+  values:
+    image:
+      repository: aggipp/automscbackend
+      tag: "latest@sha256:bf2b86628cca5497538dbf8d5b7410541e8e72aec1d5c21c1f597c1088954022"

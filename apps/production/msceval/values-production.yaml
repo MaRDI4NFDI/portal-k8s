@@ -5,4 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
+  values:
+    image:
+      repository: aggipp/automsceval
+      tag: "latest@sha256:5871875aee437701062497dcb9e9bf04026792fb2db3107409d7a938e9b67d82"
