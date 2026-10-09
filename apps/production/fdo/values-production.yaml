@@ -5,8 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
   values:
+    image:
+      repository: ghcr.io/mardi4nfdi/mardi_fdo_server
+      tag: "latest@sha256:38970d3733d7e009b1f2a595a0c171b548992e121b5fde6d0c688cb959c22f5d"
     resources:
       requests:
         memory: "128Mi"

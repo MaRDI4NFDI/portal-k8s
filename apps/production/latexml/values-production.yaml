@@ -5,8 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.5"
+      version: "0.1.6"
   values:
+    image:
+      repository: physikerwelt/latexml
+      tag: "latest@sha256:a1389ccdcf06b504c072056ec9436f4f62d6c7d5d0372f5727d442a1eafbe1e1"
     ingress:
       enabled: true
     resources:

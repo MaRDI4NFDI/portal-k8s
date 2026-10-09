@@ -5,8 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
   values:
+    image:
+      repository: ghcr.io/mardi4nfdi/askmardi_chatbot
+      tag: "latest@sha256:14e58596958091b27722640b5eb9a90525181b9b1c84584acc8defcc19c9ddbb"
     resources:
       requests:
         memory: "1Gi"

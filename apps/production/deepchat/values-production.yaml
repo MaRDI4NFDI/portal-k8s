@@ -5,8 +5,11 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
   values:
+    image:
+      repository: ghcr.io/mardi4nfdi/mardi_llm_bottest
+      tag: "latest@sha256:96b96b41b65c65ab8ea47ce41068e6dbd2d6005631ea88b4cfbd839fdc0b9e4c"
     resources:
       requests:
         memory: "1Gi"

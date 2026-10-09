@@ -3,12 +3,19 @@
   "prHourlyLimit": 0,
   "enabledManagers": ["flux", "helm-values", "kubernetes"],
   "flux": { "managerFilePatterns": ["/^(apps|infrastructure)/.+\\.ya?ml$/"] },
+  "helm-values": { "managerFilePatterns": ["/^apps/production/.+\\.ya?ml$/"] },
   "kubernetes": { "managerFilePatterns": ["/^(apps|infrastructure)/.+\\.ya?ml$/"] },
   "packageRules": [
     {
       "description": "Keel follows latest.",
       "matchCurrentValue": "latest",
       "enabled": false
+    },
+    {
+      "description": "Production pins latest to a digest that moves on Mondays.",
+      "matchFileNames": ["apps/production/**"],
+      "matchCurrentValue": "latest",
+      "enabled": true
     },
     {
       "description": "Container images only, not Helm charts.",
@@ -33,6 +40,11 @@
       "description": "One weekly pull request for everything but major updates.",
       "matchUpdateTypes": ["pin", "pinDigest", "digest", "patch", "minor"],
       "groupName": "container images"
+    },
+    {
+      "description": "The QLever database image must match the index, so it gets its own pull request.",
+      "matchPackageNames": ["adfreiburg/qlever"],
+      "groupName": "qlever database"
     }
   ]
 }

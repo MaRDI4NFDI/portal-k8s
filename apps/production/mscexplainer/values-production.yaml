@@ -5,4 +5,8 @@ metadata:
 spec:
   chart:
     spec:
-      version: 0.1.0
+      version: 0.2.0
+  values:
+    image:
+      repository: ghcr.io/gipplab/automscexplainer
+      tag: "latest@sha256:e26eccd2b050da1b041fb66dd74eb9e86acbf37263edafb1a0e707a7d0ff2d32"
