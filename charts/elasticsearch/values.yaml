@@ -1,6 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/releng/cirrus-elasticsearch
-  tag: 7.10.2-s0
+  tag: 7.10.2-s0@sha256:d5549abf224101c46c2355f16c4cfde952e74e3597ab03bbee288c7e5d04c78c
 replicas: 1
 storage:
   size: 5Gi

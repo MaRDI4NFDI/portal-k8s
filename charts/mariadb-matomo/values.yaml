@@ -1,6 +1,6 @@
 image:
   repository: mariadb
-  tag: 11.8.2
+  tag: 11.8.9@sha256:6422478cb8e159f080fb1d8ccf65101e26fe51385787fde7d16c3b165a331f15
   pullPolicy: IfNotPresent
 secrets: "matomo-secrets"
 db:

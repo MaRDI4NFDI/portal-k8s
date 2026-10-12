@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ffmpeg
-        image: docker-registry.wikimedia.org/wikimedia/mediawiki-libs-shellbox:video
+        image: docker-registry.wikimedia.org/wikimedia/mediawiki-libs-shellbox:video@sha256:539e4fa1c33889b6e27b4630a214bc4797de191540a201dfbf7fa8a9e5038b82
         ports:
         - containerPort: 8080
         resources:
