@@ -72,4 +72,4 @@ spec:
             memory: 1Gi 
       image:
         repository: bitnamilegacy/postgresql
-        tag: 14.13.0    
+        tag: 17.6.0@sha256:94c148526e3de5a414cc53f75701ed0d57ff3719466851723512fcbd1182522a    
