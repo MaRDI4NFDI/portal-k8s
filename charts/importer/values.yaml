@@ -66,6 +66,6 @@ prefect:
 
 # Sizes of the Prefect workflow volumes
 workflowData:
-  size: "100Gi"
+  size: "300Mi"
 updateData:
   size: "300Mi"
