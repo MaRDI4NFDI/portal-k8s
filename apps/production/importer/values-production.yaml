@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.31"
+      version: "0.1.32"
   values:
     database:
       host: "mariadb-primary"
@@ -20,5 +20,7 @@ spec:
     prefect:
       endpoint: "http://prefect-server.prefect.svc.cluster.local:4200/api"
       deployment: "mardi-importer/production"
-
-
+    workflowData:
+      size: "100Gi"
+    updateData:
+      size: "200Gi"
