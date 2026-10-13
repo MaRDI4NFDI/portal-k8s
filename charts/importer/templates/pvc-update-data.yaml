@@ -1,21 +1,21 @@
-  # PersistentVolumeClaim for the zbMATH update Prefect workflow (zbmath-update).
-  #
-  # Mounted at /mnt/update-data into the update flow's job pods via the
-  # deployment's job_variables in docker-importer's prefect.yaml. It keeps the
-  # update flow's checkpoint and the previous full processed dump, which the
-  # next run is compared against.
-  apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: {{ .Release.Name }}-update-data
-    labels:
-      app: {{ .Release.Name }}
-      component: workflow
-    annotations:
-      helm.sh/resource-policy: keep
-  spec:
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 200Gi
+# PersistentVolumeClaim for the zbMATH update Prefect workflow (zbmath-update).
+#
+# Mounted at /mnt/update-data into the update flow's job pods via the
+# deployment's job_variables in docker-importer's prefect.yaml. It keeps the
+# update flow's checkpoint and the previous full processed dump, which the
+# next run is compared against.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-update-data
+  labels:
+    app: {{ .Release.Name }}
+    component: workflow
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.updateData.size }}

@@ -20,3 +20,5 @@ spec:
     prefect:
       endpoint: "http://prefect-server.prefect.svc.cluster.local:4200/api"
       deployment: "mardi-importer/production"
+    updateData:
+      size: "200Gi"

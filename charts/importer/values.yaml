@@ -63,3 +63,9 @@ ingress:
 prefect:
   endpoint: "http://prefect-server:4200/api"
   deployment: "mardi-importer/<deployment_environment>"
+
+# Sizes of the Prefect workflow volumes
+workflowData:
+  size: "100Gi"
+updateData:
+  size: "300Mi"
