@@ -1,6 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/repos/search-platform/flink-rdf-streaming-updater
-  tag: flink-1.17.1-rdf-0.3.154
+  tag: flink-1.17.1-rdf-0.3.154@sha256:5e98fb8ad1d65f7e384519830f0661dfecb973c59a01061e3f36cda33d510493
   pullPolicy: IfNotPresent
 
 flink:

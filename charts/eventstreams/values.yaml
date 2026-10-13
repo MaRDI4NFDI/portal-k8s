@@ -1,6 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/repos/data-engineering/eventstreams
-  tag: v0.18.0
+  tag: v0.20.0@sha256:2237bcf22914f0fbd4fae4a83ce42808bf30cf16985377e49f64205ea9125553
 numWorkers: 1
 loggingLevel: "info"
 resources:

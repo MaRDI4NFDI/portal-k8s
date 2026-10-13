@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/mardi4nfdi/s3-proxy
-  tag: main
+  tag: main@sha256:78287bbcddf13bc57d230c3fe431c2abbd31d3c845f739bdfc2cb64fb8621780
   pullPolicy: Always
 
 replicas: 2

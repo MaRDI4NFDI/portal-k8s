@@ -15,7 +15,7 @@ spec:
   values:
     image:
       repository: portainer/portainer-ce
-      tag: 2.27.2
+      tag: 2.45.2@sha256:03f94a406496dc84d37b552795fc424ccad8d0d7200353b6a82915f6e8f73ab0
       pullPolicy: Always
     service:
       type: ClusterIP
