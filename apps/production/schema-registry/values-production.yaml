@@ -6,4 +6,8 @@ spec:
   chart:
     spec:
       version: "0.2.0"
-
+  values:
+    gitSync:
+      image:
+        repository: registry.k8s.io/git-sync/git-sync
+        tag: "v4.7.1"
