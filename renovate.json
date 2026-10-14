@@ -1,6 +1,7 @@
 {
   "extends": ["docker:pinDigests"],
   "prHourlyLimit": 0,
+  "ignorePaths": ["charts/**"],
   "enabledManagers": ["flux", "helm-values", "kubernetes"],
   "flux": { "managerFilePatterns": ["/^(apps|infrastructure)/.+\\.ya?ml$/"] },
   "helm-values": { "managerFilePatterns": ["/^apps/production/.+\\.ya?ml$/"] },
@@ -28,13 +29,9 @@
       "enabled": false
     },
     {
-      "description": "A changed chart is only deployed under a new version and new pins.",
-      "matchFileNames": ["charts/**"],
-      "postUpgradeTasks": {
-        "commands": ["bash .github/bump-chart-versions.sh"],
-        "fileFilters": ["charts/*/Chart.yaml", "apps/**/*.yaml"],
-        "executionMode": "branch"
-      }
+      "description": "The wikibase chart reuses this tag for apache-assets, so a digest would not match both images.",
+      "matchPackageNames": ["ghcr.io/mardi4nfdi/wikibase"],
+      "pinDigests": false
     },
     {
       "description": "One weekly pull request for everything but major updates.",
