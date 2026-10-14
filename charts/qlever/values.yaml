@@ -75,6 +75,11 @@ resync:
       cpu: "1"
       memory: "1Gi"
 
+readonlyProxy:
+  image:
+    repository: nginx
+    tag: "1.30.5-alpine"
+
 ingress:
   enabled: false
   subdomain: "qlever"

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.27-alpine
+          image: "{{ .Values.readonlyProxy.image.repository }}:{{ .Values.readonlyProxy.image.tag }}"
           ports:
             - containerPort: 8080
           volumeMounts:
