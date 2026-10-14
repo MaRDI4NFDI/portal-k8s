@@ -1,7 +1,7 @@
 anubis:
   image:
     repository: ghcr.io/techarohq/anubis
-    tag: v1.28.1@sha256:1744c03a918160a28b0d2e8c1656de6585f4071b30b4c3b0d51d02282c9b7c25
+    tag: v1.25.0
   target: varnish
   servicePort: 8080
   containerPort: 8080
