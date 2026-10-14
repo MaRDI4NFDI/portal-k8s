@@ -1,6 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/wikimedia/mediawiki-services-change-propagation
-  tag: 2025-07-28-033107-production@sha256:6dce414d6a6d28b870077a565ed2a2e9c419e01342bd4ed5d0db0f9d570c2708
+  tag: 2025-07-28-033107-production
   pullPolicy: IfNotPresent
 
 replicaCount: 1

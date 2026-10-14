@@ -1,6 +1,6 @@
 image:
   repository: wikibase/quickstatements
-  tag: 1@sha256:6c8abd132e3915822b2e116f178a3e726c6e3a894f49f539188148166e200537
+  tag: 1
 
 port: 80
 

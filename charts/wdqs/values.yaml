@@ -1,7 +1,7 @@
 wdqs:
   image:
     repository: wikibase/wdqs
-    tag: 2@sha256:f6416c4f2d253969b63d5ff40cc61db2897197e24f1c472dd2068603423846b6
+    tag: 2
   host: wdqs
   port: 9999
   storage: 5Gi
@@ -32,7 +32,7 @@ updater:
 frontend:
   image:
     repository: wikibase/wdqs-frontend
-    tag: 2@sha256:6e51acf52f274c3127386a2d5a670112d417dce53745601fe678239a79358a15
+    tag: 2
   replicas: 2
   port: 80
   resources:

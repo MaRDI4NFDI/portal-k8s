@@ -1,7 +1,7 @@
 importer:
   image:
     repository: "ghcr.io/mardi4nfdi/docker-importer"
-    tag: "main@sha256:6d06a508676bac8dcf4a0d49c22a1b59088872a3ef7bf92a4e7bbe4a0b8a5de7"
+    tag: "main"
     pullPolicy: Always
   resources:
     requests:
@@ -14,7 +14,7 @@ importer:
 api:
   image:
     repository: "ghcr.io/mardi4nfdi/importer-api"
-    tag: "main@sha256:ea92e6d13da9bb09e2273e25880acfc3b6e7134710bc0b475fad9ff766090cb6"
+    tag: "main"
     pullPolicy: Always
   servicePort: 80
   containerPort: 8000

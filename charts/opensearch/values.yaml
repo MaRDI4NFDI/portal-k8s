@@ -1,6 +1,6 @@
 image:
   repository: docker-registry.wikimedia.org/repos/search-platform/cirrussearch-opensearch-image
-  tag: v1.3.20-12@sha256:b4de34bcb80208df33a6ebed678c3df8ade1029b06cd7bb198a47589ec8c284d
+  tag: v1.3.20-12
 replicas: 1
 storage:
   size: 5Gi

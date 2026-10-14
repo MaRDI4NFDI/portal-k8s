@@ -10,7 +10,7 @@ dlockss:
     size: 5Gi
   image:
     repository: ghcr.io/gipplab/dlockss-single-node
-    tag: "15716c8@sha256:3b1d02756fa1c16ffdc97e09814a6a822e10f4dadecbffb873c47e580bdc4c5c"
+    tag: "15716c8"
     pullPolicy: IfNotPresent
   resources:
     requests:
@@ -27,7 +27,7 @@ admin:
   secretRevision: ""
   image:
     repository: quay.io/oauth2-proxy/oauth2-proxy
-    tag: v7.15.5@sha256:8498b0d0ef0a7b29686414000a08aee467f02d0299c9ed1e006a8f33fc017916
+    tag: v7.15.3
     pullPolicy: IfNotPresent
   cookieExpire: 8h
   cookieRefresh: 1h
