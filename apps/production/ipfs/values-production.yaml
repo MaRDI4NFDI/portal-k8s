@@ -19,6 +19,9 @@ spec:
         - "12D3KooWDwZMB2RzFLKMFzTA6DMkZ7L31wRbYE6LHNr4nSx62Y6W" # pi4
         - "12D3KooWDBwRXRyuGduu5U6f79hJ2BxEzU2PpZt7AxgHWW8jJSMZ" # wmcloud
     admin:
+      image:
+        repository: quay.io/oauth2-proxy/oauth2-proxy
+        tag: "v7.15.5"
       enabled: true
       existingSecret: ipfs-oauth2-proxy
       allowedEmailSecrets:

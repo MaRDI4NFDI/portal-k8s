@@ -33,6 +33,9 @@ spec:
           memory: 2Gi
 
     frontend:
+      image:
+        repository: wikibase/wdqs-frontend
+        tag: "2.2.1"
       replicas: 1
       resources:
         requests:
