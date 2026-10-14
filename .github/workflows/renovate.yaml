@@ -27,4 +27,3 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
         env:
           RENOVATE_REPOSITORIES: '["MaRDI4NFDI/portal-k8s"]'
-          RENOVATE_ALLOWED_COMMANDS: '["^bash \\.github/bump-chart-versions\\.sh$"]'
