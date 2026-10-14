@@ -7,6 +7,9 @@ spec:
     spec:
       version: "0.1.9"
   values:
+    image:
+      repository: apache/kafka
+      tag: "3.9.2"
     replicaCount: 3
     replicationFactor: 3
     minIsr: 2
@@ -27,4 +30,3 @@ spec:
     logRetentionBytes: 5368709120   # 5Gi
     logSegmentBytes: 536870912      # 512Mi
     logRetentionCheckIntervalMs: 300000
-
