@@ -8,6 +8,9 @@ spec:
     spec:
       version: "0.1.9"
   values:
+    image:
+      repository: apache/kafka
+      tag: "3.9.2"
     replicaCount: 1
     replicationFactor: 1
     minIsr: 1
