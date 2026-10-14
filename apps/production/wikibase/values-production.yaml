@@ -39,6 +39,9 @@ spec:
           memory: "10Gi"
     apache:
       metrics:
+        image:
+          repository: docker-registry.wikimedia.org/prometheus-apache-exporter
+          tag: "0.0.4-20261011"
         enabled: true
       resources:
         requests:
@@ -70,6 +73,9 @@ spec:
     varnish:
       enabled: true
       metrics:
+        image:
+          repository: ghcr.io/mardi4nfdi/varnish-exporter
+          tag: "0.1.0"
         enabled: true
       # "-s malloc,<size>" bounds object bodies only, not the container's total
       # footprint. Per-object bookkeeping, allocator fragmentation, thread
