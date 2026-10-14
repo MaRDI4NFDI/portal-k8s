@@ -8,11 +8,12 @@ spec:
     spec:
       version: "0.1.6"
   values:
+    image:
+      repository: docker-registry.wikimedia.org/wikimedia/mediawiki-services-change-propagation
+      tag: "2026-06-03-110026-production"
     mediawiki:
       host: http://staging-wikibase-jobrunner
     kafka:
       replicas: 1
     jobqueue:
       concurrency: 4
-
-

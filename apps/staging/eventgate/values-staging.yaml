@@ -8,5 +8,8 @@ spec:
     spec:
       version: "0.1.4"
   values:
+    image:
+      repository: docker-registry.wikimedia.org/repos/data-engineering/eventgate-wikimedia
+      tag: "v1.33.0"
     kafka:
       replicas: 1
