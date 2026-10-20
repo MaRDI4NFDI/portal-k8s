@@ -10,6 +10,9 @@ spec:
     dlockss:
       enabled: true
       nodeName: mardi
+      image:
+        repository: ghcr.io/gipplab/dlockss-single-node
+        tag: "2035af4"
       trustedPeers:
         - "12D3KooWNUkhmdXA2mMGvwWv5dHQbTAPsfmGuokjeZxJD47Kn5iy" # gipplab01
         - "12D3KooWE8nFummCiciHmvqDtYWfrxBd2c7Pt6mupJSXnxR5ZBqk" # mardi
