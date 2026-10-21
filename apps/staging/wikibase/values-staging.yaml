@@ -70,7 +70,7 @@ spec:
     secrets:
       mariadb: staging-mariadb-secrets
     ingress:
-      enabled: false
+      enabled: true
       routeHosts:
         - staging.mardi4nfdi.org
         - p2.staging.mardi4nfdi.org
