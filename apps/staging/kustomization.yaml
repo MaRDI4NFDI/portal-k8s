@@ -9,7 +9,7 @@ resources:
   - wikibase
   - traefik
   - wdqs
-  - quickstatements
+  # - quickstatements
   - importer
   - latexml
   - ffmpeg
