@@ -11,13 +11,13 @@ resources:
   - latexml
   - traefik
   - importer
-  - quickstatements
+  # - quickstatements
   - s3-proxy
   - wdqs
   - mariadb-matomo
   - matomo
   - external-services
-  # - maintenance
+  - maintenance
   - memcached
   - prefect-worker
   - deepchat
