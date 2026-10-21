@@ -17,7 +17,7 @@ resources:
   - mariadb-matomo
   - matomo
   - external-services
-  - maintenance
+  # - maintenance
   - memcached
   - prefect-worker
   - deepchat
