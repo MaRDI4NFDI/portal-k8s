@@ -10,7 +10,7 @@ spec:
     wdqs:
       image:
         repository: wikibase/wdqs
-        tag: "2.2.0"
+        tag: "2.2.0@sha256:f6416c4f2d253969b63d5ff40cc61db2897197e24f1c472dd2068603423846b6"
       storage: 200Gi
       memory: "-Xmx16g -Xms16g"
       heap_size: "16g"
@@ -35,7 +35,7 @@ spec:
     frontend:
       image:
         repository: wikibase/wdqs-frontend
-        tag: "2.2.1"
+        tag: "2.2.1@sha256:6e51acf52f274c3127386a2d5a670112d417dce53745601fe678239a79358a15"
       replicas: 1
       resources:
         requests:

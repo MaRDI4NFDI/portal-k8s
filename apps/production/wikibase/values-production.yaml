@@ -10,7 +10,7 @@ spec:
     mediawiki:
       image:
         repository: ghcr.io/mardi4nfdi/wikibase
-        tag: 1.47.30
+        tag: 1.47.31
       replicas: 3
       deployment_env: prod
       db_server: mariadb-primary:3306
@@ -41,7 +41,7 @@ spec:
       metrics:
         image:
           repository: docker-registry.wikimedia.org/prometheus-apache-exporter
-          tag: "0.0.4-20261011"
+          tag: "0.0.4-20261011@sha256:9207cf2eb953c0516449c3fecaf88b9a6ffc1473277a67154a97cf2c3d8a11c4"
         enabled: true
       resources:
         requests:
@@ -75,7 +75,7 @@ spec:
       metrics:
         image:
           repository: ghcr.io/mardi4nfdi/varnish-exporter
-          tag: "0.1.0"
+          tag: "0.1.0@sha256:c0cd8303a3641be68d0423efbde4005a3a3d47b4d8a9e7ce494e7b7764d936bb"
         enabled: true
       # "-s malloc,<size>" bounds object bodies only, not the container's total
       # footprint. Per-object bookkeeping, allocator fragmentation, thread

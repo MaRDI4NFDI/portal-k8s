@@ -9,7 +9,7 @@ spec:
   values:
     image:
       repository: apache/kafka
-      tag: "3.9.2"
+      tag: "3.9.2@sha256:05b4616e0702ef2729327705d54ad6b50ea70b271c4b730fabd2320789fb7b02"
     replicaCount: 3
     replicationFactor: 3
     minIsr: 2

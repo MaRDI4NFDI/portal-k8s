@@ -9,7 +9,7 @@ spec:
   values:
     image:
       repository: docker-registry.wikimedia.org/wikimedia/mediawiki-services-change-propagation
-      tag: "2026-06-03-110026-production"
+      tag: "2026-06-03-110026-production@sha256:56cc3a61621776e4157de19503c089fc89061ebcf7a8c9fd906e683437bfc976"
     mediawiki:
       host: http://wikibase-jobrunner
     jobqueue:
