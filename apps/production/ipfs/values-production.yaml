@@ -12,7 +12,7 @@ spec:
       nodeName: mardi
       image:
         repository: ghcr.io/gipplab/dlockss-single-node
-        tag: "2035af4"
+        tag: "2035af4@sha256:f657157a79616f005293a3818e2f6a615ea908975fa47c37c258fbee4e5bf118"
       trustedPeers:
         - "12D3KooWNUkhmdXA2mMGvwWv5dHQbTAPsfmGuokjeZxJD47Kn5iy" # gipplab01
         - "12D3KooWE8nFummCiciHmvqDtYWfrxBd2c7Pt6mupJSXnxR5ZBqk" # mardi
@@ -24,7 +24,7 @@ spec:
     admin:
       image:
         repository: quay.io/oauth2-proxy/oauth2-proxy
-        tag: "v7.15.5"
+        tag: "v7.15.5@sha256:8498b0d0ef0a7b29686414000a08aee467f02d0299c9ed1e006a8f33fc017916"
       enabled: true
       existingSecret: ipfs-oauth2-proxy
       allowedEmailSecrets:
