@@ -38,8 +38,15 @@ spec:
                 sleep 2
               done
               
+              RESTORE_ARGS=""
+              LATEST=$(ls -t /opt/flink/checkpoints/*/chk-*/_metadata 2>/dev/null | head -n 1)
+              if [ -n "$LATEST" ]; then
+                echo "Restoring from $(dirname "$LATEST")"
+                RESTORE_ARGS="-s $(dirname "$LATEST")"
+              fi
+
               echo "Submitting RDF Updater Job..."
-              /opt/flink/bin/flink run \
+              /opt/flink/bin/flink run $RESTORE_ARGS \
                 --class org.wikidata.query.rdf.updater.UpdaterJob \
                 /usr/local/lib/python3.9/dist-packages/pyflink/streaming-updater-producer.jar \
                 /etc/flink/conf/rdf-updater.properties
