@@ -9,4 +9,4 @@ spec:
   values:
     image:
       repository: wikibase/quickstatements
-      tag: "1.2.1@sha256:6c8abd132e3915822b2e116f178a3e726c6e3a894f49f539188148166e200537"
+      tag: "1.2.3@sha256:97a8c87d4e043ef90f9d8b5ac7a5f9e99f4991901541b033d43501ab2c7b2848"

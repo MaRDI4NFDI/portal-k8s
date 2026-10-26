@@ -9,4 +9,4 @@ spec:
   values:
     image:
       repository: docker-registry.wikimedia.org/repos/data-engineering/eventstreams
-      tag: "v0.20.0@sha256:2237bcf22914f0fbd4fae4a83ce42808bf30cf16985377e49f64205ea9125553"
+      tag: "v0.21.0@sha256:0730e8c5623a09eb5ebb64a6949d15aacfc8e3da81b98d67af41e33ab87b507b"
