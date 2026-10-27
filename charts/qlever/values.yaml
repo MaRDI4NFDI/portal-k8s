@@ -23,8 +23,11 @@ qlever:
     inputFiles: "wikidump-*.ttl.gz"
     catInputFiles: "zcat ${INPUT_FILES}"
   server:
+    numThreads: 8
     memoryForQueries: 5G
     cacheMaxSize: 2G
+    cacheMaxSizeSingleEntry: 1G
+    cacheMaxNumEntries: 200
     timeout: 30s
     persistUpdates: true
     metricsLog: false

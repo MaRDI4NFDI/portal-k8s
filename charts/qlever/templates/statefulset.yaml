@@ -63,7 +63,26 @@ spec:
             {{- end }}
             if [ -f /data/{{ .Values.qlever.data.name }}.meta-data.json ]; then
               echo "Index found, starting qlever server"
-              exec qlever start --run-in-foreground{{ if .Values.qlever.server.persistUpdates }} --persist-updates{{ end }}
+              rm -f /data/{{ .Values.qlever.data.name }}.server-log.txt
+              exec qlever-server \
+                -i {{ .Values.qlever.data.name }} \
+                -j {{ .Values.qlever.server.numThreads }} \
+                -p {{ .Values.qlever.port }} \
+                -m {{ .Values.qlever.server.memoryForQueries }} \
+                -c {{ .Values.qlever.server.cacheMaxSize }} \
+                -e {{ .Values.qlever.server.cacheMaxSizeSingleEntry }} \
+                -k {{ .Values.qlever.server.cacheMaxNumEntries }} \
+                -s {{ .Values.qlever.server.timeout }} \
+                -a "${ACCESS_TOKEN}"
+                {{- if .Values.qlever.server.persistUpdates }} \
+                --persist-updates
+                {{- end }}
+                {{- if .Values.qlever.server.enableMetrics }} \
+                --enable-metrics
+                {{- end }}
+                {{- if not .Values.qlever.server.metricsLog }} \
+                --no-metrics-log
+                {{- end }}
             else
               echo "No index found at /data/{{ .Values.qlever.data.name }}.meta-data.json"
               echo "Exec into this pod and run 'qlever index' to bootstrap"
@@ -75,6 +94,12 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 10
             failureThreshold: 3
+          env:
+            - name: ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secrets
+                  key: TOKEN
           volumeMounts:
             - name: qlever-data
               mountPath: /data
