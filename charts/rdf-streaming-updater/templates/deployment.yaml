@@ -37,7 +37,24 @@ spec:
               until [ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8081/overview)" == "200" ]; do
                 sleep 2
               done
-              
+
+              BOOTSTRAP_CSV=/opt/flink/checkpoints/bootstrap/revisions.csv
+              if [ -f "$BOOTSTRAP_CSV" ]; then
+                BOOTSTRAP_DIR=/opt/flink/checkpoints/bootstrap-$(date -u +%Y%m%dT%H%M%S)
+                echo "Bootstrapping state from $BOOTSTRAP_CSV into $BOOTSTRAP_DIR"
+                if /opt/flink/bin/flink run \
+                    --class org.wikidata.query.rdf.updater.UpdaterBootstrapJob \
+                    /usr/local/lib/python3.9/dist-packages/pyflink/streaming-updater-producer.jar \
+                    --job_name rdf-streaming-updater-bootstrap \
+                    --revisions_file "file://$BOOTSTRAP_CSV" \
+                    --savepoint_dir "file://$BOOTSTRAP_DIR/chk-0" \
+                    --parallelism {{ .Values.flink.parallelism }}; then
+                  mv "$BOOTSTRAP_CSV" "$BOOTSTRAP_CSV.done"
+                else
+                  echo "Bootstrap failed, continuing with the existing checkpoint"
+                fi
+              fi
+
               RESTORE_ARGS=""
               LATEST=$(ls -t /opt/flink/checkpoints/*/chk-*/_metadata 2>/dev/null | head -n 1)
               if [ -n "$LATEST" ]; then
