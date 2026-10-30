@@ -15,6 +15,11 @@ spec:
       data:
         name: mardi-staging
         description: MaRDI Knowledge Graph in Staging
+      server:
+        numThreads: 2
+        memoryForQueries: 512M
+        cacheMaxSize: 128M
+        cacheMaxSizeSingleEntry: 64M
     frontend:
       image:
         repository: adfreiburg/qlever-ui
