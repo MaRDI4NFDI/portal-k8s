@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "2026.7.31163938"
+      version: "2026.10.30155115"
   values:
     worker:
       apiConfig: selfHostedServer
