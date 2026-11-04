@@ -13,9 +13,9 @@ spec:
         tag: sha-7437805
       replicas: 1
       deployment_env: staging
-      db_server: staging-mariadb-primary:3306
-      db_primary: staging-mariadb-primary
-      db_secondary: staging-mariadb-secondary
+      db_server: staging-mariadb-repl-primary:3306
+      db_primary: staging-mariadb-repl-primary
+      db_secondary: staging-mariadb-repl-secondary
       elasticsearch_host: staging-opensearch
       redis_host: staging-redis-master
       memcached_host: staging-memcached
