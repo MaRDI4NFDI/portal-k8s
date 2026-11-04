@@ -29,6 +29,7 @@ mariadb:
     innodbBufferPoolSize: "10G"
     maxAllowedPacket: "1G"
     maxConnections: "200"
+    binlog: false
 
 storage:
   size: 1Ti
