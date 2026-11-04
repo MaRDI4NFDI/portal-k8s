@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: staging-mariadb-repl
+  namespace: staging
+spec:
+  chart:
+    spec:
+      version: "0.1.48"
+  values:
+    prefixResourceNames: true
+    bootstrapFrom:
+      s3:
+        bucket: "mardi"
+        prefix: "staging/physicalbackup/mariadb"
+        endpoint: "dasi03.zib.de:9000"
+        region: "zib-1"
+        accessKeyIdSecretKeyRef:
+          name: staging-mariadb-secrets
+          key: S3-ACCESS-KEY-ID
+        secretAccessKeySecretKeyRef:
+          name: staging-mariadb-secrets
+          key: S3-SECRET-ACCESS-KEY
+        tls:
+          enabled: true
+      backupContentType: Physical
+    replicas: 2
+    replication:
+      enabled: true
+      replica:
+        maxLagSeconds: 30
+        recovery:
+          enabled: true
+    database: my_wiki
+    user: sqluser
+    mariadb:
+      config:
+        innodbBufferPoolSize: "1536M"
+        maxAllowedPacket: "64M"
+    storage:
+      size: 5Gi
+      className: csi-rbd-sc
+    backup:
+      storage: 5Gi
+    physicalbackup:
+      enabled: true
+      bucket: "mardi"
+      prefix: "staging/physicalbackup/mariadb-repl"
+      endpoint: "dasi03.zib.de:9000"
+      region: "zib-1"
+      schedule: "0 6 * * *"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 3Gi
+    secrets:
+      mariadb: staging-mariadb-secrets
+      wikibase: staging-wikibase-env-secrets
+      importer: staging-importer-secrets

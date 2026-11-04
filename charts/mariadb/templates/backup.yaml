@@ -2,7 +2,7 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
-  name: backup
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "backup") }}
   namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
@@ -19,10 +19,10 @@ spec:
       endpoint: {{ .Values.backup.endpoint }}
       region:  {{ .Values.backup.region }}
       accessKeyIdSecretKeyRef:
-        name: {{ .Release.Name }}-secrets
+        name: {{ include "mariadb.secretName" . }}
         key: S3-ACCESS-KEY-ID
       secretAccessKeySecretKeyRef:
-        name: {{ .Release.Name }}-secrets
+        name: {{ include "mariadb.secretName" . }}
         key: S3-SECRET-ACCESS-KEY
       tls:
         enabled: true

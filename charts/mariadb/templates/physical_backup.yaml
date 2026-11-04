@@ -1,30 +1,21 @@
-{{- if .Values.physicalbackup.enabled }}
-apiVersion: k8s.mariadb.com/v1alpha1
-kind: PhysicalBackup
-metadata:
-  name: physicalbackup
-  namespace: {{ .Release.Namespace }}
-spec:
-  mariaDbRef:
-    name: {{ .Release.Name }}
-  schedule:
-    cron: {{ .Values.physicalbackup.schedule }}
-    suspend: false
-    immediate: {{ .Values.physicalbackup.immediate | default false }}
+{{- define "mariadb.physicalBackupSpec" }}
   maxRetention: 120h
   compression: gzip
-  timeout: {{ .Values.physicalbackup.timeout | default "30h" }}
+  timeout: {{ .root.Values.physicalbackup.timeout | default "30h" }}
+  {{- if .root.Values.replication.enabled }}
+  target: PreferReplica
+  {{- end }}
   storage:
     s3:
-      bucket: {{ .Values.physicalbackup.bucket }}
-      prefix: {{ .Values.physicalbackup.prefix }}
-      endpoint: {{ .Values.physicalbackup.endpoint }}
-      region:  {{ .Values.physicalbackup.region }}
+      bucket: {{ .root.Values.physicalbackup.bucket }}
+      prefix: {{ .prefix }}
+      endpoint: {{ .root.Values.physicalbackup.endpoint }}
+      region:  {{ .root.Values.physicalbackup.region }}
       accessKeyIdSecretKeyRef:
-        name: {{ .Release.Name }}-secrets
+        name: {{ include "mariadb.secretName" .root }}
         key: S3-ACCESS-KEY-ID
       secretAccessKeySecretKeyRef:
-        name: {{ .Release.Name }}-secrets
+        name: {{ include "mariadb.secretName" .root }}
         key: S3-SECRET-ACCESS-KEY
       tls:
         enabled: true
@@ -32,14 +23,48 @@ spec:
     persistentVolumeClaim:
       resources:
         requests:
-          storage: {{ .Values.backup.storage }}
+          storage: {{ .root.Values.backup.storage }}
       accessModes:
         - ReadWriteOnce
   resources:
     requests:
-      cpu: {{ .Values.backup.resources.requests.cpu }}
-      memory: {{ .Values.backup.resources.requests.memory }}
+      cpu: {{ .root.Values.backup.resources.requests.cpu }}
+      memory: {{ .root.Values.backup.resources.requests.memory }}
     limits:
-      cpu: {{ .Values.backup.resources.limits.cpu }}
-      memory: {{ .Values.backup.resources.limits.memory }}
+      cpu: {{ .root.Values.backup.resources.limits.cpu }}
+      memory: {{ .root.Values.backup.resources.limits.memory }}
+{{- end -}}
+
+{{- if .Values.physicalbackup.enabled }}
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup") }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+    {{- if .Values.replication.enabled }}
+    waitForIt: false
+    {{- end }}
+  schedule:
+    cron: {{ .Values.physicalbackup.schedule }}
+    suspend: false
+    immediate: {{ .Values.physicalbackup.immediate | default false }}
+{{- include "mariadb.physicalBackupSpec" (dict "root" . "prefix" .Values.physicalbackup.prefix) }}
+{{- if .Values.replication.enabled }}
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: PhysicalBackup
+metadata:
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup-tpl") }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  mariaDbRef:
+    name: {{ .Release.Name }}
+    waitForIt: false
+  schedule:
+    suspend: true
+{{- include "mariadb.physicalBackupSpec" (dict "root" . "prefix" (printf "%s-replica-bootstrap" .Values.physicalbackup.prefix)) }}
+{{- end }}
 {{- end }}

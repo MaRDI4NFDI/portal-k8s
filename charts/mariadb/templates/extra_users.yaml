@@ -1,9 +1,12 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
-  name: msc-user
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "msc-user") }}
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.prefixResourceNames }}
+  name: msc-user
+  {{- end }}
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
@@ -16,9 +19,12 @@ spec:
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
-  name: importer-user
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "importer-user") }}
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.prefixResourceNames }}
+  name: importer-user
+  {{- end }}
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
@@ -31,9 +37,12 @@ spec:
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: User
 metadata:
-  name: abstract-user
+  name: {{ include "mariadb.resourceName" (dict "root" . "name" "abstract-user") }}
   namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.prefixResourceNames }}
+  name: abstract-user
+  {{- end }}
   mariaDbRef:
     name: {{ .Release.Name }}
   passwordSecretKeyRef:
