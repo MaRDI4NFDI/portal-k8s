@@ -8,7 +8,7 @@ spec:
       version: "0.1.32"
   values:
     database:
-      host: "staging-mariadb-primary"
+      host: "staging-mariadb-repl-primary"
     endpoints:
       mediawiki: "http://staging-wikibase/w/api.php"
       wikibase: "http://staging-wikibase"
