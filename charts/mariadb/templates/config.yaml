@@ -29,5 +29,7 @@ data:
     log_bin
     log_slave_updates=ON
     gtid_domain_id=1
-    binlog_expire_logs_seconds=259200
+    {{- end }}
+    {{- if or .Values.mariadb.config.binlog .Values.replication.enabled }}
+    binlog_expire_logs_seconds={{ .Values.mariadb.config.binlogExpireSeconds | default 259200 }}
     {{- end }}

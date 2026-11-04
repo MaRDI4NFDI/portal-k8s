@@ -30,6 +30,7 @@ mariadb:
     maxAllowedPacket: "1G"
     maxConnections: "200"
     binlog: false
+    binlogExpireSeconds: 259200
 
 storage:
   size: 1Ti
