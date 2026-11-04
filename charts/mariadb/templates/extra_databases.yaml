@@ -4,9 +4,12 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Database
 metadata:
-  name: {{ . }}
+  name: {{ include "mariadb.resourceName" (dict "root" $ "name" .) }}
   namespace: {{ $.Release.Namespace }}
 spec:
+  {{- if $.Values.prefixResourceNames }}
+  name: {{ . }}
+  {{- end }}
   mariaDbRef:
     name: {{ $.Release.Name }}
   characterSet: utf8mb4

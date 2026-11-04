@@ -11,7 +11,7 @@ spec:
   {{- end }}
   
   rootPasswordSecretKeyRef:
-    name: {{ .Release.Name }}-secrets
+    name: {{ include "mariadb.secretName" . }}
     key: MARIADB_ROOT_PASSWORD
 
   database: {{ .Values.database }}
@@ -44,6 +44,22 @@ spec:
     config:
       {{- toYaml .Values.galera.config | nindent 6 }}
     {{- end }}
+  {{- end }}
+  {{- if .Values.replication.enabled }}
+  replication:
+    {{- toYaml (omit .Values.replication "replica") | nindent 4 }}
+    agent:
+      basicAuth:
+        enabled: true
+    replica:
+      {{- with .Values.replication.replica }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- if .Values.physicalbackup.enabled }}
+      bootstrapFrom:
+        physicalBackupTemplateRef:
+          name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup-tpl") }}
+      {{- end }}
   {{- end }}
 
   myCnfConfigMapKeyRef:

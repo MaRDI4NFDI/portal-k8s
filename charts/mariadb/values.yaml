@@ -7,6 +7,11 @@ port: 3306
 
 replicas: 3  
 
+prefixResourceNames: false
+
+replication:
+  enabled: false
+
 galera:
   enabled: false
   availableWhenDonor: false
@@ -63,5 +68,6 @@ resources:
     memory: 28Gi
 
 secrets:
+  mariadb: ""
   wikibase: wikibase-secrets
   importer: importer-secrets
