@@ -9,4 +9,4 @@ spec:
   values:
     image:
       repository: ghcr.io/kgi4nfdi/kgi-interop-monitor
-      tag: "latest@sha256:491b3449e99b76cb7d67c6fb4f89fbe5d2e474158e31d287f09b35589af24de5"
+      tag: "latest@sha256:025b63889cee45680832243ed439d8210d036bee45bac1f36f5947e9b20f62ad"
