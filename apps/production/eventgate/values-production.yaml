@@ -9,7 +9,7 @@ spec:
   values:
     image:
       repository: docker-registry.wikimedia.org/repos/data-engineering/eventgate-wikimedia
-      tag: "v1.33.0@sha256:c7b33dbdbf48dfbd8d13777136a7372625fb36d4701f23b0439faf3d870c35d1"
+      tag: "v1.38.0@sha256:0d15610460ed3e0bdc471e4722821f31bb4ea3129825cae8534eba0a6b1aa96c"
     resources:
       requests:
         cpu: "250m"
