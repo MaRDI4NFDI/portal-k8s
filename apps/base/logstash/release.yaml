@@ -1,0 +1,38 @@
+# Receives MediaWiki's log records by UDP and stores them in
+# logging-opensearch. The pipeline is part of the image; see
+# README.md.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: logstash
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: stateless-service
+      sourceRef:
+        kind: HelmRepository
+        name: portal-k8s
+        namespace: flux-system
+  values:
+    image:
+      # Built in MaRDI4NFDI/docker-logstash.
+      repository: ghcr.io/mardi4nfdi/logstash
+    containerPort: 11514
+    servicePort: 11514
+    protocol: UDP
+    env:
+      - name: OPENSEARCH_URL
+        value: http://logging-opensearch:9200
+      # Days before an index logstash-* is deleted.
+      - name: RETENTION_DAYS
+        value: "90"
+      - name: LS_JAVA_OPTS
+        value: "-Xms512m -Xmx512m"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 1Gi
+      limits:
+        cpu: "2"
+        memory: 1536Mi

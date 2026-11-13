@@ -38,6 +38,9 @@ resources:
   - qlever
   - rdf-streaming-updater
   - ipfs
+  - logging-opensearch
+  - logstash
+  - logstash-dashboards
 
 patches:
   - target:
