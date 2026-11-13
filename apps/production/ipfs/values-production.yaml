@@ -28,7 +28,8 @@ spec:
       enabled: true
       existingSecret: ipfs-oauth2-proxy
       allowedEmailSecrets:
+        - ipfs-oauth2-email-0de5400a2c17d529
         - ipfs-oauth2-email-b6c3fb1897bbb7b4
         - ipfs-oauth2-email-ff1bbde59436c6bd
         - ipfs-oauth2-email-1bd79c9e9959c189
-      secretRevision: "20261105032756"
+      secretRevision: "20261113090309"
