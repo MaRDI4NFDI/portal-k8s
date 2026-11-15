@@ -10,4 +10,4 @@ spec:
     image:
       # Each docker-logstash release opens a pull request that
       # updates this tag.
-      tag: "1.1.0@sha256:504d248e039de02a3d053cf5e67fa8d231cefb8f413fa8f1d0fca936fb46c4c3"
+      tag: "1.2.1@sha256:214775219b332fe2b30cb2c7eb6fe9a34464a4b9ed3a9bc6c4b9ffe68100a284"
