@@ -1,0 +1,11 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: logstash-dashboards
+spec:
+  chart:
+    spec:
+      version: 0.3.0
+  values:
+    image:
+      tag: "2.19.7"

@@ -8,3 +8,4 @@ spec:
   ports:
     - port: {{ .Values.servicePort }}
       targetPort: {{ .Values.containerPort }}
+      protocol: {{ .Values.protocol }}

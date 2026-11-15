@@ -34,6 +34,11 @@
       "pinDigests": false
     },
     {
+      "description": "docker-logstash's CI opens pull requests for its image.",
+      "matchPackageNames": ["ghcr.io/mardi4nfdi/logstash"],
+      "enabled": false
+    },
+    {
       "description": "One weekly pull request for everything but major updates.",
       "matchUpdateTypes": ["pin", "pinDigest", "digest", "patch", "minor"],
       "groupName": "container images"

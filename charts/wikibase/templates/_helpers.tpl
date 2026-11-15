@@ -62,6 +62,8 @@ Common environment variables shared between web and jobrunner MediaWiki containe
   value: "{{ .Values.mediawiki.memcached_host }}"
 - name: MW_MEMCACHED_PORT
   value: "{{ .Values.mediawiki.memcached_port }}"
+- name: MW_LOGSTASH_HOST
+  value: "{{ .Values.mediawiki.logstash_host }}"
 - name: MW_LATEXML_HOST
   value: "{{ .Values.mediawiki.latexml_host }}"
 - name: MW_LATEXML_PORT

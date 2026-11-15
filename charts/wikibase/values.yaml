@@ -17,6 +17,8 @@ mediawiki:
   redis_port: 6379
   memcached_host: memcached
   memcached_port: 11211
+  # host:port of the Logstash UDP input; empty disables sending.
+  logstash_host: ""
   latexml_host: latexml
   latexml_port: 80
   formulasearch_host: formulasearch

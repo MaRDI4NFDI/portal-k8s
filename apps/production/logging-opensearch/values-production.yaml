@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: logging-opensearch
+spec:
+  chart:
+    spec:
+      version: "0.1.1"
+  values:
+    # Log storage for staging and production MediaWiki,
+    # apart from the CirrusSearch cluster.
+    image:
+      repository: opensearchproject/opensearch
+      tag: "2.19.7"
+    storage:
+      size: 10Gi
+      className: csi-rbd-sc
+    resources:
+      requests:
+        memory: "3Gi"
+        cpu: "500m"
+      limits:
+        memory: "4Gi"
+        cpu: "2"
+    javaOpts: "-Xms2g -Xmx2g"

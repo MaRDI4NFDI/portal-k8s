@@ -132,6 +132,11 @@ The platform uses a single cluster with two environments deployed in different n
         <td>Database lifecycle management</td>
     </tr>
     <tr>
+        <td><a href="apps/base/logstash/README.md">Logstash</a></td>
+        <td>Logstash, OpenSearch and OpenSearch Dashboards</td>
+        <td>Search MediaWiki logs</td>
+    </tr>
+    <tr>
         <td><a href="https://fluxcd.io/">Flux CD</a></td>
         <td>GitOps continuous delivery</td>
         <td>Automated deployments from Git</td>

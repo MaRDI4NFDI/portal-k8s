@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.111"
+      version: "0.1.112"
   values:
     mediawiki:
       image:
@@ -19,6 +19,7 @@ spec:
       elasticsearch_host: staging-opensearch
       redis_host: staging-redis-master
       memcached_host: staging-memcached
+      logstash_host: logstash.production.svc.cluster.local:11514
       formulasearch_host: staging-formulasearch
       latexml_host: staging-latexml
       importer_endpoint: staging-importer

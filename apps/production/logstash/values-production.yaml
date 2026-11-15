@@ -1,0 +1,13 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: logstash
+spec:
+  chart:
+    spec:
+      version: 0.3.0
+  values:
+    image:
+      # Each docker-logstash release opens a pull request that
+      # updates this tag.
+      tag: "1.0.0"
