@@ -2684,6 +2684,15 @@ entries:
     version: 0.1.0
   stateless-service:
   - apiVersion: v2
+    created: "2026-11-15T15:49:32.351883813Z"
+    description: A single-container stateless service
+    digest: c04ac0f24e89aa1d0b0cdd4ae2090a8a73d545d00e9962bcc344234c4b3f7c33
+    name: stateless-service
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/stateless-service-0.3.0/stateless-service-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     created: "2026-10-07T10:33:38.101935381Z"
     description: A single-container stateless service
     digest: f82ea4f60add92fa1af800e8a37be60e6dbfe0cbc25b3554083b0ec610cc813b
@@ -2983,6 +2992,16 @@ entries:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wdqs-0.1.0/wdqs-0.1.0.tgz
     version: 0.1.0
   wikibase:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-11-15T15:49:32.513203034Z"
+    description: A Helm chart for Mediawiki/Wikibase
+    digest: 2bbb1aeb2f6dbce7a7e422dddad699728e20d15c2afb0b3465d0294b7aa46f1a
+    name: wikibase
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-0.1.112/wikibase-0.1.112.tgz
+    version: 0.1.112
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2026-10-14T11:23:34.895569748Z"
@@ -4094,4 +4113,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-04T15:24:11.993266941Z"
+generated: "2026-11-15T15:49:32.51422023Z"
