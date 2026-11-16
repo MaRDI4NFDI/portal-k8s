@@ -11,7 +11,7 @@ spec:
       maintenance: false
       image:
         repository: adfreiburg/qlever
-        tag: "latest@sha256:826807a37cb369d491ad3bfcb9f6b17ee208352e620e8c146259b8142d791db7"
+        tag: "latest@sha256:f39c761de2e49d54ca5f4ba1778a547d179f3d6ac25a5dc870b0e01c74a62983"
       resources:
         requests:
           memory: "8Gi"
