@@ -5,6 +5,11 @@ metadata:
 spec:
   interval: 5m
   timeout: 15m
+  # The update Job can run for hours; do not hold the release.
+  install:
+    disableWaitForJobs: true
+  upgrade:
+    disableWaitForJobs: true
   chart:
     spec:
       chart: wikibase
