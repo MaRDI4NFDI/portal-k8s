@@ -1,0 +1,51 @@
+{{- define "wikibase.updatePodSpec" -}}
+restartPolicy: Never
+securityContext:
+  fsGroup: 33 # www-data
+containers:
+  - name: mediawiki
+    image: "{{ .Values.mediawiki.image.repository }}:{{ .Values.mediawiki.image.tag }}"
+    imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
+    command:
+      - sh
+      - -c
+      - |
+        # Same LocalSettings.php as the image's entrypoint renders.
+        DOLLAR='$' envsubst < /LocalSettings.php.template > /var/www/html/w/LocalSettings.php
+        cd /var/www/html/w
+        exec php maintenance/run.php update --quick
+    resources:
+      requests:
+        cpu: {{ .Values.updater.resources.requests.cpu }}
+        memory: {{ .Values.updater.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.updater.resources.limits.cpu }}
+        memory: {{ .Values.updater.resources.limits.memory }}
+    volumeMounts:
+      {{- include "mediawiki.volumeMounts" . | nindent 6 }}
+    env:
+      {{- include "mediawiki.env" . | nindent 6 }}
+    envFrom:
+      {{- include "mediawiki.envFrom" . | nindent 6 }}
+volumes:
+  {{- include "mediawiki.volumes" . | nindent 2 }}
+{{- end }}
+{{- if .Values.updater.enabled }}
+{{- $podSpec := include "wikibase.updatePodSpec" . }}
+# Runs update.php once per image: a new image or Job spec
+# changes the name, so Helm creates a new Job.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-update-{{ $podSpec | sha256sum | trunc 8 }}
+  labels:
+    app: {{ .Release.Name }}-update
+spec:
+  backoffLimit: {{ .Values.updater.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-update
+    spec:
+      {{- $podSpec | nindent 6 }}
+{{- end }}
