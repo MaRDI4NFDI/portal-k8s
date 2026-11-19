@@ -51,7 +51,7 @@ spec:
         {{- end }}
       containers:
         - name: nginx
-          image: nginx:alpine
+          image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
           ports:
             - containerPort: 80
           resources:

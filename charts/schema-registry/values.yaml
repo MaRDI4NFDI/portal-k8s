@@ -4,6 +4,11 @@ gitSync:
     tag: v4.7.1
   period: 1h
 
+nginx:
+  image:
+    repository: nginx
+    tag: 1.31.9-alpine
+
 repos:
   primary: https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-primary.git
   secondary: https://gitlab.wikimedia.org/repos/data-engineering/schemas-event-secondary.git
