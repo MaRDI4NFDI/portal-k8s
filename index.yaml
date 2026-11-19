@@ -2627,6 +2627,16 @@ entries:
   schema-registry:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-11-19T09:30:44.855804299Z"
+    description: Schema registry chart
+    digest: 18df549979d1e9cc493a1ba8839e2a16032468069e2d02e4e9f19dc3d5db04d9
+    name: schema-registry
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/schema-registry-0.2.1/schema-registry-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-10-05T12:33:08.574492078Z"
     description: Schema registry chart
     digest: cbb889487765bd46613065b725836287d3ccafc924019609b1f69ee9d717f841
@@ -4123,4 +4133,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-16T15:06:11.92495834Z"
+generated: "2026-11-19T09:30:44.856134301Z"
