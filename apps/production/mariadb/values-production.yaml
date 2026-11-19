@@ -5,7 +5,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.47"
+      version: "0.1.50"
   values:
     replicas: 3
     galera:
@@ -43,6 +43,8 @@ spec:
       config:
         innodbBufferPoolSize: "16G"
         maxConnections: "1000"
+        binlog: true
+        binlogExpireSeconds: 86400
     database: my_wiki
     user: sqluser
     storage:
