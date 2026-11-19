@@ -29,6 +29,6 @@ spec:
     readonlyProxy:
       image:
         repository: nginx
-        tag: "1.30.5-alpine"
+        tag: "1.31.9-alpine"
     updater:
       enabled: true
