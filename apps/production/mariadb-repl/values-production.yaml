@@ -3,6 +3,10 @@ kind: HelmRelease
 metadata:
   name: mariadb-repl
 spec:
+  install:
+    disableWait: true
+  upgrade:
+    disableWait: true
   chart:
     spec:
       version: "0.1.50"
@@ -23,6 +27,7 @@ spec:
         tls:
           enabled: true
       backupContentType: Physical
+      targetRecoveryTime: "2026-11-20T08:30:00Z"
       stagingStorage:
         persistentVolumeClaim:
           storageClassName: csi-rbd-sc
@@ -30,7 +35,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 600Gi
+              storage: 1200Gi
     replicas: 2
     replication:
       enabled: true
