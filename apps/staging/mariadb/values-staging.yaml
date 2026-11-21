@@ -6,49 +6,41 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.1.49"
+      version: "0.1.50"
   values:
-    replicas: 3
-    galera:
+    bootstrapFrom:
+      s3:
+        bucket: "mardi"
+        prefix: "staging/physicalbackup/mariadb-repl"
+        endpoint: "dasi03.zib.de:9000"
+        region: "zib-1"
+        accessKeyIdSecretKeyRef:
+          name: staging-mariadb-secrets
+          key: S3-ACCESS-KEY-ID
+        secretAccessKeySecretKeyRef:
+          name: staging-mariadb-secrets
+          key: S3-SECRET-ACCESS-KEY
+        tls:
+          enabled: true
+      backupContentType: Physical
+      targetRecoveryTime: "2026-11-21T21:00:00Z"
+    replicas: 2
+    replication:
       enabled: true
-      config:
-        reuseStorageVolume: false
-        volumeClaimTemplate:
-          resources:
-            requests:
-              storage: 300Mi
-          accessModes:
-            - ReadWriteOnce
-      recovery:
-        enabled: true
-        minClusterSize: 1
-        clusterMonitorInterval: 10s
-        clusterHealthyTimeout: 30s
-        clusterBootstrapTimeout: 10m
-        podRecoveryTimeout: 5m
-        podSyncTimeout: 5m
-      extendedTimeouts:
-        enabled: false
-      replicaThreads: 1
-      cacheSize: "128M"
-      flowControlLimit: "16"
+      replica:
+        maxLagSeconds: 30
+        recovery:
+          enabled: true
     database: my_wiki
     user: sqluser
     mariadb:
       config:
         innodbBufferPoolSize: "1536M"
         maxAllowedPacket: "64M"
-        binlog: true
     storage:
       size: 5Gi
       className: csi-rbd-sc
     backup:
-      enabled: false
-      bucket: "mardi"
-      prefix: "staging/mariadb"
-      endpoint: "dasi03.zib.de:9000"
-      region: "zib-1"
-      schedule: "0 4 * * *"
       storage: 5Gi
     physicalbackup:
       enabled: true
@@ -67,4 +59,3 @@ spec:
     secrets:
       wikibase: staging-wikibase-env-secrets
       importer: staging-importer-secrets
-    
