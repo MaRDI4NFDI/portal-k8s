@@ -5,6 +5,7 @@ namespace: production
 resources:
   - namespace.yaml
   - mariadb
+  - mariadb-repl
   - opensearch
   - wikibase
   - ffmpeg

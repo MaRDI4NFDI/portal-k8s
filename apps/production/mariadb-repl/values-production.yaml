@@ -27,7 +27,7 @@ spec:
         tls:
           enabled: true
       backupContentType: Physical
-      targetRecoveryTime: "2026-11-20T08:30:00Z"
+      targetRecoveryTime: "2026-11-21T10:00:00Z"
       stagingStorage:
         persistentVolumeClaim:
           storageClassName: csi-rbd-sc
