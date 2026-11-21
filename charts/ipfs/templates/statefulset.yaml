@@ -1,3 +1,12 @@
+{{- if and .Values.rpc.inCluster (not .Values.rpc.tokenSecret.name) }}
+{{- fail "rpc.inCluster needs rpc.tokenSecret" }}
+{{- end }}
+{{- if and .Values.rpc.inCluster .Values.admin.enabled }}
+{{- fail "rpc.inCluster requires API tokens, which the admin WebUI does not send" }}
+{{- end }}
+{{- if and .Values.admin.enabled (not .Values.public) }}
+{{- fail "admin access needs public, which provides its certificate" }}
+{{- end }}
 {{- if and .Values.admin.enabled (empty .Values.admin.allowedEmailSecrets) }}
 {{- fail "admin.allowedEmailSecrets must contain at least one Secret when admin access is enabled" }}
 {{- end }}
@@ -49,6 +58,16 @@ spec:
           env:
             - name: IPFS_PROFILE
               value: server
+            {{- if .Values.rpc.inCluster }}
+            - name: RPC_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.rpc.tokenSecret.name }}
+                  key: {{ .Values.rpc.tokenSecret.key }}
+          ports:
+            - name: rpc
+              containerPort: 5001
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data/ipfs
@@ -63,7 +82,11 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              until wget -q -O /dev/null --post-data='' "http://127.0.0.1:5001/api/v0/version"; do
+              {{- if .Values.rpc.inCluster }}
+              until [ -s /ipfs-repo/dlockss-api-token ]; do sleep 2; done
+              export DLOCKSS_IPFS_TOKEN="$(cat /ipfs-repo/dlockss-api-token)"
+              {{- end }}
+              until wget -q -O /dev/null --post-data=''{{ if .Values.rpc.inCluster }} --header "Authorization: Bearer $DLOCKSS_IPFS_TOKEN"{{ end }} "http://127.0.0.1:5001/api/v0/version"; do
                 echo "waiting for kubo API"
                 sleep 2
               done
@@ -77,6 +100,10 @@ spec:
               value: /data/ingest
             - name: DLOCKSS_NODE_NAME
               value: {{ .Values.dlockss.nodeName | quote }}
+            {{- range $name, $value := .Values.dlockss.env }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /ipfs-repo

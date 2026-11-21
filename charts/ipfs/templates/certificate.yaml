@@ -1,3 +1,4 @@
+{{- if .Values.public }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -12,3 +13,4 @@ spec:
     {{- if .Values.admin.enabled }}
     - {{ default (printf "ipfs-admin.%s" .Values.global.baseDomain) .Values.admin.hostname }}
     {{- end }}
+{{- end }}

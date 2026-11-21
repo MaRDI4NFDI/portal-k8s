@@ -8,6 +8,11 @@ spec:
   ports:
     - name: gateway
       port: 8080
+    {{- if .Values.rpc.inCluster }}
+    - name: rpc
+      port: 5001
+      targetPort: rpc
+    {{- end }}
     {{- if .Values.admin.enabled }}
     - name: admin
       port: 4180

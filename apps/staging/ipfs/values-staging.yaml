@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ipfs
+spec:
+  chart:
+    spec:
+      version: "0.2.6"
+  values:
+    public: false
+    rpc:
+      inCluster: true
+      tokenSecret:
+        name: staging-wikibase-env-secrets
+        key: MATHSEARCH_IPFS_TOKEN
+    storage:
+      size: 5Gi
+    dlockss:
+      enabled: true
+      nodeName: mardi-staging
+      image:
+        repository: ghcr.io/gipplab/dlockss-single-node
+        tag: "9c4004e@sha256:94fea351bd2563bcb9b7865888ea4b049b41fca4dc8c78366629dbe57c7b427c"
+      env:
+        DLOCKSS_DISCOVERY_TAG: dlockss-staging
+        DLOCKSS_PRIVATE_NETWORK: "true"

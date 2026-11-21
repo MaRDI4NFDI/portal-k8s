@@ -2,9 +2,23 @@ storage:
   className: csi-rbd-sc
   size: 20Gi
 
+# Gateway route, certificate, swarm routes and announced addresses.
+public: true
+
+rpc:
+  # Lets other pods add files on Service port 5001 with the bearer token from
+  # tokenSecret. Kubo then requires a token on every API call, also from
+  # localhost; D-LOCKSS gets its own token, generated in the IPFS repo.
+  inCluster: false
+  tokenSecret:
+    name: ""
+    key: ""
+
 dlockss:
   enabled: false
   nodeName: mardi
+  # Further DLOCKSS_* settings, e.g. to keep a test node out of the production network.
+  env: {}
   trustedPeers: []
   storage:
     size: 5Gi

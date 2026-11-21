@@ -7,9 +7,22 @@ data:
     #!/bin/sh
     set -eu
     ipfs config profile apply unixfs-v1-2025
+    {{- if .Values.rpc.inCluster }}
+    ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
+    [ -s "$IPFS_PATH/dlockss-api-token" ] || head -c 32 /dev/urandom | base64 > "$IPFS_PATH/dlockss-api-token"
+    # The rpc token may only add files, which also pins them. Allow more paths
+    # if clients need them, e.g. /api/v0/pin/rm to unpin or /api/v0/cat to read.
+    ipfs config --json API.Authorizations "{
+      \"rpc\": {\"AuthSecret\": \"bearer:$RPC_TOKEN\", \"AllowedPaths\": [\"/api/v0/add\"]},
+      \"dlockss\": {\"AuthSecret\": \"bearer:$(cat "$IPFS_PATH/dlockss-api-token")\", \"AllowedPaths\": [\"/api/v0\"]}
+    }"
+    {{- else }}
     ipfs config Addresses.API /ip4/127.0.0.1/tcp/5001
+    {{- end }}
     ipfs config --json Gateway.NoFetch true
+    {{- if .Values.public }}
     ipfs config --json Addresses.AppendAnnounce '["/dns4/ipfs.{{ .Values.global.baseDomain }}/tcp/4001","/dns4/ipfs.{{ .Values.global.baseDomain }}/udp/4001/quic-v1"]'
+    {{- end }}
     {{- if .Values.admin.enabled }}
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["https://{{ default (printf "ipfs-admin.%s" .Values.global.baseDomain) .Values.admin.hostname }}","http://127.0.0.1:5001","http://localhost:5001"]'
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '["true"]'
