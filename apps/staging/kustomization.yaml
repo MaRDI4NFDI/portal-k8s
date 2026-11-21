@@ -6,7 +6,6 @@ resources:
   - namespace.yaml
   - opensearch
   - mariadb
-  - mariadb-repl
   - wikibase
   - traefik
   - wdqs
