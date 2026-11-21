@@ -8,22 +8,6 @@ spec:
     spec:
       version: "0.1.50"
   values:
-    bootstrapFrom:
-      s3:
-        bucket: "mardi"
-        prefix: "staging/physicalbackup/mariadb-repl"
-        endpoint: "dasi03.zib.de:9000"
-        region: "zib-1"
-        accessKeyIdSecretKeyRef:
-          name: staging-mariadb-secrets
-          key: S3-ACCESS-KEY-ID
-        secretAccessKeySecretKeyRef:
-          name: staging-mariadb-secrets
-          key: S3-SECRET-ACCESS-KEY
-        tls:
-          enabled: true
-      backupContentType: Physical
-      targetRecoveryTime: "2026-11-21T21:00:00Z"
     replicas: 2
     replication:
       enabled: true
