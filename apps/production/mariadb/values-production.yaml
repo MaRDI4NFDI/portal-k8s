@@ -3,52 +3,53 @@ kind: HelmRelease
 metadata:
   name: mariadb
 spec:
+  install:
+    disableWait: true
+  upgrade:
+    disableWait: true
   chart:
     spec:
       version: "0.1.50"
   values:
-    replicas: 3
-    galera:
-      enabled: true
-      config:
-        reuseStorageVolume: false
-        volumeClaimTemplate:
-          resources:
-            requests:
-              storage: 300Mi
+    bootstrapFrom:
+      s3:
+        bucket: "mardi"
+        prefix: "production/physicalbackup/mariadb"
+        endpoint: "dasi03.zib.de:9000"
+        region: "zib-1"
+        accessKeyIdSecretKeyRef:
+          name: mariadb-secrets
+          key: S3-ACCESS-KEY-ID
+        secretAccessKeySecretKeyRef:
+          name: mariadb-secrets
+          key: S3-SECRET-ACCESS-KEY
+        tls:
+          enabled: true
+      backupContentType: Physical
+      targetRecoveryTime: "2026-11-21T10:00:00Z"
+      stagingStorage:
+        persistentVolumeClaim:
+          storageClassName: csi-rbd-sc
           accessModes:
             - ReadWriteOnce
-      recovery:
-        enabled: true
-        minClusterSize: 1
-        clusterMonitorInterval: 30s
-        clusterHealthyTimeout: 2m
-        clusterBootstrapTimeout: 12h
-        podRecoveryTimeout: 6h
-        podSyncTimeout: 12h
-        job:
           resources:
             requests:
-              cpu: "1000m"
-              memory: "4Gi"
-            limits:
-              cpu: "2000m"
-              memory: "8Gi"
-      extendedTimeouts:
-        enabled: true
-      replicaThreads: 4
-      cacheSize: "2G"
-      flowControlLimit: "256"
+              storage: 1200Gi
+    replicas: 2
+    replication:
+      enabled: true
+      replica:
+        maxLagSeconds: 30
+        recovery:
+          enabled: true
     mariadb:
       config:
         innodbBufferPoolSize: "16G"
         maxConnections: "1000"
-        binlog: true
-        binlogExpireSeconds: 86400
     database: my_wiki
     user: sqluser
     storage:
-      size: 600Gi
+      size: 800Gi
       className: csi-rbd-sc-ssd
     backup:
       enabled: false # Use physicalbackups
@@ -72,7 +73,6 @@ spec:
       endpoint: "dasi03.zib.de:9000"
       region: "zib-1"
       schedule: "0 2 * * *"
-      immediate: true
       timeout: "30h"
     resources:
       requests:
