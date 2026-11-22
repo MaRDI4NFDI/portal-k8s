@@ -7,8 +7,6 @@ port: 3306
 
 replicas: 3  
 
-prefixResourceNames: false
-
 replication:
   enabled: false
 

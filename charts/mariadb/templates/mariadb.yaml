@@ -58,7 +58,7 @@ spec:
       {{- if .Values.physicalbackup.enabled }}
       bootstrapFrom:
         physicalBackupTemplateRef:
-          name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup-tpl") }}
+          name: physicalbackup-tpl
       {{- end }}
   {{- end }}
 

@@ -39,7 +39,7 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: PhysicalBackup
 metadata:
-  name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup") }}
+  name: physicalbackup
   namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
@@ -57,7 +57,7 @@ spec:
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: PhysicalBackup
 metadata:
-  name: {{ include "mariadb.resourceName" (dict "root" . "name" "physicalbackup-tpl") }}
+  name: physicalbackup-tpl
   namespace: {{ .Release.Namespace }}
 spec:
   mariaDbRef:
