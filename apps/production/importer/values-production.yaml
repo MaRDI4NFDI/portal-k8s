@@ -8,7 +8,7 @@ spec:
       version: "0.1.32"
   values:
     database:
-      host: "mariadb-repl-primary"
+      host: "mariadb-primary"
     endpoints:
       mediawiki: "http://wikibase-jobrunner/w/api.php"
       wikibase: "http://wikibase-jobrunner"

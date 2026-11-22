@@ -13,9 +13,9 @@ spec:
         tag: 1.48.4
       replicas: 3
       deployment_env: prod
-      db_server: mariadb-repl-primary:3306
-      db_primary: mariadb-repl-primary
-      db_secondary: mariadb-repl-secondary
+      db_server: mariadb-primary:3306
+      db_primary: mariadb-primary
+      db_secondary: mariadb-secondary
       elasticsearch_host: opensearch
       redis_host: redis-master
       logstash_host: logstash.production.svc.cluster.local:11514
