@@ -11,7 +11,7 @@ spec:
     # apart from the CirrusSearch cluster.
     image:
       repository: opensearchproject/opensearch
-      tag: "2.19.7"
+      tag: "2.19.7@sha256:d89333b6bd4a13b9a95aef7f373c0a6e73440f59bc0d8d1460f9b347289ed0ef"
     storage:
       size: 10Gi
       className: csi-rbd-sc

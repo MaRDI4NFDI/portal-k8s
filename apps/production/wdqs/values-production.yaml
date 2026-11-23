@@ -35,7 +35,7 @@ spec:
     frontend:
       image:
         repository: wikibase/wdqs-frontend
-        tag: "2.2.1@sha256:6e51acf52f274c3127386a2d5a670112d417dce53745601fe678239a79358a15"
+        tag: "2.2.2@sha256:2a5dbc918b72cf7855e424e1bcc4438a4490bf8d70443da902d973e1560bf64e"
       replicas: 1
       resources:
         requests:

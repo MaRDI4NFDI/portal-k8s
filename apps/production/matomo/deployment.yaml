@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: matomo
-          image: matomo:latest@sha256:db40a508196ba5327a53dcae07d12835e50c7764bdaae3ea7822c35d432e64dc
+          image: matomo:latest@sha256:ba13c4fc70f67c5b68a441cba06ae12904e58318ba86fcbf6603bd4bf5ee35c6
           ports:
             - containerPort: 80
           env:
