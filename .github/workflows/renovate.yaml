@@ -2,7 +2,7 @@ name: Renovate
 
 on:
   schedule:
-    - cron: "0 7 * * 1"
+    - cron: "17 18 * * 0"  # Sunday 18:17 UTC; GitHub often starts hours late
   workflow_dispatch:
 
 permissions:
