@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - backpressure-dashboard.yaml
   - kafka-mardi-dashboard.yaml
-  - mariadb-galera-dashboard.yaml
+  - mariadb-replication-dashboard.yaml
   - qlever-dashboard.yaml
   - traefik-dashboard.yaml

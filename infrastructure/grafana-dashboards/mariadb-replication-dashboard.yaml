@@ -1,0 +1,939 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-replication-dashboard
+  namespace: kube-prometheus
+  labels:
+    grafana_dashboard: "1"
+data:
+  mariadb-replication-dashboard.json: |
+    {
+      "title": "MaRDI MariaDB Replication",
+      "uid": "mardi-mariadb-replication",
+      "tags": [
+        "mariadb",
+        "replication",
+        "mardi"
+      ],
+      "timezone": "browser",
+      "refresh": "30s",
+      "time": {
+        "from": "now-3h",
+        "to": "now"
+      },
+      "templating": {
+        "list": [
+          {
+            "name": "job",
+            "label": "Instance",
+            "type": "query",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "query": {
+              "query": "label_values(mysql_slave_status_slave_io_running, job)",
+              "refId": "job"
+            },
+            "definition": "label_values(mysql_slave_status_slave_io_running, job)",
+            "refresh": 2,
+            "sort": 1,
+            "includeAll": false,
+            "multi": false,
+            "current": {
+              "text": "mariadb-metrics",
+              "value": "mariadb-metrics"
+            }
+          }
+        ]
+      },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Primary",
+          "type": "stat",
+          "gridPos": {
+            "x": 0,
+            "y": 0,
+            "w": 4,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_up{job=\"$job\", role=\"primary\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "value",
+            "graphMode": "none",
+            "textMode": "name"
+          }
+        },
+        {
+          "id": 2,
+          "title": "MySQL Up",
+          "type": "stat",
+          "gridPos": {
+            "x": 4,
+            "y": 0,
+            "w": 5,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "1": {
+                      "text": "Up"
+                    },
+                    "0": {
+                      "text": "Down"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_up{job=\"$job\"}",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 3,
+          "title": "Read-only",
+          "type": "stat",
+          "gridPos": {
+            "x": 9,
+            "y": 0,
+            "w": 5,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  },
+                  {
+                    "color": "purple",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "1": {
+                      "text": "RO"
+                    },
+                    "0": {
+                      "text": "RW"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_variables_read_only{job=\"$job\"}",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 4,
+          "title": "Uptime",
+          "type": "stat",
+          "gridPos": {
+            "x": 14,
+            "y": 0,
+            "w": 5,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_uptime{job=\"$job\"}",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "value",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 5,
+          "title": "InnoDB Buffer Pool Hit Rate",
+          "type": "stat",
+          "gridPos": {
+            "x": 19,
+            "y": 0,
+            "w": 5,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percentunit",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.95
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.99
+                  }
+                ]
+              },
+              "min": 0,
+              "max": 1
+            }
+          },
+          "targets": [
+            {
+              "expr": "clamp_min(clamp_max(1 - (rate(mysql_global_status_innodb_buffer_pool_reads{job=\"$job\"}[5m]) / clamp_min(rate(mysql_global_status_innodb_buffer_pool_read_requests{job=\"$job\"}[5m]), 1e-9)), 1), 0)",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 6,
+          "title": "Replica IO Thread",
+          "type": "stat",
+          "gridPos": {
+            "x": 0,
+            "y": 4,
+            "w": 4,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "1": {
+                      "text": "Running"
+                    },
+                    "0": {
+                      "text": "Stopped"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_slave_io_running{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 7,
+          "title": "Replica SQL Thread",
+          "type": "stat",
+          "gridPos": {
+            "x": 4,
+            "y": 4,
+            "w": 4,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "1": {
+                      "text": "Running"
+                    },
+                    "0": {
+                      "text": "Stopped"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_slave_sql_running{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 8,
+          "title": "Replication Lag",
+          "type": "stat",
+          "gridPos": {
+            "x": 8,
+            "y": 4,
+            "w": 4,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 60
+                  },
+                  {
+                    "color": "red",
+                    "value": 300
+                  }
+                ]
+              }
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_seconds_behind_master{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 9,
+          "title": "Last IO Error",
+          "type": "stat",
+          "gridPos": {
+            "x": 12,
+            "y": 4,
+            "w": 6,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "None"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_last_io_errno{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 10,
+          "title": "Last SQL Error",
+          "type": "stat",
+          "gridPos": {
+            "x": 18,
+            "y": 4,
+            "w": 6,
+            "h": 4
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              },
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "None"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_last_sql_errno{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ]
+            },
+            "colorMode": "background",
+            "graphMode": "none",
+            "textMode": "value_and_name"
+          }
+        },
+        {
+          "id": 11,
+          "title": "Replication Lag — per replica",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 0,
+            "y": 8,
+            "w": 12,
+            "h": 8
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "mysql_slave_status_seconds_behind_master{job=\"$job\"}",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 12,
+          "title": "Binlog Write Throughput — primary",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 12,
+            "y": 8,
+            "w": 12,
+            "h": 8
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "Bps",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_binlog_bytes_written{job=\"$job\", role=\"primary\"}[5m])",
+              "legendFormat": "{{target}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 13,
+          "title": "Binlog Cache — transactions/s",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 0,
+            "y": 16,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_binlog_cache_use{job=\"$job\", role=\"primary\"}[5m])",
+              "legendFormat": "In memory — {{target}}",
+              "refId": "A"
+            },
+            {
+              "expr": "rate(mysql_global_status_binlog_cache_disk_use{job=\"$job\", role=\"primary\"}[5m])",
+              "legendFormat": "Spilled to disk — {{target}}",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 14,
+          "title": "Threads Connected / Running — per pod",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 8,
+            "y": 16,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_threads_connected{job=\"$job\"}",
+              "legendFormat": "Connected — {{target}} ({{role}})",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_global_status_threads_running{job=\"$job\"}",
+              "legendFormat": "Running — {{target}} ({{role}})",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 15,
+          "title": "Queries per Second — per pod",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 16,
+            "y": 16,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "qps",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_queries{job=\"$job\"}[2m])",
+              "legendFormat": "Queries — {{target}} ({{role}})",
+              "refId": "A"
+            },
+            {
+              "expr": "rate(mysql_global_status_slow_queries{job=\"$job\"}[2m])",
+              "legendFormat": "Slow — {{target}} ({{role}})",
+              "refId": "B"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 16,
+          "title": "InnoDB Buffer Pool — per pod",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 0,
+            "y": 23,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 5
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Pool size"
+                },
+                "properties": [
+                  {
+                    "id": "custom.lineStyle",
+                    "value": {
+                      "fill": "dash",
+                      "dash": [
+                        10,
+                        10
+                      ]
+                    }
+                  },
+                  {
+                    "id": "custom.fillOpacity",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "targets": [
+            {
+              "expr": "mysql_global_status_innodb_buffer_pool_bytes_data{job=\"$job\"}",
+              "legendFormat": "Data — {{target}} ({{role}})",
+              "refId": "A"
+            },
+            {
+              "expr": "mysql_global_status_innodb_buffer_pool_bytes_dirty{job=\"$job\"}",
+              "legendFormat": "Dirty — {{target}} ({{role}})",
+              "refId": "B"
+            },
+            {
+              "expr": "max(mysql_global_variables_innodb_buffer_pool_size{job=\"$job\"})",
+              "legendFormat": "Pool size",
+              "refId": "C"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 17,
+          "title": "InnoDB Deadlocks — per pod",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 8,
+            "y": 23,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_innodb_deadlocks{job=\"$job\"}[2m])",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        },
+        {
+          "id": 18,
+          "title": "InnoDB Row Lock Waits — per pod",
+          "type": "timeseries",
+          "gridPos": {
+            "x": 16,
+            "y": 23,
+            "w": 8,
+            "h": 7
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "ops",
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "min": 0
+            },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "expr": "rate(mysql_global_status_innodb_row_lock_waits{job=\"$job\"}[2m])",
+              "legendFormat": "{{target}} ({{role}})",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          }
+        }
+      ],
+      "schemaVersion": 36,
+      "version": 1
+    }
