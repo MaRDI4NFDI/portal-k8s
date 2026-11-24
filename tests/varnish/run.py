@@ -134,7 +134,11 @@ cases['entity-redirect-cached'] = scenario(
 # reached at all; the scripted backend expects no request.
 for _name, _url in [('block-history', '/w/index.php?action=history&title=Item:Q1'),
                     ('block-whatlinkshere', '/wiki/Special:WhatLinksHere/Item:Q1'),
-                    ('block-exportrdf', '/wiki/Special:ExportRDF/Item:Q1')]:
+                    ('block-exportrdf', '/wiki/Special:ExportRDF/Item:Q1'),
+                    ('block-oldid', '/w/index.php?oldid=123&title=Item%3AQ1'),
+                    ('block-diff', '/w/index.php?diff=prev&oldid=123&title=Item%3AQ1'),
+                    ('block-direction', '/w/index.php?direction=prev&oldid=123&title=Item%3AQ1'),
+                    ('block-oldid-wiki', '/wiki/Item:Q1?oldid=123')]:
     # Pages already blocked for anonymous users must stay unreachable: the new
     # cacheability rule below must never let one through to the backend.
     # No "server s1 -wait" here: the backend is deliberately never contacted, so
