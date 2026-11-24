@@ -125,6 +125,12 @@ spec:
                 return (synth(753, "You must be logged in to view this page"));
             }
 
+            # Old revisions and diffs: never cached, and robots.txt already
+            # disallows them. The API is left alone.
+            if (req.url ~ "^/(w/index\.php|wiki/).*[?&](oldid|diff|direction)=") {
+                return (synth(753, "You must be logged in to view this page"));
+            }
+
             return (hash);
         }
 
