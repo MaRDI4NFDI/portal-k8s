@@ -751,6 +751,15 @@ entries:
     version: 0.1.0
   ipfs:
   - apiVersion: v2
+    created: "2026-11-25T07:32:52.253364536Z"
+    description: Kubo IPFS node
+    digest: 11289e7ebf66d8b67272200891052d6f65d06427b4a8b963cc26dd9bc004de08
+    name: ipfs
+    type: application
+    urls:
+    - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/ipfs-0.2.6/ipfs-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
     created: "2026-09-23T09:09:06.177979361Z"
     description: Kubo IPFS node
     digest: 87e82eb110973593944d96a496ac13efd6fefb940898e490b39536550aa396a7
@@ -4152,4 +4161,4 @@ entries:
     urls:
     - https://github.com/MaRDI4NFDI/portal-k8s/releases/download/wikibase-core-0.1.0/wikibase-core-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-24T09:59:37.013272685Z"
+generated: "2026-11-25T07:32:52.253877737Z"
