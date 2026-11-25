@@ -23,6 +23,18 @@ Only settings that differ from the Kubo or Kubernetes defaults are specified:
 The RPC API listens only on the pod's loopback interface and is not included
 directly in the Service, so it has no public route.
 
+Staging sets `public: false` and `rpc.inCluster: true`. Its node has no gateway
+route, certificate or swarm routes, and other staging pods reach the RPC API at
+`http://ipfs:5001`, for example the wiki's `Special:IpfsUpload`. Kubo then
+listens on the pod IP and uses its own
+[`API.Authorizations`](https://github.com/ipfs/kubo/blob/master/docs/config.md#apiauthorizations),
+which apply to every request, also from localhost. The bearer token
+`MATHSEARCH_IPFS_TOKEN` from `staging-wikibase-env-secrets` may only call
+`/api/v0/add`. The D-LOCKSS sidecar gets a second token, generated once in the
+IPFS repo and passed as `DLOCKSS_IPFS_TOKEN`. Since `add` also pins, D-LOCKSS
+ingests the upload. Staging D-LOCKSS uses its own discovery tag and a private
+network, so it stays out of the production network.
+
 ## Authenticated WebUI
 
 The optional admin endpoint places an OAuth2 Proxy sidecar in front of the
