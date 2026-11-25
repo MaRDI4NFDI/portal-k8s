@@ -24,3 +24,4 @@ spec:
       env:
         DLOCKSS_DISCOVERY_TAG: dlockss-staging
         DLOCKSS_PRIVATE_NETWORK: "true"
+        DLOCKSS_WIKI_API: https://staging.mardi4nfdi.org/w/rest.php
