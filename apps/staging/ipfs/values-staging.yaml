@@ -20,8 +20,9 @@ spec:
       nodeName: mardi-staging
       image:
         repository: ghcr.io/gipplab/dlockss-single-node
-        tag: "9c4004e@sha256:94fea351bd2563bcb9b7865888ea4b049b41fca4dc8c78366629dbe57c7b427c"
+        tag: "1ed35c6@sha256:8f151d2c0cf77e070268d7eb6bb122a63b73531b77a457210d0f0d5e5e35a615"
       env:
         DLOCKSS_DISCOVERY_TAG: dlockss-staging
         DLOCKSS_PRIVATE_NETWORK: "true"
-        DLOCKSS_WIKI_API: https://staging.mardi4nfdi.org/w/rest.php
+        DLOCKSS_WIKI_API: http://staging-wikibase/w/rest.php
+        DLOCKSS_PIN_INGEST_DELAY: "1m"
