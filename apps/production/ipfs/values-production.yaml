@@ -5,14 +5,16 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.2.5"
+      version: "0.2.6"
   values:
     dlockss:
       enabled: true
       nodeName: mardi
       image:
         repository: ghcr.io/gipplab/dlockss-single-node
-        tag: "2035af4@sha256:f657157a79616f005293a3818e2f6a615ea908975fa47c37c258fbee4e5bf118"
+        tag: "bd4131f@sha256:f118395d10640da396101b292b2cc06cd1807fddd6cb57844b0aab57d4ce1ad1"
+      env:
+        DLOCKSS_WIKI_API: https://portal.mardi4nfdi.de/w/rest.php
       trustedPeers:
         - "12D3KooWNUkhmdXA2mMGvwWv5dHQbTAPsfmGuokjeZxJD47Kn5iy" # gipplab01
         - "12D3KooWE8nFummCiciHmvqDtYWfrxBd2c7Pt6mupJSXnxR5ZBqk" # mardi

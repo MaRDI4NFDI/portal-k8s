@@ -20,7 +20,7 @@ spec:
       nodeName: mardi-staging
       image:
         repository: ghcr.io/gipplab/dlockss-single-node
-        tag: "9c4004e@sha256:94fea351bd2563bcb9b7865888ea4b049b41fca4dc8c78366629dbe57c7b427c"
+        tag: "bd4131f@sha256:f118395d10640da396101b292b2cc06cd1807fddd6cb57844b0aab57d4ce1ad1"
       env:
         DLOCKSS_DISCOVERY_TAG: dlockss-staging
         DLOCKSS_PRIVATE_NETWORK: "true"
