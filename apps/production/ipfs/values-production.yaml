@@ -5,11 +5,12 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.2.6"
+      version: "0.2.7"
   values:
     dlockss:
       enabled: true
       nodeName: mardi
+      publicUpload: true
       image:
         repository: ghcr.io/gipplab/dlockss-single-node
         tag: "bd4131f@sha256:f118395d10640da396101b292b2cc06cd1807fddd6cb57844b0aab57d4ce1ad1"

@@ -1,0 +1,18 @@
+{{- if and .Values.public .Values.dlockss.enabled .Values.dlockss.publicUpload }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-upload
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # Only signed uploads; D-LOCKSS's dashboard and health check stay internal.
+    - match: Host(`ipfs.{{ .Values.global.baseDomain }}`) && Path(`/upload`) && Method(`POST`)
+      kind: Rule
+      services:
+        - name: {{ .Release.Name }}
+          port: dlockss
+  tls:
+    secretName: {{ .Release.Name }}-tls
+{{- end }}

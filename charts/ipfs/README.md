@@ -145,3 +145,20 @@ ipfs --api=/ip4/127.0.0.1/tcp/5001 config Import
 Set `dlockss.enabled` to run [D-LOCKSS](https://github.com/gipplab/D-LOCKSS) in this Pod. Production does this. The container reads `Identity.PrivKey` from the Kubo repo and talks to `127.0.0.1:5001`. Pins go into the Kubo volume. Cluster state and `/data/ingest` are on the separate `dlockss` claim.
 
 `dlockss.nodeName` is the name shown in the monitor. Copy files to ingest into `/data/ingest` in the `dlockss` container.
+
+### Signed uploads
+
+With `public: true` and `dlockss.publicUpload: true`, Traefik routes
+`POST https://ipfs.<baseDomain>/upload` to D-LOCKSS on port 5050. Production
+does this. No other D-LOCKSS path is public. D-LOCKSS checks the signature over
+`dlockss-upload <cid>` and asks the wiki whether it trusts the key
+(`GET $DLOCKSS_WIKI_API/math/v0/key/<peer ID>`) before it reads the body.
+Without `DLOCKSS_WIKI_API` it refuses every upload.
+
+Upload with a key imported into the local Kubo, see the
+[D-LOCKSS README](https://github.com/gipplab/D-LOCKSS#readme):
+
+```console
+sig=$(printf 'dlockss-upload %s' "$cid" | ipfs key sign -k mykey | jq -r .Signature)
+curl --data-binary @paper.pdf "https://ipfs.portal.mardi4nfdi.de/upload?cid=$cid&key=$key&sig=$sig&name=paper.pdf"
+```

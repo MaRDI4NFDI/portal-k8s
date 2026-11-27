@@ -20,6 +20,10 @@ dlockss:
   # Further DLOCKSS_* settings, e.g. to keep a test node out of the production network.
   env: {}
   trustedPeers: []
+  # Routes POST https://ipfs.<baseDomain>/upload to D-LOCKSS (needs public).
+  # D-LOCKSS accepts only files signed with a key the wiki trusts, and
+  # refuses all uploads while DLOCKSS_WIKI_API is unset.
+  publicUpload: false
   storage:
     size: 5Gi
   image:

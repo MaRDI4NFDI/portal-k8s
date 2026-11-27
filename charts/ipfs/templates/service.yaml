@@ -18,6 +18,10 @@ spec:
       port: 4180
       targetPort: admin
     {{- end }}
+    {{- if and .Values.public .Values.dlockss.enabled .Values.dlockss.publicUpload }}
+    - name: dlockss
+      port: 5050
+    {{- end }}
     - name: swarm-tcp
       port: 4001
     - name: swarm-udp
