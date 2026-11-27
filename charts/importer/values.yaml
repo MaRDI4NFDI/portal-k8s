@@ -69,3 +69,7 @@ workflowData:
   size: "300Mi"
 updateData:
   size: "300Mi"
+openmlData:
+  size: "300Mi"
+openmlUpdateData:
+  size: "300Mi"
