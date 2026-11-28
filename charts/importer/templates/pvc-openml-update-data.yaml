@@ -1,0 +1,22 @@
+# PersistentVolumeClaim for the OpenML update Prefect workflow (openml-update).
+#
+# Mounted at /mnt/openml-update-data into the update flow's job pods via the
+# deployment's job_variables in docker-importer's prefect.yaml. It keeps the
+# update flow's checkpoint and the previous OpenML download, which the next
+# run is compared against.
+# Separate from the import volume on purpose, like the zbMATH ones.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-openml-update-data
+  labels:
+    app: {{ .Release.Name }}
+    component: workflow
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.openmlUpdateData.size }}

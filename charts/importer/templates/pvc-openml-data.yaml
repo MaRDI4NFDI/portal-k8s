@@ -1,0 +1,22 @@
+# PersistentVolumeClaim for the OpenML import Prefect workflow (openml-import).
+#
+# Mounted at /mnt/openml-data into the import flow's job pods via the
+# deployment's job_variables in docker-importer's prefect.yaml. It keeps the
+# import flow's checkpoint and its OpenML download files.
+# Separate from the zbMATH volumes on purpose: a ReadWriteOnce volume can only
+# be attached to one pod at a time.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-openml-data
+  labels:
+    app: {{ .Release.Name }}
+    component: workflow
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.openmlData.size }}
