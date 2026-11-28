@@ -7,6 +7,11 @@ spec:
     spec:
       version: "0.2.7"
   values:
+    rpc:
+      inCluster: true
+      tokenSecret:
+        name: wikibase-env-secrets
+        key: MATHSEARCH_IPFS_TOKEN
     dlockss:
       enabled: true
       nodeName: mardi
@@ -28,7 +33,7 @@ spec:
       image:
         repository: quay.io/oauth2-proxy/oauth2-proxy
         tag: "v7.15.6@sha256:c3415e8660af553f5e18f5d90db050614c02493c0ac6260ac59442f6d9b12048"
-      enabled: true
+      enabled: false
       existingSecret: ipfs-oauth2-proxy
       allowedEmailSecrets:
         - ipfs-oauth2-email-0de5400a2c17d529
